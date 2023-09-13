@@ -7,6 +7,7 @@ import {
 
 import Navbar from './Components/shared/Navbar/Navbar'
 import Home from "./Pages/Home/Home";
+import LoginPage from "./Components/LoginPage/LoginPage";
 
 function App() {
 
@@ -15,7 +16,9 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <div>
+        <LoginPage/>
           <Routes>
+           
             <Route exact path="/" element={<Home />} />
           </Routes>
         </div>
