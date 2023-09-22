@@ -4,51 +4,34 @@ const StudentLogin = () => {
   return (
     <>
       <h1>Sign Up</h1>
-      <div className="form">
-        <form action="">
-          <input type="text" className="nameinput" placeholder="  " id="name" />
+      <form action="">
+        <div className="form">
+          <input type="text" placeholder=" " className="nameinput" id="name" />
           <label htmlFor="name">Name</label>
-        </form>
-      </div>
-
-      <div className="form">
-        <form action="">
-          <input type="email" className="nameinput" placeholder="  " id="email" />
+        </div>
+        <div className="form">
+          <input type="email" placeholder=" " className="nameinput" id="email" />
           <label htmlFor="email">Email</label>
-        </form>
-      </div>
-
-      <div className="form">
-        <form action="">
-          <input type="number" className="nameinput" placeholder="  " id="scholar" />
+        </div>
+        <div className="form">
+          <input type="number" placeholder=" " className="nameinput" id="scholar" />
           <label htmlFor="scholar">Scholar ID</label>
-        </form>
-      </div>
-
-      <div className="form">
-        <form action="">
-          <input type="number" className="nameinput" placeholder="  " id="number" />
-          <label htmlFor="number">Phone</label>
-        </form>
-      </div>
-
-      <div className="form">
-        <form action="">
-          <input type="password" className="nameinput" placeholder="  " id="pass" />
+        </div>
+        <div className="form">
+          <input type="number" placeholder=" " className="nameinput" id="phone" />
+          <label htmlFor="phone">Phone</label>
+        </div>
+        <div className="form">
+          <input type="password" placeholder=" " className="nameinput" id="pass" />
           <label htmlFor="pass">Password</label>
-        </form>
-      </div>
+        </div>
+        <div className="form">
+          <input type="password" placeholder=" " className="nameinput" id="passconf" />
+          <label htmlFor="passconf">Confirm Password</label>
+        </div>
 
-      <div className="form">
-        <form action="">
-          <input type="password" className="nameinput" placeholder="  " id="confpass" />
-          <label htmlFor="confpass">Confirm Password</label>
-        </form>
-      </div>
-
-      <div className="button">
-        <button>Submit</button>
-      </div>
+        <button type="submit">Submit</button>
+      </form>
     </>
   );
 };
