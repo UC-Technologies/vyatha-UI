@@ -7,12 +7,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <div>
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/login/student" element={<StudentLogin />}></Route>
-        </Routes>
-      </div>
+
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/login/student" element={<StudentLogin />}></Route>
+      </Routes>
     </BrowserRouter>
   );
 };
