@@ -1,13 +1,14 @@
 import {
   BrowserRouter,
   Route,
-  Routes,
+  Routes
 } from "react-router-dom";
 
 
-import Navbar from './Components/shared/Navbar/Navbar'
+import Navbar from './Components/shared/Navbar/Navbar';
 import Home from "./Pages/Home/Home";
 import LoginPage from "./Components/LoginPage/LoginPage";
+import LoginPage2 from "./Components/LoginPage/LoginPage2";
 
 function App() {
 
@@ -16,10 +17,9 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <div>
-        <LoginPage/>
           <Routes>
-           
-            <Route exact path="/" element={<Home />} />
+              <Route path="/" element={<LoginPage/>} />
+              <Route path="/login" element={<LoginPage2/>} ></Route>
           </Routes>
         </div>
       </BrowserRouter>
