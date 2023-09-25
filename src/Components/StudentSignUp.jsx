@@ -1,6 +1,6 @@
 import "./module.scss";
 
-const StudentLogin = () => {
+const StudentSignUp = () => {
   return (
     <>
       <h1>Sign Up</h1>
@@ -36,4 +36,4 @@ const StudentLogin = () => {
   );
 };
 
-export default StudentLogin;
+export default StudentSignUp;
