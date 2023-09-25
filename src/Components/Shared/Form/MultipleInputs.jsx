@@ -3,7 +3,7 @@
 import { useState } from "react";
 import styles from "./styleform.module.scss";
 
-const MultipleInputs = () => {
+const complaintForm = () => {
   const [formData, setFormData] = useState({
     username: "",
     ScholarID: "",
@@ -105,7 +105,12 @@ const MultipleInputs = () => {
             <label htmlFor="scholar ID">Scholar ID</label>
           </div>
           <div className={styles.form_group}>
-            <select name="Hostel" onChange={handleInput} required>
+            <select
+              name="Hostel"
+              className={styles.select_option}
+              onChange={handleInput}
+              required
+            >
               <option value="No input" id="No_input" name="Hostel" onChange={handleInput}>
                 Select
               </option>
@@ -260,4 +265,4 @@ const MultipleInputs = () => {
     </div>
   );
 };
-export default MultipleInputs;
+export default complaintForm;
