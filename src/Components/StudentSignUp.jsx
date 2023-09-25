@@ -1,4 +1,4 @@
-import "./module.scss";
+import "./StudentSignUp.module.scss";
 
 const StudentSignUp = () => {
   return (
