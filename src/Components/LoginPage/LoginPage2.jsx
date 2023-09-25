@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Login.module.scss';
+import { Link } from 'react-router-dom';
 
 function LoginPage2() {
     return (
@@ -17,7 +18,7 @@ function LoginPage2() {
                                 <img src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1695295732/login_w7ltqc.jpg?_s=public-apps" alt="login" />
                             </div>
                             <div className={styles.content}>
-                                <p>Don't have an account? Sign up</p>
+                                <p>Don't have an account? <Link to={''}>Sign up</Link></p>
                             </div>
                         </div>
                         <div className={styles.text}>
