@@ -1,29 +1,21 @@
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-
-import Navbar from './Components/shared/Navbar/Navbar';
+import Navbar from "./Components/Shared/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
-import CForm from "./Components/shared/Form/multipleinputs";
+import MultipleInputs from "./Components/Shared/Form/MultipleInputs";
 
-function App() {
-
+const App = () => {
   return (
-    <>
-      <BrowserRouter>
-        <Navbar />
-        <div>
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/Complaintform" element={<CForm />} /> 
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </>
-  )
-}
+    <BrowserRouter>
+      <Navbar />
+      <div>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/complaintform" element={<MultipleInputs />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  );
+};
 
-export default App
+export default App;
