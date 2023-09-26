@@ -5,7 +5,13 @@ on:
       - master
 
   pull_request:
-    types: [opened, reopened]
+    types: [opened, synchronize, reopened]
+
+  issues:
+    types: [opened, edited, milestoned, demilestoned, closed, reopened]
+
+  issue_comment:
+    types: [created, edited, deleted]
 
 jobs:
   prettier:
