@@ -3,7 +3,7 @@
 import { useState } from "react";
 import styles from "./styleform.module.scss";
 
-const complaintForm = () => {
+const MultipleInputs = () => {
   const [formData, setFormData] = useState({
     username: "",
     ScholarID: "",
@@ -27,11 +27,22 @@ const complaintForm = () => {
   };
 
   const handleFileInputChange = (e) => {
-    const name = e.target.files[0] ? e.target.files[0].name : " ";
-    setFormData({
-      ...formData,
-      Imagefile: name,
-    });
+    const file = e.target.files[0];
+    if (file) {
+      const fileSize = file.size;
+      try {
+        if (fileSize > 250 * 1024) {
+          alert("File size exceeds the allowed limit of 250KB. Choose a smaller file.");
+        } else {
+          setFormData({
+            ...formData,
+            Imagefile: file.name,
+          });
+        }
+      } catch (error) {
+        alert("Error!");
+      }
+    }
   };
 
   function handleDragOver(e) {
@@ -76,7 +87,7 @@ const complaintForm = () => {
   }
 
   return (
-    <div>
+    <div className={styles.ComplaintForm}>
       <div className={styles.Title}>Complaint form</div>
 
       <div className={styles.CForm}>
@@ -153,13 +164,13 @@ const complaintForm = () => {
               <option value="PGH" id="PGH" name="Hostel" onChange={handleInput}>
                 PGH
               </option>
-              <option value="PGH" id="PGH" name="Hostel" onChange={handleInput}>
+              <option value="GH1" id="GH1" name="Hostel" onChange={handleInput}>
                 GH1
               </option>
-              <option value="PGH" id="PGH" name="Hostel" onChange={handleInput}>
+              <option value="GH2" id="GH2" name="Hostel" onChange={handleInput}>
                 GH2
               </option>
-              <option value="PGH" id="PGH" name="Hostel" onChange={handleInput}>
+              <option value="GH3" id="GH3" name="Hostel" onChange={handleInput}>
                 GH3
               </option>
             </select>
@@ -224,7 +235,7 @@ const complaintForm = () => {
                 alt=""
                 draggable="true"
                 onDragStart={(e) => e.preventDefault()}
-              ></img>
+              />
               <div className={styles.photouploadcontent}>
                 <span className={styles.Dragdrop}>Drag and Drop File</span>
                 <span className={styles.or}>-OR-</span>
@@ -236,7 +247,7 @@ const complaintForm = () => {
                   type="file"
                   name="Imagefile"
                   id="imagebrowse"
-                  accept=".jpg, .jpeg, .png"
+                  accept=".jpg, .jpeg, .png, .webp"
                   onChange={handleFileInputChange}
                   required
                 />
@@ -265,4 +276,4 @@ const complaintForm = () => {
     </div>
   );
 };
-export default complaintForm;
+export default MultipleInputs;
