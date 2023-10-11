@@ -7,15 +7,15 @@
 
 
     .main{
-        min-width: 260px;
-        width: 660px;
+        min-width: 16.5rem;
+        width: 41.5rem;
 
 
         .upper_div{
             height: 30vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-end;
             
 
             .logo{
@@ -25,8 +25,8 @@
 
                 img{
                     margin: auto;
-                    width: 120px;
-                    height: 120px;
+                    width: 7.5rem;
+                    height: 7.5rem;
                 }
             }
           
@@ -38,25 +38,33 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 50px;
+            gap: 3.2rem;
 
             .content_div{
-                margin-top: 150px;
+                margin-top: 9.5rem;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
                 align-items: center;
 
                 .image{
-                    margin: 5px;
-                    width: 162px;
-                    height: 43px;
+                    margin: 0.4rem;
+                    width: 10.2rem;
+                    height: 2.7rem;
+
+                    button {
+                        background-color: white;
+                        border: none;
+                        border-radius: 0.5rem;
+                    }
+
+                    
                 }
 
                 .content{
-                    font-size: 10px;
-                    width: 162px;
-                    height: 12px;
+                    font-size: 0.63rem;
+                    width: 10.2rem;
+                    height: 0.8rem;
                 }
             }
 

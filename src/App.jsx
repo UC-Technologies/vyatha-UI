@@ -7,8 +7,8 @@ import {
 
 import Navbar from './Components/shared/Navbar/Navbar';
 import Home from "./Pages/Home/Home";
-import LoginPage from "./Components/LoginPage/LoginPage";
-import LoginPage2 from "./Components/LoginPage/LoginPage2";
+import LoginPage from "./Components/FirstPage/FirstPage";
+import LoginPage2 from "./Components/LoginPage/LoginPage";
 
 function App() {
 
