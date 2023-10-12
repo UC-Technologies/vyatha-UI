@@ -1,6 +1,6 @@
 import React from "react";
 import Captcha from "../CaptchaComponent/Captcha0";
-import styles from "./Login.module.scss";
+import styles from "./Login0.module.scss";
 const Login = () => {
   const verifyCaptcha = () => {};
   return (
