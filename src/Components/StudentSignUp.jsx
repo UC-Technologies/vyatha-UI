@@ -1,36 +1,51 @@
-import "./StudentSignUp.module.scss";
+import styles from "./StudentSignUp.module.scss";
 
 const StudentSignUp = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <>
       <h1>Sign Up</h1>
       <form action="">
-        <div className="form">
-          <input type="text" placeholder=" " className="nameinput" id="name" />
+        <div className={styles.form}>
+          <input type="text" placeholder=" " className={styles.nameinput} id="name" />
           <label htmlFor="name">Name</label>
         </div>
-        <div className="form">
-          <input type="email" placeholder=" " className="nameinput" id="email" />
+        <div className={styles.form}>
+          <input type="email" placeholder=" " className={styles.nameinput} id="email" />
           <label htmlFor="email">Email</label>
         </div>
-        <div className="form">
-          <input type="number" placeholder=" " className="nameinput" id="scholar" />
+        <div className={styles.form}>
+          <input
+            type="number"
+            placeholder=" "
+            className={styles.nameinput}
+            id="scholar"
+          />
           <label htmlFor="scholar">Scholar ID</label>
         </div>
-        <div className="form">
-          <input type="number" placeholder=" " className="nameinput" id="phone" />
+        <div className={styles.form}>
+          <input type="number" placeholder=" " className={styles.nameinput} id="phone" />
           <label htmlFor="phone">Phone</label>
         </div>
-        <div className="form">
-          <input type="password" placeholder=" " className="nameinput" id="pass" />
+        <div className={styles.form}>
+          <input type="password" placeholder=" " className={styles.nameinput} id="pass" />
           <label htmlFor="pass">Password</label>
         </div>
-        <div className="form">
-          <input type="password" placeholder=" " className="nameinput" id="passconf" />
+        <div className={styles.form}>
+          <input
+            type="password"
+            placeholder=" "
+            className={styles.nameinput}
+            id="passconf"
+          />
           <label htmlFor="passconf">Confirm Password</label>
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" onClick={handleSubmit}>
+          Submit
+        </button>
       </form>
     </>
   );
