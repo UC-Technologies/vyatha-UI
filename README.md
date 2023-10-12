@@ -14,6 +14,7 @@ Procedures to follow initially :
 1. Clone the repository (git version system is required).
 2. Cmd "pnpm install" / "pnpm i" (to download the required packages).
 3. Cmd "pnpm run dev" to start working. The port will be shown in the cmd window.
+4. Before committing, after staging the files run pnpm precommit and resolve the issues. If there isn't any, preoceed with git commit.
 
 
 Additional Rules and Regulations will be updated over time.

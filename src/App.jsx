@@ -1,18 +1,12 @@
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-
-import Navbar from './Components/shared/Navbar/Navbar'
+import Navbar from "./Components/Shared/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
 import Login from "./Components/LoginComponent/Login"
 import Captcha from "./Components/CaptchaComponent/Captcha"
 
 
 function App() {
-
   return (
     <>
       <BrowserRouter>
@@ -25,7 +19,8 @@ function App() {
         </div>
       </BrowserRouter>
     </>
-  )
+  );
+
 }
 
-export default App
+export default App;
