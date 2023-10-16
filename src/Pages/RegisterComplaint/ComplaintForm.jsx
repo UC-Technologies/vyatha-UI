@@ -1,9 +1,8 @@
-/* eslint-disable */
-// eslint-disable-next-line check-file/filename-naming-convention
 import { useState } from "react";
-import styles from "./styleform.module.scss";
+import { toast } from "react-toastify";
+import styles from "./ComplaintForm.module.scss";
 
-const MultipleInputs = () => {
+const ComplaintForm = () => {
   const [formData, setFormData] = useState({
     username: "",
     ScholarID: "",
@@ -32,7 +31,19 @@ const MultipleInputs = () => {
       const fileSize = file.size;
       try {
         if (fileSize > 250 * 1024) {
-          alert("File size exceeds the allowed limit of 250KB. Choose a smaller file.");
+          toast.error(
+            "File size exceeds the allowed limit of 250KB. Choose a smaller file",
+            {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            }
+          );
         } else {
           setFormData({
             ...formData,
@@ -40,7 +51,16 @@ const MultipleInputs = () => {
           });
         }
       } catch (error) {
-        alert("Error!");
+        toast.error("Something went wrong", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       }
     }
   };
@@ -70,7 +90,7 @@ const MultipleInputs = () => {
 
     const Finaldata = { ...formData, id: new Date().getTime().toString() };
 
-    console.log(Finaldata);
+    // console.log(Finaldata);
 
     setStoreData([...storeData, Finaldata]);
 
@@ -99,7 +119,7 @@ const MultipleInputs = () => {
               value={formData.username}
               name="username"
               onChange={handleInput}
-              autoFocus
+              // autoFocus
               required
             />
             <label htmlFor="username">Name</label>
@@ -276,4 +296,4 @@ const MultipleInputs = () => {
     </div>
   );
 };
-export default MultipleInputs;
+export default ComplaintForm;
