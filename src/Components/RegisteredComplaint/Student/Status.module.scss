@@ -1,0 +1,62 @@
+@media only screen and (max-width: 660px) {
+  .MainDiv {
+    height: 30vh;
+    width: 100vw;
+    background-color: #d7faf4;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .Registered {
+      height: 25%;
+      text-align: left;
+    }
+    .Supervisor {
+      height: 25%;
+      align-self: flex-start;
+    }
+    .Warden {
+      height: 25%;
+    }
+  }
+
+  h1 {
+    color: black;
+    font-size: 1rem;
+    margin-left: 1rem;
+    font-weight: 700;
+  }
+  h2 {
+    font-size: 0.7rem;
+    font-weight: 200;
+    margin-left: 1rem;
+  }
+  .StatusBar {
+    height: 25%;
+    width: 1vw;
+    margin-left: 2vw;
+    background-color: #40bdb6;
+  }
+  .StatusBar2 {
+    height: 25%;
+    width: 1vw;
+    margin-left: 2vw;
+    background-color: #bd6c40;
+  }
+  .StatusBar3 {
+    height: 25%;
+    width: 1vw;
+    margin-left: 2vw;
+    background-color: #e42cdb;
+  }
+  .StatusBar4 {
+    height: 25%;
+    width: 1vw;
+    margin-left: 2vw;
+    background-color: #97102b;
+  }
+}

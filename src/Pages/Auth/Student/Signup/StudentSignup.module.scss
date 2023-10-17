@@ -1,0 +1,81 @@
+@media only screen and (max-width: 660px) {
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+  }
+
+  .form label {
+    position: absolute;
+    font-family: "" --vyatha-font-1 "";
+    font-size: 0.875rem;
+    top: 27%;
+    left: 0;
+    translate: 0.688rem;
+    transition: 0.3s;
+    cursor: text;
+    color: #a9a9ac;
+  }
+
+  .form input {
+    height: 2.5rem;
+    width: 80vw;
+    border-radius: 0.25rem;
+    border: 0.1rem solid;
+    font-size: 14px;
+    padding: 0.625rem;
+  }
+
+  .nameinput:focus ~ label,
+  .nameinput:not(:placeholder-shown).nameinput:not(:focus) ~ label {
+    top: -25%;
+    background-color: white;
+    color: black;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input:focus {
+    border: 0.125rem solid #a4e5e1;
+    outline: none;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  h1 {
+    text-align: center;
+    color: #636b78;
+    font-family: "" --vyatha-font-1 "";
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  button {
+    height: 2.5rem;
+    width: 10rem;
+    border-radius: 0.5rem;
+    background-color: #a4e5e1;
+    font-size: 1rem;
+    border: none;
+    font-weight: 400;
+    margin-top: 1.25rem;
+  }
+
+  button:hover {
+    background-color: #36f1f1;
+  }
+}

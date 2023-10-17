@@ -1,0 +1,29 @@
+@media only screen and (max-width: 660px) {
+  .comments {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  input {
+    width: 90vw;
+    height: 2rem;
+    padding: 0.5rem;
+  }
+  input::placeholder {
+    text-align: center;
+    font-family: "" --vyatha-font-1 "";
+  }
+  input:focus::-webkit-input-placeholder {
+    opacity: 0;
+  }
+  input:focus::-moz-placeholder {
+    opacity: 0;
+  }
+  input:focus:-ms-input-placeholder {
+    opacity: 0;
+  }
+  .RaiseComplain {
+    font-weight: 400;
+  }
+}
