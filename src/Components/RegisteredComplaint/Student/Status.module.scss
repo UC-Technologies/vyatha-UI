@@ -29,9 +29,10 @@
     font-size: 1rem;
     margin-left: 1rem;
     font-weight: 700;
+    text-align: left;
   }
   h2 {
-    font-size: 0.7rem;
+    font-size: 1.2vh;
     font-weight: 200;
     margin-left: 1rem;
   }
@@ -39,24 +40,24 @@
     height: 25%;
     width: 1vw;
     margin-left: 2vw;
-    background-color: #40bdb6;
+    background-color: var(--vyatha-main-color-dark);
   }
   .StatusBar2 {
     height: 25%;
     width: 1vw;
     margin-left: 2vw;
-    background-color: #bd6c40;
+    background-color: var(--vyatha-main-color-dark);
   }
   .StatusBar3 {
     height: 25%;
     width: 1vw;
     margin-left: 2vw;
-    background-color: #e42cdb;
+    background-color: #ffffff;
   }
   .StatusBar4 {
     height: 25%;
     width: 1vw;
     margin-left: 2vw;
-    background-color: #97102b;
+    background-color: #ffffff;
   }
 }

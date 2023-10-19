@@ -16,7 +16,7 @@
 
   .form label {
     position: absolute;
-    font-family: "" --vyatha-font-1 "";
+    font-family: var(--vyatha-font-1);
     font-size: 0.875rem;
     top: 27%;
     left: 0;
@@ -49,7 +49,7 @@
   }
 
   input:focus {
-    border: 0.125rem solid #a4e5e1;
+    border: 0.125rem solid var(--vyatha-main-color-dark);
     outline: none;
   }
 
@@ -59,7 +59,7 @@
   h1 {
     text-align: center;
     color: #636b78;
-    font-family: "" --vyatha-font-1 "";
+    font-family: var(--vyatha-font-1);
     font-size: 1.5rem;
     font-weight: 700;
   }
@@ -68,7 +68,7 @@
     height: 2.5rem;
     width: 10rem;
     border-radius: 0.5rem;
-    background-color: #a4e5e1;
+    background-color: var(--vyatha-main-color-light);
     font-size: 1rem;
     border: none;
     font-weight: 400;
@@ -76,6 +76,6 @@
   }
 
   button:hover {
-    background-color: #36f1f1;
+    background-color: var(--vyatha-main-color-dark);
   }
 }
