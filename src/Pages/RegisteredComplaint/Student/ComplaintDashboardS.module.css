@@ -1,0 +1,78 @@
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 12px;
+}
+
+.container .SearchBar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: var(--vyatha4-gradient-1);
+  height: 6vh;
+  width: 100%;
+  padding: 0.5vh;
+  border-color: none;
+}
+
+.container .SearchBar input {
+  border-radius: 2vw;
+  padding: 2vw;
+}
+
+.container .SearchBar img {
+  width: 10%;
+}
+
+.container .ComplaintCard {
+  padding: 3vw;
+  width: 100%;
+  border-bottom: lightgray;
+}
+
+.container .ComplaintCard h2 {
+  font-size: 5vw;
+}
+
+.container .ComplaintCard .DateAndTime {
+  font-size: 3.5vw;
+}
+
+.container .ComplaintCard p {
+  padding: 2vw 0;
+  font-size: 4vw;
+}
+
+.container .ComplaintCard .SelectBar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  border-radius: 5vw;
+  background-color: lightgray;
+  height: 4vh;
+}
+/*# sourceMappingURL=ComplaintDashboardS.module.css.map */

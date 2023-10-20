@@ -61,7 +61,7 @@ const App = () => {
             />
             <Route
               exact
-              path="/student/dashboard/complaint/:id"
+              path="/student/dashboard/allcomplaints/:key"
               element={<IndividualComplaintS />}
             />
 

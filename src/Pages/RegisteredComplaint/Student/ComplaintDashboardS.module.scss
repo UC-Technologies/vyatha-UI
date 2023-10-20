@@ -1,0 +1,137 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    width: 100vw;
+  
+    .SearchBar {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      background: var(--vyatha4-gradient-1);
+      height: 6vh;
+      width: 100%;
+      padding: 0.25vh;
+      border-color: none;
+  
+      input {
+        width: 50vw;
+        border-radius: 2vw;
+        padding: 2vw;
+      }
+  
+      img {
+        position: relative;
+        right: -10vw;
+        width: 10%;
+      }
+    }
+    .ComplaintCard{
+        
+        .ComplaintCardInner {
+        font-size: 3vw;
+        padding: 2vh;
+    
+            .CardContainer {
+                border-bottom: 0.5vh solid #ccc;
+                padding-bottom: 1vh;
+                width:100%;
+                .DateAndTime{
+                    color: rgba(86, 87, 87, 0.80);
+                    // font-family: Lato;
+                    font-size: 3vw;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 100%;
+                    letter-spacing: -0.1px;
+                    transform: rotate(-0.158deg);
+                    flex-shrink: 0; 
+                }
+                .Description{
+                    padding:2vw 0;
+                    display: flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    button{
+                        width:16vw;
+                        border-radius:2vw;
+                        border-color: transparent;
+                        font-size:3vw;
+                    }
+                    p{
+                        color: var(--gray-default, #505255);
+                        // font-family: Lato;
+                        font-size:3vw;
+                        font-style: normal;
+                        font-weight: 300;
+                        line-height: 100%; /* 10px */
+                        letter-spacing: -0.1px;
+                        width:60vw;
+                    }
+                }
+                .Heading{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    div{
+                        a{
+                            text-decoration: none;
+                        }
+                    }
+                    img{
+                        padding:1vw;
+                    }
+                }
+            }
+    
+            .SelectBar {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-around;
+                width: 90vw;
+                height: 5vh;
+                background-color: lightgrey;
+                border-radius: 2vh;
+        
+                .Warden {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                height: 5vh;
+                padding: 0 2vw;
+                background: rgba(54, 137, 194, 1);
+                }
+        
+                .Registered {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                height: 5vh;
+                padding: 0 2vw;
+                }
+        
+                .Supervisor {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                height: 5vh;
+                padding: 0 2vw;
+                }
+        
+                .Dean {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                height: 5vh;
+                padding: 0 2vw;
+                }
+            }
+        }
+    }
+}
+  
+
+
