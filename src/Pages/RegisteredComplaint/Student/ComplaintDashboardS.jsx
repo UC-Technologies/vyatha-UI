@@ -9,7 +9,6 @@ const ComplaintDashboardS = () => {
   const [jsonData, setJsonData] = useState(Data);
   const [sortBy, setSortBy] = useState('date');
   const [searchInput, setSearchInput] = useState('');
-  const [isSearching, setIsSearching] = useState(false);
 
   const sortData = (e) => {
     setSortBy(e.target.value);
@@ -30,8 +29,7 @@ const ComplaintDashboardS = () => {
     setJsonData(sortedData);
   };
 
-  const filterComplaints = (data, search) => {
-    setIsSearching(search.trim() !== ''); 
+  const filterComplaints = (data, search) => { 
       return data.filter((item) => {
       const searchLowerCase = search.toLowerCase();
       const title = item.title.toLowerCase();
