@@ -1,78 +1,71 @@
-.container{
-    background-color: white;
-    height: auto;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+.container {
+  background-color: white;
+  height: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 
+  .main {
+    min-width: 16.5rem;
+    width: 41.5rem;
 
-    .main{
-        min-width: 16.5rem;
-        width: 41.5rem;
+    .upper_div {
+      height: 30vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
 
+      .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-        .upper_div{
-            height: 30vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            
-
-            .logo{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                img{
-                    margin: auto;
-                    width: 7.5rem;
-                    height: 7.5rem;
-                }
-            }
-          
+        img {
+          margin: auto;
+          width: 7.5rem;
+          height: 7.5rem;
         }
-
-        .lower_div{
-            height: 70vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 3.2rem;
-
-            .content_div{
-                margin-top: 9.5rem;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-
-                .image{
-                    margin: 0.4rem;
-                    width: 10.2rem;
-                    height: 2.7rem;
-
-                    button {
-                        background-color: white;
-                        border: none;
-                        border-radius: 0.5rem;
-                    }
-
-                    
-                }
-
-                .content{
-                    font-size: 0.63rem;
-                    width: 10.2rem;
-                    height: 0.8rem;
-                }
-            }
-
-            .text{
-                font-weight: 400;
-                color: #40BDB6;
-            }
-        }
-        
+      }
     }
+
+    .lower_div {
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 3.2rem;
+
+      .content_div {
+        margin-top: 9.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        .image {
+          margin: 0.4rem;
+          width: 10.2rem;
+          height: 2.7rem;
+
+          button {
+            background-color: white;
+            border: none;
+            border-radius: 0.5rem;
+          }
+        }
+
+        .content {
+          font-size: 0.63rem;
+          width: 10.2rem;
+          height: 0.8rem;
+        }
+      }
+
+      .text {
+        font-weight: 400;
+        color: #40bdb6;
+      }
+    }
+  }
 }
