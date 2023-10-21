@@ -1,16 +1,15 @@
-
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './ComplaintCardS.module.scss';
+import React from "react";
+import { Link } from "react-router-dom";
+import styles from "./ComplaintCardS.module.scss";
 
 const ComplaintCardS = ({ complaint }) => {
   return (
     <div className={styles.CardContainer}>
       <div className={styles.Heading}>
         <div>
-            <Link to={complaint.key}>
-                <h2>{complaint.title}</h2>
-            </Link>
+          <Link to={complaint.key}>
+            <h2>{complaint.title}</h2>
+          </Link>
         </div>
         <img src={complaint.StatusImg} alt="icon"></img>
         {/* link for the complaint status has to be fetched from the json file corresponding to the complaint status */}
