@@ -31,7 +31,9 @@ const ComplaintDashboardS = () => {
 
   const filterComplaints = (data, search) => {
     return data.filter((item) => {
+      // Searching keyword
       const searchLowerCase = search.toLowerCase();
+
       const title = item.title.toLowerCase();
       const description = item.Description.toLowerCase();
       const name = item.Name.toLowerCase();
