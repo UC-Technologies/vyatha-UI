@@ -6,15 +6,17 @@ const Comment = () => {
       <input type="text" placeholder="Tap to comment" />
       <h1 className={styles.RaiseComplain}>Raise Complain</h1>
 
-      <div className={styles.dropdown}>
-        <div className={styles.select}>
-          <span className={styles.selected}>Warden</span>
-        </div>
+      <div className={styles.SelectContainer}>
+        <select className={styles.SelectMenu}>
+          <option value="dean" className={styles.option}>
+            Dean
+          </option>
+          <option value="warden" className={styles.option}>
+            Warden
+          </option>
+        </select>
+        <div className={styles.SelectArrow}>&#9660;</div>
       </div>
-      <ul className={styles.menu}>
-        <li className={styles.active}>Warden</li>
-        <li>Dean</li>
-      </ul>
     </div>
   );
 };
