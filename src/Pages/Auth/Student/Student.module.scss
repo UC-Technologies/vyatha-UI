@@ -1,3 +1,5 @@
+$base-font-size: 16px;
+
 .container {
   background-color: white;
   height: auto;
@@ -18,12 +20,12 @@
       .logo {
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-end;
 
         img {
           margin: auto;
-          width: 7.5rem;
-          height: 7.5rem;
+          width: 9.5rem;
+          height: 9.5rem;
         }
       }
     }
@@ -58,7 +60,7 @@
         .content {
           font-size: 0.63rem;
           width: 10.2rem;
-          height: 0.8rem;
+          height: 2.7rem;
         }
       }
 
@@ -66,6 +68,73 @@
         font-weight: 400;
         color: #40bdb6;
       }
+    }
+  }
+
+  @media screen and (max-width: 414px) {
+    .main {
+      width: 100%; // Make it full width on smaller screens like iPhones
+    }
+
+    .upper_div .logo img {
+      width: 5rem; // Adjust the logo size for smaller screens
+      height: 5rem;
+    }
+
+    .lower_div .content_div .image {
+      width: 8rem; // Adjust image size for smaller screens
+      height: 2rem;
+    }
+
+    .content_div .content {
+      font-size: 0.5rem; // Adjust font size for smaller screens
+    }
+  }
+
+  @media screen and (max-width: 360px) {
+    .main {
+      width: 100%; // Make it full width on smaller screens (e.g., some Samsung mobiles)
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+    .main {
+      width: 100%; // Make it full width on even smaller screens
+    }
+
+    .upper_div .logo img {
+      width: 4rem; // Further adjust the logo size
+      height: 4rem;
+    }
+
+    .lower_div .content_div .image {
+      width: 6rem; // Further adjust image size
+      height: 1.5rem;
+    }
+
+    .content_div .content {
+      font-size: 0.4rem; // Further adjust font size
+    }
+  }
+
+  /* Add more media queries for other screen sizes as needed */
+  @media screen and (max-width: 280px) {
+    .main {
+      width: 100%;
+    }
+
+    .upper_div .logo img {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .lower_div .content_div .image {
+      width: 5rem;
+      height: 1.3rem;
+    }
+
+    .content_div .content {
+      font-size: 0.35rem;
     }
   }
 }

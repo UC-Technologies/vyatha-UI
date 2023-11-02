@@ -8,9 +8,15 @@ dependencies:
   '@vitejs/plugin-react':
     specifier: ^4.0.4
     version: 4.0.4(vite@4.4.9)
+  lottie:
+    specifier: ^0.0.1
+    version: 0.0.1
   lottie-react:
     specifier: ^2.4.0
     version: 2.4.0(react-dom@18.2.0)(react@18.2.0)
+  pnpm:
+    specifier: ^8.10.0
+    version: 8.10.2
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -2264,6 +2270,10 @@ packages:
     resolution: {integrity: sha512-uvhvYPC8kGPjXT3MyKMrL3JitEAmDMp30lVkuq/590Mw9ok6pWcFCwXJveo0t5uqYw1UREQHofD+jVpdjBv8wg==}
     dev: false
 
+  /lottie@0.0.1:
+    resolution: {integrity: sha512-WdqM3pbQLzxOojtuxL9tqDgR1AeOFDLT43+dmjXl0/dhiNjf3PFzqwg7Sw4tME+DTG0DcXfAN3b1Z+HfdMf6oA==}
+    dev: false
+
   /lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
     dependencies:
@@ -2512,6 +2522,12 @@ packages:
     engines: {node: '>=0.10'}
     hasBin: true
     dev: true
+
+  /pnpm@8.10.2:
+    resolution: {integrity: sha512-B4IJPVumx62UYggbwe8HdQFqS0EJ7KHh/tzqbxEBQ69fUJk9s2xCfU+oxivjkgoyJNsS2nGdJGyhndnxgEjDPA==}
+    engines: {node: '>=16.14'}
+    hasBin: true
+    dev: false
 
   /postcss@8.4.30:
     resolution: {integrity: sha512-7ZEao1g4kd68l97aWG/etQKPKq07us0ieSZ2TnFDk11i0ZfDW2AwKHYU8qv4MZKqN2fdBfg+7q0ES06UA73C1g==}

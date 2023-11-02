@@ -1,0 +1,155 @@
+.container {
+  width: 100vw;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #24817b;
+
+  .main {
+    background-color: white;
+    min-width: 16.5rem;
+    width: 41.5rem;
+
+    .profile_image {
+      height: 20vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+
+      img {
+        width: 5rem;
+        height: 5rem;
+        flex-shrink: 0;
+        border-radius: 50%;
+      }
+    }
+
+    .details_section {
+      height: 35vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+
+      .details_about {
+        color: #24817b;
+        font-family: Lato;
+        font-size: 0.75rem;
+        font-style: normal;
+        font-weight: 400;
+        width: 30vw;
+        margin-left: 1.5rem;
+
+        .right_section {
+          margin: 0.5rem;
+        }
+      }
+
+      .details_info {
+        width: 70vw;
+        color: #6c6c6c;
+        font-family: Lato;
+        font-size: 0.75rem;
+        font-style: normal;
+        font-weight: 400;
+
+        .left_section {
+          margin: 0.5rem;
+        }
+      }
+    }
+
+    .button_section {
+      height: 30vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      button {
+        width: 3.2rem;
+        height: 2.5rem;
+        padding: 0.3rem;
+        border-radius: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        margin: 0.7rem;
+        background-color: white;
+        border: none;
+      }
+
+      .Editprofile:hover,
+      .Signout:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1920px) {
+    .main {
+      width: 50vw;
+    }
+
+    .details_about,
+    .details_info {
+      width: 40vw;
+    }
+  }
+
+  @media screen and (max-width: 1440px) {
+    .main {
+      width: 60vw;
+    }
+
+    .details_about,
+    .details_info {
+      width: 50vw;
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    .main {
+      width: 80vw;
+    }
+
+    .details_about,
+    .details_info {
+      width: 60vw;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .main {
+      width: 100%;
+    }
+
+    .details_about,
+    .details_info {
+      width: 80%;
+      font-size: 0.6rem;
+    }
+
+    .button_section {
+      height: 40vh;
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    .main {
+      width: 100%;
+    }
+
+    .details_about,
+    .details_info {
+      width: 100%;
+      font-size: 0.5rem;
+    }
+
+    .button_section {
+      height: 50vh;
+    }
+  }
+}
