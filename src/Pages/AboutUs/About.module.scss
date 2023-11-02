@@ -1,0 +1,134 @@
+.container {
+  display: flex;
+  margin: auto;
+  width: 23.34rem;
+  border-radius: 0.937rem;
+  background: #e4f4f3;
+  flex-direction: column;
+  .heading {
+    display: flex;
+    width: 23.375rem;
+    height: 3.5rem;
+    padding-right: 0;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    background: linear-gradient(270deg, #40bdb6 2.67%, #347ec5 119.87%);
+    box-shadow: 0rem 0.25rem 0.25rem 0rem rgba(0, 0, 0, 0.09);
+  }
+  .img2 {
+    width: 13.06rem;
+    height: 8.312rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .img1 {
+    width: 14.25rem;
+    height: 9.312rem;
+    margin-top: 3.437rem;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .about_content {
+    display: flex;
+    width: 19.375rem;
+    margin-left: 1.875rem;
+    text-align: center;
+  }
+  .accordion {
+    display: flex;
+    gap: 1.6875rem;
+    flex-direction: column;
+    margin-left: 1.4375rem;
+    margin-right: 1.25rem;
+    .accordion_hide {
+      display: flex;
+      flex-direction: column;
+
+      .hide {
+        display: none;
+      }
+      .show {
+        background-color: #fff;
+
+        padding-left: 0.5rem;
+        padding-right: 0.625rem;
+        background: #fff;
+        color: #455a64;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.5rem; /* 150% */
+        letter-spacing: 0.0312rem;
+      }
+
+      .item1 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-left: 0.5rem;
+        border-radius: 0.5rem;
+        color: #455a64;
+        border: 0.0625rem solid #d9d9d9;
+        border-bottom: none;
+        background: #fff;
+
+        .img3 {
+          width: 2.54rem;
+          height: 2.542rem;
+          flex-shrink: 0;
+        }
+        .img_rev {
+          width: 2.54rem;
+          height: 2.542rem;
+          transform: rotate(180deg);
+        }
+      }
+    }
+    .accordion_show {
+      display: flex;
+      flex-direction: column;
+      border-radius: 0.5rem;
+      border: 0.0625rem solid #d9d9d9;
+      background-color: #fff;
+
+      .show {
+        padding-left: 0.5rem;
+        padding-right: 0.625rem;
+        color: #455a64;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1.5rem; /* 150% */
+        letter-spacing: 0.0312rem;
+      }
+
+      .item1 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-left: 0.5rem;
+        color: #455a64;
+
+        .img3 {
+          width: 2.54rem;
+          height: 2.542rem;
+          flex-shrink: 0;
+        }
+        .img_rev {
+          width: 2.54rem;
+          height: 2.542rem;
+          position: relative;
+          bottom: 0;
+          // top:80%;
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}
