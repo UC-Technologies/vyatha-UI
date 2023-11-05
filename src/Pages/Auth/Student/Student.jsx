@@ -33,7 +33,10 @@ const Student = () => {
             </div>
             <div className={styles.content}>
               <p>
-                Don&apos;t have an account? <Link to="/auth/student/signup">Sign up</Link>
+                Don&apos;t have an account?{" "}
+                <Link to="/auth/student/signup" className={styles.signUp}>
+                  Sign up
+                </Link>
               </p>
             </div>
           </div>

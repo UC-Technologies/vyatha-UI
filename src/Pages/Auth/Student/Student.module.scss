@@ -58,15 +58,21 @@ $base-font-size: 16px;
         }
 
         .content {
+          color: var(--gray-default, #505255);
           font-size: 0.63rem;
           width: 10.2rem;
           height: 2.7rem;
+
+          .signUp {
+            color: #4e8dd8;
+          }
         }
       }
 
       .text {
         font-weight: 400;
-        color: #40bdb6;
+        color: var(--3, #40bdb6);
+        font-family: Merienda;
       }
     }
   }
