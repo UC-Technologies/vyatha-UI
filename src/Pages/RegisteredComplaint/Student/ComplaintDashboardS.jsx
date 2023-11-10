@@ -36,20 +36,12 @@ const ComplaintDashboardS = () => {
 
       const title = item.title.toLowerCase();
       const description = item.Description.toLowerCase();
-      const name = item.Name.toLowerCase();
-      const scholarID = item.ScholarID.toLowerCase();
-      const roomNo = item.RoomNo.toLowerCase();
-      const phoneNo = item.PhoneNo.toLowerCase();
       const date = item.Date.toLowerCase();
       const time = item.Time.toLowerCase();
 
       return (
         title.includes(searchLowerCase) ||
         description.includes(searchLowerCase) ||
-        name.includes(searchLowerCase) ||
-        scholarID.includes(searchLowerCase) ||
-        roomNo.includes(searchLowerCase) ||
-        phoneNo.includes(searchLowerCase) ||
         date.includes(searchLowerCase) ||
         time.includes(searchLowerCase)
       );

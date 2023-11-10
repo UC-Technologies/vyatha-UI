@@ -60,6 +60,20 @@ const IndividualComplaint = () => {
         </li>
         <p>Morbi a metus.Phasellus enim erat, vestibulum vel,aliquam..........</p>
         <div className={styles.Date}>hh:mm day - dd/mm/yy</div>
+        <li name="Supervisor" value="Supervisor">
+          <label htmlFor="Supervisor">
+            <span>Supervisor</span>
+          </label>
+        </li>
+        <p>Morbi a metus.Phasellus enim erat, vestibulum vel,aliquam..........</p>
+        <div className={styles.Date}>hh:mm day - dd/mm/yy</div>
+        <li name="You" value="You">
+          <label htmlFor="You">
+            <span>You</span>
+          </label>
+        </li>
+        <p>Morbi a metus.Phasellus enim erat, vestibulum vel,aliquam..........</p>
+        <div className={styles.Date}>hh:mm day - dd/mm/yy</div>
         <div className={styles.CommentsDropD}>
           <button onClick={handleCommentsDropD}>See all comments</button>
         </div>
