@@ -1,0 +1,30 @@
+[
+    {
+      "id": 1,
+      "title": "Title of the Complain",
+      "date": "August 2023",
+      "time": "11.45pm",
+      "content": "description.......Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus mollitia quis harum obcaecati voluptate maiores suscipit provident illo laboriosam ut fugit architecto esse asperiores, at quas consequatur amet itaque? Repellendus."
+    },
+    {
+      "id": 2,
+      "title": "Title of the Complain2",
+      "date": "August 2023",
+      "time": "11.45pm",
+      "content": "description.......Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus mollitia quis harum obcaecati voluptate maiores suscipit provident illo laboriosam ut fugit architecto esse asperiores, at quas consequatur amet itaque? Repellendus."
+    },
+    {
+      "id": 3,
+      "title": "Title of the Complain3",
+      "date": "August 2023",
+      "time": "11.45pm",
+      "content": "description.......Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus mollitia quis harum obcaecati voluptate maiores suscipit provident illo laboriosam ut fugit architecto esse asperiores, at quas consequatur amet itaque? Repellendus."
+    },
+    {
+      "id": 4,
+      "title": "Title of the Complain4",
+      "date": "August 2023",
+      "time": "11.45pm",
+      "content": "description.......Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus mollitia quis harum obcaecati voluptate maiores suscipit provident illo laboriosam ut fugit architecto esse asperiores, at quas consequatur amet itaque? Repellendus."
+    }
+  ]
