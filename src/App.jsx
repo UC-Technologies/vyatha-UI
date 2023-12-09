@@ -5,32 +5,19 @@ import Navbar from "./Components/Shared/Navbar/Navbar";
 import Home from "./Pages/Home/Home";
 
 import Auth from "./Pages/Auth/Auth";
-
-import Student from "./Pages/Auth/Student/Student";
-import Admin from "./Pages/Auth/Admin/Admin";
-
-import StudentLogin from "./Pages/Auth/Student/Login/StudentLogin";
-import StudentSignup from "./Pages/Auth/Student/Signup/StudentSignup";
-
-import AdminLogin from "./Pages/Auth/Admin/Login/AdminLogin";
-import AdminSignup from "./Pages/Auth/Admin/Signup/AdminSignup";
-
-import ComplaintForm from "./Pages/RegisterComplaint/ComplaintForm";
 import About from "./Pages/AboutUs/About";
-
-import StudentProfile from "./Pages/Profile/Student/StudentProfile";
-import StudentEditProfile from "./Pages/Profile/Student/StudentEditProfile";
-
-import AdminProfile from "./Pages/Profile/Admin/AdminProfile";
-import AdminEditProfile from "./Pages/Profile/Admin/AdminEditProfile";
-
-import ComplaintDashboardA from "./Pages/RegisteredComplaint/Admin/ComplaintDashboardA";
-import ComplaintDashboardS from "./Pages/RegisteredComplaint/Student/ComplaintDashboardS";
-
-import IndividualComplaintS from "./Pages/RegisteredComplaint/Student/IndividualComplaintS";
-import IndividualComplaintA from "./Pages/RegisteredComplaint/Admin/IndividualComplaintA";
+import Login from "./Pages/Auth/Login/Login";
+import Signup from "./Pages/Auth/Signup/Signup";
+import Profile from "./Pages/Profile/Profile";
+import ComplaintForm from "./Pages/RegisterComplaint/ComplaintForm";
 
 import NotFound from "./Pages/NotFound/NotFound";
+import Verify from "./Pages/Auth/VerifyEmail/Verify";
+import EditProfile from "./Pages/Profile/EditProfile";
+import AllComplaints from "./Pages/Dashboard/AllRegisteredComplaints/AllComplaints";
+import IndividualComplaint from "./Pages/Dashboard/AllRegisteredComplaints/IndividualComplaint";
+import ForgotPwd from "./Pages/Auth/ForgotPassword/ForgotPwd";
+import ResetPwd from "./Pages/Auth/ForgotPassword/ResetPwd";
 
 const App = () => {
   return (
@@ -40,53 +27,28 @@ const App = () => {
         <div>
           <Routes>
             <Route exact path="/" element={<Home />} />
-
             {/* about us route */}
             <Route exact path="/about" element={<About />} />
-
+            {/* first page to displat login and signup buttons */}
             <Route exact path="/auth" element={<Auth />} />
-
-            {/* student routes */}
-            <Route exact path="/auth/student" element={<Student />} />
-            <Route exact path="/auth/student/login" element={<StudentLogin />} />
-            <Route exact path="/auth/student/signup" element={<StudentSignup />} />
-
-            <Route exact path="/student/profile" element={<StudentProfile />} />
-            <Route exact path="/student/profile/edit" element={<StudentEditProfile />} />
-
-            <Route
-              exact
-              path="/student/dashboard/allcomplaints"
-              element={<ComplaintDashboardS />}
-            />
-            <Route
-              exact
-              path="/student/dashboard/complaint/:id"
-              element={<IndividualComplaintS />}
-            />
-
-            {/* admin routes */}
-            <Route exact path="/auth/admin" element={<Admin />} />
-            <Route exact path="/auth/admin/login" element={<AdminLogin />} />
-            <Route exact path="/auth/admin/signup" element={<AdminSignup />} />
-
-            <Route exact path="/admin/profile" element={<AdminProfile />} />
-            <Route exact path="/admin/profile/edit" element={<AdminEditProfile />} />
-
-            <Route
-              exact
-              path="/admin/dashboard/allcomplaints"
-              element={<ComplaintDashboardA />}
-            />
-            <Route
-              exact
-              path="/admin/dashboard/complaint/:id"
-              element={<IndividualComplaintA />}
-            />
-
-            {/* register complaint route */}
-            <Route exact path="/register/complaint" element={<ComplaintForm />} />
-
+            <Route exact path="/auth/login" element={<Login />} />
+            <Route exact path="/auth/signup" element={<Signup />} />
+            {/* verify email after signup */}
+            <Route exact path="/verify/:token" element={<Verify />} /> {/* token */}
+            {/* dashboard will contain all regsitered complaints so no need to have all complaints page */}
+            <Route exact path="/dashboard" element={<AllComplaints />} />
+            {/* register complaint */}
+            <Route exact path="/register_complaint" element={<ComplaintForm />} />
+            {/* individual complaint */}
+            <Route exact path="/complaint/:id" element={<IndividualComplaint />} />
+            {/* profile */}
+            <Route exact path="/profile" element={<Profile />} />
+            {/* edit profile */}
+            <Route exact path="/profile/edit" element={<EditProfile />} />
+            {/* forgot password (it will ask for email)  */}
+            <Route exact path="/forgotpassword" element={<ForgotPwd />} />
+            {/*  after the user clicks on link sent on email for reseting password, it will ask for new password */}
+            <Route exact path="/resetpassword/:token" element={<ResetPwd />} />
             {/* 404 route */}
             <Route path="*" element={<NotFound />} />
           </Routes>
