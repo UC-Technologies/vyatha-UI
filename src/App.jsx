@@ -1,3 +1,4 @@
+// import { useContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,18 +15,21 @@ import ComplaintForm from "./Pages/RegisterComplaint/ComplaintForm";
 import NotFound from "./Pages/NotFound/NotFound";
 import Verify from "./Pages/Auth/VerifyEmail/Verify";
 import EditProfile from "./Pages/Profile/EditProfile";
-import AllComplaints from "./Pages/Dashboard/AllRegisteredComplaints/AllComplaints";
-import IndividualComplaint from "./Pages/Dashboard/AllRegisteredComplaints/IndividualComplaint";
+import AllComplaints from "./Pages/Dashboard/AllRegisteredComplaints/Student/AllComplaints";
+import IndividualComplaint from "./Pages/Dashboard/AllRegisteredComplaints/Student/IndividualComplaint";
 import ForgotPwd from "./Pages/Auth/ForgotPassword/ForgotPwd";
 import ResetPwd from "./Pages/Auth/ForgotPassword/ResetPwd";
+// import { UserContext } from "./Context/Provider";
 
 const App = () => {
+  // const isLoggedIn = useContext(UserContext)
   return (
     <>
       <BrowserRouter>
         <Navbar />
         <div>
           <Routes>
+            {/* {isLoggedIn ? (<h1>logged in</h1>) : (<p>Not Logged In</p>)} */}
             <Route exact path="/" element={<Home />} />
             {/* about us route */}
             <Route exact path="/about" element={<About />} />
