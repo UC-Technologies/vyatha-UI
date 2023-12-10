@@ -1,0 +1,83 @@
+@media only screen and (max-width: 660px) {
+  .comments {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  input {
+    width: 90vw;
+    height: 2.5rem;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+  }
+  input::placeholder {
+    text-align: center;
+    font-family: "" --vyatha-font-1 "";
+  }
+  input:focus::-webkit-input-placeholder {
+    opacity: 0;
+  }
+  input:focus::-moz-placeholder {
+    opacity: 0;
+  }
+  input:focus:-ms-input-placeholder {
+    opacity: 0;
+  }
+  .RaiseComplain {
+    font-weight: 400;
+    margin-top: 1.5rem;
+  }
+
+  .SelectContainer {
+    position: relative;
+    width: 90vw;
+    margin: 1.25rem;
+  }
+
+  .SelectMenu {
+    width: 100%;
+    padding: 0.625rem;
+    border: 0.1rem solid #000000;
+    border-radius: 0.3rem;
+    background-color: #fff;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+  }
+
+  .SelectMenu:focus {
+    border-color: var(--vyatha-main-color-dark);
+  }
+
+  .SelectArrow {
+    position: absolute;
+    top: 50%;
+    right: 0.625rem;
+    transform: translateY(-50%);
+  }
+
+  .option {
+    padding: 0.625rem;
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  }
+
+  .SelectContainer {
+    @extend .SelectContainer;
+  }
+
+  .SelectMenu {
+    @extend .SelectMenu;
+  }
+
+  .SelectArrow {
+    @extend .SelectArrow;
+  }
+
+  .option {
+    @extend .option;
+  }
+}
