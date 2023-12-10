@@ -24,7 +24,12 @@ const Student = () => {
         <div className={styles.lower_div}>
           <div className={styles.content_div}>
             <div className={styles.image}>
-              <button className={styles.login} onClick={handleStudentLogin}>
+              <button
+                type="button"
+                aria-label="Student Login"
+                className={styles.login}
+                onClick={handleStudentLogin}
+              >
                 <img
                   src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1695295732/login_w7ltqc.jpg?_s=public-apps"
                   alt=""
