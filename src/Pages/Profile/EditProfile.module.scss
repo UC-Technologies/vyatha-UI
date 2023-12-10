@@ -1,0 +1,151 @@
+.container {
+  width: 100vw;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #24817b;
+
+  .main {
+    background-color: white;
+    min-width: 16.5rem;
+    width: 41.5rem;
+
+    .Profileheading {
+      width: 100%;
+      background-image: linear-gradient(to left, #40bdb6, #347ec5);
+      height: 6vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      p {
+        color: #fff;
+        font-size: 1rem;
+        font-style: normal;
+        line-height: 130%;
+      }
+    }
+
+    .profile_image {
+      height: 20vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1.2rem;
+
+      img {
+        width: 5rem;
+        height: 5rem;
+        flex-shrink: 0;
+        border-radius: 50%;
+      }
+
+      .changeprofile {
+        color: #000;
+        text-align: center;
+        font-family: Lato;
+        font-style: normal;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+
+        label {
+          background-color: white;
+          border: none;
+        }
+
+        input {
+          display: none;
+        }
+      }
+    }
+
+    .details_section {
+      width: 100vw;
+      height: 40vh;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .details_about {
+        color: #24817b;
+        font-family: Lato;
+        font-size: 0.7rem;
+        font-style: normal;
+        font-weight: 400;
+        width: 40vw;
+
+        .right_section {
+          margin: 1.2rem 0 1rem 1rem;
+          font-size: 1rem;
+          height: 5.5vh;
+        }
+      }
+
+      .details_fill {
+        width: 60vw;
+        color: #6c6c6c;
+        font-family: Lato;
+        font-size: 1.1rem;
+        font-style: normal;
+        font-weight: 400;
+
+        .left_section {
+          margin: 1rem 1rem 1.2rem 0;
+          height: 5.5vh;
+
+          input {
+            border: 1px solid #b6b3b3;
+            width: 50vw;
+            height: 4.6vh;
+          }
+
+          .hostel_options {
+            border: 1px solid #b6b3b3;
+            width: 50vw;
+            height: 4.6vh;
+            border-radius: 5px;
+            background: rgba(240, 240, 240, 0.9);
+          }
+        }
+
+        input {
+          border-radius: 5px;
+          background: rgba(240, 240, 240, 0.9);
+
+          :hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .button_section {
+      height: 24vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      button {
+        width: 3.2rem;
+        height: 2.5rem;
+        padding: 0.3rem;
+        border-radius: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        margin: 0.7rem;
+        background-color: white;
+        border: none;
+      }
+
+      .Editprofile:hover,
+      .Signout:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

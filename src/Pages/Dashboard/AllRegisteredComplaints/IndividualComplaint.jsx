@@ -1,12 +1,15 @@
 import { useState } from "react";
-import IndividualComplaintAdmin from "../Admin/IndividualComplaintAdmin";
+import IndividualComplaintAdmin from "./Admin/IndividualComplaintAdmin";
+import IndividualComplaintStudent from "./Student/IndividualComplaintStudent";
 
 const IndividualComplaint = () => {
-  const [role, setRole] = useState("client");
+  const [role, setRole] = useState("warden");
+
+  // define role in Context provider and consume it here
 
   return (
     <div>
-      {role === "client" && <h1>Student stuff </h1>}
+      {role === "client" && <IndividualComplaintStudent />}
 
       {(role === "supervisor" || role === "warden" || role === "dsw") && (
         <IndividualComplaintAdmin />

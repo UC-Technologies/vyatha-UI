@@ -15,8 +15,8 @@ import ComplaintForm from "./Pages/RegisterComplaint/ComplaintForm";
 import NotFound from "./Pages/NotFound/NotFound";
 import Verify from "./Pages/Auth/VerifyEmail/Verify";
 import EditProfile from "./Pages/Profile/EditProfile";
-import AllComplaints from "./Pages/Dashboard/AllRegisteredComplaints/Student/AllComplaints";
-import IndividualComplaint from "./Pages/Dashboard/AllRegisteredComplaints/Student/IndividualComplaint";
+import AllComplaints from "./Pages/Dashboard/AllRegisteredComplaints/AllComplaints";
+import IndividualComplaint from "./Pages/Dashboard/AllRegisteredComplaints/IndividualComplaint";
 import ForgotPwd from "./Pages/Auth/ForgotPassword/ForgotPwd";
 import ResetPwd from "./Pages/Auth/ForgotPassword/ResetPwd";
 // import { UserContext } from "./Context/Provider";
@@ -33,7 +33,7 @@ const App = () => {
             <Route exact path="/" element={<Home />} />
             {/* about us route */}
             <Route exact path="/about" element={<About />} />
-            {/* first page to displat login and signup buttons */}
+            {/* first page to display login and signup buttons */}
             <Route exact path="/auth" element={<Auth />} />
             <Route exact path="/auth/login" element={<Login />} />
             <Route exact path="/auth/signup" element={<Signup />} />
@@ -44,7 +44,7 @@ const App = () => {
             {/* register complaint */}
             <Route exact path="/register_complaint" element={<ComplaintForm />} />
             {/* individual complaint */}
-            <Route exact path="/complaint/:id" element={<IndividualComplaint />} />
+            <Route exact path="/complaint/:key" element={<IndividualComplaint />} />
             {/* profile */}
             <Route exact path="/profile" element={<Profile />} />
             {/* edit profile */}
