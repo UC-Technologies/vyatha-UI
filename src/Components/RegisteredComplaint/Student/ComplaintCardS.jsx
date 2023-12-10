@@ -1,56 +1,29 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./ComplaintCardS.module.scss";
 
-const ComplaintCardS = () => {
+const ComplaintCardS = ({ complaint }) => {
   return (
-    <div className={styles.CommentContainer}>
-      <div className={styles.MainHeading}>Comments</div>
-      <input id="sh" type="checkbox" />
-      <div className={styles.Comment}>
-        <h1>Supervisor</h1>
-        <h2>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat illum enim
-          eveniet nemo, dolorem blanditiis nihil atque consequatur magnam dolore!
-        </h2>
-        <h3>hh:mm day - dd/mm/yy</h3>
-      </div>
-      <div className={styles.Comment}>
-        <h1>You</h1>
-        <h2>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat illum enim
-          eveniet nemo, dolorem blanditiis nihil atque consequatur magnam dolore!
-        </h2>
-        <h3>hh:mm day - dd/mm/yy</h3>
-      </div>
-      <div className={styles.HiddenComments}>
-        <div className={styles.Comment}>
-          <h1>Supervisor</h1>
-          <h2>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat illum enim
-            eveniet nemo, dolorem blanditiis nihil atque consequatur magnam dolore!
-          </h2>
-          <h3>hh:mm day - dd/mm/yy</h3>
+    <div className={styles.CardContainer}>
+      <div className={styles.Heading}>
+        <div>
+          <Link to={complaint.key}>
+            <h2>{complaint.title}</h2>
+          </Link>
         </div>
-        <div className={styles.Comment}>
-          <h1>You</h1>
-          <h2>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat illum enim
-            eveniet nemo, dolorem blanditiis nihil atque consequatur magnam dolore!
-          </h2>
-          <h3>hh:mm day - dd/mm/yy</h3>
-        </div>
-        <div className={styles.Comment}>
-          <h1>Supervisor</h1>
-          <h2>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat illum enim
-            eveniet nemo, dolorem blanditiis nihil atque consequatur magnam dolore!
-          </h2>
-          <h3>hh:mm day - dd/mm/yy</h3>
-        </div>
-        <label htmlFor="sh">Collapse</label>
+        <img src={complaint.StatusImg} alt="icon"></img>
+        {/* link for the complaint status has to be fetched from the json file corresponding to the complaint status */}
       </div>
-      <label htmlFor="sh" className={styles.ReadMore}>
-        See all comments
-      </label>
+      <div className={styles.DateAndTime}>
+        {complaint.Date}, {complaint.Time}
+      </div>
+      <p>{complaint.Description}</p>
+      <div className={styles.SelectBar}>
+        <div className={styles.Registered}>Registered</div>
+        <div className={styles.Supervisor}>Supervisor</div>
+        <div className={styles.Warden}>Warden</div>
+        <div className={styles.Dean}>Dean</div>
+      </div>
     </div>
   );
 };
