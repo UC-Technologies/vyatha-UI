@@ -1,3 +1,59 @@
-.myh1 {
-  color: red;
+.navbar {
+  background-color: white;
+  color: black;
+
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+  }
+
+  .navbar-logo {
+    font-size: 1.5rem;
+  }
+
+  .navbar-menu-button {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: black;
+    cursor: pointer;
+  }
+
+  .navbar-nav-links {
+    display: flex;
+
+    li {
+      margin-right: 1rem;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+      font-size: 1rem;
+    }
+  }
+
+
+  @media (max-width: 768px) {
+    .navbar-nav-links {
+      flex-direction: column;
+      position: absolute;
+      top: 4rem;
+      background-color: white;
+      width: 100%;
+      display: none;
+      padding: 0.5rem 0;
+    }
+
+    .navbar-nav-links.open {
+      display: flex;
+    }
+
+    .navbar-nav-links li {
+      padding: 0.5rem 1rem;
+      text-align: center;
+    }
+  }
 }
