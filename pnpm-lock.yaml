@@ -8,6 +8,15 @@ dependencies:
   '@vitejs/plugin-react':
     specifier: ^4.0.4
     version: 4.1.1(vite@4.5.0)
+  lottie:
+    specifier: ^0.0.1
+    version: 0.0.1
+  lottie-react:
+    specifier: ^2.4.0
+    version: 2.4.0(react-dom@18.2.0)(react@18.2.0)
+  pnpm:
+    specifier: ^8.10.0
+    version: 8.12.0
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -2550,6 +2559,12 @@ packages:
     engines: {node: '>=0.10'}
     hasBin: true
     dev: true
+
+  /pnpm@8.12.0:
+    resolution: {integrity: sha512-J5J4+Dvngvb6rvusvMxQMwHE7Cza/UCYPnwmru7nw4Jw9cjmNbQ0ZGkbiXq+FnW0DAbfbtrd6SJTK3NoqppSZw==}
+    engines: {node: '>=16.14'}
+    hasBin: true
+    dev: false
 
   /postcss@8.4.31:
     resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
