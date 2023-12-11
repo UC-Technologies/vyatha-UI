@@ -8,7 +8,6 @@ const Captcha = () => {
   const [Num2, setNum2] = useState(0);
   const [Answer, setAnswer] = useState(0);
   const [userResponse, setUserResponse] = useState("");
-  // const [message, setMessage] = useState('');
 
   useEffect(() => {
     generateCaptcha();
@@ -22,14 +21,12 @@ const Captcha = () => {
     setNum2(num2);
     setAnswer(answer);
     setUserResponse("");
-    // setMessage('');
   }
 
-  function verifyCaptcha() {
+  function verifyCaptcha(e) {
+    e.preventDefault();
     const userResponseInt = userResponse;
     if (userResponseInt === toString(Answer)) {
-      // setMessage('CAPTCHA verified.');
-      // alert("verified")
       toast.success("Verified", {
         position: "top-right",
         autoClose: 5000,
@@ -41,8 +38,6 @@ const Captcha = () => {
         theme: "light",
       });
     } else {
-      // setMessage('CAPTCHA verification failed. Please try again.');
-
       toast.error("Invalid Captcha", {
         position: "top-right",
         autoClose: 5000,
@@ -73,7 +68,10 @@ const Captcha = () => {
         type="text"
         placeholder="Enter your answer"
         value={userResponse}
-        onChange={(e) => setUserResponse(e.target.value)}
+        onChange={(e) => {
+          // e.preventDefault();
+          setUserResponse(e.target.value);
+        }}
       />
       <button onClick={generateCaptcha} className={styles.refresh}>
         Refresh
