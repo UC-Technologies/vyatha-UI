@@ -1,0 +1,68 @@
+.CommentContainer {
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding-bottom: 1.5rem;
+  padding-top: 2rem;
+}
+h1 {
+  font-family: var(--vyatha-font-1);
+  padding-left: 2rem;
+  padding-right: 3rem;
+  font-size: 1rem;
+  text-align: left;
+  color: black;
+}
+
+h2 {
+  font-family: var(--vyatha-font-1);
+  font-weight: 100;
+  padding-left: 2rem;
+  padding-right: 3rem;
+  font-size: 0.75rem;
+  color: black;
+}
+
+h3 {
+  font-family: var(--vyatha-font-1);
+  font-weight: 100;
+  padding-left: 2rem;
+  padding-right: 3rem;
+  font-size: 0.5rem;
+  text-align: right;
+  color: black;
+}
+
+input {
+  display: none;
+}
+
+label {
+  cursor: pointer;
+  margin-left: 2rem;
+  font-size: 0.7rem;
+}
+
+.HiddenComments {
+  display: none;
+}
+
+input:checked ~ .HiddenComments {
+  display: contents;
+}
+
+input:checked ~ .ReadMore {
+  display: none;
+}
+
+.MainHeading {
+  font-size: 0.7rem;
+  width: max-content;
+  border-radius: 2rem;
+  background-color: white;
+  margin: none;
+  padding: none;
+  position: absolute;
+  left: 2rem;
+  top: 2.5%;
+}
