@@ -29,7 +29,6 @@ const StudentLogin = () => {
             password
           </label>
         </div>
-        {/* <Captcha/> */}
         <p className={styles.password}>Forgot Password?</p>
         <div className={styles.captcha}>
           <Captcha />

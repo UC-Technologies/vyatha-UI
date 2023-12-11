@@ -93,7 +93,7 @@
 .button {
   display: flex;
   justify-content: center;
-  margin-top: 6rem;
+  margin-top: 11rem;
   .btn {
     background-color: rgba(164, 229, 225, 1);
     // color:var(--gray-default,#505255);
@@ -110,5 +110,13 @@
     font-weight: 600;
     line-height: 100%; /* 22px */
     letter-spacing: -0.013rem;
+  }
+}
+@media screen and (max-height: 700px) {
+  .container {
+    height: 35rem;
+    .login {
+      margin-top: 4rem;
+    }
   }
 }

@@ -8,20 +8,23 @@ const About = () => {
   const data = [
     {
       question: "Can I check the status of my complaint in real time?",
-
+      id: 1,
       answer:
         "  With Vyatha, you can report a wide range of grievances, from small issues like broken windows, termite problems, and water non-availability to more substantial concerns such as network problems, electricity power-cuts, and construction issues. We're here to address all your hostel-related problems, big or small.",
     },
     {
       question: "How can I download and install Vyatha on my device?",
+      id: 2,
       answer: "flkks;",
     },
     {
       question: "Is Vyatha secure and confidential?",
+      id: 3,
       answer: "",
     },
     {
       question: "Can I check the status of my complaint in real time?",
+      id: 4,
       answer: "",
     },
   ];
@@ -52,7 +55,7 @@ const About = () => {
       <img src={About2} className={styles.img2} alt="" />
       <div className={styles.accordion}>
         {data.map((item, i) => (
-          <div className={select === i ? styles.accordion_show : styles.accordion_hide}>
+          <div key={item.id} className={styles.accordion_hide}>
             <div className={styles.item1} onClick={() => toggle(i)}>
               <p>{item.question}</p>
               <img
@@ -61,7 +64,9 @@ const About = () => {
                 alt=""
               />
             </div>
-            <p className={select === i ? styles.show : styles.hide}>{item.answer}</p>
+            <p className={select === i ? styles.content_show : styles.content}>
+              {item.answer}
+            </p>
           </div>
         ))}
       </div>

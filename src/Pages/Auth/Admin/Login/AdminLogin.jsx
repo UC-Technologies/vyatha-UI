@@ -31,9 +31,9 @@ const AdminLogin = () => {
         </div>
         {/* <Captcha/> */}
         <p className={styles.password}>Forgot Password?</p>
-        <div className={styles.captcha}>
-          <Captcha />
-        </div>
+        {/* <div className={styles.captcha}> */}
+        <Captcha />
+        {/* </div> */}
         <div className={styles.button}>
           <button type="submit" onClick={verifyCaptcha} className={styles.btn}>
             Login
