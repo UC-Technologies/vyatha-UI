@@ -5,7 +5,7 @@ const ComplaintCardA = ({ title, date, time, content, id }) => {
   return (
     <div className={styles.cardhome}>
       <div className={styles.cardmap} key={id}>
-        g
+        
         <div className={styles.content_entity}>
           <div className={styles.inner_map}>
             <div className={styles.complain_title}>{title}</div>
