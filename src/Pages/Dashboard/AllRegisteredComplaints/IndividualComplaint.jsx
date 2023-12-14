@@ -3,7 +3,7 @@ import IndividualComplaintAdmin from "./Admin/IndividualComplaintAdmin";
 import IndividualComplaintStudent from "./Student/IndividualComplaintStudent";
 
 const IndividualComplaint = () => {
-  const [role, setRole] = useState("warden");
+  const [role, setRole] = useState("client");
 
   // define role in Context provider and consume it here
 

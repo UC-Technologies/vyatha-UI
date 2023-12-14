@@ -5,7 +5,7 @@ import Data from "../../../../Data/ComplaintRegister.json";
 // import ComplaintCardS from '../../../Components/RegisteredComplaint/Student/ComplaintCardS';
 import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
-const AllComplaintsStudent = () => {
+const ComplaintDashboardS = () => {
   const [jsonData, setJsonData] = useState(Data);
   const [sortBy, setSortBy] = useState("date");
   const [searchInput, setSearchInput] = useState("");
@@ -68,10 +68,10 @@ const AllComplaintsStudent = () => {
         <div className={styles.ComplaintCardInner}>
           {jsonData.map((complaint) => (
             // <ComplaintCardS key={item.key} complaint={item} />
-            <div className={styles.CardContainer} key={complaint.key}>
+            <div className={styles.CardContainer}>
               <div className={styles.Heading}>
                 <div>
-                  <Link to={`/complaint/${complaint.key}`}>
+                  <Link to={complaint.key}>
                     <h2>{complaint.title}</h2>
                   </Link>
                 </div>
@@ -99,4 +99,4 @@ const AllComplaintsStudent = () => {
   );
 };
 
-export default AllComplaintsStudent;
+export default ComplaintDashboardS;

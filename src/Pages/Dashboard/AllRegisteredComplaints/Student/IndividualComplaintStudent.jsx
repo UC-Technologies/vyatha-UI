@@ -2,9 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import Data from "../../../../Data/ComplaintRegister.json";
 import styles from "./IndividualComplaintS.module.scss";
-import StatusOfComplaint from "../../../../Components/RegisteredComplaint/Student/StatusOfComplaint";
-import Comment from "../../../../Components/RegisteredComplaint/Student/Comment";
-const IndividualComplaintStudent = () => {
+
+const IndividualComplaint = () => {
   const { key } = useParams(); // Extracted the key
 
   // Finding the dataset using key
@@ -16,9 +15,9 @@ const IndividualComplaintStudent = () => {
   function handleForward() {
     // Function to handle the submit button
   }
-  // function handleComments() {
-  //   // Function to handle the comments
-  // }
+  function handleComments() {
+    // Function to handle the comments
+  }
   function handleCommentsDropD() {
     // Function to handle the dropdown
   }
@@ -38,13 +37,14 @@ const IndividualComplaintStudent = () => {
           <img src={complaint.IDCard} alt="ID Card"></img>
         </div>
       </div>
-      <div className={styles.ComplaintImg}>
-        <img src={complaint.ComplaintImg} alt="ComplaintImg"></img>
-      </div>
-      <div className={styles.Progress}>
-        {/* This section to be created the Rishab */}
-        {/* Progress details assigned to Rishab */}
-        <StatusOfComplaint />
+      <div className={styles.ComplaintProgress}>
+        <div className={styles.ComplaintImg}>
+          <img src={complaint.ComplaintImg} alt="ComplaintImg"></img>
+        </div>
+        <div className={styles.Progress}>
+          {/* This section to be created the Rishab */}
+          Progress details assigned to Rishab
+        </div>
       </div>
       <div className={styles.Comments}>
         <div className={styles.CommentsHeading}>Comments</div>
@@ -80,7 +80,7 @@ const IndividualComplaintStudent = () => {
           <button onClick={handleCommentsDropD}>See all comments</button>
         </div>
       </div>
-      {/* <div className={styles.ComplaintButtons}>
+      <div className={styles.ComplaintButtons}>
         <div className={styles.TapToComment}>
           <button onClick={handleComments}>Tap to Comment</button>
         </div>
@@ -98,9 +98,7 @@ const IndividualComplaintStudent = () => {
             </option>
           </select>
         </div>
-      </div> */}
-
-      <Comment />
+      </div>
       <div className={styles.ForwardButton}>
         <button onClick={handleForward}>Forward</button>
       </div>
@@ -108,4 +106,4 @@ const IndividualComplaintStudent = () => {
   );
 };
 
-export default IndividualComplaintStudent;
+export default IndividualComplaint;
