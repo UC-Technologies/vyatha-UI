@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Data from "../../../../Data/ComplaintRegister.json";
 import styles from "./IndividualComplaintS.module.scss";
 
-const IndividualComplaint = () => {
+const IndividualComplaintStudent = () => {
   const { key } = useParams(); // Extracted the key
 
   // Finding the dataset using key
@@ -106,4 +106,4 @@ const IndividualComplaint = () => {
   );
 };
 
-export default IndividualComplaint;
+export default IndividualComplaintStudent;
