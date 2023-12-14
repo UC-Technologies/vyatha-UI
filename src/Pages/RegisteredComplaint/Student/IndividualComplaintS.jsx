@@ -37,12 +37,14 @@ const IndividualComplaint = () => {
           <img src={complaint.IDCard} alt="ID Card"></img>
         </div>
       </div>
-      <div className={styles.ComplaintImg}>
-        <img src={complaint.ComplaintImg} alt="ComplaintImg"></img>
-      </div>
-      <div className={styles.Progress}>
-        {/* This section to be created the Rishab */}
-        Progress details assigned to Rishab
+      <div className={styles.ComplaintProgress}>
+        <div className={styles.ComplaintImg}>
+          <img src={complaint.ComplaintImg} alt="ComplaintImg"></img>
+        </div>
+        <div className={styles.Progress}>
+          {/* This section to be created the Rishab */}
+          Progress details assigned to Rishab
+        </div>
       </div>
       <div className={styles.Comments}>
         <div className={styles.CommentsHeading}>Comments</div>

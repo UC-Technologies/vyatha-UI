@@ -6,7 +6,7 @@
   background: var(--vyatha4-gradient-1);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.09);
   color: #fff;
-  font-size: 4vw;
+  font-size: clamp(12px, 4vw, 36px);
   height: 6vh;
 }
 .CForm {
@@ -38,7 +38,7 @@
       input,
       select {
         position: relative;
-        width: 90vw;
+        width: 80vw;
         height: 5vh;
         padding: 5px;
         border: 2px solid #a4e5e1;
@@ -58,7 +58,7 @@
         font-size: 16px;
       }
       textarea {
-        width: 90vw;
+        width: 80vw;
         height: 10vh;
         padding: 5px;
         border: 2px solid #a4e5e1;
@@ -103,14 +103,15 @@
 
       label {
         padding: 1vh 2vh;
-        width: 40vw;
+        width: 20vw;
+        min-width: 80px;
         text-align: center;
         background-color: #a4e5e1;
         color: black;
         border: 1px solid #a4e5e1;
         border-radius: 5px;
         cursor: pointer;
-        font-size: 2.85vw;
+        font-size: clamp(12px, 2.85vw, 18px);
       }
 
       .photoupload_inner {
@@ -118,8 +119,10 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: auto;
+        height: 15vw;
+        min-height: 200px;
         width: 60vw;
+        max-width: 600px;
         border: 2px dashed #a4e5e1;
         border-radius: 4px;
         padding: 10px;
@@ -160,13 +163,14 @@
   button {
     background-color: #a4e5e1;
     padding: 1vh 2vh;
-    width: 40vw;
+    width: 20vw;
+    min-width: 80px;
     text-align: center;
     background-color: #a4e5e1;
     color: black;
     border: 1px solid #a4e5e1;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 3vw;
+    font-size: clamp(12px, 3vw, 18px);
   }
 }
