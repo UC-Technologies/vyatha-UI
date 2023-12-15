@@ -10,13 +10,12 @@
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   height: 80vh;
   width: 70vw;
-}
-
-form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 }
 
 .form {
@@ -34,7 +33,7 @@ form {
   top: 23%;
   left: 0;
   translate: 0.688rem;
-  transition: 0.3s;
+  transition: 0.35s;
   cursor: text;
   color: #a9a9ac;
 }
