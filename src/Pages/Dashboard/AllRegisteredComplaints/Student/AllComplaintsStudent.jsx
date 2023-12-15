@@ -68,10 +68,10 @@ const ComplaintDashboardS = () => {
         <div className={styles.ComplaintCardInner}>
           {jsonData.map((complaint) => (
             // <ComplaintCardS key={item.key} complaint={item} />
-            <div className={styles.CardContainer}>
+            <div className={styles.CardContainer} key={complaint.key}>
               <div className={styles.Heading}>
                 <div>
-                  <Link to={complaint.key}>
+                  <Link to={`/complaint/${complaint.key}`}>
                     <h2>{complaint.title}</h2>
                   </Link>
                 </div>
