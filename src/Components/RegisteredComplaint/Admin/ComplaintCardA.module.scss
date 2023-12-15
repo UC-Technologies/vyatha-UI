@@ -90,3 +90,64 @@
 .comment_box {
   float: left;
 }
+
+@media screen and (max-width: 660px){
+  .cardmap{
+    width: 23rem;
+    height: 22rem;
+    .inner_map{
+      font-size: 0.8rem;
+      width: 6rem;
+
+    
+    }
+    .complain_con_img{
+      img{
+        width: 6rem;
+        height: 5rem;
+      }
+     }
+     .complain_title{
+      font-size: 1rem;
+      text-align: center;
+      font-weight: 600;
+     }
+     .content_entity{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      
+     }
+     .complain_content{
+      font-size: 0.8rem;
+      width: 18rem;
+     }
+     .vect_card{
+      text-align: center;
+      img{
+        width: 5rem;
+        height: 1.5rem;
+      }
+     }
+     .vect_card_text{
+      font-size: 0.6rem;
+      padding: 0.5rem 0.31rem 0.625rem 1.4rem;
+     }
+    .vector1{
+      display: flex;
+      position: relative;
+      bottom: -70px;
+      left: -37px;
+    }
+    .comment_box{
+      img{
+        width: 1.5rem;
+        height: 1.5rem;
+        position: relative;
+        bottom: -72px;
+        left: -23px;
+      }
+    }
+  }
+}
+
