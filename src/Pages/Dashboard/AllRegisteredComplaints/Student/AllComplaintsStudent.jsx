@@ -5,7 +5,7 @@ import Data from "../../../../Data/ComplaintRegister.json";
 // import ComplaintCardS from '../../../Components/RegisteredComplaint/Student/ComplaintCardS';
 import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
-const AllComplaintsStudent = () => {
+const AllComplaintStudent = () => {
   const [jsonData, setJsonData] = useState(Data);
   const [sortBy, setSortBy] = useState("date");
   const [searchInput, setSearchInput] = useState("");
@@ -99,4 +99,4 @@ const AllComplaintsStudent = () => {
   );
 };
 
-export default AllComplaintsStudent;
+export default AllComplaintStudent;
