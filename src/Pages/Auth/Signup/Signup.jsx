@@ -5,8 +5,8 @@ const SignUp = () => {
     e.preventDefault();
   };
   return (
-    <>
-      <h1>Sign Up</h1>
+    <div className={styles.maindiv}>
+      <h1>Enter your Details</h1>
       <form action="">
         <div className={styles.form}>
           <input type="text" placeholder=" " className={styles.nameinput} id="name" />
@@ -47,7 +47,7 @@ const SignUp = () => {
           Submit
         </button>
       </form>
-    </>
+    </div>
   );
 };
 
