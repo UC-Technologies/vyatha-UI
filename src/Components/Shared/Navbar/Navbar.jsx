@@ -79,7 +79,7 @@ const Navbar = () => {
       <div className={styles.desktop_navbar}>
         <Link to="/">Home</Link>
         <Link to="/about">About Us</Link>
-        <Link to="/profile">
+        <Link to="/auth">
           <img
             className={styles.profile}
             src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702566250/user_1_hntf9t.jpg?_s=public-apps"

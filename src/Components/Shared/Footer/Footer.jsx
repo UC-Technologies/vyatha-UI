@@ -1,4 +1,5 @@
 // import React from 'react'
+import { Link } from "react-router-dom";
 import styles from "./Footer.module.scss";
 
 const Footer = () => {
@@ -15,11 +16,13 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.upper}>
-        <img
-          src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694542881/Frame_58099_igiaij.jpg?_s=public-apps"
-          className={styles.logo}
-          alt=""
-        />
+        <Link to="/">
+          <img
+            src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694542881/Frame_58099_igiaij.jpg?_s=public-apps"
+            className={styles.logo}
+            alt=""
+          />
+        </Link>
         <div className={styles.text}>
           <p>
             <span>Vyatha</span> Express, Resolve, Relax:
