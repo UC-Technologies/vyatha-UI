@@ -10,7 +10,7 @@ const EditProfile = () => {
   };
 
   const handleSignOut = () => {
-    navigate("/auth/student");
+    navigate("/auth");
   };
 
   // const profilePic = document.getElementById("profile-pic");

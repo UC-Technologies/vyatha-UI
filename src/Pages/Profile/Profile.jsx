@@ -23,28 +23,38 @@ const Profile = () => {
             <div className={styles.Profileheading}>
               <p>My Profile</p>
             </div>
-            <div className={styles.profile_image}>
-              <img
-                src="https://imgv3.fotor.com/images/gallery/Cartoon-Male-Headshot.jpg"
-                alt="profileimage"
-              />
-            </div>
-            <div className={styles.details_section}>
-              <div className={styles.details_about}>
-                <div className={styles.right_section}>Name</div>
-                <div className={styles.right_section}>Scholar ID</div>
-                <div className={styles.right_section}>Email</div>
-                <div className={styles.right_section}>Hostel</div>
-                <div className={styles.right_section}>Room No.</div>
-                <div className={styles.right_section}>Phone</div>
+            <div className={styles.Profile_details}>
+              <div className={styles.profile_image}>
+                <div className={styles.image}>
+                  <img
+                    src="https://imgv3.fotor.com/images/gallery/Cartoon-Male-Headshot.jpg"
+                    alt="profileimage"
+                  />
+                </div>
+                <div className={styles.profile}>
+                  <p>Student Profile</p>
+                </div>
               </div>
-              <div className={styles.details_info}>
-                <div className={styles.left_section}>Jassi Laskar</div>
-                <div className={styles.left_section}>2211086</div>
-                <div className={styles.left_section}>jassilaskar27@gmail.com</div>
-                <div className={styles.left_section}>GH1</div>
-                <div className={styles.left_section}>320</div>
-                <div className={styles.left_section}>600********</div>
+              <div className={styles.Student_details}>
+                <div className={styles.heading}>Profile Details</div>
+                <div className={styles.details_section}>
+                  <div className={styles.details_about}>
+                    <div className={styles.right_section}>Name</div>
+                    <div className={styles.right_section}>Scholar ID</div>
+                    <div className={styles.right_section}>Email</div>
+                    <div className={styles.right_section}>Hostel</div>
+                    <div className={styles.right_section}>Room No.</div>
+                    <div className={styles.right_section}>Phone</div>
+                  </div>
+                  <div className={styles.details_info}>
+                    <div className={styles.left_section}>Jassi Laskar</div>
+                    <div className={styles.left_section}>2211086</div>
+                    <div className={styles.left_section}>jassilaskar27@gmail.com</div>
+                    <div className={styles.left_section}>GH1</div>
+                    <div className={styles.left_section}>320</div>
+                    <div className={styles.left_section}>600********</div>
+                  </div>
+                </div>
               </div>
             </div>
             <div className={styles.button_section}>
@@ -79,24 +89,34 @@ const Profile = () => {
             <div className={styles.Profileheading}>
               <p>My Profile</p>
             </div>
-            <div className={styles.profile_image}>
-              <img
-                src="https://imgv3.fotor.com/images/gallery/Cartoon-Male-Headshot.jpg"
-                alt="profileimage"
-              />
-            </div>
-            <div className={styles.details_section}>
-              <div className={styles.details_about}>
-                <div className={styles.right_section}>Name</div>
-                <div className={styles.right_section}>Designation</div>
-                <div className={styles.right_section}>Email</div>
-                <div className={styles.right_section}>Phone</div>
+            <div className={styles.Profile_details}>
+              <div className={styles.profile_image}>
+                <div className={styles.image}>
+                  <img
+                    src="https://imgv3.fotor.com/images/gallery/Cartoon-Male-Headshot.jpg"
+                    alt="profileimage"
+                  />
+                </div>
+                <div className={styles.profile}>
+                  <p>Admin Profile</p>
+                </div>
               </div>
-              <div className={styles.details_info}>
-                <div className={styles.left_section}>Jassi Laskar</div>
-                <div className={styles.left_section}>.........</div>
-                <div className={styles.left_section}>jassilaskar27@gmail.com</div>
-                <div className={styles.left_section}>600********</div>
+              <div className={styles.Student_details}>
+                <div className={styles.heading}>Profile Details</div>
+                <div className={styles.details_section}>
+                  <div className={styles.details_about}>
+                    <div className={styles.right_section}>Name</div>
+                    <div className={styles.right_section}>Designation</div>
+                    <div className={styles.right_section}>Email</div>
+                    <div className={styles.right_section}>Phone</div>
+                  </div>
+                  <div className={styles.details_info}>
+                    <div className={styles.left_section}>Jassi Laskar</div>
+                    <div className={styles.left_section}>.........</div>
+                    <div className={styles.left_section}>jassilaskar27@gmail.com</div>
+                    <div className={styles.left_section}>600********</div>
+                  </div>
+                </div>
               </div>
             </div>
             <div className={styles.button_section}>

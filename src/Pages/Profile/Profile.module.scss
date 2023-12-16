@@ -27,51 +27,65 @@
       }
     }
 
-    .profile_image {
-      height: 20vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
+    .Profile_details {
+      .profile_image {
+        height: 20vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
 
-      img {
-        width: 5rem;
-        height: 5rem;
-        flex-shrink: 0;
-        border-radius: 50%;
-      }
-    }
+        img {
+          width: 5rem;
+          height: 5rem;
+          flex-shrink: 0;
+          border-radius: 50%;
+        }
 
-    .details_section {
-      height: 35vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: auto;
-
-      .details_about {
-        color: #24817b;
-        font-family: Lato;
-        font-size: 0.75rem;
-        font-style: normal;
-        font-weight: 400;
-        width: 30vw;
-        margin-left: 1.5rem;
-
-        .right_section {
-          margin: 0.6rem 0 0.6rem 0.6rem;
+        .profile {
+          display: none;
         }
       }
 
-      .details_info {
-        width: 70vw;
-        color: #6c6c6c;
-        font-family: Lato;
-        font-size: 0.75rem;
-        font-style: normal;
-        font-weight: 400;
+      .Student_details {
+        width: 100vw;
+        height: 35vh;
 
-        .left_section {
-          margin: 0.6rem;
+        .heading {
+          display: none;
+        }
+
+        .details_section {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: auto;
+
+          .details_about {
+            color: #24817b;
+            font-family: Lato;
+            font-size: 0.75rem;
+            font-style: normal;
+            font-weight: 400;
+            width: 30vw;
+            margin-left: 1.5rem;
+
+            .right_section {
+              margin: 0.6rem 0 0.6rem 0.6rem;
+            }
+          }
+
+          .details_info {
+            width: 70vw;
+            color: #6c6c6c;
+            font-family: Lato;
+            font-size: 0.75rem;
+            font-style: normal;
+            font-weight: 400;
+
+            .left_section {
+              margin: 0.6rem;
+            }
+          }
         }
       }
     }
@@ -166,6 +180,112 @@
 
     .button_section {
       height: 50vh;
+    }
+  }
+}
+
+@media screen and (min-width: 760px) {
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #a4e5e1;
+
+    .main {
+      background-color: white;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .Profileheading {
+        width: 100vw;
+        background-image: linear-gradient(to left, #40bdb6, #347ec5);
+        height: 6vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        p {
+          color: #fff;
+          font-size: 1rem;
+          font-style: normal;
+        }
+
+        .profile {
+          font-size: 2rem;
+          display: inline;
+        }
+      }
+
+      .Profile_details {
+        margin-top: 4rem;
+        display: flex;
+        height: 40vh;
+        align-items: center;
+        width: 70vw;
+
+        .profile_image {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 30%;
+          height: 50vh;
+          display: flex;
+
+          .image {
+            display: flex;
+            justify-content: center;
+            width: 8rem;
+            height: 8rem;
+            flex-shrink: 0;
+            border-radius: 50%;
+
+            img {
+              width: 7rem;
+              height: 7rem;
+            }
+          }
+
+          .profile {
+            display: inline;
+          }
+        }
+
+        .Student_details {
+          width: 70%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          .heading {
+            font-size: 1.5rem;
+            display: inline-block;
+          }
+
+          .details_section {
+            .details_about {
+              font-size: 1rem;
+            }
+            .details_info {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+
+      .button_section {
+        height: 10vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 }
