@@ -11,6 +11,22 @@
     min-width: 16.5rem;
     width: 41.5rem;
 
+    .Profileheading {
+      width: 100%;
+      background-image: linear-gradient(to left, #40bdb6, #347ec5);
+      height: 6vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      p {
+        color: #fff;
+        font-size: 1rem;
+        font-style: normal;
+        line-height: 130%;
+      }
+    }
+
     .profile_image {
       height: 20vh;
       display: flex;

@@ -19,6 +19,9 @@ const Auth = () => {
     <div className={styles.container_div}>
       <div className={styles.main_div}>
         <div className={styles.upper_div}>
+          <div className={styles.div_3}>
+            <p>Vyatha</p>
+          </div>
           <div className={styles.logo_div}>
             <Lottie animationData={animationData} loop={false} />
           </div>
@@ -27,6 +30,8 @@ const Auth = () => {
         <div className={styles.middle_div}></div>
         <div className={styles.lower_div}>
           <div className={styles.div_1}>
+            <div className={styles.div_4}>Welcome!</div>
+            <div className={styles.div_5}>Login to your account</div>
             <button
               type="button"
               aria-label="Student"
@@ -34,7 +39,7 @@ const Auth = () => {
               onClick={handleStudent}
             >
               <img
-                src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694618443/Property_1_Default_3_1_p791jw.jpg?_s=public-apps"
+                src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702708285/Group_40593_jerkgd.jpg?_s=public-apps"
                 alt=""
               />
             </button>
@@ -46,7 +51,7 @@ const Auth = () => {
               onClick={handleAdmin}
             >
               <img
-                src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694618443/Property_1_Default_1_w8h3pa.jpg?_s=public-apps"
+                src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702708285/Group_40594_vk3pvt.jpg?_s=public-apps"
                 alt=""
               />
             </button>
