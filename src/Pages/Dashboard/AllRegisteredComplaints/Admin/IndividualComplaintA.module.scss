@@ -117,3 +117,60 @@ li {
     font-weight: var(--button-text-font-weight);
   }
 }
+
+@media screen and (max-width: 660px) {
+  .title_page {
+    max-width: 26.9rem;
+    margin: 0 auto;
+  }
+  .title_content {
+    font-size: 1rem;
+  }
+  .field_set {
+    width: 23rem;
+
+    legend {
+      width: 3.3rem;
+      div {
+        font-size: 1rem;
+        width: 3.3rem;
+      }
+    }
+
+    ul li {
+      padding: 0.7rem;
+      font-size: 0.8rem;
+    }
+
+    .card_photo_content {
+      font-size: 0.8rem;
+      margin: -11px 0 0 -44px;
+    }
+    .card_photo {
+      width: 8.4rem;
+    }
+  }
+  .comment_section {
+    width: 23rem;
+    span {
+      font-size: 0.8rem;
+    }
+  }
+  .photo_uploaded {
+    margin-left: 0;
+
+    span {
+      font-size: 0.8rem;
+      margin-left: 4rem;
+    }
+    img {
+      width: 15rem;
+      margin-left: 4rem;
+    }
+  }
+  .comment_form {
+    input {
+      width: 23rem;
+    }
+  }
+}
