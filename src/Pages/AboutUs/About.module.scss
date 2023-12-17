@@ -49,6 +49,7 @@
     .accordion_hide {
       display: flex;
       flex-direction: column;
+      background-color: #fff;
       border: 0.0625rem solid #d9d9d9;
       border-radius: 0.5rem;
 
@@ -137,6 +138,95 @@
     .accordion {
       margin-left: 1.2rem;
       margin-right: 1.4rem;
+    }
+  }
+}
+@media screen and (min-width:660px){
+  .container{
+    width:100%;
+    // gap:2rem;
+    .heading{
+      width: 100%;
+      font-size: 1.8rem;
+    }
+    .div1{
+      display:flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      margin-top: 4rem;
+      // flex-wrap: wrap;
+      .img1{
+        // display: block;
+        width:50vw;
+        height:20rem;
+
+      //  margin-top: 5rem;
+       
+      }
+      .about_content{
+        width:50vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // margin-top: 4rem;
+        color: #000;
+        font-family: Lato;
+        font-style: normal;
+        font-weight: 400;
+        // min-width: 30vw;
+        // line-height: 32px; /* 133.333% */
+        // letter-spacing: 1.5px;
+        p{
+          margin-right:10vw;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 2vw 0;
+          font-size:clamp(0.5rem,1.2rem,2rem);
+          text-align: start;
+        }
+        
+
+      }
+      
+    }
+    .div2{
+      padding:4vw 2vw;
+      display: flex;
+      flex-direction: row-reverse;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      // margin-top:6rem;
+      .img2{
+        width:30vw;
+        height: 20rem;
+        // padding-top:1rem;
+      }
+      .accordion{
+        display: flex;
+        // align-items: center;
+        // justify-content: center;
+        width:50vw;
+        min-width: 100px;
+        margin-left:-5vw;
+        // padding-top:5rem;
+        padding-left:10rem;
+        .accordion_hide{
+          font-size: clamp(0.5rem,1.2rem,2rem);
+          min-width: 40vw;
+          // max-height: 10vh;
+          .content{
+            font-size: 1.2rem;
+          }
+          .content_show{
+            font-size: 1.2rem;
+            line-height: 33px;
+          }
+        }
+      }
+      
     }
   }
 }
