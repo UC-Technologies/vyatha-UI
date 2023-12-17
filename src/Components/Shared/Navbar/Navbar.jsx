@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-unresolved
 // import Vite from './public/vite.svg'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.scss";
 
@@ -38,12 +38,19 @@ const Navbar = () => {
     },
   ];
   const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => {
-    setIsOpen((prev) => !prev);
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "visible";
+  }, [isOpen]);
+  const open = () => {
+    setIsOpen(true);
+  };
+  const close = () => {
+    setIsOpen(false);
   };
   return (
     <nav className={styles.nav}>
-      <Link to="/" className={styles.header}>
+      <Link to="/" className={styles.header} onClick={close}>
         <img
           src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694542881/Frame_58099_igiaij.jpg?_s=public-apps"
           className={styles.logo}
@@ -51,31 +58,28 @@ const Navbar = () => {
         />
         <h1 className={styles.text}>Vyatha</h1>
       </Link>
-      {isOpen ? (
-        <div className={styles.navbar} id="navbar">
-          <div className={styles.top} onClick={toggle}>
-            <img
-              src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702626719/Frame_58062_iqs4xf.jpg?_s=public-apps"
-              className={styles.close_button}
-              alt=""
-            />
-          </div>
-          {links.map((link) => (
-            <Link key={link.id} to={link.to} onClick={toggle}>
-              <img src={link.icon} alt="" />
-              {link.title}
-            </Link>
-          ))}
-        </div>
-      ) : (
-        <div onClick={toggle}>
+      <div onClick={open} className={`${isOpen ? styles.close : styles.open}`}>
+        <img
+          src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811896/UC%20VYATHA/Frame_58053_bdvele.jpg?_s=public-apps"
+          className={`${styles.open_button} ${isOpen && styles.rotate}`}
+          alt=""
+        />
+      </div>
+      <div className={`${styles.navbar} ${isOpen ? styles.open : styles.close}`}>
+        <div className={styles.top} onClick={close}>
           <img
-            src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811896/UC%20VYATHA/Frame_58053_bdvele.jpg?_s=public-apps"
-            className={styles.open_button}
+            src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702626719/Frame_58062_iqs4xf.jpg?_s=public-apps"
+            className={`${styles.close_button} ${!isOpen && styles.rotate}`}
             alt=""
           />
         </div>
-      )}
+        {links.map((link) => (
+          <Link key={link.id} to={link.to} onClick={close}>
+            <img src={link.icon} alt="" />
+            {link.title}
+          </Link>
+        ))}
+      </div>
       <div className={styles.desktop_navbar}>
         <Link to="/">Home</Link>
         <Link to="/about">About Us</Link>
