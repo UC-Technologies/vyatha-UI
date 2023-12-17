@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Profile.module.scss";
 
 const Profile = () => {
+  useEffect(() => {
+    document.title = "Profile | Vyatha";
+  }, []);
   const navigate = useNavigate();
 
   const handleProfileEdit = () => {

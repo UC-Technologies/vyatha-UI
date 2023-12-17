@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Captcha from "../../../Components/Shared/CaptchaComponent/Captcha";
 import styles from "./Login.module.scss";
 
 const Login = () => {
+  useEffect(() => {
+    document.title = "Login | Vyatha";
+  }, []);
+
   const verifyCaptcha = () => {};
   return (
     <div className={styles.container}>

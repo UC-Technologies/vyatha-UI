@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./About.module.scss";
 import About1 from "../../Assets/About/About1.svg";
 import About2 from "../../Assets/About/About2.svg";
 import dropArrow from "../../Assets/About/dropArrow.svg";
 const About = () => {
+  useEffect(() => {
+    document.title = "About Us | Vyatha";
+  }, []);
+
   const [select, setSelect] = useState(null);
   const data = [
     {
@@ -49,12 +53,12 @@ const About = () => {
             we!That&apos;s why, we&apos;ve created an intuitive platform that empowers you
             to voice your grievances effortlessly. Not only that, but we also hold
             authorities accountable with our transparent, step-by-step tracking system.
-            Vyatha is the future of hostel living, and we&apos;re just getting started. Join
-            us, and let&apos;s revolutionize your hostel experience together!
+            Vyatha is the future of hostel living, and we&apos;re just getting started.
+            Join us, and let&apos;s revolutionize your hostel experience together!
           </p>
         </div>
       </div>
-      
+
       <div className={styles.div2}>
         <img src={About2} className={styles.img2} alt="" />
         <div className={styles.accordion}>

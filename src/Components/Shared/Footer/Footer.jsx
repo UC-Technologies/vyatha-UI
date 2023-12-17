@@ -6,7 +6,7 @@ const Footer = () => {
   const contact = {
     mailid: "uclimited234@gmail.com",
     tel: "+91 7165471781",
-    address: "NIT Silchar, Srijan E-Cell, 788010",
+    address: "Startup Centre, NIT Silchar",
   };
   const social = {
     facebook: "https://www.facebook.com/",
@@ -55,7 +55,13 @@ const Footer = () => {
             className={styles.contact_icon}
             alt=""
           />
-          <a href={`http://maps.google.com/?q=${contact.address}`}>{contact.address}</a>
+          <a
+            href={`http://maps.google.com/?q=${contact.address}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {contact.address}
+          </a>
         </div>
       </div>
       <div className={styles.social_bar}>
