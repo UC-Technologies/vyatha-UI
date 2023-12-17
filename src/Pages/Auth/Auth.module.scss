@@ -166,27 +166,32 @@ $base-font-size: 16px;
     align-items: center;
     justify-content: center;
     height: 40rem;
+    // box-shadow: 60px 110px 110px 60px grey;
 
     .main_div {
       height: 33rem;
-      width: 70vw;
+      // width: 70vw;
       display: flex;
       align-items: center;
       justify-content: center;
       min-width: 47.5rem;
       background-color: #4cddd5;
       width: 59rem;
+      border-radius: 4rem;
+      box-shadow: 60px 110px 110px 60px rgb(162, 156, 156);
 
       .middle_div {
         height: 33rem;
-        width: 10vw;
+        width: 10rem;
+        border-radius: 3rem;
         background-color: white;
         border-radius: 50% 0% 0% 50%;
       }
 
       .upper_div {
+        border-radius: 3rem;
         height: 33rem;
-        width: 30vw;
+        width: 25rem;
         background-color: #4cddd5;
         display: flex;
         flex-direction: column;
@@ -200,13 +205,14 @@ $base-font-size: 16px;
       }
 
       .lower_div {
+        border-radius: 0 3rem 3rem 0;
         height: 33rem;
         padding: 3.5rem;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        width: 37vw;
+        width: 24rem;
         background-color: white;
         // gap: 1rem;
 
@@ -237,9 +243,14 @@ $base-font-size: 16px;
             border: none;
             margin: 0.7rem;
 
-            img {
-              width: 10rem;
-              height: 3.2rem;
+            div {
+              background-color: #4cddd5;
+              width: 8rem;
+              height: 3rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-radius: 1rem;
             }
           }
 

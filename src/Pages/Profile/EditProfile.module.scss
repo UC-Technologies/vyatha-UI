@@ -149,3 +149,15 @@
     }
   }
 }
+
+@media screen and (min-width: 760px) {
+  .container {
+    width: 100vw;
+    height: 80vh;
+
+    .main {
+      width: 100vw;
+      background-color: #fff;
+    }
+  }
+}

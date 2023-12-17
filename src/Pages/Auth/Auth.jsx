@@ -38,10 +38,9 @@ const Auth = () => {
               className={styles.student_div}
               onClick={handleStudent}
             >
-              <img
-                src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702708285/Group_40593_jerkgd.jpg?_s=public-apps"
-                alt=""
-              />
+              <div>
+                <div>Log in</div>
+              </div>
             </button>
 
             <button
@@ -50,10 +49,9 @@ const Auth = () => {
               className={styles.admin_div}
               onClick={handleAdmin}
             >
-              <img
-                src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702708285/Group_40594_vk3pvt.jpg?_s=public-apps"
-                alt=""
-              />
+              <div>
+                <div>Sign up</div>
+              </div>
             </button>
           </div>
           <div className={styles.div_2}>
