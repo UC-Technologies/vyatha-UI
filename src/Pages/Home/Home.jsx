@@ -7,6 +7,7 @@ const Home = () => {
   const { isLoggedIn } = useContext(UserContext);
 
   useEffect(() => {
+    document.title = "Home | Vyatha";
     if (isLoggedIn === true) {
       navigate("/dashboard");
     }
