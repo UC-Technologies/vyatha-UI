@@ -29,21 +29,21 @@
   gap: 3rem;
 }
 
-@media screen and (max-width: 660px){
-  .cardAdmin{
+@media screen and (max-width: 660px) {
+  .cardAdmin {
     max-width: 23rem;
 
-    .search_bar{
+    .search_bar {
       width: 23rem;
 
-      input{
+      input {
         font-size: 0.5rem;
         max-width: 200px;
-  width: 80%;
-  min-width: 50px;
+        width: 80%;
+        min-width: 50px;
       }
 
-      img{
+      img {
         width: 25px;
       }
     }
