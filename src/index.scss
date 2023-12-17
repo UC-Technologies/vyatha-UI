@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+:root {
+  // Font family
+  --vyatha-font-1: "Poppins", sans-serif;
+  --vyatha-font-2: "Montserrat", sans-serif;
+  --vyatha-font-3: "Inter", sans-serif;
+
+  --vyatha-main-theme: ;
+
+  // Font colors
+  --vyatha-white-1: #ffffff;
+  --vyatha-gray-1: rgba(255, 255, 255, 0.5);
+  --vyatha-gray-2: rgba(255, 255, 255, 0.72);
+  --vyatha4-white: #fff;
+
+  --vyatha-main-color-dark: #40bdb6;
+  --vyatha-main-color-light: #a4e5e1;
+
+  --vyatha4-shadow-1: 0px 0px 8px 0px rgba(0, 0, 0, 0.4);
+  --vyatha4-shadow-2: 0px 0px 8px 0px rgba(0, 0, 0, 0.4);
+  --vyatha4-shadow-3: ;
+
+  --vyatha-background-1: #d7faf4;
+
+  --vyatha4-gradient-1: linear-gradient(270deg, #40bdb6 2.67%, #347ec5 119.87%);
+  --vyatha4-gradient-2: linear-gradient();
+
+  --heading-1-text-weight: 600;
+  --heading-2-text-weight: 500;
+  --heading-3-text-weight: 700;
+
+  --heading-1-font-size-pc: ;
+  --heading-2-font-size-tablet: ;
+  --heading-3-font-size-mobile: ;
+
+  --paragraph-1-text-weight: 400;
+  --paragraph-2-text-weight: 300;
+
+  // Navbar
+  --vyatha4-navbar-height-pc: ;
+  --vyatha4-navbar-height-tablet: ;
+  --vyatha4-navbar-height-mobile: ;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--vyatha-font-1);
+}

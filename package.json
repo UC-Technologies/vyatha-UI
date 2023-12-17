@@ -1,0 +1,59 @@
+{
+  "name": "vyatha-ui",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --open",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .jsx --ext .js --fix",
+    "pretty": "prettier --write .",
+    "precommit": "lint-staged",
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "simple-git-hooks"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.0.4",
+    "axios": "^1.6.2",
+    "js-cookie": "^3.0.5",
+    "lottie-react": "^2.4.0",
+    "pnpm": "^8.12.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.16.0",
+    "react-toastify": "^9.1.3",
+    "react-top-loading-bar": "^2.3.1",
+    "vite": "^4.4.9"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.22",
+    "@types/react-dom": "^18.2.7",
+    "eslint": "^8.49.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-check-file": "^2.6.2",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.0.3",
+    "sass": "^1.67.0",
+    "simple-git-hooks": "^2.9.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm precommit"
+  },
+  "lint-staged": {
+    "*.(jsx|js)": [
+      "pnpm lint",
+      "pnpm pretty"
+    ],
+    "*.scss": [
+      "pnpm pretty"
+    ]
+  }
+}

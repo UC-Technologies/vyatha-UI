@@ -1,0 +1,176 @@
+.maindiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  border-radius: 2.5rem;
+  box-shadow:
+    rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  height: 80vh;
+  width: 70vw;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.form label {
+  position: absolute;
+  font-family: var(--vyatha-font-1);
+  font-size: 0.75rem;
+  top: 23%;
+  left: 0;
+  translate: 0.688rem;
+  transition: 0.3s;
+  cursor: text;
+  color: #a9a9ac;
+}
+
+.form input {
+  height: 2rem;
+  width: 20rem;
+  border-radius: 0.25rem;
+  border: 0.1rem solid;
+  font-size: 14px;
+  padding: 0.625rem;
+}
+
+.nameinput:focus ~ label,
+.nameinput:not(:placeholder-shown).nameinput:not(:focus) ~ label {
+  top: -25%;
+  background-color: white;
+  color: black;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input:focus {
+  border: 0.125rem solid var(--vyatha-main-color-dark);
+  outline: none;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+h1 {
+  text-align: center;
+  color: #636b78;
+  font-family: var(--vyatha-font-1);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+button {
+  height: 2.5rem;
+  width: 10rem;
+  border-radius: 0.5rem;
+  background-color: var(--vyatha-main-color-light);
+  font-size: 1rem;
+  border: none;
+  font-weight: 400;
+  margin-top: 1.25rem;
+}
+
+button:hover {
+  background-color: var(--vyatha-main-color-dark);
+}
+
+//Mobile View
+@media only screen and (max-width: 660px) {
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+  }
+
+  .form label {
+    position: absolute;
+    font-family: var(--vyatha-font-1);
+    font-size: 0.875rem;
+    top: 27%;
+    left: 0;
+    translate: 0.688rem;
+    transition: 0.3s;
+    cursor: text;
+    color: #a9a9ac;
+  }
+
+  .form input {
+    height: 2.5rem;
+    width: 80vw;
+    border-radius: 0.25rem;
+    border: 0.1rem solid;
+    font-size: 14px;
+    padding: 0.625rem;
+  }
+
+  .nameinput:focus ~ label,
+  .nameinput:not(:placeholder-shown).nameinput:not(:focus) ~ label {
+    top: -25%;
+    background-color: white;
+    color: black;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input:focus {
+    border: 0.125rem solid var(--vyatha-main-color-dark);
+    outline: none;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  h1 {
+    text-align: center;
+    color: #636b78;
+    font-family: var(--vyatha-font-1);
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  button {
+    height: 2.5rem;
+    width: 10rem;
+    border-radius: 0.5rem;
+    background-color: var(--vyatha-main-color-light);
+    font-size: 1rem;
+    border: none;
+    font-weight: 400;
+    margin-top: 1.25rem;
+  }
+
+  button:hover {
+    background-color: var(--vyatha-main-color-dark);
+  }
+}
