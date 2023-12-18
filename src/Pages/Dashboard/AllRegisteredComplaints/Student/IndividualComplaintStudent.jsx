@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import Data from "../../../../Data/ComplaintRegister.json";
 import styles from "./IndividualComplaintS.module.scss";
 
@@ -24,7 +25,10 @@ const IndividualComplaintStudent = () => {
 
   return (
     <div className={styles.Container}>
-      <div className={styles.Title}>Title of Complaint</div>
+      <Helmet>
+        <title>{`${complaint.title} | Vyatha`}</title>
+      </Helmet>
+      <div className={styles.Title}>{complaint.title}</div>
       <div className={styles.Identity}>
         <div className={styles.Info}>
           <div className={styles.FilledBy}>Filled by</div>
