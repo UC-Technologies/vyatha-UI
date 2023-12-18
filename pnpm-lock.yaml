@@ -38,6 +38,9 @@ dependencies:
   vite:
     specifier: ^4.4.9
     version: 4.4.9(sass@1.67.0)
+  vyatha-ui:
+    specifier: 'link:'
+    version: 'link:'
 
 devDependencies:
   '@types/react':
