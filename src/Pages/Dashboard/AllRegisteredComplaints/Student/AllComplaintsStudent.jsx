@@ -6,6 +6,10 @@ import Data from "../../../../Data/ComplaintRegister.json";
 import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
 const AllComplaintStudent = () => {
+  useEffect(() => {
+    document.title = "All Complaints | Vyatha";
+  }, []);
+
   const [jsonData, setJsonData] = useState(Data);
   const [sortBy, setSortBy] = useState("date");
   const [searchInput, setSearchInput] = useState("");

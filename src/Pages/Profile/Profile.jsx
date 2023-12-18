@@ -4,6 +4,9 @@ import { UserContext } from "../../Context/Provider";
 import styles from "./Profile.module.scss";
 
 const Profile = () => {
+  useEffect(() => {
+    document.title = "Profile | Vyatha";
+  }, []);
   const navigate = useNavigate();
 
   const handleProfileEdit = () => {

@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import styles from "./ComplaintForm.module.scss";
 
 const ComplaintForm = () => {
+  useEffect(() => {
+    document.title = "Complaint Form | Vyatha";
+  }, []);
   const [formData, setFormData] = useState({
     username: "",
     ScholarID: "",
