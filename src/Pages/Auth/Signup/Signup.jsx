@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import styles from "./Signup.module.scss";
 
 const SignUp = () => {
@@ -9,6 +9,13 @@ const SignUp = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+  const [selects, setSelects] = useState("Student");
+  const ref = useRef(null);
+  (() => {
+    if (selects !== "Student") {
+      ref.current.style.display = "none";
+    }
+  })();
   return (
     <div className={styles.maindiv}>
       <h1>Enter your Details</h1>
@@ -21,7 +28,7 @@ const SignUp = () => {
           <input type="email" placeholder=" " className={styles.nameinput} id="email" />
           <label htmlFor="email">Email</label>
         </div>
-        <div className={styles.form}>
+        <div className={styles.form} ref={ref}>
           <input
             type="number"
             placeholder=" "
@@ -33,6 +40,14 @@ const SignUp = () => {
         <div className={styles.form}>
           <input type="number" placeholder=" " className={styles.nameinput} id="phone" />
           <label htmlFor="phone">Phone</label>
+        </div>
+        <div className={styles.designation}>
+          <select value={selects} onChange={(e) => setSelects(e.target.value)}>
+            <option>Student</option>
+            <option>Warden</option>
+            <option>Supervisor</option>
+            <option>Dean</option>
+          </select>
         </div>
         <div className={styles.form}>
           <input type="password" placeholder=" " className={styles.nameinput} id="pass" />

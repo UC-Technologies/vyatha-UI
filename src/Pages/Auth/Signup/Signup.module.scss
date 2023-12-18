@@ -17,6 +17,20 @@
     justify-content: center;
     flex-direction: column;
 
+    .designation select {
+      outline: 0;
+      background: none;
+      background-image: none;
+      padding-left: 0.625rem;
+      width: 20rem;
+      height: 2rem;
+      color: #a9a9ac;
+      cursor: pointer;
+      border: 0.1rem solid black;
+      border-radius: 0.25rem;
+      margin: 1rem;
+    }
+
     .form {
       position: relative;
       display: flex;
@@ -132,6 +146,11 @@ button:hover {
     border: 0.1rem solid;
     font-size: 14px;
     padding: 0.625rem;
+  }
+
+  .maindiv form .designation select {
+    width: 80vw;
+    height: 2.5rem;
   }
 
   .nameinput:focus ~ label,
