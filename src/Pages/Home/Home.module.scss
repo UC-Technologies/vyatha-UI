@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,300&display=swap");
+
+.main {
+  margin: 0%;
+  padding: 0%;
+  font-family: "Lato", sans-serif;
+}
+.main2 {
+  background: #d3f2fa;
+  font-family: "Lato", sans-serif;
+}
+.head {
+  text-align: center;
+  padding-top: 0 8px;
+  padding: 4%;
+}
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: centre;
+  background: #d3f2fa;
+}
+.card {
+  width: 18%;
+  box-sizing: border-box;
+  float: left;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: rgba($color: #050000, $alpha: 1);
+  transition: 0.4s;
+  background: #fafafa;
+  margin: 20px;
+}
+
+.imge {
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  //   object-fit: cover;
+}
+p {
+  text-align: center;
+  padding-top: 0 8px;
+}
+.par3 {
+  padding: 2rem;
+}
+.para2 {
+  margin-top: 2.5rem;
+  font-size: 1.2rem;
+}
+
+.grievance {
+  color: #347ec5;
+}
+.works {
+  color: #347ec5;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+}
+
+.button {
+  width: 247px;
+  height: 55px;
+  border: none;
+  border-radius: 10px;
+  background: #a4e5e1;
+  color: #000000;
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 3rem;
+
+  &:hover {
+    background-color: #86c9c2;
+  }
+
+  &:active {
+    background-color: #5aaea6;
+  }
+}
+.butt1 {
+  padding-bottom: 50px;
+}
+
+.container1 {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: centre;
+  justify-content: space-evenly;
+  margin-top: 10%;
+}
+
+.acc {
+  padding: 80px;
+  padding-left: 8px;
+}
+
+.card1 {
+  padding-top: 27px;
+}
+
+.head1 {
+  padding-left: 38px;
+}
+
+.imgee {
+  padding-top: 23px;
+  width: 280px;
+  height: 280px;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}
+
+@media (max-width: 320px) {
+  .head1 {
+    font-size: x-large;
+    font-weight: 600;
+  }
+  .card1 {
+    margin-left: 1rem;
+  }
+  .button {
+    width: 60%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .card {
+    width: 45%;
+  }
+  .head {
+    font-size: x-large;
+  }
+}
+@media (max-width: 750px) {
+  .card {
+    width: 100%;
+  }
+}
