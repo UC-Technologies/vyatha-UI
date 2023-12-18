@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Components/Shared/Navbar/Navbar";
+import Footer from "./Components/Shared/Footer/Footer";
 import Home from "./Pages/Home/Home";
 
 import Auth from "./Pages/Auth/Auth";
@@ -57,6 +58,7 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
+        <Footer />
       </BrowserRouter>
       <ToastContainer />
     </>
