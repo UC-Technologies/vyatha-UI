@@ -64,10 +64,9 @@ const Profile = () => {
                 className={styles.Editprofile}
                 onClick={handleProfileEdit}
               >
-                <img
-                  src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1698398076/Group_40569_kskfcv.jpg?_s=public-apps"
-                  alt=""
-                />
+                <div>
+                  <div>Edit Profile</div>
+                </div>
               </button>
               <button
                 type="button"
@@ -75,10 +74,9 @@ const Profile = () => {
                 className={styles.Signout}
                 onClick={handleSignOut}
               >
-                <img
-                  src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1698398071/Group_40570_i3jsow.jpg?_s=public-apps"
-                  alt=""
-                />
+                <div>
+                  <div>Sign out</div>
+                </div>
               </button>
             </div>
           </div>
@@ -126,10 +124,9 @@ const Profile = () => {
                 className={styles.Editprofile}
                 onClick={handleProfileEdit}
               >
-                <img
-                  src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1698398076/Group_40569_kskfcv.jpg?_s=public-apps"
-                  alt=""
-                />
+                <div>
+                  <div>Edit Profile</div>
+                </div>
               </button>
               <button
                 type="button"
@@ -137,10 +134,9 @@ const Profile = () => {
                 className={styles.Signout}
                 onClick={handleSignOut}
               >
-                <img
-                  src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1698398071/Group_40570_i3jsow.jpg?_s=public-apps"
-                  alt=""
-                />
+                <div>
+                  <div>Sign out</div>
+                </div>
               </button>
             </div>
           </div>

@@ -32,7 +32,7 @@ $base-font-size: 16px;
       }
 
       .logo_div {
-        width: 6.5rem;
+        width: 8.5rem;
       }
     }
 
@@ -70,6 +70,16 @@ $base-font-size: 16px;
           align-items: center;
           border: none;
           margin: 0.7rem;
+
+          div {
+            background-color: #4cddd5;
+            width: 8rem;
+            height: 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 1rem;
+          }
         }
 
         .student_div:hover,
@@ -161,7 +171,7 @@ $base-font-size: 16px;
 
 @media screen and (min-width: 760px) {
   .container_div {
-    background-color: #ffffff;
+    background-color: lightgrey;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -178,7 +188,7 @@ $base-font-size: 16px;
       background-color: #4cddd5;
       width: 59rem;
       border-radius: 4rem;
-      box-shadow: 60px 110px 110px 60px rgb(162, 156, 156);
+      box-shadow: 60px 110px 110px rgb(162, 156, 156);
 
       .middle_div {
         height: 33rem;
@@ -198,9 +208,18 @@ $base-font-size: 16px;
         justify-content: center;
         align-items: center;
 
+        .logo_div {
+          background-color: #4cddd5;
+          width: 11.5rem;
+        }
+
         .div_3 {
           color: black;
           display: inline;
+
+          p {
+            font-size: 1.5rem;
+          }
         }
       }
 

@@ -109,6 +109,16 @@
         margin: 0.7rem;
         background-color: white;
         border: none;
+
+        div {
+          background-color: #4cddd5;
+          width: 8rem;
+          height: 3rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 1rem;
+        }
       }
 
       .Editprofile:hover,
@@ -285,6 +295,30 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
+        button {
+          width: 3.2rem;
+          height: 2.5rem;
+          padding: 0.3rem;
+          border-radius: 0.5rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: none;
+          margin: 0.7rem;
+          background-color: white;
+          border: none;
+
+          div {
+            background-color: #4cddd5;
+            width: 8rem;
+            height: 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 1rem;
+          }
+        }
       }
     }
   }

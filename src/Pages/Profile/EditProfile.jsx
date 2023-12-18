@@ -101,10 +101,9 @@ const EditProfile = () => {
                 className={styles.Editprofile}
                 onClick={handleProfileSave}
               >
-                <img
-                  src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1699193578/Group_40573_d6xmsq.jpg?_s=public-apps"
-                  alt=""
-                />
+                <div>
+                  <div>Save Profile</div>
+                </div>
               </button>
               <button
                 type="button"
@@ -112,10 +111,9 @@ const EditProfile = () => {
                 className={styles.Signout}
                 onClick={handleSignOut}
               >
-                <img
-                  src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1698398071/Group_40570_i3jsow.jpg?_s=public-apps"
-                  alt=""
-                />
+                <div>
+                  <div>Sign out</div>
+                </div>
               </button>
             </div>
           </div>
@@ -179,10 +177,9 @@ const EditProfile = () => {
                 className={styles.Editprofile}
                 onClick={handleProfileSave}
               >
-                <img
-                  src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1699193578/Group_40573_d6xmsq.jpg?_s=public-apps"
-                  alt=""
-                />
+                <div>
+                  <div>Save Profile</div>
+                </div>
               </button>
               <button
                 type="button"
@@ -190,10 +187,9 @@ const EditProfile = () => {
                 className={styles.Signout}
                 onClick={handleSignOut}
               >
-                <img
-                  src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1698398071/Group_40570_i3jsow.jpg?_s=public-apps"
-                  alt=""
-                />
+                <div>
+                  <div>Sign out</div>
+                </div>
               </button>
             </div>
           </div>
