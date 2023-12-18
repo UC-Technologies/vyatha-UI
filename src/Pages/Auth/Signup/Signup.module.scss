@@ -8,8 +8,9 @@
   box-shadow:
     rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-  height: 80vh;
+  // height: 80vh;
   width: 70vw;
+  padding-top: 2vw;
 
   form {
     display: flex;
@@ -26,7 +27,7 @@
       height: 2rem;
       color: #a9a9ac;
       cursor: pointer;
-      border: 0.1rem solid black;
+      border: 0.1rem solid grey;
       border-radius: 0.25rem;
       margin: 1rem;
     }
@@ -57,7 +58,7 @@
   height: 2rem;
   width: 20rem;
   border-radius: 0.25rem;
-  border: 0.1rem solid;
+  border: 0.1rem solid grey;
   font-size: 14px;
   padding: 0.625rem;
 }
@@ -106,10 +107,23 @@ button:hover {
   background-color: var(--vyatha-main-color-dark);
 }
 
+#already_account_login {
+  text-align: center;
+  font-family: var(--vyatha-font-1);
+  font-size: 0.9vw;
+  color: #a9a9ac;
+  margin-top: 1vw;
+  margin-bottom: 1.5vw;
+}
+
 //Mobile View
 @media only screen and (max-width: 660px) {
   .maindiv {
     box-shadow: none;
+    padding-top: 4vw;
+    #details_heading {
+      margin-bottom: 5vw;
+    }
   }
 
   form {
@@ -143,7 +157,7 @@ button:hover {
     height: 2.5rem;
     width: 80vw;
     border-radius: 0.25rem;
-    border: 0.1rem solid;
+    border: 0.1rem solid grey;
     font-size: 14px;
     padding: 0.625rem;
   }
@@ -195,5 +209,11 @@ button:hover {
 
   button:hover {
     background-color: var(--vyatha-main-color-dark);
+  }
+
+  #already_account_login {
+    font-size: 3.5vw;
+    margin-top: 7vw;
+    margin-bottom: 4vw;
   }
 }

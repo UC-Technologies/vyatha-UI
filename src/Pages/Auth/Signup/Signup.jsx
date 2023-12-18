@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Signup.module.scss";
 
 const SignUp = () => {
@@ -11,14 +12,18 @@ const SignUp = () => {
   };
   const [selects, setSelects] = useState("Student");
   const ref = useRef(null);
-  (() => {
-    if (selects !== "Student") {
+
+  useEffect(() => {
+    if (selects === "Student") {
+      ref.current.style.display = "block";
+    } else {
       ref.current.style.display = "none";
     }
-  })();
+  }, [selects]);
+
   return (
     <div className={styles.maindiv}>
-      <h1>Enter your Details</h1>
+      <h1 id={styles.details_heading}>Enter your Details</h1>
       <form action="">
         <div className={styles.form}>
           <input type="text" placeholder=" " className={styles.nameinput} id="name" />
@@ -27,6 +32,14 @@ const SignUp = () => {
         <div className={styles.form}>
           <input type="email" placeholder=" " className={styles.nameinput} id="email" />
           <label htmlFor="email">Email</label>
+        </div>
+        <div className={styles.designation}>
+          <select value={selects} onChange={(e) => setSelects(e.target.value)}>
+            <option>Student</option>
+            <option>Warden</option>
+            <option>Supervisor</option>
+            <option>Dean</option>
+          </select>
         </div>
         <div className={styles.form} ref={ref}>
           <input
@@ -41,14 +54,7 @@ const SignUp = () => {
           <input type="number" placeholder=" " className={styles.nameinput} id="phone" />
           <label htmlFor="phone">Phone</label>
         </div>
-        <div className={styles.designation}>
-          <select value={selects} onChange={(e) => setSelects(e.target.value)}>
-            <option>Student</option>
-            <option>Warden</option>
-            <option>Supervisor</option>
-            <option>Dean</option>
-          </select>
-        </div>
+
         <div className={styles.form}>
           <input type="password" placeholder=" " className={styles.nameinput} id="pass" />
           <label htmlFor="pass">Password</label>
@@ -63,9 +69,13 @@ const SignUp = () => {
           <label htmlFor="passconf">Confirm Password</label>
         </div>
 
-        <button type="submit" onClick={handleSubmit}>
+        <button style={{ cursor: "pointer" }} type="submit" onClick={handleSubmit}>
           Submit
         </button>
+
+        <Link id={styles.already_account_login} to="/auth/login">
+          Already have an account?
+        </Link>
       </form>
     </div>
   );
