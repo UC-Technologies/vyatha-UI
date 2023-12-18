@@ -29,6 +29,14 @@ const SignUp = () => {
           <input type="number" placeholder=" " className={styles.nameinput} id="phone" />
           <label htmlFor="phone">Phone</label>
         </div>
+        <div className={styles.designation}>
+          <select name="" id="">
+            <option value="">Student</option>
+            <option value="">Warden</option>
+            <option value="">Supervisor</option>
+            <option value="">Dean</option>
+          </select>
+        </div>
         <div className={styles.form}>
           <input type="password" placeholder=" " className={styles.nameinput} id="pass" />
           <label htmlFor="pass">Password</label>
