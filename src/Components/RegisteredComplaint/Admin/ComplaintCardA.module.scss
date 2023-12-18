@@ -1,4 +1,6 @@
-
+body{
+   background-color: #D7FAF4;
+}
 .cardhome {
   max-width: 81.3rem;
   margin: 0 auto;
@@ -96,8 +98,6 @@
   .cardhome{
     width: 100%;
     margin: 0 auto;
-    position: relative;
-    left: 3px;
     overflow-x: hidden;
   }
   .cardmap {
@@ -109,8 +109,8 @@
     }
     .complain_con_img {
       img {
-        width: 6rem;
-        height: 5rem;
+        width: 8rem;
+        height: 7rem;
       }
     }
     .complain_title {
@@ -123,9 +123,17 @@
       flex-direction: row;
       justify-content: space-between;
     }
+    
+     .complain_description{
+      max-width: 18rem;
+      margin: auto;}
+    
     .complain_content {
       font-size: 0.8rem;
-      width: 18rem;
+       white-space: nowrap; 
+      width: 18rem; 
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .vect_card {
       text-align: center;
