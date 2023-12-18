@@ -21,11 +21,11 @@ const EditProfile = () => {
   //   profilePic.src = URL.createObjectURL(inputFile.files[0]);
   // };
 
-  const ProfileEdited = true;
+  const isAdmin = true;
 
   return (
     <div>
-      {ProfileEdited ? (
+      {!isAdmin ? (
         <div className={styles.container}>
           <div className={styles.main}>
             <div className={styles.Profileheading}>
