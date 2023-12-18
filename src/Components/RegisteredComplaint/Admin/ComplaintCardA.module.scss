@@ -1,3 +1,7 @@
+body{
+  background-color: #D7FAF4;
+
+}
 .cardhome {
   max-width: 81.3rem;
   margin: 0 auto;
@@ -23,7 +27,7 @@
   width: 47rem;
 }
 .cardmap {
-  background-color: #ECECEC;
+  background-color: #FFFFFF;
   height: 17.6rem;
   .content_entity {
     display: flex;
@@ -92,6 +96,13 @@
 }
 
 @media screen and (max-width: 660px) {
+  .cardhome{
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    left: 3px;
+    overflow-x: hidden;
+  }
   .cardmap {
     width: 23rem;
     height: 22rem;
