@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Records from "./Records.json";
 import styles from "./ComplaintDashboardA.module.scss";
 import ComplaintCardA from "../../../../Components/RegisteredComplaint/Admin/ComplaintCardA";
 
 const AllComplaintsAdmin = () => {
+  useEffect(() => {
+    document.title = "All Complaints | Vyatha";
+  }, []);
   return (
     <div className={styles.cardAdmin}>
       <div className={styles.search_bar}>
@@ -21,7 +24,7 @@ const AllComplaintsAdmin = () => {
           <div className={styles.all_cards} key={record.id}>
             <div className={styles.cards_content}>
               <ComplaintCardA
-                id={record.id}
+                id={record.key}
                 title={record.title}
                 date={record.date}
                 time={record.time}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import styles from "./IndividualComplaintA.module.scss";
 import Data from "./Records.json";
@@ -7,7 +8,6 @@ const IndividualComplaintAdmin = () => {
   const { key } = useParams();
 
   const Key = Number(key);
-
   const complaint = Data.find((item) => item.key === Key);
 
   if (!complaint) {
@@ -16,6 +16,9 @@ const IndividualComplaintAdmin = () => {
 
   return (
     <div className={styles.title_page}>
+      <Helmet>
+        <title>{`${complaint.title} | Vyatha`}</title>
+      </Helmet>
       <div className={styles.title_bar}>
         <div className={styles.title_content}> {complaint.title}</div>
       </div>

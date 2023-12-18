@@ -13,7 +13,7 @@ const Captcha = () => {
     generateCaptcha();
   }, []);
 
-  function generateCaptcha() {
+  const generateCaptcha = () => {
     const num1 = Math.floor(Math.random() * 10) + 1;
     const num2 = Math.floor(Math.random() * 10) + 1;
     const answer = num1 + num2;
@@ -21,7 +21,7 @@ const Captcha = () => {
     setNum2(num2);
     setAnswer(answer);
     setUserResponse("");
-  }
+  };
 
   function verifyCaptcha(e) {
     e.preventDefault();
@@ -61,22 +61,32 @@ const Captcha = () => {
 
   return (
     <div className={styles.Container}>
-      <div className={styles.heading}>
-        {Num1} + {Num2}
+      <div className={styles.sub_heading}>
+        <div className={styles.heading}>
+          {Num1} + {Num2}
+        </div>
+        <input
+          type="text"
+          placeholder="Enter your answer"
+          value={userResponse}
+          onChange={(e) => {
+            // e.preventDefault();
+            setUserResponse(e.target.value);
+          }}
+        />
       </div>
-      <input
-        type="text"
-        placeholder="Enter your answer"
-        value={userResponse}
-        onChange={(e) => {
-          // e.preventDefault();
-          setUserResponse(e.target.value);
-        }}
-      />
-      <button onClick={generateCaptcha} className={styles.refresh}>
+      <button
+        onClick={generateCaptcha}
+        style={{ cursor: "pointer" }}
+        className={styles.refresh}
+      >
         Refresh
       </button>
-      <button onClick={verifyCaptcha} className={styles.Submit}>
+      <button
+        onClick={verifyCaptcha}
+        style={{ cursor: "pointer" }}
+        className={styles.Submit}
+      >
         Submit
       </button>
       <ToastContainer />

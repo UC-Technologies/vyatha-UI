@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Lottie from "lottie-react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Auth.module.scss";
 import animationData from "../../Assets/Auth/logo.json";
 
 const Auth = () => {
+  useEffect(() => {
+    document.title = "Auth | Vyatha";
+  }, []);
+
   const navigate = useNavigate();
 
   const handleAdmin = () => {

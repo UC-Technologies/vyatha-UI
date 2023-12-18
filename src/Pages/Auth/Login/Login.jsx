@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Captcha from "../../../Components/Shared/CaptchaComponent/Captcha";
 import styles from "./Login.module.scss";
 
 const Login = () => {
+  useEffect(() => {
+    document.title = "Login | Vyatha";
+  }, []);
+
   const verifyCaptcha = () => {};
   return (
     <div className={styles.container}>
@@ -32,16 +36,18 @@ const Login = () => {
           </label>
         </div>
         {/* <Captcha/> */}
-        <p className={styles.password}>Forgot Password?</p>
         <div className={styles.captcha}>
           <Captcha />
         </div>
-        <div className={styles.button}>
+        <p id={styles.password_cont} className={styles.password}>
+          Forgot Password?
+        </p>
+        <div id={styles.password_cont} className={styles.button}>
           <button type="submit" onClick={verifyCaptcha} className={styles.btn}>
             Login
           </button>
         </div>
-        <Link to="/auth/signup">
+        <Link id={styles.password_cont} to="/auth/signup">
           <p className={styles.signup}>Don&apos;t have an account?Sign up</p>
         </Link>
       </form>

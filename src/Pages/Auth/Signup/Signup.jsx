@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import styles from "./Signup.module.scss";
 
 const SignUp = () => {
+  useEffect(() => {
+    document.title = "Signup | Vyatha";
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };

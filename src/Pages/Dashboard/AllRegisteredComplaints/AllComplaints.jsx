@@ -4,7 +4,7 @@ import AllComplaintsAdmin from "./Admin/AllComplaintsAdmin";
 import AllComplaintsStudent from "./Student/AllComplaintsStudent";
 
 const AllComplaints = () => {
-  const [role, setRole] = useState("client");
+  const [role, setRole] = useState("warden");
 
   const handleRoleChange = (e) => {
     e.preventDefault();
