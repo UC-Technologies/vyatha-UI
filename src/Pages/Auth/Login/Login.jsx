@@ -12,6 +12,8 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <p className={styles.login}>Log in</p>
+      <p className={styles.heading1}>Welcome!</p>
+      <p className={styles.heading2}>Login to your account</p>
       <form className={styles.form_group}>
         <div className={styles.input_group}>
           <input
@@ -35,13 +37,10 @@ const Login = () => {
             password
           </label>
         </div>
-        {/* <Captcha/> */}
-        <div className={styles.captcha}>
-          <Captcha />
-        </div>
         <p id={styles.password_cont} className={styles.password}>
           Forgot Password?
         </p>
+        <Captcha />
         <div id={styles.password_cont} className={styles.button}>
           <button type="submit" onClick={verifyCaptcha} className={styles.btn}>
             Login
