@@ -18,6 +18,11 @@ const Home = () => {
     }
   }, [isLoggedIn, navigate]);
 
+  const handleGoTo = (e) => {
+    e.preventDefault();
+    navigate("/auth/signup");
+  };
+
   return (
     <div className={styles.main}>
       <div className={styles.main2}>
@@ -59,7 +64,9 @@ const Home = () => {
         </p>
 
         <div className={styles.butt1}>
-          <button className={styles.button}>Get Started-it&apos;s Free</button>
+          <button onClick={handleGoTo} className={styles.button}>
+            Get Started-it&apos;s Free
+          </button>
         </div>
       </div>
 
@@ -90,7 +97,9 @@ const Home = () => {
         </p>
 
         <div className={styles.butt1}>
-          <button className={styles.button}>Get Started-it&apos;s Free</button>
+          <button onClick={handleGoTo} className={styles.button}>
+            Get Started-it&apos;s Free
+          </button>
         </div>
       </div>
     </div>

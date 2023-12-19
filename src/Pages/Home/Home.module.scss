@@ -12,6 +12,7 @@
 .head {
   text-align: center;
   padding-top: 0 8px;
+  font-size: 3.5vw;
   padding: 4%;
 }
 .container {
@@ -24,7 +25,9 @@
   background: #d3f2fa;
 }
 .card {
-  width: 18%;
+  padding-top: 2vw;
+  padding-bottom: 1vw;
+  width: 23%;
   box-sizing: border-box;
   float: left;
   text-align: center;
@@ -103,7 +106,7 @@ button {
   justify-content: center;
   align-items: centre;
   justify-content: space-evenly;
-  margin-top: 10%;
+  // margin-top: 10%;
 }
 
 .acc {
@@ -121,8 +124,8 @@ button {
 
 .imgee {
   padding-top: 23px;
-  width: 280px;
-  height: 280px;
+  width: 350px;
+  height: 350px;
   text-align: center;
   margin: 0 auto;
   display: block;
@@ -147,6 +150,22 @@ button {
   }
   .head {
     font-size: x-large;
+  }
+}
+
+@media (max-width: 660px) {
+  .head {
+    padding-top: 10vw;
+    font-size: 6vw;
+  }
+
+  .imgee {
+    padding-top: 23px;
+    width: 280px;
+    height: 280px;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
   }
 }
 @media (max-width: 750px) {
