@@ -44,6 +44,7 @@ const Auth = () => {
             >
               <div>
                 <div>Log in</div>
+                {/* <p className={styles.loginn}>Log in</p> */}
               </div>
             </button>
 
