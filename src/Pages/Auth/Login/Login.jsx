@@ -13,17 +13,17 @@ const Login = () => {
     <div className={styles.container}>
       <p className={styles.login}>Log in</p>
       <p className={styles.heading1}>Welcome!</p>
-      <p className={styles.heading2}>Login to your account</p>
+      <p className={styles.heading2}>Login to your account!</p>
       <form className={styles.form_group}>
         <div className={styles.input_group}>
           <input
-            type="number"
-            id="number"
+            type="email"
+            id="email"
             className={styles.form_input}
             placeholder=" "
           ></input>
-          <label className={styles.form_label} htmlFor="number">
-            Scholarid
+          <label className={styles.form_label} htmlFor="email">
+            Email
           </label>
         </div>
         <div className={styles.input_group}>
@@ -34,7 +34,7 @@ const Login = () => {
             placeholder=" "
           ></input>
           <label className={styles.form_label} htmlFor="password">
-            password
+            Password
           </label>
         </div>
         <p id={styles.password_cont} className={styles.password}>
@@ -47,7 +47,7 @@ const Login = () => {
           </button>
         </div>
         <Link id={styles.password_cont} to="/auth/signup">
-          <p className={styles.signup}>Don&apos;t have an account?Sign up</p>
+          <p className={styles.signup}>Don&apos;t have an account? Sign up</p>
         </Link>
       </form>
     </div>

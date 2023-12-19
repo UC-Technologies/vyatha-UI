@@ -94,7 +94,7 @@
       font-family: "Lato", sans-serif;
       font-size: 0.75rem;
       font-style: normal;
-      font-weight: 400;
+      font-weight: 600;
       line-height: 1.5rem; /* 200% */
       letter-spacing: 0.031rem;
       text-decoration-line: underline;
@@ -102,11 +102,12 @@
     .button {
       display: flex;
       justify-content: center;
-      margin-top: 10vh;
+      margin-top: 5vh;
       .btn {
         background-color: rgba(164, 229, 225, 1);
         // color:var(--gray-default,#505255);
         border: none;
+        cursor: pointer;
         border-radius: 0.5rem;
         width: 10.125rem;
         height: 2.625rem;
@@ -133,7 +134,7 @@
 }
 @media screen and (min-width: 660px) {
   .container {
-    width: 50vw;
+    width: 60vw;
     // height: 731px;
     flex-shrink: 0;
     border-radius: 50px;
@@ -165,7 +166,7 @@
       font-family: "Montserrat", sans-serif;
       font-size: 25px;
       font-style: normal;
-      font-weight: 400;
+      font-weight: 500;
       line-height: 26px; /* 104% */
     }
   }
