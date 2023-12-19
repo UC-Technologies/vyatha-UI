@@ -8,23 +8,38 @@
   box-shadow:
     rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-  height: 80vh;
-  width: 70vw;
-}
+  // height: 80vh;
+  width: 60vw;
+  padding-top: 2vw;
 
-form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 
-.form {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem;
+    .designation select {
+      outline: 0;
+      background: none;
+      background-image: none;
+      padding-left: 0.625rem;
+      width: 20rem;
+      height: 2rem;
+      color: #a9a9ac;
+      cursor: pointer;
+      border: 0.1rem solid grey;
+      border-radius: 0.25rem;
+      margin: 1rem;
+    }
+
+    .form {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem;
+    }
+  }
 }
 
 .form label {
@@ -34,7 +49,7 @@ form {
   top: 23%;
   left: 0;
   translate: 0.688rem;
-  transition: 0.3s;
+  transition: 0.35s;
   cursor: text;
   color: #a9a9ac;
 }
@@ -43,7 +58,7 @@ form {
   height: 2rem;
   width: 20rem;
   border-radius: 0.25rem;
-  border: 0.1rem solid;
+  border: 0.1rem solid grey;
   font-size: 14px;
   padding: 0.625rem;
 }
@@ -92,8 +107,25 @@ button:hover {
   background-color: var(--vyatha-main-color-dark);
 }
 
+#already_account_login {
+  text-align: center;
+  font-family: var(--vyatha-font-1);
+  font-size: 0.9vw;
+  color: #a9a9ac;
+  margin-top: 1vw;
+  margin-bottom: 1.5vw;
+}
+
 //Mobile View
 @media only screen and (max-width: 660px) {
+  .maindiv {
+    box-shadow: none;
+    padding-top: 4vw;
+    #details_heading {
+      margin-bottom: 5vw;
+    }
+  }
+
   form {
     display: flex;
     align-items: center;
@@ -125,9 +157,14 @@ button:hover {
     height: 2.5rem;
     width: 80vw;
     border-radius: 0.25rem;
-    border: 0.1rem solid;
+    border: 0.1rem solid grey;
     font-size: 14px;
     padding: 0.625rem;
+  }
+
+  .maindiv form .designation select {
+    width: 80vw;
+    height: 2.5rem;
   }
 
   .nameinput:focus ~ label,
@@ -172,5 +209,11 @@ button:hover {
 
   button:hover {
     background-color: var(--vyatha-main-color-dark);
+  }
+
+  #already_account_login {
+    font-size: 3.5vw;
+    margin-top: 7vw;
+    margin-bottom: 4vw;
   }
 }
