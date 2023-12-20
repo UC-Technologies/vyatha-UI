@@ -104,8 +104,9 @@
         text-align: end;
       }
       .CommentsDropD {
-        button {
-          font-size: 3vw;
+        .SeeComments {
+          display: flex;
+          font-size: clamp(12px, 3vw, 18px);
           background-color: transparent;
           border-color: transparent;
         }
@@ -120,31 +121,42 @@
         letter-spacing: -0.1px;
       }
     }
-    .TapToComment {
-      padding: 1vh;
-      button {
+    .ComplaintButtons {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .TapToComment {
         padding: 1vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        width: 96vw;
-        height: 8vw;
-        background-color: white;
-        border-radius: 2vw;
-        border: 1px solid gray;
+        input {
+          padding: 1vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          width: 40vw;
+          height: 8vw;
+          background-color: white;
+          border-radius: 2vw;
+          border: 1px solid gray;
+          font-size: clamp(12px, 3vw, 24px);
+          text-align: center;
+        }
       }
-    }
-    .TapToSelect {
-      font-size: 3vw;
-      font-weight: 400;
-      padding: 0 1vh;
-      select {
-        text-align: center;
-        border-radius: 2vw;
-        width: 96vw;
-        height: 8vw;
-        border: 1px solid gray;
+      .TapToSelect {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 3vw;
+        font-weight: 400;
+        padding: 0 1vh;
+        select {
+          text-align: center;
+          border-radius: 2vw;
+          width: 40vw;
+          height: 8vw;
+          border: 1px solid gray;
+        }
       }
     }
     .ForwardButton {
@@ -249,7 +261,7 @@
 
     .Comments {
       position: relative;
-      font-size: 3vw;
+      font-size: clamp(12px, 3vw, 18px);
       padding: 0.5vw 2vw;
       box-shadow: var(--vyatha4-shadow-2);
 
@@ -264,7 +276,7 @@
       }
       li {
         color: gray;
-        font-size: 3vw;
+        font-size: clamp(8px, 2vw, 16px);
         font-weight: 600;
         list-style: circle;
         span {
@@ -290,31 +302,35 @@
         letter-spacing: -0.1px;
       }
     }
-    .TapToComment {
-      padding: 1vh;
-      button {
-        padding: 1vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        width: 96vw;
-        height: 8vw;
-        background-color: white;
-        border-radius: 2vw;
-        border: 1px solid gray;
+    .ComplaintButtons {
+      .TapToComment {
+        // padding: 1vh;
+        input {
+          padding: 1vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          width: 40vw;
+          height: 4vw;
+          background-color: white;
+          border-radius: 2vw;
+          border: 1px solid gray;
+          font-size: clamp(12px, 3vw, 24px);
+          text-align: center;
+        }
       }
-    }
-    .TapToSelect {
-      font-size: 3vw;
-      font-weight: 400;
-      padding: 0 1vh;
-      select {
-        text-align: center;
-        border-radius: 2vw;
-        width: 96vw;
-        height: 8vw;
-        border: 1px solid gray;
+      .TapToSelect {
+        font-size: clamp(12px, 3vw, 24px);
+        font-weight: 400;
+        height: 6vw;
+        select {
+          text-align: center;
+          border-radius: 2vw;
+          width: 40vw;
+          height: 8vw;
+          border: 1px solid gray;
+        }
       }
     }
     .ForwardButton {
@@ -340,7 +356,7 @@
     }
   }
 }
-@media screen and (min-width: 660px) {
+@media screen and (min-width: 600px) {
   .Container {
     display: flex;
     flex-direction: column;
@@ -443,7 +459,7 @@
       .CommentsHeading {
         position: relative;
         bottom: 2vh;
-        font-size: clamp(12px, 3vw, 30px);
+        font-size: clamp(16px, 3vw, 30px);
         background-color: white;
         width: 18vw;
         border-radius: 1vw;
@@ -463,10 +479,17 @@
         font-size: clamp(8px, 2vw, 18px);
       }
       .CommentsDropD {
-        button {
-          font-size: clamp(12px, 3vw, 30px);
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        border-radius: 1vw;
+        .SeeComments {
+          display: flex;
+          font-size: clamp(6px, 2vw, 24px);
           background-color: transparent;
           border-color: transparent;
+          border-radius: 1vw;
         }
       }
       p {
@@ -484,7 +507,7 @@
       justify-content: center;
       align-items: center;
       padding: 2vw;
-      button {
+      input {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -510,14 +533,15 @@
       select {
         width: 80vw;
         max-width: 600px;
-        height: 4vw;
+        height: 6vw;
         border: 2px solid gray;
         border-radius: 2vw;
         option {
-          font-size: clamp(12px, 3vw, 24px);
-          display: flex;
-          justify-content: center;
           text-align: center;
+          font-size: clamp(12px, 3vw, 24px);
+          // display: flex;
+          // justify-content: center;
+          // text-align: center;
         }
       }
     }
