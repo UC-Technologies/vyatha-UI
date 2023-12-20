@@ -19,7 +19,7 @@ const IndividualComplaint = () => {
   }, [navigate, possibleRoles, role]);
 
   return (
-    <div>
+    <div style={{ marginTop: "4rem" }}>
       {role === "student" && <IndividualComplaintStudent />}
 
       {(role === "supervisor" || role === "warden" || role === "dsw") && (

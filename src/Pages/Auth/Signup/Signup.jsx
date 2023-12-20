@@ -69,7 +69,12 @@ const SignUp = () => {
           <label htmlFor="passconf">Confirm Password</label>
         </div>
 
-        <button style={{ cursor: "pointer" }} type="submit" onClick={handleSubmit}>
+        <button
+          id={styles.btn_signup}
+          style={{ cursor: "pointer" }}
+          type="submit"
+          onClick={handleSubmit}
+        >
           Submit
         </button>
 
