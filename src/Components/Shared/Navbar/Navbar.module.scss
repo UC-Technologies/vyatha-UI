@@ -1,7 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Merienda:wght@500&family=Montserrat&display=swap");
-body {
-  padding-top: 5rem;
-}
+
 .nav {
   position: fixed;
   top: 0;
@@ -89,6 +87,7 @@ body {
 
 @media screen and (min-width: 660px) {
   .nav {
+    height: 4rem;
     .mobile_navbar {
       display: none;
     }
