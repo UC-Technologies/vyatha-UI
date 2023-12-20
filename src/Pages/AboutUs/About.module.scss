@@ -10,6 +10,7 @@
     width: 23.375rem;
     height: 3.5rem;
     padding-right: 0;
+    font-size: clamp(2vw, 5vw, 8vw);
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
@@ -37,11 +38,13 @@
   .about_content {
     display: flex;
     width: 19.375rem;
-    margin-left: 1.875rem;
+    font-size: clamp(0vw, 4vw, 7vw);
+    // margin-right: 0.5vw;
     text-align: center;
   }
   .accordion {
     display: flex;
+    cursor: pointer;
     gap: 1.6875rem;
     flex-direction: column;
     margin-left: 1.4375rem;
@@ -112,38 +115,39 @@
 }
 @media screen and (min-width: 400px) {
   .container {
-    width: 26.9rem;
-    margin: none;
+    width: 100vw;
+    // margin: none;
     .heading {
-      width: 26.9rem;
+      width: 100vw;
     }
     .about_content {
-      margin-left: 3.5rem;
+      margin-left: 11.5vw;
     }
     .accordion {
-      margin-left: 1.2rem;
+      margin-left: 1.4rem;
       margin-right: 1.4rem;
     }
   }
 }
-@media screen and (max-width: 399px) and (min-width: 300px) {
+@media screen and (max-width: 399px) and (min-width: 200px) {
   .container {
-    width: 25.7rem;
+    width: 100vw;
     .heading {
-      width: 25.7rem;
+      width: 100vw;
     }
     .about_content {
-      margin-left: 2.85rem;
+      margin-left: 9vw;
+      width: 80vw;
     }
     .accordion {
-      margin-left: 1.2rem;
+      margin-left: 1.4rem;
       margin-right: 1.4rem;
     }
   }
 }
 @media screen and (min-width: 660px) {
   .container {
-    width: 100vw;
+    width: 100%;
     // gap:2rem;
     .heading {
       width: 100%;
@@ -151,7 +155,7 @@
     }
     .div1 {
       display: flex;
-      width: 100vw;
+      width: 100%;
       justify-content: center;
       align-items: center;
       margin-top: 4rem;
@@ -182,7 +186,7 @@
           align-items: center;
           justify-content: center;
           padding: 2vw 0;
-          font-size: clamp(8px, 2vw, 18px);
+          font-size: clamp(0.5rem, 1.2rem, 2rem);
           text-align: start;
         }
       }
@@ -202,22 +206,24 @@
       }
       .accordion {
         display: flex;
-        align-items: center;
-        justify-content: center;
+        // align-items: center;
+        // justify-content: center;
         width: 50vw;
         min-width: 100px;
         margin-left: -5vw;
         // padding-top:5rem;
-        padding-left: 20rem;
+        padding-left: 11vw;
         .accordion_hide {
-          font-size: clamp(8px, 1.5rem, 18px);
+          font-size: clamp(0.5rem, 1.2rem, 2rem);
           min-width: 40vw;
-          max-height: 10vh;
+          padding-top: 0.7rem;
+          padding-bottom: 0.1rem;
+          // max-height: 10vh;
           .content {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
           }
           .content_show {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             line-height: 33px;
           }
         }
