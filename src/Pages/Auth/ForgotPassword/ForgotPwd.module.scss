@@ -20,7 +20,7 @@ form {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 13rem;
+  gap: 9rem;
 }
 
 .form {
@@ -50,6 +50,7 @@ form {
   border: 0.1rem solid #938F99;
   font-size: 14px;
   padding: 0.625rem;
+  box-shadow: 1px 1px #E6E0E9;
 }
 
 .nameinput:focus ~ label,
