@@ -2,8 +2,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Navbar from "./Components/Shared/Navbar/Navbar";
-import Footer from "./Components/Shared/Footer/Footer";
+// import Navbar from "./Components/Shared/Navbar/Navbar";
+// import Footer from "./Components/Shared/Footer/Footer";
 import Home from "./Pages/Home/Home";
 
 import Auth from "./Pages/Auth/Auth";
@@ -27,7 +27,7 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+        {/* <Navbar /> */}
         <div>
           <Routes>
             {/* {isLoggedIn ? (<h1>logged in</h1>) : (<p>Not Logged In</p>)} */}
@@ -58,7 +58,7 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
       <ToastContainer />
     </>
