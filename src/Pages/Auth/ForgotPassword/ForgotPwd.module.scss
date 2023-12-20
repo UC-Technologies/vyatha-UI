@@ -90,30 +90,3 @@ button {
 button:hover {
   background-color: #98d6d2;
 }
-@media screen and (max-width: 660px){
-  
-input[type=email] {        
-  padding: 4px 8px;
-   
-}
-input[type=email]:focus{
-  outline: 2px solid black;    
-}
-
-.nameinput:focus ~ label,
-.nameinput:not(:placeholder-shown).nameinput:not(:focus) ~ label {
-  top: -27%;
-  background-color: white;
-  color: black;
-  font-size: 1rem;
-}
-
-button:hover {
-  background-color: #98d6d2;
-}
-/*
-input:focus {
-  border: 0.125rem solid var(--vyatha-main-color-dark);
-  
-}*/
-}
