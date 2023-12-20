@@ -29,5 +29,23 @@
     outline: none;
     background-color: var(--lightblue-default);
     border-radius: 0.4rem;
+    width: 10vw !important;
+  }
+
+  .refresh {
+    background-color: #d7faf4;
+  }
+
+  .Submit {
+    background-color: #40bdb6;
+  }
+}
+
+@media (max-width: 660px) {
+  .Container {
+    button {
+      width: 23vw !important;
+      font-size: 3vw;
+    }
   }
 }
