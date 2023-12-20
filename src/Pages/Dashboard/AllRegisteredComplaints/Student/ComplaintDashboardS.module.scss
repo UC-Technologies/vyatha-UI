@@ -1,10 +1,18 @@
+.container {
+  background-color: lightgray;
+}
+.CardContainer {
+  background-color: var(--vyatha4-white);
+  border-radius: 1vw;
+  padding: 1vh;
+}
+
 @media screen and (max-width: 659px) {
   .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
     width: 100vw;
 
     .SearchBar {
@@ -19,7 +27,7 @@
 
       input {
         width: 50vw;
-        border-radius: 3vw;
+        border-radius: 1vw;
         padding: 0 2vw;
         font-size: 3.5vw;
       }
@@ -32,8 +40,9 @@
     }
     .ComplaintCard {
       .ComplaintCardInner {
-        font-size: 2vw;
-        padding: 2vh;
+        // font-size: 2vw;
+        // padding: 2vh;
+        width: 100vw;
 
         .CardContainer {
           border-bottom: 0.5vh solid #ccc;
@@ -42,7 +51,7 @@
           .DateAndTime {
             color: rgba(86, 87, 87, 0.8);
             // font-family: Lato;
-            font-size: 3vw;
+            font-size: clamp(8px, 2vw, 18px);
             font-style: normal;
             font-weight: 500;
             line-height: 100%;
@@ -65,7 +74,7 @@
             p {
               color: var(--gray-default, #505255);
               // font-family: Lato;
-              font-size: 2.75vw;
+              font-size: clamp(10px, 2vw, 16px);
               font-style: normal;
               font-weight: 300;
               line-height: 100%; /* 10px */
@@ -80,7 +89,7 @@
             div {
               a {
                 text-decoration: none;
-                font-size: 3vw;
+                font-size: clamp(13px, 2vw, 24px);
                 h2 {
                   color: black;
                   font-weight: 500;
@@ -96,52 +105,80 @@
         .SelectBar {
           display: flex;
           flex-direction: row;
-          align-items: center;
-          justify-content: space-around;
-          width: 90vw;
+
           height: 6vw;
           font-size: 3vw;
-          background-color: lightgrey;
           border-radius: 2vh;
 
           .Warden {
+            background-color: lightgrey;
             display: flex;
             flex-direction: row;
+            justify-content: center;
             align-items: center;
             height: 6vw;
-            padding: 0 2vw;
+            width: 20vw;
+            min-width: 60px;
+            max-width: 120px;
+            min-width: 75px;
+            padding: 0 3vw;
             background: rgba(54, 137, 194, 1);
+            clip-path: polygon(95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
           }
 
           .Registered {
+            background-color: lightgray;
+            border-radius: 3vw 0 0 3vw;
             display: flex;
             flex-direction: row;
+            justify-content: center;
             align-items: center;
             height: 6vw;
-            padding: 0 2vw;
+            width: 20vw;
+            min-width: 60px;
+            max-width: 120px;
+            padding: 0 3vw;
+            border-radius: 3vw 0 0 3vw;
+            clip-path: polygon(0% 0, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
           }
 
           .Supervisor {
+            background-color: lightgrey;
             display: flex;
+            justify-content: center;
+            align-items: center;
             flex-direction: row;
             align-items: center;
             height: 6vw;
+            width: 20vw;
+            min-width: 60px;
+            max-width: 120px;
             padding: 0 2vw;
+            clip-path: polygon(95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
           }
 
           .Dean {
+            background-color: lightgrey;
             display: flex;
+            justify-content: center;
+            align-items: center;
             flex-direction: row;
             align-items: center;
             height: 6vw;
-            padding: 0 2vw;
+            width: 20vw;
+            min-width: 60px;
+            max-width: 120px;
+            padding: 0 3vw;
+            border-radius: 0 3vw 3vw 0;
+            clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 5% 50%, 0% 0%);
           }
         }
       }
     }
   }
 }
-@media screen and (min-width: 660px) {
+
+@media screen and (min-width: 660px) and (max-width: 900px) {
   .container {
     display: flex;
     flex-direction: column;
@@ -164,7 +201,7 @@
 
       input {
         width: 60vw;
-        border-radius: 3vw;
+        border-radius: 1vw;
         padding: 0 2vw;
         font-size: clamp(12px, 2.5vw, 24px);
       }
@@ -184,10 +221,10 @@
         .CardContainer {
           border-bottom: 0.5vh solid #ccc;
           padding-bottom: 1vh;
-          width: 100%;
+          min-width: 600px;
           .DateAndTime {
             color: rgba(86, 87, 87, 0.8);
-            font-size: 24px;
+            font-size: clamp(12px, 2vw, 16px);
             font-style: normal;
             font-weight: 500;
             line-height: 100%;
@@ -200,6 +237,177 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            button {
+              width: 100px;
+              height: 40px;
+              border-radius: 2vw;
+              border-color: transparent;
+              font-size: 20px;
+            }
+            p {
+              color: var(--gray-default, #505255);
+              // font-family: Lato;
+              font-size: clamp(14px, 2vw, 18px);
+              font-style: normal;
+              font-weight: 300;
+              line-height: 100%; /* 10px */
+              letter-spacing: -0.1px;
+              width: 60vw;
+              max-width: 600px;
+            }
+          }
+          .Heading {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            div {
+              a {
+                text-decoration: none;
+                font-size: clamp(12px, 2vw, 24px);
+                h2 {
+                  color: black;
+                  font-weight: 500;
+                }
+              }
+            }
+            img {
+              padding: 1vw;
+            }
+          }
+        }
+
+        .SelectBar {
+          display: flex;
+          flex-direction: row;
+          max-width: 600px;
+          width: 90vw;
+          height: 6vw;
+          max-height: 50px;
+          font-size: clamp(18px, 2.6vw, 24px);
+          background-color: #ffffff;
+          border-radius: 2vh;
+
+          .Warden {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 6vw;
+            max-height: 50px;
+            min-width: 150px;
+            padding: 0 2vw;
+            background: rgba(54, 137, 194, 1);
+            clip-path: polygon(95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
+          }
+
+          .Registered {
+            background-color: lightgray;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 6vw;
+            max-height: 50px;
+            min-width: 150px;
+            padding: 0 2vw;
+            border-radius: 3vw 0 0 3vw;
+            clip-path: polygon(0% 0, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
+          }
+
+          .Supervisor {
+            background-color: lightgray;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 6vw;
+            max-height: 50px;
+            min-width: 150px;
+            padding: 0 2vw;
+            clip-path: polygon(95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
+          }
+
+          .Dean {
+            background-color: lightgray;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 6vw;
+            max-height: 50px;
+            min-width: 150px;
+            padding: 0 2vw;
+            border-radius: 0 3vw 3vw 0;
+            clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 4% 50%, 0% 0%);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    width: 100%;
+    overflow-x: hidden;
+    background-color: lightgray;
+
+    .SearchBar {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      background: var(--vyatha4-gradient-1);
+      height: 6vh;
+      max-height: 70px;
+      width: 100vw;
+      padding: 0.25vh;
+      border-color: none;
+
+      input {
+        width: 60vw;
+        border-radius: 1vw;
+        padding: 0 2vw;
+        font-size: clamp(12px, 2.5vw, 24px);
+      }
+
+      img {
+        position: relative;
+        right: -10vw;
+        width: 10%;
+      }
+    }
+    .ComplaintCard {
+      border-radius: 4vw;
+      max-width: 1280px;
+      .ComplaintCardInner {
+        display: flex;
+        flex-direction: column;
+        gap: 1vw;
+        font-size: 2vw;
+        padding: 2vh;
+
+        .CardContainer {
+          background-color: var(--vyatha4-white);
+          border-radius: 1vw;
+          padding: 1vh;
+          min-width: 800px;
+          .DateAndTime {
+            color: rgba(86, 87, 87, 0.8);
+            font-size: clamp(12px, 2vw, 18px);
+            font-style: normal;
+            font-weight: 500;
+            line-height: 100%;
+            letter-spacing: -0.1px;
+            transform: rotate(-0.158deg);
+            flex-shrink: 0;
+          }
+          .Description {
+            padding: 2vw 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: clamp(12px, 2vw, 16px);
             button {
               width: 100px;
               height: 40px;
@@ -226,7 +434,7 @@
             div {
               a {
                 text-decoration: none;
-                font-size: clamp(12px, 3vw, 24px);
+                font-size: clamp(12px, 2vw, 20px);
                 h2 {
                   color: black;
                   font-weight: 500;
@@ -242,14 +450,12 @@
         .SelectBar {
           display: flex;
           flex-direction: row;
-          align-items: center;
-          justify-content: space-around;
-          max-width: 1180px;
+          max-width: 800px;
           width: 90vw;
           height: 6vw;
           max-height: 50px;
           font-size: clamp(18px, 2.6vw, 24px);
-          background-color: lightgrey;
+          background-color: #ffffff;
           border-radius: 2vh;
 
           .Warden {
@@ -258,35 +464,48 @@
             align-items: center;
             height: 6vw;
             max-height: 50px;
+            min-width: 200px;
             padding: 0 2vw;
             background: rgba(54, 137, 194, 1);
+            clip-path: polygon(95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
           }
 
           .Registered {
+            background-color: lightgray;
             display: flex;
             flex-direction: row;
             align-items: center;
             height: 6vw;
             max-height: 50px;
+            min-width: 200px;
             padding: 0 2vw;
+            border-radius: 3vw 0 0 3vw;
+            clip-path: polygon(0% 0, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
           }
 
           .Supervisor {
+            background-color: lightgray;
             display: flex;
             flex-direction: row;
             align-items: center;
             height: 6vw;
             max-height: 50px;
+            min-width: 200px;
             padding: 0 2vw;
+            clip-path: polygon(95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
           }
 
           .Dean {
+            background-color: lightgray;
             display: flex;
             flex-direction: row;
             align-items: center;
             height: 6vw;
             max-height: 50px;
+            min-width: 200px;
             padding: 0 2vw;
+            border-radius: 0 3vw 3vw 0;
+            clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 4% 50%, 0% 0%);
           }
         }
       }
