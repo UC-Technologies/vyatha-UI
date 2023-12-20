@@ -1,6 +1,5 @@
 .dropdownContainer {
   position: relative;
-  left: 12vw;
   .sortSelect {
     background-color: transparent;
     background-image: url("https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811898/UC%20VYATHA/octicon_filter-16_yjhqwg.jpg?_s=public-apps");
@@ -11,8 +10,9 @@
     border-color: transparent;
     background-position: center;
     option {
-      font-size: 2vw;
+      font-size: clamp(16px, 3vw, 28px);
       color: #000;
+      background-color: #ffffff;
     }
   }
 }

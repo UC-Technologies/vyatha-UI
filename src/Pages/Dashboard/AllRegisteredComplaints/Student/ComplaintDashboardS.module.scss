@@ -1,10 +1,10 @@
 .container {
-  background-color: lightgray;
+  background-color: fff;
 }
 .CardContainer {
   background-color: var(--vyatha4-white);
   border-radius: 1vw;
-  padding: 1vh;
+  padding: 2vh;
 }
 .Warden,
 .Registered,
@@ -13,17 +13,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #d7faf4;
 }
 
-button {
-  background-color: var(gray);
-  // font-family: Lato;
+.closebtn {
+  background-color: var(#d7faf4);
+  font-family: var(--vyatha-font-4);
   font-size: clamp(8px, 2vw, 16px);
   font-style: normal;
   font-weight: 400;
   line-height: 100%; /* 10px */
   letter-spacing: -0.1px;
-  width: 60vw;
 }
 
 @media screen and (max-width: 659px) {
@@ -33,11 +33,13 @@ button {
     align-items: center;
     justify-content: center;
     width: 100vw;
+    background-color: #dce5e4;
 
     .SearchBar {
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      align-items: center;
+      justify-content: space-around;
       background: var(--vyatha4-gradient-1);
       height: 5vh;
       width: 100%;
@@ -47,14 +49,16 @@ button {
       input {
         width: 50vw;
         border-radius: 1vw;
+        border-color: transparent;
+        height: 30px;
         padding: 0 2vw;
         font-size: 3.5vw;
       }
 
-      img {
-        position: relative;
-        right: -10vw;
-        width: 10%;
+      a {
+        img {
+          height: 40px;
+        }
       }
     }
     .ComplaintCard {
@@ -67,11 +71,11 @@ button {
         width: 100vw;
 
         .CardContainer {
-          padding-bottom: 1vh;
+          // padding-bottom: 1vh;
           width: 100%;
           .DateAndTime {
             color: rgba(86, 87, 87, 0.8);
-            // font-family: Lato;
+            font-family: var(--vyatha-font-4);
             font-size: clamp(8px, 2vw, 18px);
             font-style: normal;
             font-weight: 500;
@@ -85,7 +89,7 @@ button {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            button {
+            .closebtn {
               width: 14vw;
               height: 5vw;
               border-radius: 2vw;
@@ -93,27 +97,37 @@ button {
               font-size: 2vw;
             }
             p {
-              color: var(--gray-default, #505255);
-              // font-family: Lato;
-              font-size: clamp(8px, 2vw, 16px);
-              font-style: normal;
-              font-weight: 300;
+              text-align: start;
+              color: var(--Gray-Default, #505255);
+              font-family: var(--vyatha-font-4);
+              font-size: clamp(10px, 2vw, 18px);
+              // font-style: normal;
+              font-weight: 10;
               line-height: 100%; /* 10px */
               letter-spacing: -0.1px;
+              min-width: 225px;
+              flex-shrink: 0;
               width: 60vw;
+              padding: 1vw 0;
             }
           }
           .Heading {
             display: flex;
             flex-direction: row;
+            align-items: center;
             justify-content: space-between;
-            div {
+            .compliantTitle {
               a {
                 text-decoration: none;
-                font-size: clamp(8px, 2vw, 24px);
                 h2 {
-                  color: black;
-                  font-weight: 500;
+                  color: #000;
+                  text-align: center;
+                  font-family: var(-vyatha-font-4);
+                  font-size: clamp(14px, 3vw, 24px);
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: 100%; /* 14px */
+                  letter-spacing: -0.14px;
                 }
               }
             }
@@ -129,7 +143,7 @@ button {
           justify-content: flex-start;
           height: 6vw;
           // width: 90vw;
-          font-size: clamp(8px, 3vw, 16px);
+          font-size: clamp(12px, 3vw, 16px);
           border-radius: 2vh;
 
           .Warden {
@@ -205,32 +219,34 @@ button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
     width: 100%;
+    background-color: #dce5e4;
     overflow-x: hidden;
 
     .SearchBar {
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      align-items: center;
+      justify-content: space-around;
       background: var(--vyatha4-gradient-1);
       height: 6vh;
-      max-height: 70px;
       width: 100vw;
       padding: 0.25vh;
       border-color: none;
 
       input {
         width: 60vw;
+        height: 35px;
         border-radius: 1vw;
+        border-color: transparent;
         padding: 0 2vw;
         font-size: clamp(12px, 2.5vw, 24px);
       }
 
-      img {
-        position: relative;
-        right: -10vw;
-        width: 10%;
+      a {
+        img {
+          height: 40px;
+        }
       }
     }
     .ComplaintCard {
@@ -240,12 +256,11 @@ button {
         flex-direction: column;
         gap: 1vw;
         font-size: 2vw;
-        padding: 2vh;
-
+        padding: 10vh;
         .CardContainer {
-          border-bottom: 0.5vh solid #ccc;
           padding-bottom: 1vh;
           min-width: 600px;
+          background-color: #ffffff;
           .DateAndTime {
             color: rgba(86, 87, 87, 0.8);
             font-size: clamp(12px, 2vw, 16px);
@@ -257,32 +272,37 @@ button {
             flex-shrink: 0;
           }
           .Description {
-            padding: 2vw 0;
+            padding: 1vw 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            button {
+            .closebtn {
+              background-color: #d7faf4;
               width: 100px;
-              height: 40px;
+              height: 30px;
               border-radius: 2vw;
               border-color: transparent;
-              font-size: 20px;
+              font-size: clamp(12px, 2vw, 20px);
             }
             p {
+              text-align: start;
+              padding: 1vh 0;
               color: var(--gray-default, #505255);
-              // font-family: Lato;
-              font-size: clamp(14px, 2vw, 18px);
+              font-family: var(--vyatha-font-4);
+              font-size: clamp(12px, 1vw, 18px);
               font-style: normal;
               font-weight: 300;
               line-height: 100%; /* 10px */
               letter-spacing: -0.1px;
               width: 60vw;
               max-width: 600px;
+              display: flex;
             }
           }
           .Heading {
             display: flex;
             flex-direction: row;
+            align-items: center;
             justify-content: space-between;
             div {
               a {
@@ -303,10 +323,11 @@ button {
         .SelectBar {
           display: flex;
           flex-direction: row;
+          align-items: center;
+          justify-content: space-around;
           max-width: 600px;
           width: 90vw;
-          height: 4vw;
-          max-height: 40px;
+          height: 40px;
           font-size: clamp(8px, 2.6vw, 16px);
           background-color: #ffffff;
           border-radius: 2vh;
@@ -324,7 +345,7 @@ button {
           }
 
           .Registered {
-            background-color: lightgray;
+            // background-color: lightgray;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -337,7 +358,7 @@ button {
           }
 
           .Supervisor {
-            background-color: lightgray;
+            // background-color: lightgray;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -349,7 +370,7 @@ button {
           }
 
           .Dean {
-            background-color: lightgray;
+            // background-color: lightgray;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -375,35 +396,36 @@ button {
     font-size: 12px;
     width: 100%;
     overflow-x: hidden;
-    background-color: lightgray;
+    background-color: #d7faf4;
 
     .SearchBar {
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
       background: var(--vyatha4-gradient-1);
-      height: 7vh;
-      max-height: 70px;
       width: 100vw;
-      padding: 0.25vh;
+      padding: 0 0.25vh;
       border-color: none;
 
       input {
-        max-height: 40px;
-        width: 60vw;
-        border-radius: 1vw;
+        width: 52vw;
+        min-width: 500px;
+        height: 100%;
+        border-radius: 0.5vw;
         padding: 0 2vw;
+        border-color: transparent;
+        text-align: center;
         font-size: clamp(12px, 2.5vw, 24px);
       }
-
-      img {
-        position: relative;
-        right: -10vw;
-        width: 10%;
+      a {
+        img {
+          height: 40px;
+        }
       }
     }
     .ComplaintCard {
+      padding: 10vh;
       border-radius: 4vw;
       max-width: 1280px;
       .ComplaintCardInner {
@@ -414,28 +436,28 @@ button {
         padding: 2vh;
 
         .CardContainer {
-          box-shadow: var(--vyatha4-shadow-2);
+          // box-shadow: var(--vyatha4-shadow-2);
           background-color: var(--vyatha4-white);
           border-radius: 1vw;
-          padding: 1vh;
+          padding: 3vh;
           min-width: 800px;
           .DateAndTime {
-            color: rgba(86, 87, 87, 0.8);
-            font-size: clamp(12px, 2vw, 18px);
+            // color: rgba(86, 87, 87, 0.8);
+            color: #000;
+            font-family: var(--vyatha-font-4);
+            font-size: 18px;
             font-style: normal;
             font-weight: 500;
-            line-height: 100%;
-            letter-spacing: -0.1px;
-            transform: rotate(-0.158deg);
-            flex-shrink: 0;
+            line-height: 100%; /* 18px */
+            letter-spacing: -0.18px;
           }
           .Description {
             padding: 2vw 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: clamp(12px, 2vw, 16px);
-            button {
+            font-size: clamp(8px, 1vw, 14px);
+            .closebtn {
               width: 100px;
               height: 40px;
               border-radius: 2vw;
@@ -443,8 +465,9 @@ button {
               font-size: 20px;
             }
             p {
+              text-align: start;
               color: var(--gray-default, #505255);
-              // font-family: Lato;
+              font-family: var(--vyatha-font-4);
               font-size: 20px;
               font-style: normal;
               font-weight: 300;
@@ -457,6 +480,7 @@ button {
           .Heading {
             display: flex;
             flex-direction: row;
+            align-items: center;
             justify-content: space-between;
             div {
               a {
@@ -498,7 +522,7 @@ button {
           }
 
           .Registered {
-            background-color: lightgray;
+            // background-color: lightgray;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -511,7 +535,7 @@ button {
           }
 
           .Supervisor {
-            background-color: lightgray;
+            // background-color: lightgray;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -523,7 +547,7 @@ button {
           }
 
           .Dean {
-            background-color: lightgray;
+            // background-color: lightgray;
             display: flex;
             flex-direction: row;
             align-items: center;

@@ -31,9 +31,9 @@
         text-decoration: none;
         background-color: #ffffff;
         width: 20vw;
-        min-width: 250px;
+        min-width: 300px;
         height: 20vh;
-        min-height: 200px;
+        min-height: 250px;
         // max-height: 400px;
         border-radius: 2vw;
         display: flex;
@@ -47,7 +47,7 @@
           color: #303030;
         }
         img {
-          zoom: 100%;
+          zoom: 150%;
         }
       }
     }
@@ -100,7 +100,7 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      gap: 5vw;
+      gap: 10vw;
       .slogan {
         padding: 5vw;
         display: flex;
@@ -115,9 +115,9 @@
         a {
           background-color: #ffffff;
           width: 20vw;
-          min-width: 200px;
+          min-width: 250px;
           height: 20vh;
-          min-height: 150px;
+          min-height: 200px;
           border-radius: 2vw;
           display: flex;
           justify-content: center;
@@ -127,7 +127,7 @@
             font-family: var(--vyatha-font-4);
           }
           img {
-            zoom: 50%;
+            zoom: 100%;
           }
         }
       }
