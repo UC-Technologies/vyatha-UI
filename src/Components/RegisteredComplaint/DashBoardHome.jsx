@@ -56,8 +56,8 @@ export const DashBoardHome = ({ role }) => {
   return (
     <div className={Styles.container}>
       <div className={Styles.RegComplaints}>
-        <div className={Styles.slogan}>Express,Resolve,Relax:Vyatha does it all!</div>
-        {role === "client" && (
+        <div className={Styles.slogan}>Express, Resolve, Relax : Vyatha does it all!</div>
+        {role === "student" && (
           <div className={Styles.register}>
             <Link to="/register_complaint">
               <img src={img1} alt="student register" />
@@ -66,9 +66,9 @@ export const DashBoardHome = ({ role }) => {
           </div>
         )}
         <div className={Styles.registered}>
-          <Link to="/">
+          <Link to={`/${role}/allcomplaints`}>
             <img src={img2} alt="registered complaints" />
-            <h3>Registered Complaints</h3>
+            <h3 id={Styles.extramargintop}>Registered Complaints</h3>
           </Link>
         </div>
       </div>
@@ -76,7 +76,11 @@ export const DashBoardHome = ({ role }) => {
         {visible ? <img src={img3} alt="ON" /> : <img src={img4} alt="OFF" />}
       </div>
       <div className={Styles.Notifications} ref={ref}>
-        {role === "client" ? <div>No Notifications</div> : <div>No Pending Comments</div>}
+        {role === "student" ? (
+          <div>No Notifications</div>
+        ) : (
+          <div>No Pending Comments</div>
+        )}
       </div>
     </div>
   );

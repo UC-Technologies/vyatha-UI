@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "./ComplaintDashboardS.module.scss";
 import Data from "../../../../Data/ComplaintRegister.json";
 // import ComplaintCardS from '../../../Components/RegisteredComplaint/Student/ComplaintCardS';
@@ -10,6 +10,8 @@ const AllComplaintStudent = () => {
     document.title = "All Complaints | Vyatha";
   }, []);
 
+  const { role } = useParams();
+  // console.log(role)
   const [jsonData, setJsonData] = useState(Data);
   const [sortBy, setSortBy] = useState("date");
   const [searchInput, setSearchInput] = useState("");
@@ -75,7 +77,7 @@ const AllComplaintStudent = () => {
             <div className={styles.CardContainer} key={complaint.key}>
               <div className={styles.Heading}>
                 <div>
-                  <Link to={`/complaint/${complaint.key}`}>
+                  <Link to={`/${role}/complaint/${complaint.key}`}>
                     <h2>{complaint.title}</h2>
                   </Link>
                 </div>
