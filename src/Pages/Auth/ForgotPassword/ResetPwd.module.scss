@@ -1,0 +1,124 @@
+.reset_page{
+    max-width: 27rem;
+    margin: 0 auto;
+    position: relative;
+    top: 5rem;
+}
+.reset_title{
+    height: 5rem;
+    color: #000;
+    text-align: center;
+    font-family: Lato;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px; /* 104% */
+}
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 13rem;
+}
+
+.form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.form label {
+  position: absolute;
+  font-family: var(--vyatha-font-1);
+  
+  top: 23%;
+  left: 0;
+  translate: 0.688rem;
+  transition: 0.3s;
+  cursor: text;
+  color: #a9a9ac;
+}
+
+.form input {
+  height: 2.5rem;
+  width: 20rem;
+  border-radius: 0.25rem;
+  border: 0.1rem solid #938F99;
+  font-size: 14px;
+  padding: 0.625rem;
+}
+.all_inputs{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+   
+}
+.nameinput:focus ~ label,
+.nameinput:not(:placeholder-shown).nameinput:not(:focus) ~ label {
+  top: -27%;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input:focus {
+  border: 0.125rem solid var(--vyatha-main-color-dark);
+  
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+button {
+  height: 2.5rem;
+  width: 10rem;
+  border-radius: 0.5rem;
+  background-color: #A4E5E1;
+  font-size: 1.3rem;
+  border: none;
+  font-weight: 500;
+  margin-top: 1.25rem;
+}
+
+button:hover {
+  background-color: #98d6d2;
+}
+@media screen and (max-width: 660px){
+  
+input[type=password] {        
+  padding: 4px 8px;
+   
+}
+input[type=password]:focus{
+  outline: 2px solid black;    
+}
+
+.nameinput:focus ~ label,
+.nameinput:not(:placeholder-shown).nameinput:not(:focus) ~ label {
+  top: -27%;
+  background-color: white;
+  color: black;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #98d6d2;
+}
+/*
+input:focus {
+  border: 0.125rem solid var(--vyatha-main-color-dark);
+  
+}*/
+}
