@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-unresolved
 // import Vite from './public/vite.svg'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.scss";
 
@@ -38,9 +38,18 @@ const Navbar = () => {
     },
   ];
   const [isOpen, setIsOpen] = useState(false);
+  const navRef = useRef(null);
   useEffect(() => {
-    if (isOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "visible";
+    if (window.innerWidth > 600) return () => {};
+    const handleOutsideClick = (e) => {
+      if (isOpen && navRef.current && !navRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.body.addEventListener("click", handleOutsideClick);
+    return () => {
+      document.body.removeEventListener("click", handleOutsideClick);
+    };
   }, [isOpen]);
   const open = () => {
     setIsOpen(true);
@@ -49,49 +58,91 @@ const Navbar = () => {
     setIsOpen(false);
   };
   return (
-    <nav className={styles.nav}>
-      <Link to="/" className={styles.header} onClick={close}>
-        <img
-          src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694542881/Frame_58099_igiaij.jpg?_s=public-apps"
-          className={styles.logo}
-          alt=""
-        />
-        <h1 className={styles.text}>Vyatha</h1>
-      </Link>
-      <div onClick={open} className={`${isOpen ? styles.close : styles.open}`}>
-        <img
-          src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811896/UC%20VYATHA/Frame_58053_bdvele.jpg?_s=public-apps"
-          className={`${styles.open_button} ${isOpen && styles.rotate}`}
-          alt=""
-        />
-      </div>
-      <div className={`${styles.navbar} ${isOpen ? styles.open : styles.close}`}>
-        <div className={styles.top} onClick={close}>
+    <>
+      <nav ref={navRef} className={styles.nav}>
+        <Link to="/" className={styles.header} onClick={close}>
           <img
-            src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702626719/Frame_58062_iqs4xf.jpg?_s=public-apps"
-            className={`${styles.close_button} ${!isOpen && styles.rotate}`}
+            src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694542881/Frame_58099_igiaij.jpg?_s=public-apps"
+            className={styles.logo}
             alt=""
           />
+          <h1 className={styles.text}>Vyatha</h1>
+        </Link>
+        <div className={styles.mobile_navbar}>
+          <div onClick={open}>
+            <img
+              src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811896/UC%20VYATHA/Frame_58053_bdvele.jpg?_s=public-apps"
+              className={`${styles.open_button} ${isOpen && styles.rotate}`}
+              alt=""
+            />
+          </div>
+          <div
+            className={`${styles.mobile_navigation} ${
+              isOpen ? styles.open : styles.close
+            }`}
+          >
+            <div className={styles.top}>
+              <div onClick={close}>
+                <img
+                  src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702626719/Frame_58062_iqs4xf.jpg?_s=public-apps"
+                  className={`${styles.close_button} ${!isOpen && styles.rotate}`}
+                  alt=""
+                />
+              </div>
+            </div>
+            {links.map((link) => (
+              <Link key={link.id} to={link.to} onClick={close}>
+                <img src={link.icon} alt="" />
+                {link.title}
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className={styles.desktop_navbar}>
+          <Link to="/">Home</Link>
+          <Link to="/about">About Us</Link>
+          <Link to="/auth">
+            <img
+              className={styles.profile}
+              src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702566250/user_1_hntf9t.jpg?_s=public-apps"
+              alt=""
+            />
+          </Link>
+        </div>
+      </nav>
+      <div
+        className={`${styles.desktop_navigation} ${isOpen ? styles.open : styles.close}`}
+      >
+        <div className={styles.top}>
+          {isOpen ? (
+            <div
+              onClick={close}
+              className={`${styles.button} ${isOpen && styles.rotate}`}
+            >
+              <img
+                src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702904046/Vector_umlqxo.jpg?_s=public-apps"
+                alt=""
+              />
+            </div>
+          ) : (
+            <div onClick={open} className={`${styles.button} ${isOpen && styles.rotate}`}>
+              <img
+                src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702904046/Vector_umlqxo.jpg?_s=public-apps"
+                alt=""
+              />
+            </div>
+          )}
         </div>
         {links.map((link) => (
-          <Link key={link.id} to={link.to} onClick={close}>
-            <img src={link.icon} alt="" />
-            {link.title}
+          <Link className={styles.link} key={link.id} to={link.to} onClick={close}>
+            <div className={styles.icon}>
+              <img src={link.icon} alt="" />
+            </div>
+            <div className={`${styles.title}`}>{link.title}</div>
           </Link>
         ))}
       </div>
-      <div className={styles.desktop_navbar}>
-        <Link to="/">Home</Link>
-        <Link to="/about">About Us</Link>
-        <Link to="/auth">
-          <img
-            className={styles.profile}
-            src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702566250/user_1_hntf9t.jpg?_s=public-apps"
-            alt=""
-          />
-        </Link>
-      </div>
-    </nav>
+    </>
   );
 };
 

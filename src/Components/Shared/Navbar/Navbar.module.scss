@@ -1,9 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Merienda:wght@500&family=Montserrat&display=swap");
+body {
+  padding-top: 5rem;
+}
 .nav {
+  position: fixed;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 5rem;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.45);
+  z-index: 100;
   .header {
     display: flex;
     text-decoration: none;
@@ -20,61 +29,69 @@
       font-size: 1.4rem;
     }
   }
-  .open {
-    right: 0;
-  }
-  .close {
-    right: -100%;
-  }
-  .rotate {
-    transform: rotate(90deg);
-  }
-  .open_button {
-    height: 60%;
-    margin-right: 12px;
-    transition: transform 0.5s;
+  .mobile_navbar {
+    .open_button {
+      height: 60%;
+      margin-right: 12px;
+      transition: transform 0.5s;
+    }
+    .open {
+      right: 0;
+    }
+    .close {
+      right: -100%;
+    }
+    .rotate {
+      transform: rotate(90deg);
+    }
+    .mobile_navigation {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      height: 100vh;
+      width: 60%;
+      min-width: fit-content;
+      padding: 1rem;
+      background-color: white;
+      // z-index: 100;
+      box-shadow: -1px 0px 12px 0px rgba(0, 0, 0, 0.45);
+      transition: right 0.5s ease-in-out;
+      .top {
+        display: flex;
+        justify-content: end;
+        padding-bottom: 3rem;
+        .close_button {
+          width: 2rem;
+          transition: transform 0.3s;
+        }
+      }
+      a {
+        color: #6f6f6f;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        margin: 0.5rem 0.1rem 0.5rem 0rem;
+        &:hover {
+          color: rgb(102, 102, 102);
+        }
+      }
+    }
   }
   .desktop_navbar {
     display: none;
   }
-  .navbar {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    height: 100vh;
-    width: 60%;
-    min-width: fit-content;
-    padding: 1rem;
-    background-color: white;
-    z-index: 100;
-    box-shadow: -1px 0px 12px 0px rgba(0, 0, 0, 0.45);
-    transition: right 0.5s ease-in-out;
-    .top {
-      display: flex;
-      justify-content: end;
-      .close_button {
-        width: 2rem;
-        transition: transform 0.3s;
-      }
-      padding-bottom: 3rem;
-    }
-    a {
-      color: #6f6f6f;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5em;
-      margin: 0.5rem 0.1rem 0.5rem 0rem;
-      &:hover {
-        color: rgb(102, 102, 102);
-      }
-    }
-  }
+}
+.desktop_navigation {
+  display: none;
 }
 
 @media screen and (min-width: 660px) {
   .nav {
+    .mobile_navbar {
+      display: none;
+    }
     .desktop_navbar {
       display: flex;
       a {
@@ -94,11 +111,73 @@
         }
       }
     }
-    .navbar {
-      display: none;
+  }
+  .desktop_navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    padding-top: 6rem;
+    overflow: hidden;
+    gap: 1rem;
+    background-color: #e6f5f4;
+    transition: width 0.5s ease-in-out;
+    z-index: 99;
+    .top {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 0.7rem;
+      width: 100%;
+      font-size: 2rem;
+      color: #6f6f6f;
+      .button {
+        cursor: pointer;
+        transition: transform 0.5s ease-in-out;
+        .img {
+          width: 2rem;
+        }
+      }
+      .rotate {
+        transform: rotate(180deg);
+      }
     }
-    .open_button {
-      display: none;
+    .link {
+      position: relative;
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+      padding: 0.5rem 0.2rem 0.5rem 0.5rem;
+      overflow: hidden;
+      .icon {
+        display: flex;
+        justify-content: flex-start;
+        width: 1.8rem;
+      }
+      .title {
+        display: flex;
+        width: 18rem;
+        white-space: nowrap;
+        overflow: hidden;
+        padding-right: 1rem;
+      }
     }
+    a {
+      color: #404040;
+      text-decoration: none;
+      gap: 0.5em;
+      margin: 0.5rem 0.1rem 0.5rem 0rem;
+      &:hover {
+        background-color: #40bdb6;
+      }
+    }
+  }
+  .open {
+    width: 15rem;
+  }
+  .close {
+    width: 2.4rem;
   }
 }
