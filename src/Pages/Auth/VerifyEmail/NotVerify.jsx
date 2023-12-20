@@ -13,9 +13,9 @@ const Verify = () => {
       <div className={styles.div2}>
         <img src={notverifydesk} alt="" className={styles.verified_desk}></img>
       </div>
-      <div className={styles.try}>
+      {/* <div className={styles.try}>
         <a href="/">Try again</a>
-      </div>
+      </div> */}
       <img src={wave} alt="" className={styles.wave}></img>
       <img src={wavedesk} alt="" className={styles.wavedesk}></img>
       <div className={styles.email}>
