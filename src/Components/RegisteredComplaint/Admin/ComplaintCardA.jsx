@@ -6,11 +6,15 @@ const ComplaintCardA = ({ title, date, time, content, id }) => {
   return (
     <div className={styles.cardhome}>
       <div className={styles.cardmap} key={id}>
-        
         <div className={styles.content_entity}>
           <div className={styles.inner_map}>
             <div className={styles.complain_title}>
-              <Link to={`/complaint/${id}`}>{title}</Link>
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                to={`/complaint/${id}`}
+              >
+                {title}
+              </Link>
             </div>
             <div className={styles.date_time}>
               <span>{date}</span>

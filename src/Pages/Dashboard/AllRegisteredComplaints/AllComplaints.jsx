@@ -15,7 +15,7 @@ const AllComplaints = () => {
   return (
     <div>
       AllComplaints
-      {role === "client" && <AllComplaintsStudent />}
+      {role === "student" && <AllComplaintsStudent />}
       {(role === "supervisor" || role === "warden" || role === "dsw") && (
         <AllComplaintsAdmin />
       )}

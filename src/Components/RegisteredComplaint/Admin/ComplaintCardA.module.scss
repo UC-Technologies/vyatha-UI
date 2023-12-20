@@ -1,4 +1,3 @@
-
 .cardhome {
   max-width: 81.3rem;
   margin: 0 auto;
@@ -19,12 +18,12 @@
   font-weight: 300;
   left: 0;
   letter-spacing: -0.011rem;
-  line-height: 1.125rem;
+  line-height: 1.2;
 
   width: 47rem;
 }
 .cardmap {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   height: 17.6rem;
   .content_entity {
     display: flex;
@@ -93,7 +92,7 @@
 }
 
 @media screen and (max-width: 660px) {
-  .cardhome{
+  .cardhome {
     width: 100%;
     margin: 0 auto;
     overflow-x: hidden;
@@ -121,15 +120,16 @@
       flex-direction: row;
       justify-content: space-between;
     }
-    
-     .complain_description{
+
+    .complain_description {
       max-width: 18rem;
-      margin: auto;}
-    
+      margin: auto;
+    }
+
     .complain_content {
       font-size: 0.8rem;
-       white-space: nowrap; 
-      width: 18rem; 
+      white-space: nowrap;
+      width: 18rem;
       overflow: hidden;
       text-overflow: ellipsis;
     }
