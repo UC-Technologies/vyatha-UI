@@ -13,7 +13,7 @@
   /* Title */
   .wave {
     width: 100%;
-    // height:100vh;
+    height: 50vh;
     border-bottom-left-radius: 2vw;
     border-bottom-right-radius: 2vw;
   }
@@ -27,13 +27,13 @@
     align-items: center;
     position: absolute;
     bottom: 20vh;
-    left: 0;
-    z-index: 1;
+    // left: 0;
+    // z-index: 1;
     color: #fff;
     text-align: center;
     p {
       font-family: Inter, sans-serif;
-      font-size: clamp(2vw, 6vw, 8vw);
+      font-size: clamp(2vw, 7vw, 8vw);
       font-style: normal;
       font-weight: 700;
       line-height: 36px; /* 150% */
@@ -77,9 +77,9 @@
       }
     }
     .email {
-      bottom: 8vh;
+      bottom: 15vh;
       p {
-        font-size: clamp(0vw, 2vw, 4vw);
+        font-size: clamp(0vw, 1.5vw, 4vw);
       }
     }
   }
