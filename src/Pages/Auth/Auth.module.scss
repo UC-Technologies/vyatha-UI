@@ -12,7 +12,7 @@ $base-font-size: 16px;
   .main_div {
     min-width: 16.5rem;
     width: 41.5rem;
-
+    box-shadow: 0px 0px 10px 8px rgba(0, 0, 0, 0.14);
     .middle_div {
       height: 15vh;
       background-color: white;
@@ -29,6 +29,12 @@ $base-font-size: 16px;
       .div_3 {
         color: #ffffff;
         display: none;
+        p {
+          font-family: "Merienda", cursive;
+          font-size: 1.7vw;
+          font-weight: 500;
+          margin-bottom: 1vw;
+        }
       }
 
       .logo_div {
@@ -170,8 +176,15 @@ $base-font-size: 16px;
 }
 
 @media screen and (min-width: 760px) {
+  // .loginn{
+  //   font-size: 2vw;
+  // }
   .container_div {
-    background-color: lightgrey;
+    background-color: white;
+    width: 60vw;
+    margin-top: 5vw;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -188,7 +201,7 @@ $base-font-size: 16px;
       background-color: #4cddd5;
       width: 59rem;
       border-radius: 4rem;
-      box-shadow: 60px 110px 110px rgb(162, 156, 156);
+      // box-shadow: 60px 110px 110px rgb(162, 156, 156);
 
       .middle_div {
         height: 33rem;
@@ -216,10 +229,6 @@ $base-font-size: 16px;
         .div_3 {
           color: black;
           display: inline;
-
-          p {
-            font-size: 1.5rem;
-          }
         }
       }
 
@@ -286,5 +295,11 @@ $base-font-size: 16px;
         }
       }
     }
+  }
+}
+
+@media (max-width: 660px) {
+  .main_div {
+    box-shadow: none !important;
   }
 }

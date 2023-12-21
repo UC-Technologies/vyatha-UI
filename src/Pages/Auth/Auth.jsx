@@ -12,11 +12,11 @@ const Auth = () => {
   const navigate = useNavigate();
 
   const handleAdmin = () => {
-    navigate("/auth/admin");
+    navigate("/auth/signup");
   };
 
   const handleStudent = () => {
-    navigate("/auth/student");
+    navigate("/auth/login");
   };
 
   return (
@@ -44,6 +44,7 @@ const Auth = () => {
             >
               <div>
                 <div>Log in</div>
+                {/* <p className={styles.loginn}>Log in</p> */}
               </div>
             </button>
 

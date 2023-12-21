@@ -1,27 +1,30 @@
-import { useState } from "react";
+import React, { useMemo, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import IndividualComplaintAdmin from "./Admin/IndividualComplaintAdmin";
 import IndividualComplaintStudent from "./Student/IndividualComplaintStudent";
 
 const IndividualComplaint = () => {
-  const [role, setRole] = useState("warden");
+  // const [role, setRole] = useState("warden");
+  const { role } = useParams();
+  const navigate = useNavigate();
+  const possibleRoles = useMemo(
+    () => ["student", "warden", "dsw", "supervisor", "superadmin"],
+    []
+  );
 
-  // define role in Context provider and consume it here
+  useEffect(() => {
+    if (!possibleRoles.includes(role)) {
+      navigate("/");
+    }
+  }, [navigate, possibleRoles, role]);
 
   return (
-    <div>
-      {role === "client" && <IndividualComplaintStudent />}
+    <div style={{ marginTop: "4rem" }}>
+      {role === "student" && <IndividualComplaintStudent />}
 
       {(role === "supervisor" || role === "warden" || role === "dsw") && (
         <IndividualComplaintAdmin />
       )}
-
-      <button
-        onClick={() => {
-          setRole("supervisor");
-        }}
-      >
-        Toggle role
-      </button>
     </div>
   );
 };

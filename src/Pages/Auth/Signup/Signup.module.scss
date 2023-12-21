@@ -3,13 +3,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
+  margin: 7vw auto 0 auto;
   border-radius: 2.5rem;
   box-shadow:
     rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   // height: 80vh;
-  width: 70vw;
+  width: 60vw;
   padding-top: 2vw;
 
   form {
@@ -116,6 +116,11 @@ button:hover {
   margin-bottom: 1.5vw;
 }
 
+#btn_signup {
+  width: 40%;
+  font-size: 1.2vw;
+}
+
 //Mobile View
 @media only screen and (max-width: 660px) {
   .maindiv {
@@ -215,5 +220,10 @@ button:hover {
     font-size: 3.5vw;
     margin-top: 7vw;
     margin-bottom: 4vw;
+  }
+
+  #btn_signup {
+    width: 40%;
+    font-size: 5vw;
   }
 }
