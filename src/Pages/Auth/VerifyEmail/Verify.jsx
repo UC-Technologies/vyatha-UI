@@ -1,12 +1,11 @@
-import React from "react";
 import Verified from "./Verified";
-import NotVerify from "./NotVerify";
+import NotVerified from "./NotVerified";
 
 // response will be fetched from the api
-const response = true;
+const response = false;
 
 const Verify = () => {
-  return <main>{response ? <Verified /> : <NotVerify />}</main>;
+  return <div>{response ? <Verified /> : <NotVerified />}</div>;
 };
 
 export default Verify;
