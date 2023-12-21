@@ -1,8 +1,17 @@
+.Reset{
+  
+  width: 58.5rem;
+  height: 45.6rem;
+  margin: 0 auto;
+  border-radius: 50px;
+background: #FFF;
+box-shadow: 0px 0px 10px 8px rgba(0, 0, 0, 0.14);
+}
 .reset_page{
     max-width: 27rem;
     margin: 0 auto;
     position: relative;
-    top: 5rem;
+    top: 9rem;
 }
 .reset_title{
     height: 5rem;
@@ -20,7 +29,7 @@ form {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 9rem;
+  gap: 7rem;
 }
 
 .form {
@@ -97,7 +106,12 @@ button:hover {
   background-color: #98d6d2;
 }
 @media screen and (max-width: 660px){
-  
+  .Reset{
+    padding: 0;
+    box-shadow: 0px 0px;
+    width: 18rem;
+    margin: 0 auto;
+  }
 input[type=password] {        
   padding: 4px 8px;
    

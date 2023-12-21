@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import styles from "./ForgotPwd.module.scss"
 const ForgotPwd = () => {
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   useEffect(() => {
-    document.title = "Forgot Password?";
+    document.title = "Forgot Password | Vyatha";
   }, []);
   return (
     <div className={styles.Forget}>
@@ -13,9 +17,14 @@ const ForgotPwd = () => {
   <input type="email" placeholder="" className={styles.nameinput} id="email" />
   <label htmlFor="email">Email</label>
 </div>
-<button type="submit" >
-  Confirm
-</button>
+<button
+         
+          style={{ cursor: "pointer" }}
+          type="submit"
+          onClick={handleSubmit}
+        >
+         Confirm
+        </button>
 </form>
 </div>
  </div>

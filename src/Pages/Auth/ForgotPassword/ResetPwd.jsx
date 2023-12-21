@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import styles from "./ResetPwd.module.scss"
 const ResetPwd = () => {
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   useEffect(() => {
-    document.title = "Reset Password";
+    document.title = "Reset Password | Vyatha";
   }, []);
   return (
     <div className={styles.Reset}>
@@ -20,9 +24,15 @@ const ResetPwd = () => {
           <label htmlFor="confirm_pass">Confirm password</label>
         </div>
         </div>
-        <button type="submit" >
-          Confirm
-        </button>
+        
+        <button
+         
+         style={{ cursor: "pointer" }}
+         type="submit"
+         onClick={handleSubmit}
+       >
+        Confirm
+       </button>
         </form>
         </div>
          </div>
