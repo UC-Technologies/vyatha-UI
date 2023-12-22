@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Data from "../../../../Data/ComplaintRegister.json";
 import styles from "./IndividualComplaintS.module.scss";
+// import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
 const IndividualComplaintStudent = () => {
   // const imageUp = "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703025668/arrow_drop_up_FILL1_wght400_GRAD0_opsz24_twmqne.jpg?_s=public-apps";
   const imageDown =
     "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703025668/arrow_drop_down_FILL1_wght400_GRAD0_opsz24_br1ybe.jpg?_s=public-apps";
+  const imgBack =
+    "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703085199/chevron_left_s4usnm.jpg?_s=public-apps";
+
   const [comment, setComment] = useState("");
   const { key } = useParams(); // Extracted the key
 
@@ -36,7 +40,12 @@ const IndividualComplaintStudent = () => {
       <Helmet>
         <title>{`${complaint.title} | Vyatha`}</title>
       </Helmet>
-      <div className={styles.Title}>{complaint.title}</div>
+      <div className={styles.title}>
+        <Link to="/dashboard">
+          <img src={imgBack} alt="Back" />
+        </Link>
+        <h1>{complaint.title}</h1>
+      </div>
       <div className={styles.Identity}>
         <div className={styles.Info}>
           <div className={styles.FilledBy}>Filled by</div>
