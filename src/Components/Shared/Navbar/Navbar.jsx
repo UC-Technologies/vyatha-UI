@@ -11,7 +11,7 @@ const Navbar = () => {
   const conditionalIcon = isLoggedIn
     ? "https://res.cloudinary.com/dp92qug2f/image/upload/v1703077878/logout_pz1e7m.png"
     : "https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702566654/Two_Tone_uoa0io.jpg?_s=public-apps";
-
+  const conditionalProfile = isLoggedIn ? "/profile" : "/auth";
   const links = [
     {
       id: 1,
@@ -109,7 +109,7 @@ const Navbar = () => {
         <div className={styles.desktop_navbar}>
           <Link to="/">Home</Link>
           <Link to="/about">About Us</Link>
-          <Link to="/auth">
+          <Link to={conditionalProfile}>
             <img
               className={styles.profile}
               src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702566250/user_1_hntf9t.jpg?_s=public-apps"
