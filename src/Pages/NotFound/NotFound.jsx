@@ -3,7 +3,7 @@ import styles from "./NotFound.module.scss";
 
 const NotFound = () => {
   useEffect(() => {
-    document.title = "Not Found";
+    document.title = "Not Found | Vyatha";
   }, []);
   return (
     <div className={styles.container}>
