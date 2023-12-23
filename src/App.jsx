@@ -22,6 +22,7 @@ import ForgotPwd from "./Pages/Auth/ForgotPassword/ForgotPwd";
 import ResetPwd from "./Pages/Auth/ForgotPassword/ResetPwd";
 import Dashboard from "./Pages/Dashboard/AllRegisteredComplaints/Dashboard";
 import AllComplaints from "./Pages/Dashboard/AllRegisteredComplaints/AllComplaints";
+import Logout from "./Pages/Auth/Logout/Logout";
 // import { UserContext } from "./Context/Provider";
 
 const App = () => {
@@ -53,6 +54,7 @@ const App = () => {
             <Route exact path="/profile" element={<Profile />} />
             {/* edit profile */}
             <Route exact path="/profile/edit" element={<EditProfile />} />
+            <Route exact path="/logout" element={<Logout />} />
             {/* forgot password (it will ask for email)  */}
             <Route exact path="/forgotpassword" element={<ForgotPwd />} />
             {/*  after the user clicks on link sent on email for reseting password, it will ask for new password */}

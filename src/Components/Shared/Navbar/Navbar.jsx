@@ -7,6 +7,7 @@ import { UserContext } from "../../../Context/Provider";
 
 const Navbar = () => {
   const { isLoggedIn } = useContext(UserContext);
+  const conditionalTitle = isLoggedIn ? "Log Out" : "Log In";
   const conditionalAuth = isLoggedIn ? "/logout" : "/auth/login";
   const conditionalIcon = isLoggedIn
     ? "https://res.cloudinary.com/dp92qug2f/image/upload/v1703077878/logout_pz1e7m.png"
@@ -39,7 +40,7 @@ const Navbar = () => {
     },
     {
       id: 5,
-      title: "Log Out",
+      title: conditionalTitle,
       to: conditionalAuth,
       icon: conditionalIcon,
     },
