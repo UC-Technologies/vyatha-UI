@@ -1,10 +1,18 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Data from "../../../../Data/ComplaintRegister.json";
 import styles from "./IndividualComplaintS.module.scss";
+// import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
 const IndividualComplaintStudent = () => {
+  // const imageUp = "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703025668/arrow_drop_up_FILL1_wght400_GRAD0_opsz24_twmqne.jpg?_s=public-apps";
+  const imageDown =
+    "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703025668/arrow_drop_down_FILL1_wght400_GRAD0_opsz24_br1ybe.jpg?_s=public-apps";
+  const imgBack =
+    "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703085199/chevron_left_s4usnm.jpg?_s=public-apps";
+
+  const [comment, setComment] = useState("");
   const { key } = useParams(); // Extracted the key
 
   // Finding the dataset using key
@@ -16,11 +24,15 @@ const IndividualComplaintStudent = () => {
   function handleForward() {
     // Function to handle the submit button
   }
-  function handleComments() {
-    // Function to handle the comments
-  }
+  // function handleComments() {
+  //   // Function to handle the comments
+  // }
   function handleCommentsDropD() {
     // Function to handle the dropdown
+  }
+  function handleInput(e) {
+    // console.log(comment);
+    setComment(e.target.value);
   }
 
   return (
@@ -28,7 +40,12 @@ const IndividualComplaintStudent = () => {
       <Helmet>
         <title>{`${complaint.title} | Vyatha`}</title>
       </Helmet>
-      <div className={styles.Title}>{complaint.title}</div>
+      <div className={styles.title}>
+        <Link to="/dashboard">
+          <img src={imgBack} alt="Back" />
+        </Link>
+        <h1>{complaint.title}</h1>
+      </div>
       <div className={styles.Identity}>
         <div className={styles.Info}>
           <div className={styles.FilledBy}>Filled by</div>
@@ -81,12 +98,21 @@ const IndividualComplaintStudent = () => {
         <p>Morbi a metus.Phasellus enim erat, vestibulum vel,aliquam..........</p>
         <div className={styles.Date}>hh:mm day - dd/mm/yy</div>
         <div className={styles.CommentsDropD}>
-          <button onClick={handleCommentsDropD}>See all comments</button>
+          <div onClick={handleCommentsDropD} className={styles.SeeComments}>
+            See all comments <img src={imageDown} alt="" />
+          </div>
         </div>
       </div>
       <div className={styles.ComplaintButtons}>
         <div className={styles.TapToComment}>
-          <button onClick={handleComments}>Tap to Comment</button>
+          <input
+            type="text"
+            placeholder="Tap to Comment"
+            value={comment}
+            id="1"
+            name="comment"
+            onChange={handleInput}
+          ></input>
         </div>
         <div className={styles.TapToSelect}>
           <span>Raise Complaint</span>

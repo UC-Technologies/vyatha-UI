@@ -7,13 +7,9 @@ const ComplaintForm = () => {
     document.title = "Complaint Form | Vyatha";
   }, []);
   const [formData, setFormData] = useState({
-    username: "",
-    ScholarID: "",
-    Hostel: "",
-    RoomNo: "",
     Category: "",
     description: "",
-    Forwardedto: "",
+    Title: "",
     Imagefile: "",
   });
 
@@ -98,10 +94,7 @@ const ComplaintForm = () => {
     setStoreData([...storeData, Finaldata]);
 
     setFormData({
-      username: "",
-      ScholarID: "",
-      Hostel: "",
-      RoomNo: "",
+      Title: "",
       Category: "",
       description: "",
       Forwardedto: "",
@@ -115,7 +108,7 @@ const ComplaintForm = () => {
 
       <div className={styles.CForm}>
         <form className={styles.ComplaintForm} onSubmit={handleSubmit}>
-          <div className={styles.form_group}>
+          {/* <div className={styles.form_group}>
             <input
               type="text"
               id="username"
@@ -126,8 +119,8 @@ const ComplaintForm = () => {
               required
             />
             <label htmlFor="username">Name</label>
-          </div>
-          <div className={styles.form_group}>
+          </div> */}
+          {/* <div className={styles.form_group}>
             <input
               type="text"
               id="ScholarID"
@@ -137,8 +130,8 @@ const ComplaintForm = () => {
               required
             />
             <label htmlFor="scholar ID">Scholar ID</label>
-          </div>
-          <div className={styles.form_group}>
+          </div> */}
+          {/* <div className={styles.form_group}>
             <select
               name="Hostel"
               className={styles.select_option}
@@ -198,8 +191,8 @@ const ComplaintForm = () => {
               </option>
             </select>
             <label htmlFor="hostel">Hostel</label>
-          </div>
-          <div className={styles.form_group}>
+          </div> */}
+          {/* <div className={styles.form_group}>
             <input
               type="text"
               id="RoomNo"
@@ -209,9 +202,34 @@ const ComplaintForm = () => {
               required
             />
             <label htmlFor="RoomNo">Room Number</label>
+          </div> */}
+          <div className={styles.form_group}>
+            <input
+              type="text"
+              id="Title"
+              value={formData.Forwardedto}
+              name="Title"
+              onChange={handleInput}
+              required
+            />
+            <label htmlFor="Forwarded">Title of the Issue</label>
           </div>
           <div className={styles.form_group}>
-            <select name="Category">
+            <textarea
+              type="text"
+              id="description"
+              value={formData.description}
+              name="description"
+              onChange={handleInput}
+              autoComplete="off"
+              rows="5"
+              cols="40"
+              required
+            />
+            <label htmlFor="description">Description of the Issue</label>
+          </div>
+          <div className={styles.form_group}>
+            <select name="Category" style={{ cursor: "pointer" }}>
               <option
                 value="No input"
                 id="No_input"
@@ -232,20 +250,7 @@ const ComplaintForm = () => {
             </select>
             <label htmlFor="category">Category</label>
           </div>
-          <div className={styles.form_group}>
-            <textarea
-              type="text"
-              id="description"
-              value={formData.description}
-              name="description"
-              onChange={handleInput}
-              autoComplete="off"
-              rows="5"
-              cols="40"
-              required
-            />
-            <label htmlFor="description">Description</label>
-          </div>
+
           <div className={styles.photoUpload}>
             <p>Upload Your Photo</p>
             <div
@@ -279,7 +284,7 @@ const ComplaintForm = () => {
               {/* <progress></progress>    */}
             </div>
           </div>
-          <div className={styles.form_group}>
+          {/* <div className={styles.form_group}>
             <input
               type="text"
               id="Forwarded"
@@ -289,7 +294,7 @@ const ComplaintForm = () => {
               required
             />
             <label htmlFor="Forwarded">Forwarded to</label>
-          </div>
+          </div> */}
           <div className={styles.captcha}>
             <div>Captch Here</div>
             <button type="submit">Submit</button>

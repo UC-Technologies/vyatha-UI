@@ -37,9 +37,12 @@ const Login = () => {
             Password
           </label>
         </div>
-        <p id={styles.password_cont} className={styles.password}>
-          Forgot Password?
-        </p>
+        <Link to="/forgotpassword">
+          <p id={styles.password_cont} className={styles.password}>
+            Forgot Password?
+          </p>
+        </Link>
+
         <Captcha />
         <div id={styles.password_cont} className={styles.button}>
           <button type="submit" onClick={verifyCaptcha} className={styles.btn}>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "./ComplaintDashboardS.module.scss";
 import Data from "../../../../Data/ComplaintRegister.json";
 // import ComplaintCardS from '../../../Components/RegisteredComplaint/Student/ComplaintCardS';
@@ -10,9 +10,14 @@ const AllComplaintStudent = () => {
     document.title = "All Complaints | Vyatha";
   }, []);
 
+  const { role } = useParams();
+  // console.log(role)
   const [jsonData, setJsonData] = useState(Data);
   const [sortBy, setSortBy] = useState("date");
   const [searchInput, setSearchInput] = useState("");
+
+  const imgBack =
+    "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703085199/chevron_left_s4usnm.jpg?_s=public-apps";
 
   const sortData = (e) => {
     setSortBy(e.target.value);
@@ -60,12 +65,17 @@ const AllComplaintStudent = () => {
   return (
     <div className={styles.container}>
       <div className={styles.SearchBar}>
-        <input
-          type="text"
-          placeholder="Search Complaint"
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-        />
+        <Link to="/">
+          <img src={imgBack} alt="Back" />
+        </Link>
+        <div className={styles.input}>
+          <input
+            type="text"
+            placeholder="Search Complaint"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+        </div>
         <SortByButton sortBy={sortBy} handleSort={sortData} />
       </div>
       <div className={styles.ComplaintCard}>
@@ -74,12 +84,15 @@ const AllComplaintStudent = () => {
             // <ComplaintCardS key={item.key} complaint={item} />
             <div className={styles.CardContainer} key={complaint.key}>
               <div className={styles.Heading}>
-                <div>
-                  <Link to={`/complaint/${complaint.key}`}>
+                <div className={styles.compliantTitle}>
+                  <Link to={`/${role}/complaint/${complaint.key}`}>
                     <h2>{complaint.title}</h2>
                   </Link>
                 </div>
-                <img src={complaint.StatusImg} alt="icon"></img>
+                <div className={styles.StatusImg}>
+                  <img src={complaint.StatusImg} alt="icon" />
+                </div>
+
                 {/* link for the complaint status has to be fetched from the json file corresponding to the complaint status */}
               </div>
               <div className={styles.DateAndTime}>
@@ -87,7 +100,7 @@ const AllComplaintStudent = () => {
               </div>
               <div className={styles.Description}>
                 <p>{complaint.Description}</p>
-                <button>Close</button>
+                <button className={styles.closebtn}>Close</button>
               </div>
               <div className={styles.SelectBar}>
                 <div className={styles.Registered}>Registered</div>

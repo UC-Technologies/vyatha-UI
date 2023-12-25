@@ -1,0 +1,161 @@
+.container {
+  background-image: url("https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702904047/Admin_xa7qfr.jpg?_s=public-apps");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 4rem;
+  // width: 100vw;
+  // height: 100vh;
+  overflow-x: hidden;
+  .RegComplaints {
+    // height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5vw;
+    padding: 6vw;
+    .slogan {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2vw;
+      font-family: "Merienda", cursive;
+      color: #ffffff;
+    }
+    .register,
+    .registered {
+      a {
+        text-decoration: none;
+        background-color: #ffffff;
+        width: 20vw;
+        min-width: 300px;
+        height: 20vh;
+        min-height: 250px;
+        // max-height: 400px;
+        border-radius: 2vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        #extramargintop {
+          margin-top: 0.5vw;
+        }
+        h3 {
+          text-decoration: none;
+          font-family: var(--vyatha-font-4);
+          font-size: clamp(12px, 2vw, 24px);
+          color: #303030;
+        }
+        img {
+          zoom: 150%;
+        }
+      }
+    }
+  }
+  .Icon {
+    background-color: #ffffff;
+    position: absolute;
+    cursor: pointer;
+    right: 2vw;
+    top: 7vh;
+    zoom: 150%;
+    z-index: 1;
+    border-radius: 5vw;
+    padding: 5px;
+    border: 3px solid lightgray;
+    img {
+      overflow: hidden;
+    }
+  }
+  .Notifications {
+    display: flex;
+    position: relative;
+    left: 0;
+    justify-content: center;
+    background-color: #ffffff;
+    height: 90vh;
+    // margin-left:10vw;
+    width: 25vw;
+    min-width: 400px;
+    border-radius: 2vw;
+    transition: all 0.35s ease;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    background-image: url("https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702904047/Admin_xa7qfr.jpg?_s=public-apps");
+    background-repeat: no-repeat;
+    background-position: initial;
+    background-size: cover;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    overflow-x: hidden;
+    .RegComplaints {
+      // height: 100vh;
+      padding: 4vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 10vw;
+      .slogan {
+        padding: 5vw 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4vw;
+        font-family: "Merienda", cursive;
+        color: #ffffff;
+      }
+      .register,
+      .registered {
+        a {
+          background-color: #ffffff;
+          width: 20vw;
+          min-width: 250px;
+          height: 20vh;
+          min-height: 200px;
+          border-radius: 2vw;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 2vw;
+          h3 {
+            font-family: var(--vyatha-font-4);
+          }
+          img {
+            zoom: 100%;
+          }
+        }
+      }
+    }
+    .Icon {
+      position: absolute;
+      right: 5vw;
+      top: 7vh;
+      zoom: 150%;
+      padding: 5px;
+    }
+    .Notifications {
+      display: flex;
+      position: relative;
+      left: 0;
+      justify-content: center;
+      background-color: #ffffff;
+      height: 30vh;
+      margin: 0 auto 5vw auto;
+      width: 90vw;
+      border-radius: 2vw;
+      transition: all 0.25s ease;
+      left: 0;
+    }
+  }
+}

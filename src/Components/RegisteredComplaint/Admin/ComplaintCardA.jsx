@@ -1,8 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "./ComplaintCardA.module.scss";
 
 const ComplaintCardA = ({ title, date, time, content, id }) => {
+  const { role } = useParams();
+  // console.log(role);
   return (
     <div className={styles.cardhome}>
       <div className={styles.cardmap} key={id}>
@@ -11,7 +13,7 @@ const ComplaintCardA = ({ title, date, time, content, id }) => {
             <div className={styles.complain_title}>
               <Link
                 style={{ textDecoration: "none", color: "black" }}
-                to={`/complaint/${id}`}
+                to={`/${role}/complaint/${id}`}
               >
                 {title}
               </Link>
