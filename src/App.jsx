@@ -23,6 +23,7 @@ import ResetPwd from "./Pages/Auth/ForgotPassword/ResetPwd";
 import Dashboard from "./Pages/Dashboard/AllRegisteredComplaints/Dashboard";
 import AllComplaints from "./Pages/Dashboard/AllRegisteredComplaints/AllComplaints";
 import Logout from "./Pages/Auth/Logout/Logout";
+import Team from "./Pages/Team/Team";
 // import { UserContext } from "./Context/Provider";
 
 const App = () => {
@@ -59,6 +60,8 @@ const App = () => {
             <Route exact path="/forgotpassword" element={<ForgotPwd />} />
             {/*  after the user clicks on link sent on email for reseting password, it will ask for new password */}
             <Route exact path="/resetpassword/:token" element={<ResetPwd />} />
+            {/* team page route */}
+            <Route exact path="/team" element={<Team />} />
             {/* 404 route */}
             <Route path="*" element={<NotFound />} />
           </Routes>

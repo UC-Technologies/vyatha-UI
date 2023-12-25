@@ -1,0 +1,29 @@
+.container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5em;
+  padding-bottom: 5em;
+  padding-top: 8em;
+
+  .mainwrapper {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5em;
+    max-width: 1150px;
+
+    .head {
+      margin: auto;
+      justify-content: center;
+    }
+
+    .devs {
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3em;
+    }
+  }
+}
