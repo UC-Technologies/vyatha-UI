@@ -18,26 +18,18 @@ const SignUp = () => {
     const hostel = document.getElementById("hostel").value;
     const room = document.getElementById("room").value;
     const designation = selects;
-    console.log({ name, email, phone, password, cpassword, hostel, room, designation });
     const register = async () => {
       axios
-        .post(
-          `${import.meta.env.VITE_REACT_APP_API}/vyatha/api/signup`,
-          JSON.stringify({
-            name,
-            email,
-            phone,
-            password,
-            cpassword,
-            hostel,
-            room,
-            designation,
-          }),
-          {
-            headers: { "Content-Type": "application/json" },
-            withCredentials: true,
-          }
-        )
+        .post(`${import.meta.env.VITE_REACT_APP_API}/signup`, {
+          name,
+          email,
+          phone,
+          password,
+          cpassword,
+          hostel,
+          room,
+          designation,
+        })
         .then((response) => {
           console.log(response);
           navigate("/auth/login");
@@ -48,6 +40,7 @@ const SignUp = () => {
     };
     register();
   };
+
   const [selects, setSelects] = useState("Student");
   const ref = useRef(null);
 

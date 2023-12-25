@@ -15,16 +15,12 @@ const Login = () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     axios
-      .post(
-        `${import.meta.env.VITE_REACT_APP_API}/vyatha/api/login`,
-        JSON.stringify({ email, password }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      )
+      .post(`${import.meta.env.VITE_REACT_APP_API}/login`, {
+        email,
+        password,
+      })
       .then((response) => {
-        console.log(response?.data?.token);
+        console.log(response);
         Cookies.set("authToken", response?.data?.token);
         navigate("/dashboard");
       })
