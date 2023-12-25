@@ -94,12 +94,16 @@
 @media screen and (max-width: 660px) {
   .cardhome {
     width: 100%;
+    max-width: 100%;
     margin: 0 auto;
     overflow-x: hidden;
   }
   .cardmap {
-    width: 23rem;
+    width: 95%;
+    margin: 2vw auto;
     height: 22rem;
+    padding-left: 2vw;
+    padding-right: 2vw;
     .inner_map {
       font-size: 0.8rem;
       width: 6rem;
