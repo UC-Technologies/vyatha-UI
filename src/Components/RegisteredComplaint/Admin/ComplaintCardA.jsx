@@ -76,6 +76,7 @@ const ComplaintCardA = ({ title, date, time, content, id }) => {
 
           <div className={styles.comment_box}>
             <img
+              style={{ cursor: "pointer" }}
               src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1698397726/Round_ats37t.jpg?_s=public-apps"
               width="54px"
               height="52px"
