@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import axios from "axios";
 import Captcha from "../../../Components/Shared/CaptchaComponent/Captcha";
 import styles from "./Login.module.scss";
 
@@ -7,8 +9,29 @@ const Login = () => {
   useEffect(() => {
     document.title = "Login | Vyatha";
   }, []);
-
-  const verifyCaptcha = () => {};
+  const navigate = useNavigate();
+  const verifyCaptcha = async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    axios
+      .post(
+        `${import.meta.env.VITE_REACT_APP_API}/vyatha/api/login`,
+        JSON.stringify({ email, password }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      )
+      .then((response) => {
+        console.log(response?.data?.token);
+        Cookies.set("authToken", response?.data?.token);
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     <div className={styles.container}>
       <p className={styles.login}>Log in</p>

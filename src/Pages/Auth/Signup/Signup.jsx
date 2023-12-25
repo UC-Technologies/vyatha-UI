@@ -1,14 +1,52 @@
 import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import styles from "./Signup.module.scss";
 
 const SignUp = () => {
   useEffect(() => {
     document.title = "Signup | Vyatha";
   }, []);
-
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const password = document.getElementById("pass").value;
+    const cpassword = document.getElementById("passconf").value;
+    const hostel = document.getElementById("hostel").value;
+    const room = document.getElementById("room").value;
+    const designation = selects;
+    console.log({ name, email, phone, password, cpassword, hostel, room, designation });
+    const register = async () => {
+      axios
+        .post(
+          `${import.meta.env.VITE_REACT_APP_API}/vyatha/api/signup`,
+          JSON.stringify({
+            name,
+            email,
+            phone,
+            password,
+            cpassword,
+            hostel,
+            room,
+            designation,
+          }),
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        )
+        .then((response) => {
+          console.log(response);
+          navigate("/auth/login");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    register();
   };
   const [selects, setSelects] = useState("Student");
   const ref = useRef(null);
@@ -69,7 +107,7 @@ const SignUp = () => {
           <label htmlFor="scholar">Scholar ID</label>
         </div>
         <div className={styles.designation}>
-          <select>
+          <select id="hostel">
             <option>BH1</option>
             <option>BH2</option>
             <option>BH3</option>
