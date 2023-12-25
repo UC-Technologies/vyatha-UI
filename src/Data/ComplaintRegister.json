@@ -10,7 +10,7 @@
     "RoomNo": "232",
     "PhoneNo": "12345-67890",
     "IDCard": "Cloudinary-Link",
-    "StatusImg":"https://res.cloudinary.com/dp92qug2f/image/upload/v1703209962/tick_skcuzr.jpg"
+    "StatusImg": "https://res.cloudinary.com/dp92qug2f/image/upload/v1703209962/tick_skcuzr.jpg"
   },
   {
     "key": "2",
@@ -23,7 +23,7 @@
     "RoomNo": "231",
     "PhoneNo": "23456-77654",
     "IDCard-url": "Cloudinary-Link2",
-    "StatusImg":"https://res.cloudinary.com/dp92qug2f/image/upload/v1703209962/tick_skcuzr.jpg"
+    "StatusImg": "https://res.cloudinary.com/dp92qug2f/image/upload/v1703209962/tick_skcuzr.jpg"
   },
   {
     "key": "3",
@@ -36,6 +36,6 @@
     "RoomNo": "230",
     "PhoneNo": "95474-75804",
     "IDCard-url": "Cloudinary-Link3",
-    "StatusImg":"https://res.cloudinary.com/dp92qug2f/image/upload/v1703209962/tick_skcuzr.jpg"
+    "StatusImg": "https://res.cloudinary.com/dp92qug2f/image/upload/v1703209962/tick_skcuzr.jpg"
   }
 ]
