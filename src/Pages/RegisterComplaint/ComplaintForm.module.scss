@@ -30,6 +30,7 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 20px;
+      cursor: pointer;
       label {
         position: absolute;
         top: 25%;
@@ -103,6 +104,10 @@
       justify-content: center;
       flex-direction: column;
       padding-bottom: 5vh;
+      p {
+        font-size: 1.25vw;
+        margin-bottom: 1vw;
+      }
 
       label {
         padding: 1vh 2vh;
@@ -184,5 +189,12 @@
     margin-top: 5rem;
     padding-top: 1vw;
     padding-bottom: 1vw;
+  }
+
+  .photoUpload {
+    p {
+      font-size: 03.15vw !important;
+      margin-bottom: 3.5vw !important;
+    }
   }
 }

@@ -3,16 +3,28 @@
     display: flex;
     flex-direction: column;
     gap: 1vh;
-    .Title {
+    margin-top: 5rem;
+    .title {
+      width: 100vw;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       background: var(--vyatha4-gradient-1);
       box-shadow: var(--vyatha4-shadow-1);
-      color: #fff;
-      font-size: 4vw;
-      height: 6vh;
+      padding-top: 2vw;
+      padding-bottom: 2vw;
+      h1 {
+        color: #fff;
+        font-size: clamp(14px, 3vw, 24px);
+        font-weight: 300;
+        font-size: 4vw;
+      }
+      a {
+        img {
+          display: none;
+        }
+      }
     }
     .Identity {
       display: flex;
@@ -182,21 +194,36 @@
     }
   }
 }
+
+// --------------------------------------------------------------------LargeScreen------------------------------------------------------------------------------------------
 @media screen and (min-width: 600px) {
   .Container {
     display: flex;
     flex-direction: column;
     gap: 1vh;
-    .Title {
+    .title {
+      width: 100vw;
       position: relative;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-around;
       background: var(--vyatha4-gradient-1);
       box-shadow: var(--vyatha4-shadow-1);
-      color: #fff;
-      font-size: 4vw;
-      height: 6vh;
+      // height: 6vh;
+      padding-top: 0.5vw;
+      padding-bottom: 0.5vw;
+      h1 {
+        color: #fff;
+        font-size: clamp(16px, 4vw, 24px);
+        font-weight: 300;
+        margin-right: 25vw;
+        font-size: 1.75vw;
+      }
+      a {
+        img {
+          zoom: 50%;
+        }
+      }
     }
     .Identity {
       display: flex;
@@ -311,8 +338,9 @@
           align-items: center;
           justify-content: center;
           position: relative;
+          min-width: 200px;
           width: 40vw;
-          height: 4vw;
+          height: 6vh;
           background-color: white;
           border-radius: 2vw;
           border: 1px solid gray;
@@ -323,12 +351,12 @@
       .TapToSelect {
         font-size: clamp(12px, 3vw, 24px);
         font-weight: 400;
-        height: 6vw;
         select {
           text-align: center;
           border-radius: 2vw;
+          min-width: 200px;
           width: 40vw;
-          height: 8vw;
+          height: 6vh;
           border: 1px solid gray;
         }
       }
@@ -355,8 +383,8 @@
       }
     }
   }
-}
-@media screen and (min-width: 600px) {
+
+  // ------------------------------------------------------
   .Container {
     display: flex;
     flex-direction: column;
@@ -381,6 +409,7 @@
       flex-direction: row;
       justify-content: center;
       box-shadow: var(--vyatha4-shadow-2);
+      margin-top: 4vw;
       .Info {
         display: flex;
         flex-direction: column;
@@ -531,12 +560,15 @@
       font-weight: 400;
       padding: 0 1vh;
       select {
-        width: 80vw;
-        max-width: 600px;
-        height: 6vw;
+        min-width: 200px;
+        width: 40vw;
+        height: 6vh;
         border: 2px solid gray;
         border-radius: 2vw;
         option {
+          min-width: 200px;
+          width: 40vw;
+          height: 6vh;
           text-align: center;
           font-size: clamp(12px, 3vw, 24px);
           // display: flex;
