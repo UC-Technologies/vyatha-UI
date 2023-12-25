@@ -1,35 +1,19 @@
-.Reset{
-  
-  width: 58.5rem;
-  height: 45.6rem;
-  margin: 0 auto;
+.reset {
+  margin: 8vw auto 0 auto;
   border-radius: 50px;
-background: #FFF;
-box-shadow: 0px 0px 10px 8px rgba(0, 0, 0, 0.14);
-}
-.reset_page{
-    max-width: 27rem;
-    margin: 0 auto;
-    position: relative;
-    top: 9rem;
-}
-.reset_title{
-    height: 5rem;
-    color: #000;
-    text-align: center;
-    font-family: Lato;
-    font-size: 25px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 26px; /* 104% */
-}
-
-form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 7rem;
+  background: #fff;
+  box-shadow: 0px 0px 10px 8px rgba(0, 0, 0, 0.14);
+  height: 70vh;
+  width: 50vw;
+  user-select: none;
+  padding-top: 3vw;
+  .reset_title {
+    h1 {
+      font-family: "Merienda", cursive;
+      font-size: 1.5vw;
+      font-weight: 500;
+    }
+  }
 }
 
 .form {
@@ -37,15 +21,14 @@ form {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 1rem;
+  margin: 3vw 0;
 }
 
 .form label {
   position: absolute;
   font-family: var(--vyatha-font-1);
-  
-  top: 23%;
-  left: 0;
+  top: 22%;
+  left: 22%;
   translate: 0.688rem;
   transition: 0.3s;
   cursor: text;
@@ -54,19 +37,14 @@ form {
 
 .form input {
   height: 2.5rem;
-  width: 20rem;
+  width: 30vw;
   border-radius: 0.25rem;
-  border: 0.1rem solid #938F99;
+  border: 0.1rem solid #938f99;
   font-size: 14px;
   padding: 0.625rem;
-  box-shadow: 1px 1px #E6E0E9;
+  box-shadow: 1px 1px #e6e0e9;
 }
-.all_inputs{
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
-   
-}
+
 .nameinput:focus ~ label,
 .nameinput:not(:placeholder-shown).nameinput:not(:focus) ~ label {
   top: -27%;
@@ -84,56 +62,77 @@ input::-webkit-inner-spin-button {
 
 input:focus {
   border: 0.125rem solid var(--vyatha-main-color-dark);
-  
 }
 
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
-button {
-  height: 2.5rem;
-  width: 10rem;
+#forgot_btn {
+  padding: 0.5vw 4vw;
+  font-size: 1.2vw;
+  cursor: pointer;
   border-radius: 0.5rem;
-  background-color: #A4E5E1;
-  font-size: 1.3rem;
-  border: none;
   font-weight: 500;
-  margin-top: 1.25rem;
+  background-color: var(--vyatha-main-color-light);
+  border: none;
+  margin-top: 8vw;
 }
 
-button:hover {
-  background-color: #98d6d2;
+#confirmpass {
+  margin-top: -1vw !important;
 }
-@media screen and (max-width: 660px){
-  .Reset{
-    padding: 0;
-    box-shadow: 0px 0px;
-    width: 18rem;
-    margin: 0 auto;
+
+@media (max-width: 660px) {
+  .reset {
+    margin: 50vw auto 0 auto;
+    border-radius: 0px;
+    background: #fff;
+    height: 70vh;
+    width: 100vw;
+    padding-top: 3vw;
+    box-shadow: none;
+    .reset_title {
+      h1 {
+        font-size: 7vw;
+        margin-bottom: 12vw;
+      }
+    }
   }
-input[type=password] {        
-  padding: 4px 8px;
-   
-}
-input[type=password]:focus{
-  outline: 2px solid black;    
-}
 
-.nameinput:focus ~ label,
-.nameinput:not(:placeholder-shown).nameinput:not(:focus) ~ label {
-  top: -27%;
-  background-color: white;
-  color: black;
-  font-size: 1rem;
-}
+  .form label {
+    position: absolute;
+    font-family: var(--vyatha-font-1);
+    top: 22%;
+    left: 8%;
+    translate: 0.688rem;
+    transition: 0.3s;
+    cursor: text;
+    color: #a9a9ac;
+  }
 
-button:hover {
-  background-color: #98d6d2;
-}
-/*
-input:focus {
-  border: 0.125rem solid var(--vyatha-main-color-dark);
-  
-}*/
+  .form input {
+    height: 2.5rem;
+    width: 90vw;
+    border-radius: 0.25rem;
+    border: 0.1rem solid #938f99;
+    font-size: 14px;
+    padding: 0.625rem;
+    box-shadow: 1px 1px #e6e0e9;
+  }
+
+  #forgot_btn {
+    padding: 1.24vw 8vw;
+    font-size: 5.5vw;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    background-color: var(--vyatha-main-color-light);
+    border: none;
+    margin-top: 20vw;
+  }
+
+  #confirmpass {
+    margin-top: 8vw !important;
+  }
 }

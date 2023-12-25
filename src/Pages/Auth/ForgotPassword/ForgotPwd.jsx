@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import styles from "./ForgotPwd.module.scss"
+import styles from "./ForgotPwd.module.scss";
 const ForgotPwd = () => {
-  
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -9,25 +8,22 @@ const ForgotPwd = () => {
     document.title = "Forgot Password | Vyatha";
   }, []);
   return (
-    <div className={styles.Forget}>
-    <div className={styles.forgot_page}>
-<div className={styles.forget_title}>Forgot Password</div>
-<form action="">
-<div className={styles.form}>
-  <input type="email" placeholder="" className={styles.nameinput} id="email" />
-  <label htmlFor="email">Email</label>
-</div>
-<button
-         
-          style={{ cursor: "pointer" }}
-          type="submit"
-          onClick={handleSubmit}
-        >
-         Confirm
+    <div className={styles.forget}>
+      <div className={styles.forget_title}>
+        <h1>Forgot Password</h1>
+      </div>
+
+      <div className={styles.form_starts}>
+        <div className={styles.form}>
+          <input type="email" placeholder="" className={styles.nameinput} id="email" />
+          <label htmlFor="email">Email</label>
+        </div>
+
+        <button id={styles.forgot_btn} onClick={handleSubmit}>
+          Submit
         </button>
-</form>
-</div>
- </div>
+      </div>
+    </div>
   );
 };
 

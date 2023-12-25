@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import styles from "./ResetPwd.module.scss"
+import styles from "./ResetPwd.module.scss";
 const ResetPwd = () => {
-  
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -9,33 +8,37 @@ const ResetPwd = () => {
     document.title = "Reset Password | Vyatha";
   }, []);
   return (
-    <div className={styles.Reset}>
-            <div className={styles.reset_page}>
-        <div className={styles.reset_title}>Reset Password</div>
-        <form action="">
-            <div className={styles.all_inputs}>
+    <div className={styles.reset}>
+      <div className={styles.reset_title}>
+        <h1>Reset Password</h1>
+      </div>
+
+      <div className={styles.form_starts}>
         <div className={styles.form}>
-          <input type="password" placeholder="" className={styles.nameinput} id="new_pass" />
-          <label htmlFor="new_pass">New password</label>
-          
+          <input
+            type="password"
+            placeholder=""
+            className={styles.nameinput}
+            id="password"
+          />
+          <label htmlFor="password">New Password</label>
         </div>
-        <div className={styles.form}>
-        <input type="password" placeholder="" className={styles.nameinput} id="confirm_pass" />
-          <label htmlFor="confirm_pass">Confirm password</label>
+
+        <div className={styles.form} id={styles.confirmpass}>
+          <input
+            type="password"
+            placeholder=""
+            className={styles.nameinput}
+            id="password"
+          />
+          <label htmlFor="password">Confirm New Password</label>
         </div>
-        </div>
-        
-        <button
-         
-         style={{ cursor: "pointer" }}
-         type="submit"
-         onClick={handleSubmit}
-       >
-        Confirm
-       </button>
-        </form>
-        </div>
-         </div>
+
+        <button id={styles.forgot_btn} onClick={handleSubmit}>
+          Submit
+        </button>
+      </div>
+    </div>
   );
 };
 
