@@ -1,9 +1,10 @@
 import React, { useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { toast } from "sonner";
 import axios from "axios";
 import { UserContext } from "../../../Context/Provider";
-import Captcha from "../../../Components/Shared/CaptchaComponent/Captcha";
+// import Captcha from "../../../Components/Shared/CaptchaComponent/Captcha";
 import styles from "./Login.module.scss";
 
 const Login = () => {
@@ -12,7 +13,8 @@ const Login = () => {
   useEffect(() => {
     if (isLoggedIn) navigate("/dashboard");
     document.title = "Login | Vyatha";
-  }, []);
+  }, [isLoggedIn, navigate]);
+
   const verifyCaptcha = async (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value;
@@ -23,14 +25,49 @@ const Login = () => {
         password,
       })
       .then((response) => {
-        console.log(response);
-        Cookies.set("authToken", response?.data?.token);
-        navigate("/dashboard");
+        // console.log(response);
+        if (response.data.message === "Login successful") {
+          Cookies.set("authToken", response?.data?.token);
+          navigate("/dashboard");
+          window.location.reload();
+        }
       })
       .catch((error) => {
-        console.error(error);
+        if (error.response) {
+          switch (error.response.data.error) {
+            case "email is missing":
+              toast("email is missing");
+              break;
+
+            case "Email is not valid":
+              toast("Email is not valid");
+              break;
+            case "Please fill all required fields":
+              toast("Please fill all required fields");
+              break;
+
+            case "no user found":
+              toast("no user found");
+              break;
+
+            case "Account scheduled for deletion":
+              toast("Account scheduled for deletion");
+              break;
+
+            case "wrong email or password":
+              toast("wrong email or password");
+              break;
+
+            case "Something went wrong":
+              toast("Something went wrong");
+              break;
+            default:
+              toast("Something went wrong");
+          }
+        }
       });
   };
+
   return (
     <div className={styles.container}>
       <p className={styles.login}>Log in</p>
@@ -65,7 +102,7 @@ const Login = () => {
           </p>
         </Link>
 
-        <Captcha />
+        {/* <Captcha /> */}
         <div id={styles.password_cont} className={styles.button}>
           <button type="submit" onClick={verifyCaptcha} className={styles.btn}>
             Login

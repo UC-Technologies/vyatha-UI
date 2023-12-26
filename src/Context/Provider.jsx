@@ -9,30 +9,37 @@ const ContextProvider = ({ children }) => {
   const [profile, setProfile] = useState([]);
   const [allComplaints, setAllComplaints] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [dataFetched, setDataFetched] = useState(false);
 
-  // client should set the cookie like this in login component
-  // Cookies.set('authToken', token);
-
+  const token = Cookies.get("authToken");
   useEffect(() => {
-    const token = Cookies.get("authToken");
-    if (token) {
-      setIsLoggedIn(true);
-    }
+    const tokenConfig = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
     const fetchData = async () => {
       try {
         const [profileRes, allComplaintRes] = await Promise.all([
-          axios.get(`${import.meta.env.VITE_REACT_APP_API}/dashboard`),
-          axios.get(`${import.meta.env.VITE_REACT_APP_API}/allcomplaints`),
+          axios.get(`${import.meta.env.VITE_REACT_APP_API}/dashboard`, tokenConfig),
+          axios.get(`${import.meta.env.VITE_REACT_APP_API}/fetchissues`, tokenConfig),
         ]);
         setProfile(profileRes.data);
         setAllComplaints(allComplaintRes.data);
+        setDataFetched(true);
       } catch (err) {
         console.error(err);
       }
     };
     fetchData();
-  }, []);
+  }, [token]);
+
+  useEffect(() => {
+    if (dataFetched === true) {
+      setIsLoggedIn(true);
+    }
+  }, [dataFetched]);
 
   const contextValue = useMemo(
     () => ({ profile, allComplaints, isLoggedIn }),

@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import axios from "axios";
 import { UserContext } from "../../../Context/Provider";
 import styles from "./Signup.module.scss";
@@ -10,7 +11,7 @@ const SignUp = () => {
   useEffect(() => {
     if (isLoggedIn) navigate("/dashboard");
     document.title = "Signup | Vyatha";
-  }, []);
+  }, [isLoggedIn, navigate]);
   const handleSubmit = (e) => {
     e.preventDefault();
     const name = document.getElementById("name").value;
@@ -20,26 +21,84 @@ const SignUp = () => {
     const cpassword = document.getElementById("passconf").value;
     const hostel = document.getElementById("hostel").value;
     const room = document.getElementById("room").value;
+    const scholarID = document.getElementById("scholar").value;
     const designation = selects;
     const register = async () => {
-      axios
-        .post(`${import.meta.env.VITE_REACT_APP_API}/signup`, {
-          name,
-          email,
-          phone,
-          password,
-          cpassword,
-          hostel,
-          room,
-          designation,
-        })
-        .then((response) => {
-          console.log(response);
-          navigate("/auth/login");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      try {
+        await axios
+          .post(`${import.meta.env.VITE_REACT_APP_API}/signup`, {
+            name,
+            email,
+            phone,
+            password,
+            cpassword,
+            hostel,
+            room,
+            designation,
+            scholarID,
+          })
+          .then((response) => {
+            toast(response.data.message);
+            setTimeout(() => {
+              navigate("/auth/login");
+            }, [3000]);
+          });
+      } catch (error) {
+        if (error.response) {
+          switch (error.response.data.error) {
+            case "Please fill all required fields":
+              toast("Please fill all required fields");
+              break;
+            case "Signup with this email already exists":
+              toast("Signup with this email already exists");
+              break;
+            case "Password should not be less than 8 characters":
+              toast("Password should not be less than 8 characters");
+              break;
+            case "Passwords must match":
+              toast("Passwords must match");
+              break;
+            case "missing scholarID":
+              toast("missing scholarID");
+              break;
+            case "Invalid designation":
+              toast("Invalid designation");
+              break;
+            case "Something went wrong":
+              toast("Something went wrong");
+              break;
+            case "email is missing":
+              toast("email is missing");
+              break;
+            case "password missing":
+              toast("password missing");
+              break;
+
+            case "Password must contain one uppercase, lowercas, digit and special character":
+              toast(
+                "Password must contain one uppercase, lowercas, digit and special character"
+              );
+              break;
+            case "Password must be atleast 8 characters":
+              toast("Password must be atleast 8 characters");
+              break;
+
+            case "Password must be same":
+              toast("Password must be same");
+              break;
+
+            case "No space allowed in password":
+              toast("No space allowed in password");
+              break;
+
+            case "Email is not valid":
+              toast("Email is not valid");
+              break;
+            default:
+              toast("Something went wrong");
+          }
+        }
+      }
     };
     register();
   };

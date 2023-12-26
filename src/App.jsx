@@ -1,6 +1,7 @@
 // import { useContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { Toaster } from "sonner";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Components/Shared/Navbar/Navbar";
 import Footer from "./Components/Shared/Footer/Footer";
@@ -69,6 +70,7 @@ const App = () => {
         <Footer />
       </BrowserRouter>
       <ToastContainer />
+      <Toaster />
     </>
   );
 };
