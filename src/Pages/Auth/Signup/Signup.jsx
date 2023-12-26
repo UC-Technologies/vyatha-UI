@@ -1,15 +1,49 @@
-import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState, useRef, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { UserContext } from "../../../Context/Provider";
 import styles from "./Signup.module.scss";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const { isLoggedIn } = useContext(UserContext);
   useEffect(() => {
+    if (isLoggedIn) navigate("/dashboard");
     document.title = "Signup | Vyatha";
   }, []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const password = document.getElementById("pass").value;
+    const cpassword = document.getElementById("passconf").value;
+    const hostel = document.getElementById("hostel").value;
+    const room = document.getElementById("room").value;
+    const designation = selects;
+    const register = async () => {
+      axios
+        .post(`${import.meta.env.VITE_REACT_APP_API}/signup`, {
+          name,
+          email,
+          phone,
+          password,
+          cpassword,
+          hostel,
+          room,
+          designation,
+        })
+        .then((response) => {
+          console.log(response);
+          navigate("/auth/login");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    register();
   };
+
   const [selects, setSelects] = useState("Student");
   const ref = useRef(null);
 
@@ -69,7 +103,7 @@ const SignUp = () => {
           <label htmlFor="scholar">Scholar ID</label>
         </div>
         <div className={styles.designation}>
-          <select>
+          <select id="hostel">
             <option>BH1</option>
             <option>BH2</option>
             <option>BH3</option>
