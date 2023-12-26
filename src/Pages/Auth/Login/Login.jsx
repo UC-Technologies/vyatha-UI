@@ -1,15 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { UserContext } from "../../../Context/Provider";
 import Captcha from "../../../Components/Shared/CaptchaComponent/Captcha";
 import styles from "./Login.module.scss";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { isLoggedIn } = useContext(UserContext);
   useEffect(() => {
+    if (isLoggedIn) navigate("/dashboard");
     document.title = "Login | Vyatha";
   }, []);
-  const navigate = useNavigate();
   const verifyCaptcha = async (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value;

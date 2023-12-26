@@ -1,13 +1,16 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { UserContext } from "../../../Context/Provider";
 import styles from "./Signup.module.scss";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const { isLoggedIn } = useContext(UserContext);
   useEffect(() => {
+    if (isLoggedIn) navigate("/dashboard");
     document.title = "Signup | Vyatha";
   }, []);
-  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     const name = document.getElementById("name").value;
