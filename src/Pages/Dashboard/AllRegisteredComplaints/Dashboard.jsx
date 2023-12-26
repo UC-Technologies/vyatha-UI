@@ -10,7 +10,7 @@ const Dashboard = () => {
     () => ["student", "warden", "dsw", "supervisor", "superadmin"],
     []
   );
-  const role = "student";
+  const role = "dsw";
   useEffect(() => {
     if (!possibleRoles.includes(role)) {
       navigate("/");

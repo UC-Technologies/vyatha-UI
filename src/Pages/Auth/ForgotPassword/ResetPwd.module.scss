@@ -1,0 +1,138 @@
+.reset {
+  margin: 8vw auto 0 auto;
+  border-radius: 50px;
+  background: #fff;
+  box-shadow: 0px 0px 10px 8px rgba(0, 0, 0, 0.14);
+  height: 70vh;
+  width: 50vw;
+  user-select: none;
+  padding-top: 3vw;
+  .reset_title {
+    h1 {
+      font-family: "Merienda", cursive;
+      font-size: 1.5vw;
+      font-weight: 500;
+    }
+  }
+}
+
+.form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 3vw 0;
+}
+
+.form label {
+  position: absolute;
+  font-family: var(--vyatha-font-1);
+  top: 22%;
+  left: 22%;
+  translate: 0.688rem;
+  transition: 0.3s;
+  cursor: text;
+  color: #a9a9ac;
+}
+
+.form input {
+  height: 2.5rem;
+  width: 30vw;
+  border-radius: 0.25rem;
+  border: 0.1rem solid #938f99;
+  font-size: 14px;
+  padding: 0.625rem;
+  box-shadow: 1px 1px #e6e0e9;
+}
+
+.nameinput:focus ~ label,
+.nameinput:not(:placeholder-shown).nameinput:not(:focus) ~ label {
+  top: -27%;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input:focus {
+  border: 0.125rem solid var(--vyatha-main-color-dark);
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+#forgot_btn {
+  padding: 0.5vw 4vw;
+  font-size: 1.2vw;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  background-color: var(--vyatha-main-color-light);
+  border: none;
+  margin-top: 8vw;
+}
+
+#confirmpass {
+  margin-top: -1vw !important;
+}
+
+@media (max-width: 660px) {
+  .reset {
+    margin: 50vw auto 0 auto;
+    border-radius: 0px;
+    background: #fff;
+    height: 70vh;
+    width: 100vw;
+    padding-top: 3vw;
+    box-shadow: none;
+    .reset_title {
+      h1 {
+        font-size: 7vw;
+        margin-bottom: 12vw;
+      }
+    }
+  }
+
+  .form label {
+    position: absolute;
+    font-family: var(--vyatha-font-1);
+    top: 22%;
+    left: 8%;
+    translate: 0.688rem;
+    transition: 0.3s;
+    cursor: text;
+    color: #a9a9ac;
+  }
+
+  .form input {
+    height: 2.5rem;
+    width: 90vw;
+    border-radius: 0.25rem;
+    border: 0.1rem solid #938f99;
+    font-size: 14px;
+    padding: 0.625rem;
+    box-shadow: 1px 1px #e6e0e9;
+  }
+
+  #forgot_btn {
+    padding: 1.24vw 8vw;
+    font-size: 5.5vw;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    background-color: var(--vyatha-main-color-light);
+    border: none;
+    margin-top: 20vw;
+  }
+
+  #confirmpass {
+    margin-top: 8vw !important;
+  }
+}

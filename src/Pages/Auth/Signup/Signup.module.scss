@@ -23,7 +23,7 @@
       background: none;
       background-image: none;
       padding-left: 0.625rem;
-      width: 20rem;
+      width: 27vw;
       height: 2rem;
       color: #a9a9ac;
       cursor: pointer;
@@ -56,7 +56,7 @@
 
 .form input {
   height: 2rem;
-  width: 20rem;
+  width: 27vw;
   border-radius: 0.25rem;
   border: 0.1rem solid grey;
   font-size: 14px;
@@ -92,21 +92,6 @@ h1 {
   font-weight: 700;
 }
 
-button {
-  height: 2.5rem;
-  width: 10rem;
-  border-radius: 0.5rem;
-  background-color: var(--vyatha-main-color-light);
-  font-size: 1rem;
-  border: none;
-  font-weight: 400;
-  margin-top: 1.25rem;
-}
-
-button:hover {
-  background-color: var(--vyatha-main-color-dark);
-}
-
 #already_account_login {
   text-align: center;
   font-family: var(--vyatha-font-1);
@@ -119,13 +104,25 @@ button:hover {
 #btn_signup {
   width: 40%;
   font-size: 1.2vw;
+  height: 2.5rem;
+  width: 10rem;
+  border-radius: 0.5rem;
+  background-color: var(--vyatha-main-color-light);
+  font-size: 1rem;
+  border: none;
+  font-weight: 400;
+  margin-top: 1.25rem;
+}
+
+#btn_signup:hover {
+  background-color: var(--vyatha-main-color-dark);
 }
 
 //Mobile View
 @media only screen and (max-width: 660px) {
   .maindiv {
     box-shadow: none;
-    padding-top: 4vw;
+    padding-top: 20vw;
     #details_heading {
       margin-bottom: 5vw;
     }
@@ -201,21 +198,6 @@ button:hover {
     font-weight: 700;
   }
 
-  button {
-    height: 2.5rem;
-    width: 10rem;
-    border-radius: 0.5rem;
-    background-color: var(--vyatha-main-color-light);
-    font-size: 1rem;
-    border: none;
-    font-weight: 400;
-    margin-top: 1.25rem;
-  }
-
-  button:hover {
-    background-color: var(--vyatha-main-color-dark);
-  }
-
   #already_account_login {
     font-size: 3.5vw;
     margin-top: 7vw;
@@ -225,5 +207,13 @@ button:hover {
   #btn_signup {
     width: 40%;
     font-size: 5vw;
+    height: 2.5rem;
+    width: 10rem;
+    border-radius: 0.5rem;
+    background-color: var(--vyatha-main-color-light);
+    font-size: 1rem;
+    border: none;
+    font-weight: 400;
+    margin-top: 1.25rem;
   }
 }
