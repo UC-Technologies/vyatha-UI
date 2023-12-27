@@ -1,6 +1,9 @@
 import { React, useContext, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "sonner";
+import Cookies from "js-cookie";
 import { UserContext } from "../../Context/Provider";
 import styles from "./Profile.module.scss";
 import { fetchProfile } from "../../Components/ReactQuery/Fetchers/User";
@@ -38,6 +41,58 @@ const Profile = () => {
 
   const handleSignOut = () => {
     navigate("/auth");
+  };
+
+  const token = Cookies.get("authToken");
+  const handleVerify = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios
+        .post(
+          `${import.meta.env.VITE_REACT_APP_API}/sendmagiclink`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.message === "magic link sent successfully") {
+            toast("magic link sent successfully");
+          }
+        });
+    } catch (errr) {
+      if (errr.response) {
+        switch (errr.response.data.message) {
+          case "Email already verified":
+            toast("Email already verified");
+            break;
+          case "Error in generating token":
+            toast("Error in generating token");
+            break;
+          case "Internal Server Error":
+            toast("Internal Server Error");
+            break;
+          default:
+            toast("something went wrong");
+            break;
+        }
+
+        switch (errr.response.data.error) {
+          case "Unauthorized":
+            toast("Unauthorized");
+            break;
+          case "User not found":
+            toast("User not found");
+            break;
+          default:
+            toast("something went wrong");
+            break;
+        }
+      }
+    }
   };
 
   return (
@@ -105,6 +160,18 @@ const Profile = () => {
             >
               <div>
                 <div>Sign out</div>
+              </div>
+            </button>
+
+            <button
+              style={{ display: myProfile?.isVerified === true ? "none" : "block" }}
+              type="button"
+              aria-label="Signout"
+              className={styles.Signout}
+              onClick={handleVerify}
+            >
+              <div>
+                <div>Send Email verification link</div>
               </div>
             </button>
           </div>

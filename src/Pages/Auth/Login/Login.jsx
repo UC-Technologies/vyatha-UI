@@ -17,8 +17,8 @@ const Login = () => {
 
   const verifyCaptcha = async (e) => {
     e.preventDefault();
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const email = document.getElementById("email")?.value;
+    const password = document.getElementById("password")?.value;
     axios
       .post(`${import.meta.env.VITE_REACT_APP_API}/login`, {
         email,

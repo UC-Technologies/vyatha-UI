@@ -14,14 +14,14 @@ const SignUp = () => {
   }, [isLoggedIn, navigate]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const phone = document.getElementById("phone").value;
-    const password = document.getElementById("pass").value;
-    const cpassword = document.getElementById("passconf").value;
-    const hostel = document.getElementById("hostel").value;
-    const room = document.getElementById("room").value;
-    const scholarID = document.getElementById("scholar").value;
+    const name = document.getElementById("name")?.value;
+    const email = document.getElementById("email")?.value;
+    const phone = document.getElementById("phone")?.value;
+    const password = document.getElementById("pass")?.value;
+    const cpassword = document.getElementById("passconf")?.value;
+    const hostel = document.getElementById("hostel")?.value;
+    const room = document.getElementById("room")?.value;
+    const scholarID = document.getElementById("scholar")?.value;
     const designation = selects;
     const register = async () => {
       try {
