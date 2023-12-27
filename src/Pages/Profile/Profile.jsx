@@ -1,13 +1,36 @@
 import { React, useContext, useEffect } from "react";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/Provider";
 import styles from "./Profile.module.scss";
+import { fetchProfile } from "../../Components/ReactQuery/Fetchers/User";
 
 const Profile = () => {
   useEffect(() => {
     document.title = "Profile | Vyatha";
   }, []);
+
   const navigate = useNavigate();
+  const { isLoggedIn } = useContext(UserContext);
+  const { data, error, isLoading, isFetching } = useQuery("profile", fetchProfile, {
+    refetchOnWindowFocus: "always",
+  });
+
+  useEffect(() => {
+    if (isLoggedIn === false) {
+      navigate("/auth");
+    }
+  }, [isLoggedIn, navigate]);
+
+  if (error) {
+    return <div>Something went wrong!</div>;
+  }
+
+  if (isLoading || isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  const myProfile = data?.user;
 
   const handleProfileEdit = () => {
     navigate("/profile/edit");
@@ -16,17 +39,6 @@ const Profile = () => {
   const handleSignOut = () => {
     navigate("/auth");
   };
-
-  const { isLoggedIn, profile } = useContext(UserContext);
-  // console.log(isLoggedInRef.current)
-  const myProfile = profile?.user;
-  console.log(myProfile);
-
-  useEffect(() => {
-    if (isLoggedIn === false) {
-      navigate("/auth");
-    }
-  }, [isLoggedIn, navigate]);
 
   return (
     <div>
@@ -64,7 +76,7 @@ const Profile = () => {
                     style={{ display: myProfile?.role === "student" ? "block" : "none" }}
                     className={styles.left_section}
                   >
-                    {myProfile.scholarID}
+                    {myProfile?.scholarID}
                   </div>
                   <div className={styles.left_section}>{myProfile?.email}</div>
                   <div className={styles.left_section}>{myProfile?.hostel}</div>

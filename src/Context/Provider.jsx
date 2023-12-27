@@ -9,10 +9,18 @@ const ContextProvider = ({ children }) => {
   const [profile, setProfile] = useState([]);
   const [allComplaints, setAllComplaints] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [dataFetched, setDataFetched] = useState(false);
+  const [fetching, setFetching] = useState(true);
 
-  const token = Cookies.get("authToken");
   useEffect(() => {
+    const token = Cookies.get("authToken");
+    setFetching(false);
+    if (fetching === true && token) {
+      setIsLoggedIn(true);
+    }
+  }, [fetching]);
+
+  useEffect(() => {
+    const token = Cookies.get("authToken");
     const tokenConfig = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -27,25 +35,23 @@ const ContextProvider = ({ children }) => {
         ]);
         setProfile(profileRes.data);
         setAllComplaints(allComplaintRes.data);
-        setDataFetched(true);
+        // setDataFetched(true);
       } catch (err) {
         console.error(err);
       }
     };
     fetchData();
-  }, [token]);
-
-  useEffect(() => {
-    if (dataFetched === true) {
-      setIsLoggedIn(true);
-    }
-  }, [dataFetched]);
+  }, []);
 
   const contextValue = useMemo(
     () => ({ profile, allComplaints, isLoggedIn }),
     [profile, allComplaints, isLoggedIn]
   );
 
+  if (fetching) {
+    return null;
+  }
+  // console.log(isLoggedIn)
   return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;
 };
 
