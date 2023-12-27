@@ -105,13 +105,10 @@ const Profile = () => {
           <div className={styles.Profile_details}>
             <div className={styles.profile_image}>
               <div className={styles.image}>
-                <img
-                  src="https://imgv3.fotor.com/images/gallery/Cartoon-Male-Headshot.jpg"
-                  alt="profileimage"
-                />
+                <img src={myProfile?.profilepic} alt="profileimage" />
               </div>
               <div className={styles.profile}>
-                <p>Student Profile</p>
+                <p>{myProfile?.name} Profile</p>
               </div>
             </div>
             <div className={styles.Student_details}>

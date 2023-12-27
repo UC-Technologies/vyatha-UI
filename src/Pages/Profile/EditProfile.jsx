@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { toast } from "sonner";
@@ -6,6 +6,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import styles from "./EditProfile.module.scss";
 import { fetchProfile } from "../../Components/ReactQuery/Fetchers/User";
+import { UserContext } from "../../Context/Provider";
 
 const EditProfile = () => {
   useEffect(() => {
@@ -13,6 +14,11 @@ const EditProfile = () => {
   }, []);
 
   const navigate = useNavigate();
+  const { isLoggedIn } = useContext(UserContext);
+
+  if (!isLoggedIn) {
+    navigate("/auth/login");
+  }
 
   const { data, error, isLoading, isFetching } = useQuery("profile", fetchProfile, {
     refetchOnWindowFocus: "always",
@@ -31,11 +37,6 @@ const EditProfile = () => {
     }
   }, [myProfile?.role]);
 
-  //   useEffect(()=>{
-  //     if(isAdmin===false){
-  // const room
-  //     }
-  //   })
   if (error) {
     return <div>Something went wrong!</div>;
   }
@@ -158,16 +159,22 @@ const EditProfile = () => {
                   </div>
                   <div className={styles.left_section}>
                     <select id="hostel" className={styles.hostel_options}>
-                      <option value="">BH1</option>
-                      <option value="">BH2</option>
-                      <option value="">BH3</option>
-                      <option value="">BH4</option>
-                      <option value="">PG Hostel</option>
-                      <option value="">BH6</option>
-                      <option value="">BH7</option>
-                      <option value="">BH8</option>
-                      <option value="">BH9A</option>
-                      <option value="">BH9B</option>
+                      <option value="">Aryabhatt PG Hostel</option>
+                      <option>BH1</option>
+                      <option>BH2</option>
+                      <option>BH3</option>
+                      <option>BH4</option>
+                      <option>BH6</option>
+                      <option>BH7</option>
+                      <option>BH8</option>
+                      <option>BH9A</option>
+                      <option>BH9B</option>
+                      <option>BH9C</option>
+                      <option>BH9D</option>
+                      <option>GH1</option>
+                      <option>GH2</option>
+                      <option>GH3</option>
+                      <option>GH4</option>
                     </select>
                   </div>
 

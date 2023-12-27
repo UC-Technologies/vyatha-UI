@@ -163,7 +163,7 @@ const SignUp = () => {
         </div>
         <div className={styles.designation}>
           <select id="hostel">
-            <option>BH1</option>
+            <option value="">BH1</option>
             <option>BH2</option>
             <option>BH3</option>
             <option>BH4</option>
