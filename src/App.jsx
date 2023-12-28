@@ -30,6 +30,10 @@ import AllSignups from "./Pages/Dashboard/SuperAdmin/AllSignups/AllSignups";
 import IndividualProfile from "./Pages/Dashboard/SuperAdmin/AllSignups/IndividualProfile";
 import AllIssues from "./Pages/Dashboard/SuperAdmin/AllIssues/AllIssues";
 import IndividualIssue from "./Pages/Dashboard/SuperAdmin/AllIssues/IndividualIssue";
+import IndividualHostel from "./Pages/Dashboard/SuperAdmin/AllIssues/IndividualHostel";
+import HostelWise from "./Pages/Dashboard/SuperAdmin/AllIssues/Allhostel";
+import ClosedIssues from "./Pages/Dashboard/SuperAdmin/AllIssues/ClosedIssues";
+// import HostelWise from "./Pages/Dashboard/SuperAdmin/AllIssues/AllHostel";
 // import { UserContext } from "./Context/Provider";
 
 const App = () => {
@@ -77,6 +81,17 @@ const App = () => {
               {/*  SUPERADMIN ROUTES ONLY */}
               <Route exact path="/superadmin/allsignups" element={<AllSignups />} />
               <Route exact path="/superadmin/allissues" element={<AllIssues />} />
+              <Route exact path="/superadmin/hostelwise" element={<HostelWise />} />
+              <Route
+                exact
+                path="/superadmin/issues/:hostel"
+                element={<IndividualHostel />}
+              />
+              <Route
+                exact
+                path="/superadmin/issues/closed/:hostel"
+                element={<ClosedIssues />}
+              />
               <Route exact path="/superadmin/issue/:_id" element={<IndividualIssue />} />
               <Route exact path="/profile/:_id" element={<IndividualProfile />} />
               {/* 404 route */}

@@ -178,6 +178,7 @@ const SignUp = () => {
             <option>GH2</option>
             <option>GH3</option>
             <option>GH4</option>
+            <option>Aryabhatt-PGH</option>
           </select>
         </div>
         <div
