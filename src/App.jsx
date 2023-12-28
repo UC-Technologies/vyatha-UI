@@ -31,7 +31,7 @@ import IndividualProfile from "./Pages/Dashboard/SuperAdmin/AllSignups/Individua
 import AllIssues from "./Pages/Dashboard/SuperAdmin/AllIssues/AllIssues";
 import IndividualIssue from "./Pages/Dashboard/SuperAdmin/AllIssues/IndividualIssue";
 import IndividualHostel from "./Pages/Dashboard/SuperAdmin/AllIssues/IndividualHostel";
-import HostelWise from "./Pages/Dashboard/SuperAdmin/AllIssues/Allhostel";
+import HostelWise from "./Pages/Dashboard/SuperAdmin/AllIssues/AllHostel";
 import ClosedIssues from "./Pages/Dashboard/SuperAdmin/AllIssues/ClosedIssues";
 // import HostelWise from "./Pages/Dashboard/SuperAdmin/AllIssues/AllHostel";
 // import { UserContext } from "./Context/Provider";
