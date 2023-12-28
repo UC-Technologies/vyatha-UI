@@ -28,6 +28,8 @@ import Team from "./Pages/Team/Team";
 import Scrolling from "./Components/Scrolling/Scrolling";
 import AllSignups from "./Pages/Dashboard/SuperAdmin/AllSignups/AllSignups";
 import IndividualProfile from "./Pages/Dashboard/SuperAdmin/AllSignups/IndividualProfile";
+import AllIssues from "./Pages/Dashboard/SuperAdmin/AllIssues/AllIssues";
+import IndividualIssue from "./Pages/Dashboard/SuperAdmin/AllIssues/IndividualIssue";
 // import { UserContext } from "./Context/Provider";
 
 const App = () => {
@@ -74,6 +76,8 @@ const App = () => {
               <Route exact path="/team" element={<Team />} />
               {/*  SUPERADMIN ROUTES ONLY */}
               <Route exact path="/superadmin/allsignups" element={<AllSignups />} />
+              <Route exact path="/superadmin/allissues" element={<AllIssues />} />
+              <Route exact path="/superadmin/issue/:_id" element={<IndividualIssue />} />
               <Route exact path="/profile/:_id" element={<IndividualProfile />} />
               {/* 404 route */}
               <Route path="*" element={<NotFound />} />

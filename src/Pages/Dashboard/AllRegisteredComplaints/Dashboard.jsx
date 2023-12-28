@@ -7,12 +7,11 @@ import SuperAdminDashboard from "../SuperAdmin/SuperAdminDashboard";
 const Dashboard = () => {
   const navigate = useNavigate();
   // get the role consuming the context
-  const { profile } = useContext(UserContext);
+  const { role } = useContext(UserContext);
   const possibleRoles = useMemo(
     () => ["student", "warden", "dsw", "supervisor", "superadmin"],
     []
   );
-  const role = profile?.user?.role;
 
   useEffect(() => {
     if (!possibleRoles.includes(role)) {

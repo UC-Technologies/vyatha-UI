@@ -13,12 +13,12 @@ const AllSignups = () => {
 
   const navigate = useNavigate();
 
-  const { profile } = useContext(UserContext);
+  const { role } = useContext(UserContext);
   useEffect(() => {
-    if (profile?.user?.role !== "superadmin") {
+    if (role !== "superadmin") {
       navigate("/");
     }
-  }, [profile, navigate]);
+  }, [role, navigate]);
 
   const { data, error, isLoading, isFetching } = useQuery("profile", fetchAllAccounts, {
     refetchOnWindowFocus: "always",

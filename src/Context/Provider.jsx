@@ -7,6 +7,7 @@ const UserContext = createContext();
 
 const ContextProvider = ({ children }) => {
   const [profile, setProfile] = useState([]);
+  const [role, setRole] = useState("student");
   const [allComplaints, setAllComplaints] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [fetching, setFetching] = useState(true);
@@ -35,6 +36,7 @@ const ContextProvider = ({ children }) => {
         ]);
         setProfile(profileRes.data);
         setAllComplaints(allComplaintRes.data);
+        setRole(profileRes.data.user.role);
         // setDataFetched(true);
       } catch (err) {
         console.error(err);
@@ -44,8 +46,8 @@ const ContextProvider = ({ children }) => {
   }, []);
 
   const contextValue = useMemo(
-    () => ({ profile, allComplaints, isLoggedIn }),
-    [profile, allComplaints, isLoggedIn]
+    () => ({ profile, allComplaints, isLoggedIn, role }),
+    [profile, allComplaints, isLoggedIn, role]
   );
 
   if (fetching) {

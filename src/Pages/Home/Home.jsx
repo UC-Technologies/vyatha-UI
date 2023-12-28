@@ -10,7 +10,7 @@ import img4 from "../../Assets/Home/img4.svg";
 const Home = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useContext(UserContext);
-
+  // console.log(isLoggedIn)
   useEffect(() => {
     document.title = "Home | Vyatha";
     if (isLoggedIn === true) {
