@@ -1,11 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import styles from "./ComplaintForm.module.scss";
+import { UserContext } from "../../Context/Provider";
 
 const ComplaintForm = () => {
   useEffect(() => {
     document.title = "Complaint Form | Vyatha";
   }, []);
+
+  const navigate = useNavigate();
+  const { isLoggedIn, profile } = useContext(UserContext);
+  useEffect(() => {
+    if (isLoggedIn === false) {
+      navigate("/auth/login");
+    }
+
+    if (profile?.user?.role !== "student") {
+      navigate("/dashboard");
+    }
+  }, [isLoggedIn, navigate, profile?.user?.role]);
+
   const [formData, setFormData] = useState({
     Category: "",
     description: "",

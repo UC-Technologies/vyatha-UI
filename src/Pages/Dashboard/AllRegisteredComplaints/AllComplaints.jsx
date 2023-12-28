@@ -7,7 +7,6 @@ import SuperAdminDashboard from "../SuperAdmin/SuperAdminDashboard";
 const AllComplaints = () => {
   const { role } = useParams();
   const navigate = useNavigate();
-
   useEffect(() => {
     document.title = "All Complaints | Vyatha";
     const possibleRoles = ["student", "warden", "dsw", "supervisor", "superadmin"];

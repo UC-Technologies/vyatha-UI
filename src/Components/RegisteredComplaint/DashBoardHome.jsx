@@ -1,12 +1,11 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Styles from "./Dashboard.module.scss";
-import { UserContext } from "../../Context/Provider";
+// import { UserContext } from "../../Context/Provider";
 
 export const DashBoardHome = ({ role }) => {
-  const { profile, isLoggedIn } = useContext(UserContext);
-  console.log(profile);
-  console.log(isLoggedIn);
+  // const { profile, isLoggedIn } = useContext(UserContext);
+
   // console.log(isLoggedInRef.current)
   const img1 =
     "https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702904199/documents-svgrepo-com_2_zogi0m.jpg?_s=public-apps";
