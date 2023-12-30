@@ -47,7 +47,7 @@ const IndividualIssue = () => {
       {issueData && (
         <main>
           <h3>Name of filer: {issueData?.name}</h3>
-          <h3>otherID: {issueData?.oterID}</h3>
+          <h3>otherID: {issueData?.otherID}</h3>
           <h3>Email of filer: {issueData?.email}</h3>
           <h3>ScholarID of filer: {issueData?.scholarID}</h3>
           <h3>hostel of filer: {issueData?.hostel}</h3>
@@ -72,12 +72,12 @@ const IndividualIssue = () => {
           <h3>IssueForwarded to Warden : </h3>
           {issueData?.IssueForwardedToWarden && (
             <main>
-              <h3>Time : {issueData?.IssueForwardedToWarden[0].time}</h3>
+              <h3>Time : {issueData?.IssueForwardedToWarden[0]?.time}</h3>
               <h3>
                 reasonForForwarding :{" "}
-                {issueData?.IssueForwardedToWarden[0].reasonForForwarding}
+                {issueData?.IssueForwardedToWarden[0]?.reasonForForwarding}
               </h3>
-              <h3>isApproved : {issueData?.IssueForwardedToWarden[0].isApproved}</h3>
+              <h3>isApproved : {issueData?.IssueForwardedToWarden[0]?.isApproved}</h3>
             </main>
           )}
           <br />
@@ -85,12 +85,12 @@ const IndividualIssue = () => {
 
           {issueData?.IssueForwardedToDsw && (
             <main>
-              <h3>Time : {issueData?.IssueForwardedToDsw[0].time}</h3>
+              <h3>Time : {issueData?.IssueForwardedToDsw[0]?.time}</h3>
               <h3>
                 reasonForForwarding :{" "}
-                {issueData?.IssueForwardedToDsw[0].reasonForForwarding}
+                {issueData?.IssueForwardedToDsw[0]?.reasonForForwarding}
               </h3>
-              <h3>isApproved : {issueData?.IssueForwardedToDsw[0].isApproved}</h3>
+              <h3>isApproved : {issueData?.IssueForwardedToDsw[0]?.isApproved}</h3>
             </main>
           )}
           <br />

@@ -2,6 +2,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
+// it fetches open issues only
 export const fetchComplaints = async () => {
   try {
     const token = Cookies.get("authToken");

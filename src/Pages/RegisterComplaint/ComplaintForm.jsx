@@ -1,8 +1,13 @@
+/* eslint-disable no-console */
 import { useState, useEffect, useContext } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
+import FileBase64 from "react-file-base64";
 import styles from "./ComplaintForm.module.scss";
 import { UserContext } from "../../Context/Provider";
+// import Captcha from '../../Components/Shared/CaptchaComponent/Captcha'
 
 const ComplaintForm = () => {
   useEffect(() => {
@@ -10,73 +15,40 @@ const ComplaintForm = () => {
   }, []);
 
   const navigate = useNavigate();
-  const { isLoggedIn, profile } = useContext(UserContext);
+  const { isLoggedIn, role, profile } = useContext(UserContext);
   useEffect(() => {
     if (isLoggedIn === false) {
       navigate("/auth/login");
     }
 
-    if (profile?.user?.role !== "student") {
+    if (role !== "student") {
       navigate("/dashboard");
     }
-  }, [isLoggedIn, navigate, profile?.user?.role]);
+
+    if (profile?.user?.isVerified === false) {
+      toast("you must verify your email first");
+      navigate("/dashboard");
+    }
+
+    if (profile?.user?.idcard === "") {
+      toast("you must upload your id card first");
+      navigate("/dashboard");
+    }
+  }, [isLoggedIn, navigate, role, profile?.user?.isVerified, profile?.user?.idcard]);
 
   const [formData, setFormData] = useState({
-    Category: "",
+    category: "",
     description: "",
-    Title: "",
-    Imagefile: "",
+    title: "",
   });
-
-  const [storeData, setStoreData] = useState({});
-  const handleInput = (e) => {
-    const { name } = e.target;
-    const { value } = e.target;
-    // console.log(name, value);
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+  const [photo, setPhoto] = useState("");
+  const handleImgChange = (base64) => {
+    setPhoto(base64);
   };
 
-  const handleFileInputChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const fileSize = file.size;
-      try {
-        if (fileSize > 250 * 1024) {
-          toast.error(
-            "File size exceeds the allowed limit of 250KB. Choose a smaller file",
-            {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "dark",
-            }
-          );
-        } else {
-          setFormData({
-            ...formData,
-            Imagefile: file.name,
-          });
-        }
-      } catch (error) {
-        toast.error("Something went wrong", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      }
-    }
+  const handleInput = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
   function handleDragOver(e) {
@@ -94,135 +66,78 @@ const ComplaintForm = () => {
       const { name } = file;
       setFormData({
         ...formData,
-        Imagefile: name,
+        photo: name,
       });
     }
   }
 
-  function handleSubmit(e) {
+  const token = Cookies.get("authToken");
+  const handleIssueSubmit = async (e) => {
     e.preventDefault();
-
-    const Finaldata = { ...formData, id: new Date().getTime().toString() };
-
-    // console.log(Finaldata);
-
-    setStoreData([...storeData, Finaldata]);
-
-    setFormData({
-      Title: "",
-      Category: "",
-      description: "",
-      Forwardedto: "",
-      Imagefile: "",
-    });
-  }
+    console.log(formData);
+    console.log(photo);
+    try {
+      await axios
+        .post(
+          `${import.meta.env.VITE_REACT_APP_API}/createissue`,
+          {
+            description: formData.description,
+            category: formData.category,
+            title: formData.title,
+            photo,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.message === "Issue registered successfully") {
+            toast("Complaint Registered Successfully");
+            navigate("/dashboard");
+            setFormData({
+              category: "",
+              description: "",
+              title: "",
+            });
+            setPhoto("");
+          }
+        });
+    } catch (err) {
+      if (err.response) {
+        switch (err.response.data.error) {
+          case "You must verify your email to submit an issue":
+            toast("You must verify your email to submit an issue");
+            break;
+          case "Please provide title, description and photo":
+            toast("Please provide title, description, category and photo");
+            break;
+          case "Only student can file an issue":
+            toast("Only student can file an issue");
+            break;
+          case "Something went wrong on the server side":
+            toast("Something went wrong on the server side");
+            break;
+          default:
+            toast("Something went wrong");
+            break;
+        }
+      }
+    }
+  };
 
   return (
     <div className={styles.ComplaintForm}>
       <div className={styles.Title}>Complaint form</div>
 
       <div className={styles.CForm}>
-        <form className={styles.ComplaintForm} onSubmit={handleSubmit}>
-          {/* <div className={styles.form_group}>
-            <input
-              type="text"
-              id="username"
-              value={formData.username}
-              name="username"
-              onChange={handleInput}
-              // autoFocus
-              required
-            />
-            <label htmlFor="username">Name</label>
-          </div> */}
-          {/* <div className={styles.form_group}>
-            <input
-              type="text"
-              id="ScholarID"
-              name="ScholarID"
-              value={formData.ScholarID}
-              onChange={handleInput}
-              required
-            />
-            <label htmlFor="scholar ID">Scholar ID</label>
-          </div> */}
-          {/* <div className={styles.form_group}>
-            <select
-              name="Hostel"
-              className={styles.select_option}
-              onChange={handleInput}
-              required
-            >
-              <option value="No input" id="No_input" name="Hostel" onChange={handleInput}>
-                Select
-              </option>
-              <option value="BH1" id="BH1" name="Hostel" onChange={handleInput}>
-                BH1
-              </option>
-              <option value="BH2" id="BH2" name="Hostel" onChange={handleInput}>
-                BH2
-              </option>
-              <option value="BH3" id="BH3" name="Hostel" onChange={handleInput}>
-                BH3
-              </option>
-              <option value="BH4" id="BH4" name="Hostel" onChange={handleInput}>
-                BH4
-              </option>
-              <option value="BH5" id="BH5" name="Hostel" onChange={handleInput}>
-                BH5
-              </option>
-              <option value="BH6" id="BH6" name="Hostel" onChange={handleInput}>
-                BH6
-              </option>
-              <option value="BH7" id="BH7" name="Hostel" onChange={handleInput}>
-                BH7
-              </option>
-              <option value="BH8" id="BH8" name="Hostel" onChange={handleInput}>
-                BH8
-              </option>
-              <option value="BH9A" id="BH9A" name="Hostel" onChange={handleInput}>
-                BH9A
-              </option>
-              <option value="BH9B" id="BH9B" name="Hostel" onChange={handleInput}>
-                BH9B
-              </option>
-              <option value="BH9C" id="BH9C" name="Hostel" onChange={handleInput}>
-                BH9C
-              </option>
-              <option value="BH9D" id="BH9D" name="Hostel" onChange={handleInput}>
-                BH9D
-              </option>
-              <option value="PGH" id="PGH" name="Hostel" onChange={handleInput}>
-                PGH
-              </option>
-              <option value="GH1" id="GH1" name="Hostel" onChange={handleInput}>
-                GH1
-              </option>
-              <option value="GH2" id="GH2" name="Hostel" onChange={handleInput}>
-                GH2
-              </option>
-              <option value="GH3" id="GH3" name="Hostel" onChange={handleInput}>
-                GH3
-              </option>
-            </select>
-            <label htmlFor="hostel">Hostel</label>
-          </div> */}
-          {/* <div className={styles.form_group}>
-            <input
-              type="text"
-              id="RoomNo"
-              value={formData.RoomNo}
-              onChange={handleInput}
-              name="RoomNo"
-              required
-            />
-            <label htmlFor="RoomNo">Room Number</label>
-          </div> */}
+        <form className={styles.ComplaintForm}>
           <div className={styles.form_group}>
             <input
               type="text"
-              id="Title"
-              value={formData.Forwardedto}
+              id="title"
+              value={formData.title}
               name="Title"
               onChange={handleInput}
               required
@@ -244,23 +159,23 @@ const ComplaintForm = () => {
             <label htmlFor="description">Description of the Issue</label>
           </div>
           <div className={styles.form_group}>
-            <select name="Category" style={{ cursor: "pointer" }}>
-              <option
-                value="No input"
-                id="No_input"
-                name="Category"
-                onChange={handleInput}
-              >
-                Select
+            <select
+              value={formData.category}
+              id="category"
+              onChange={handleInput}
+              style={{ cursor: "pointer" }}
+            >
+              <option value="" id="category" name="Category">
+                LAN
               </option>
-              <option value="Cat1" id="Cat1" name="Category" onChange={handleInput}>
-                Category-1
+              <option id="category" name="Category">
+                Electricity
               </option>
-              <option value="cat2" id="Cat2" name="Category" onChange={handleInput}>
-                Category-2
+              <option id="category" name="Category">
+                Water Issue
               </option>
-              <option value="Cat3" id="Cat3" name="Category" onChange={handleInput}>
-                Category-3
+              <option id="category" name="Category">
+                Roommate issue
               </option>
             </select>
             <label htmlFor="category">Category</label>
@@ -286,33 +201,40 @@ const ComplaintForm = () => {
 
               <label id="Browsebutton">
                 BROWSE
-                <input
+                {/* <input
                   type="file"
                   name="Imagefile"
                   id="imagebrowse"
-                  accept=".jpg, .jpeg, .png, .webp"
-                  onChange={handleFileInputChange}
-                  required
+                  
+                /> */}
+                <FileBase64
+                  id="imagebrowse"
+                  multiple={false}
+                  onDone={({ base64, file }) => {
+                    if (
+                      (file.type === "image/png" ||
+                        file.type === "image/jpeg" ||
+                        file.type === "image/jpg" ||
+                        file.type === "image/webp" ||
+                        file.type === "image/avif") &&
+                      file.size <= 300 * 1024
+                    ) {
+                      handleImgChange(base64);
+                    } else {
+                      toast("Invalid file type or image is greater than 300KB");
+                      setPhoto("");
+                    }
+                  }}
                 />
               </label>
-              <span id="Imagefile">{formData.Imagefile}</span>
-              {/* <progress></progress>    */}
             </div>
           </div>
-          {/* <div className={styles.form_group}>
-            <input
-              type="text"
-              id="Forwarded"
-              value={formData.Forwardedto}
-              name="Forwardedto"
-              onChange={handleInput}
-              required
-            />
-            <label htmlFor="Forwarded">Forwarded to</label>
-          </div> */}
           <div className={styles.captcha}>
             <div>Captch Here</div>
-            <button type="submit">Submit</button>
+            {/* <Captcha /> */}
+            <button onClick={handleIssueSubmit} type="submit">
+              Submit
+            </button>
           </div>
         </form>
       </div>

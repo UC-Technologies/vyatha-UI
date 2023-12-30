@@ -1,6 +1,7 @@
 .container {
   background-color: fff;
 }
+
 .CardContainer {
   background-color: var(--vyatha4-white);
   border-radius: 1vw;
@@ -175,7 +176,7 @@
             max-width: 250px;
             min-width: 75px;
             padding: 0 3vw;
-            background: rgba(54, 137, 194, 1);
+            // background: rgba(54, 137, 194, 1);
             clip-path: polygon(95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
           }
 
@@ -193,6 +194,7 @@
             padding: 0 3vw;
             border-radius: 3vw 0 0 3vw;
             clip-path: polygon(0% 0, 95% 0%, 100% 50%, 95% 100%, 0% 100%);
+            background-color: #d7faf4;
           }
 
           .Supervisor {
@@ -206,6 +208,7 @@
             width: 22.5vw;
             min-width: 60px;
             max-width: 250px;
+            background-color: #d7faf4;
             padding: 0 2vw;
             clip-path: polygon(95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
           }
@@ -224,6 +227,7 @@
             padding: 0 3vw;
             border-radius: 0 3vw 3vw 0;
             clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 5% 50%, 0% 0%);
+            background-color: #d7faf4;
           }
         }
       }
@@ -358,7 +362,7 @@
             max-height: 30px;
             min-width: 150px;
             padding: 0 2vw;
-            background: rgba(54, 137, 194, 1);
+            // background: rgba(54, 137, 194, 1);
             clip-path: polygon(95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
           }
 
@@ -540,7 +544,7 @@
             min-height: 40px;
             min-width: 20vw;
             padding: 0 2vw;
-            background: rgba(54, 137, 194, 1);
+            // background: rgba(54, 137, 194, 1);
             clip-path: polygon(95% 0, 100% 50%, 95% 100%, 0% 100%, 5% 50%, 0% 0%);
           }
 

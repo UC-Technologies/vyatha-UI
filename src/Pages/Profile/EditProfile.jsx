@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { toast } from "sonner";
 import axios from "axios";
+import FileBase64 from "react-file-base64";
 import Cookies from "js-cookie";
 import styles from "./EditProfile.module.scss";
 import { fetchProfile } from "../../Components/ReactQuery/Fetchers/User";
@@ -14,28 +15,38 @@ const EditProfile = () => {
   }, []);
 
   const navigate = useNavigate();
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, role } = useContext(UserContext);
 
   if (!isLoggedIn) {
     navigate("/auth/login");
   }
 
   const { data, error, isLoading, isFetching } = useQuery("profile", fetchProfile, {
-    refetchOnWindowFocus: "always",
+    refetchOnWindowFocus: false,
   });
 
   const myProfile = data?.user;
   const [isAdmin, setIsAdmin] = useState(false);
+  const [photo, setPhoto] = useState("");
+  const [idcard, setIdcard] = useState("");
+  const handleImgChange = (base64) => {
+    setPhoto(base64);
+  };
+
+  const handleIdCardChange = (base64) => {
+    setIdcard(base64);
+  };
+
   useEffect(() => {
     if (
-      myProfile?.role === "supervisor" ||
-      myProfile?.role === "superadmin" ||
-      myProfile?.role === "dsw" ||
-      myProfile?.role === "warden"
+      role === "supervisor" ||
+      role === "superadmin" ||
+      role === "dsw" ||
+      role === "warden"
     ) {
       setIsAdmin(true);
     }
-  }, [myProfile?.role]);
+  }, [role]);
 
   if (error) {
     return <div>Something went wrong!</div>;
@@ -68,7 +79,7 @@ const EditProfile = () => {
       await axios
         .put(
           `${import.meta.env.VITE_REACT_APP_API}/editprofile`,
-          { name, newpwd, hostel, phone, cnewpwd, room },
+          { name, newpwd, hostel, phone, cnewpwd, room, photo, idcard },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -122,11 +133,23 @@ const EditProfile = () => {
             </div>
 
             <div className={styles.changeprofile}>
-              <label htmlFor="input-file">Change Photo</label>
-              <input
-                type="file"
-                accept="image/jpeg, image/png, imagejpg"
-                id="input-file"
+              <FileBase64
+                multiple={false}
+                onDone={({ base64, file }) => {
+                  if (
+                    (file.type === "image/png" ||
+                      file.type === "image/jpeg" ||
+                      file.type === "image/jpg" ||
+                      file.type === "image/webp" ||
+                      file.type === "image/avif") &&
+                    file.size <= 300 * 1024
+                  ) {
+                    handleImgChange(base64);
+                  } else {
+                    toast("Invalid file type or image is greater than 300KB");
+                    setPhoto("");
+                  }
+                }}
               />
             </div>
           </div>
@@ -137,6 +160,12 @@ const EditProfile = () => {
                   <div className={styles.right_section}>Name</div>
                   <div className={styles.right_section}>Password</div>
                   <div className={styles.right_section}>Confirm Password</div>
+                  <div
+                    style={{ display: isAdmin === false ? "block" : "none" }}
+                    className={styles.right_section}
+                  >
+                    Id Card photo
+                  </div>
                   <div className={styles.right_section}>Hostel</div>
                   <div
                     style={{ display: isAdmin === false ? "block" : "none" }}
@@ -157,6 +186,29 @@ const EditProfile = () => {
                   <div className={styles.left_section}>
                     <input type="password" id="cnewpwd" autoComplete="off" />
                   </div>
+                  {/* id card photo */}
+                  <div style={{ display: isAdmin === false ? "block" : "none" }}>
+                    {" "}
+                    <FileBase64
+                      multiple={false}
+                      onDone={({ base64, file }) => {
+                        if (
+                          (file.type === "image/png" ||
+                            file.type === "image/jpeg" ||
+                            file.type === "image/jpg" ||
+                            file.type === "image/webp" ||
+                            file.type === "image/avif") &&
+                          file.size <= 300 * 1024
+                        ) {
+                          handleIdCardChange(base64);
+                        } else {
+                          toast("Invalid file type or image is greater than 300KB");
+                          setPhoto("");
+                        }
+                      }}
+                    />
+                  </div>
+
                   <div className={styles.left_section}>
                     <select id="hostel" className={styles.hostel_options}>
                       <option value="">Aryabhatt PG Hostel</option>

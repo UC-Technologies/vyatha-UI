@@ -1,9 +1,16 @@
+/* eslint-disable no-console */
+/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import axios from "axios";
+import { toast } from "sonner";
+import Cookies from "js-cookie";
 import styles from "./ComplaintDashboardS.module.scss";
 import Data from "../../../../Data/ComplaintRegister.json";
 // import ComplaintCardS from '../../../Components/RegisteredComplaint/Student/ComplaintCardS';
 import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
+import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
 
 const AllComplaintStudent = () => {
   useEffect(() => {
@@ -62,6 +69,58 @@ const AllComplaintStudent = () => {
     setJsonData(filteredData);
   }, [searchInput]);
 
+  const { data, error, isLoading, isFetching } = useQuery("complaints", fetchComplaints, {
+    refetchOnWindowFocus: "always",
+  });
+  if (error) {
+    return <div>Something went wrong!</div>;
+  }
+
+  if (isLoading || isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  const fetchedIssues = data?.allIssues;
+  const token = Cookies.get("authToken");
+
+  const handleCloseIssue = async (issueId) => {
+    try {
+      await axios
+        .put(
+          `${import.meta.env.VITE_REACT_APP_API}/closeissue`,
+          { issueId },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.message === "Issue closed successfully") {
+            toast("Issue closed successfully");
+          }
+        });
+    } catch (er) {
+      if (er.response) {
+        switch (er.response.data.error) {
+          case "Issue already closed":
+            toast("Issue already closed");
+            break;
+          case "Not authorized to access this issue":
+            toast("Not authorized to access this issue");
+            break;
+          case "Not Authorized to use this api endpoint":
+            toast("Not Authorized to use this api endpoint");
+            break;
+          default:
+            toast("Something went wrong");
+            console.error(er.response.data.error);
+            break;
+        }
+      }
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.SearchBar}>
@@ -80,33 +139,72 @@ const AllComplaintStudent = () => {
       </div>
       <div className={styles.ComplaintCard}>
         <div className={styles.ComplaintCardInner}>
-          {jsonData.map((complaint) => (
+          {fetchedIssues?.map((complaint) => (
             // <ComplaintCardS key={item.key} complaint={item} />
-            <div className={styles.CardContainer} key={complaint.key}>
+            <div className={styles.CardContainer} key={complaint._id}>
               <div className={styles.Heading}>
                 <div className={styles.compliantTitle}>
-                  <Link to={`/${role}/complaint/${complaint.key}`}>
+                  <Link to={`/${role}/complaint/${complaint._id}`}>
                     <h2>{complaint.title}</h2>
                   </Link>
                 </div>
                 <div className={styles.StatusImg}>
-                  <img src={complaint.StatusImg} alt="icon" />
+                  <img src={complaint.photo} alt="icon" />
                 </div>
 
                 {/* link for the complaint status has to be fetched from the json file corresponding to the complaint status */}
               </div>
-              <div className={styles.DateAndTime}>
-                {complaint.Date}, {complaint.Time}
-              </div>
+              <div className={styles.DateAndTime}>{complaint.IssueCreatedAt}</div>
               <div className={styles.Description}>
-                <p>{complaint.Description}</p>
-                <button className={styles.closebtn}>Close</button>
+                <p>{complaint.description}</p>
+                <button
+                  onClick={() => handleCloseIssue(complaint._id)}
+                  className={styles.closebtn}
+                >
+                  Close
+                </button>
               </div>
               <div className={styles.SelectBar}>
-                <div className={styles.Registered}>Registered</div>
-                <div className={styles.Supervisor}>Supervisor</div>
-                <div className={styles.Warden}>Warden</div>
-                <div className={styles.Dean}>Dean</div>
+                <div
+                  style={{
+                    background: complaint?.forwardedTo === "registered" ? "#3689C2" : "",
+                  }}
+                  className={`${styles.Registered} ${
+                    complaint?.forwardedTo === "registered" ? "customBG" : ""
+                  }`}
+                >
+                  Registered
+                </div>
+                <div
+                  style={{
+                    background: complaint?.forwardedTo === "supervisor" ? "#3689C2" : "",
+                  }}
+                  className={`${styles.Supervisor} ${
+                    complaint?.forwardedTo === "supervisor" ? "customBG" : ""
+                  } `}
+                >
+                  Supervisor
+                </div>
+                <div
+                  style={{
+                    background: complaint?.forwardedTo === "warden" ? "#3689C2" : "",
+                  }}
+                  className={`${styles.Warden} ${
+                    complaint?.forwardedTo === "warden" ? "customBG" : ""
+                  }`}
+                >
+                  Warden
+                </div>
+                <div
+                  style={{
+                    background: complaint?.forwardedTo === "dsw" ? "#3689C2" : "",
+                  }}
+                  className={`${styles.Dean} ${
+                    complaint?.forwardedTo === "dsw" ? "customBG" : ""
+                  }`}
+                >
+                  Dean
+                </div>
               </div>
             </div>
           ))}
