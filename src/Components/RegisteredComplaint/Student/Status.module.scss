@@ -1,3 +1,87 @@
+.MainDiv {
+  height: 30vh;
+  width: 50vw;
+  background-color: #d7faf4;
+  margin: 1rem;
+  display: flex;
+  flex-wrap: nowrap;
+  box-shadow:
+    rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .Registered {
+    height: 25%;
+    text-align: left;
+    margin-left: 0.5rem;
+  }
+  .Supervisor {
+    height: 25%;
+    align-self: flex-start;
+    margin-left: 0.5rem;
+  }
+  .Warden {
+    height: 25%;
+    margin-left: 0.5rem;
+  }
+  .Dean {
+    margin-left: 0.5rem;
+  }
+}
+
+h1 {
+  color: black;
+  font-size: 1rem;
+  margin-left: 1rem;
+  font-weight: 700;
+  text-align: left;
+}
+h2 {
+  font-size: 1.2vh;
+  font-weight: 200;
+  margin-left: 1rem;
+}
+.StatusBar {
+  height: 25%;
+  width: 1vw;
+  margin-left: 2vw;
+  background-color: #40bdb6;
+  box-shadow:
+    rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+.StatusBar2 {
+  height: 25%;
+  width: 1vw;
+  margin-left: 2vw;
+  background-color: #40bdb6;
+  box-shadow:
+    rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+.StatusBar3 {
+  height: 25%;
+  width: 1vw;
+  margin-left: 2vw;
+  background-color: #ffffff;
+  box-shadow:
+    rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+.StatusBar4 {
+  height: 25%;
+  width: 1vw;
+  margin-left: 2vw;
+  background-color: #ffffff;
+  box-shadow:
+    rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
 @media only screen and (max-width: 660px) {
   .MainDiv {
     height: 30vh;
@@ -5,23 +89,8 @@
     background-color: #d7faf4;
     display: flex;
     flex-wrap: nowrap;
-  }
-  .status {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    .Registered {
-      height: 25%;
-      text-align: left;
-    }
-    .Supervisor {
-      height: 25%;
-      align-self: flex-start;
-    }
-    .Warden {
-      height: 25%;
-    }
+    box-shadow: none;
+    margin: 0;
   }
 
   h1 {
@@ -38,25 +107,25 @@
   }
   .StatusBar {
     height: 25%;
-    width: 1vw;
+    width: 0.375rem;
     margin-left: 2vw;
-    background-color: var(--vyatha-main-color-dark);
+    background-color: #40bdb6;
   }
   .StatusBar2 {
     height: 25%;
-    width: 1vw;
+    width: 0.375rem;
     margin-left: 2vw;
-    background-color: var(--vyatha-main-color-dark);
+    background-color: #40bdb6;
   }
   .StatusBar3 {
     height: 25%;
-    width: 1vw;
+    width: 0.375rem;
     margin-left: 2vw;
     background-color: #ffffff;
   }
   .StatusBar4 {
     height: 25%;
-    width: 1vw;
+    width: 0.375rem;
     margin-left: 2vw;
     background-color: #ffffff;
   }
