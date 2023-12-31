@@ -14,22 +14,25 @@ const About = () => {
       question: "Can I check the status of my complaint in real time?",
       id: 1,
       answer:
-        "  With Vyatha, you can report a wide range of grievances, from small issues like broken windows, termite problems, and water non-availability to more substantial concerns such as network problems, electricity power-cuts, and construction issues. We're here to address all your hostel-related problems, big or small.",
+        "  Yes, you can check the real-time status of your complaint on Vyatha. Once you've lodged a complaint, you can log in to your account to see if it's in processing, resolved, or denied, providing transparency in the resolution process.",
     },
     {
       question: "How can I download and install Vyatha on my device?",
       id: 2,
-      answer: "flkks;",
+      answer:
+        "To access Vyatha, you can visit our website at vyatha.com using a web browser on your device. As of now, we primarily operate as a web-based platform, allowing users to submit complaints, check their status, and facilitate communication between boarders and administration. We don't currently offer a dedicated mobile app, but you can access Vyatha easily through your device's web browser for a seamless experience.      ",
     },
     {
       question: "Is Vyatha secure and confidential?",
       id: 3,
-      answer: "",
+      answer:
+        "Yes, Vyatha takes security and confidentiality seriously. We use encryption protocols to secure user data and ensure that sensitive information is protected. Your complaints and personal details are handled with utmost confidentiality, and access to this information is restricted to authorized personnel only. We prioritize maintaining a secure environment to foster trust between hostel boarders and administration.",
     },
     {
       question: "Can I check the status of my complaint in real time?",
       id: 4,
-      answer: "",
+      answer:
+        "Yes, on Vyatha, you can check the real-time status of your complaint. Log in to your account, and you'll be able to see whether your complaint is in processing, resolved, or denied, providing you with up-to-date information on the resolution progress.",
     },
   ];
   const toggle = (i) => {
