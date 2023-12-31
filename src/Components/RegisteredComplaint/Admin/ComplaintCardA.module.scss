@@ -91,7 +91,15 @@
   float: left;
 }
 
+.credid {
+  font-size: 1vw !important;
+}
+
 @media screen and (max-width: 660px) {
+  .credid {
+    font-size: 3.5vw !important;
+  }
+
   .cardhome {
     width: 100%;
     max-width: 100%;

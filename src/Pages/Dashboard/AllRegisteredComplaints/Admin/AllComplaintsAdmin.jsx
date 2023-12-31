@@ -1,12 +1,40 @@
-import React, { useEffect } from "react";
-import Records from "./Records.json";
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-console */
+import React, { useEffect, useContext } from "react";
+import { useQuery } from "react-query";
 import styles from "./ComplaintDashboardA.module.scss";
 import ComplaintCardA from "../../../../Components/RegisteredComplaint/Admin/ComplaintCardA";
+import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
+import { UserContext } from "../../../../Context/Provider";
 
 const AllComplaintsAdmin = () => {
   useEffect(() => {
     document.title = "All Complaints | Vyatha";
   }, []);
+
+  const { data, error, isLoading, isFetching } = useQuery("complaints", fetchComplaints, {
+    refetchOnWindowFocus: "always",
+  });
+  const { role } = useContext(UserContext);
+  if (error) {
+    return <div>Something went wrong!</div>;
+  }
+
+  if (isLoading || isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  // const fetchedIssues = data?.sortedIssues;
+  const fetchedIssues =
+    role === "supervisor"
+      ? data?.issuesAssignedToSupervisor
+      : role === "warden"
+      ? data?.sortedIssues
+      : role === "dsw"
+      ? data?.sortedIssues
+      : null;
+  console.log(fetchedIssues);
+
   return (
     <div className={styles.cardAdmin}>
       <div className={styles.search_bar}>
@@ -19,16 +47,19 @@ const AllComplaintsAdmin = () => {
           alt=""
         />
       </div>
-      {Records.map((record) => {
+      {fetchedIssues?.map((record) => {
         return (
-          <div className={styles.all_cards} key={record.id}>
+          <div className={styles.all_cards} key={record?._id}>
             <div className={styles.cards_content}>
               <ComplaintCardA
-                id={record.key}
-                title={record.title}
-                date={record.date}
-                time={record.time}
-                content={record.content}
+                id={record?._id}
+                title={record?.title}
+                date={record?.IssueCreatedAt}
+                content={record?.description}
+                img={record?.photo}
+                name={record?.name}
+                room={record?.room}
+                scholarID={record?.scholarID}
               />
             </div>
           </div>

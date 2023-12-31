@@ -2,9 +2,9 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import styles from "./ComplaintCardA.module.scss";
 
-const ComplaintCardA = ({ title, date, time, content, id }) => {
+const ComplaintCardA = ({ title, date, content, id, img, name, room, scholarID }) => {
   const { role } = useParams();
-  // console.log(role);
+
   return (
     <div className={styles.cardhome}>
       <div className={styles.cardmap} key={id}>
@@ -19,20 +19,20 @@ const ComplaintCardA = ({ title, date, time, content, id }) => {
               </Link>
             </div>
             <div className={styles.date_time}>
-              <span>{date}</span>
-              <span>{time}</span>
+              <span className={styles.credid}>{name} | </span>
+              <span className={styles.credid}>{scholarID} | </span>
+              <span className={styles.credid}>{room} </span>
             </div>
+            <div className={styles.date_time}>
+              <span>{date}</span>
+            </div>
+
             <div className={styles.complain_description}>
               <div className={styles.complain_content}>{content}</div>
             </div>
           </div>
           <div className={styles.complain_con_img}>
-            <img
-              src="https://i.ytimg.com/vi/zrM6N-G6U_M/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAvuPG7_Msty7eeBLo-m26EsQg6nA"
-              alt=""
-              width="317px"
-              height="170px"
-            />
+            <img src={img} alt="" width="317px" height="170px" />
           </div>
         </div>
         <div className={styles.tag_line}>

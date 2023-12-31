@@ -9,6 +9,7 @@ import { HiEllipsisVertical } from "react-icons/hi2";
 import Cookies from "js-cookie";
 import styles from "./IndividualComplaintS.module.scss";
 import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
+
 // import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
 const IndividualComplaintStudent = () => {
@@ -25,7 +26,7 @@ const IndividualComplaintStudent = () => {
   const { key } = useParams(); // Extracted the key
   const issueId = key;
   const issueID = key;
-
+  // console.log("profile",profile)
   const { data, error, isLoading, isFetching } = useQuery(
     "oneIssue",
     () => fetchIndividualIssue({ issueId }),
@@ -33,10 +34,11 @@ const IndividualComplaintStudent = () => {
   );
 
   const issueData = data?.issue;
+  const otherID = data?.issue?.otherID;
   // console.log(issueData);
   const Comments = data?.issue?.comments;
-  const d = data?.issue;
-  console.log(d);
+  // const d = data?.issue;
+  // console.log(d);
   useEffect(() => {
     document.title = `${issueData?.name} | Vyatha`;
   });
@@ -55,7 +57,7 @@ const IndividualComplaintStudent = () => {
       await axios
         .post(
           `${import.meta.env.VITE_REACT_APP_API}/raisecomplain`,
-          { issueID },
+          { issueID, otherID },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -78,8 +80,8 @@ const IndividualComplaintStudent = () => {
           case "User not found":
             toast("User not found");
             break;
-          case "Please provide issue ID":
-            toast("Please provide issue ID");
+          case "Please provide issue ID and otherID":
+            toast("Please provide issue ID and otherID");
             break;
           case "No such issue exists":
             toast("No such issue exists");
@@ -152,6 +154,12 @@ const IndividualComplaintStudent = () => {
           case "Something went wrong on the server side":
             toast("Something went wrong on the server side");
             break;
+          case "Issue has been closed by the student, can't add comment":
+            toast("Issue has been closed by the student, can't add comment");
+            break;
+          case "No comment body found":
+            toast("No comment body found");
+            break;
           default:
             toast("Something went wrong");
             break;
@@ -163,6 +171,7 @@ const IndividualComplaintStudent = () => {
   const handleEdit = (e) => {
     e.preventDefault();
   };
+
   return (
     <div className={styles.Container}>
       <div className={styles.title}>
@@ -180,7 +189,7 @@ const IndividualComplaintStudent = () => {
           {/* <li>Phone No.:{issueData?.phone}</li> */}
         </div>
         <div className={styles.img}>
-          <img src={issueData?.IDCard} alt="ID Card"></img>
+          <img src={issueData?.idcard} alt="idcard"></img>
         </div>
       </div>
       <div className={styles.ComplaintProgress}>

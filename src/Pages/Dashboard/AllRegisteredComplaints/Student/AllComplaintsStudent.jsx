@@ -81,7 +81,7 @@ const AllComplaintStudent = () => {
   }
 
   const fetchedIssues = data?.allIssues;
-  console.log(fetchedIssues);
+  // console.log(fetchedIssues);
 
   const token = Cookies.get("authToken");
   const handleCloseIssue = async (issueId) => {

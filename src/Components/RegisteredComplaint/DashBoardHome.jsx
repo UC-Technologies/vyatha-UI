@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import Styles from "./Dashboard.module.scss";
+import { fetchComplaints } from "../ReactQuery/Fetchers/AllComplaints";
 // import { UserContext } from "../../Context/Provider";
 
 export const DashBoardHome = ({ role }) => {
@@ -57,6 +59,29 @@ export const DashBoardHome = ({ role }) => {
     };
   }, [visible]);
 
+  const { data, error, isLoading, isFetching } = useQuery("complaints", fetchComplaints, {
+    refetchOnWindowFocus: "always",
+  });
+  if (error) {
+    return <div>Something went wrong!</div>;
+  }
+
+  if (isLoading || isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  const notications =
+    role === "student"
+      ? data?.filteredStudentNotifications
+      : role === "supervisor"
+      ? data?.filteredSupervisorNotifications
+      : role === "dsw"
+      ? data?.filteredDswNotifications
+      : role === "warden"
+      ? data?.filteredWardenNotifications
+      : null;
+
+  console.log(notications);
   return (
     <div className={Styles.container}>
       <div className={Styles.RegComplaints}>
