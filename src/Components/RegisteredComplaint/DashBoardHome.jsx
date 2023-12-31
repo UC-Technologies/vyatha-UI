@@ -75,6 +75,13 @@ export const DashBoardHome = ({ role }) => {
             <h3 id={Styles.extramargintop}>Registered Complaints</h3>
           </Link>
         </div>
+
+        <div className={Styles.registered}>
+          <Link to={`/${role}/closedissues`}>
+            <img src={img2} alt="All Closed Complaints" />
+            <h3 id={Styles.extramargintop}>All Closed Complaints</h3>
+          </Link>
+        </div>
       </div>
       <div className={Styles.Icon} onClick={handleClick}>
         {visible ? <img src={img3} alt="ON" /> : <img src={img4} alt="OFF" />}

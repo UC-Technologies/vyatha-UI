@@ -81,9 +81,11 @@ const AllComplaintStudent = () => {
   }
 
   const fetchedIssues = data?.allIssues;
-  const token = Cookies.get("authToken");
+  console.log(fetchedIssues);
 
+  const token = Cookies.get("authToken");
   const handleCloseIssue = async (issueId) => {
+    // console.log(issueId)
     try {
       await axios
         .put(
@@ -144,6 +146,14 @@ const AllComplaintStudent = () => {
             <div className={styles.CardContainer} key={complaint._id}>
               <div className={styles.Heading}>
                 <div className={styles.compliantTitle}>
+                  {complaint?.raiseComplainTo?.length === 2 && (
+                    <p id={styles.forwarddtext}>
+                      Complain Raised to Warden by the student
+                    </p>
+                  )}
+                  {complaint?.raiseComplainTo?.length === 3 && (
+                    <p id={styles.forwarddtext}>Complain Raised to DSW by the student</p>
+                  )}
                   <Link to={`/${role}/complaint/${complaint._id}`}>
                     <h2>{complaint.title}</h2>
                   </Link>

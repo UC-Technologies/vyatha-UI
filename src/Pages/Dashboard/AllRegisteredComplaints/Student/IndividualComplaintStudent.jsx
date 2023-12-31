@@ -5,6 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { toast } from "sonner";
+import { HiEllipsisVertical } from "react-icons/hi2";
 import Cookies from "js-cookie";
 import styles from "./IndividualComplaintS.module.scss";
 import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
@@ -34,7 +35,8 @@ const IndividualComplaintStudent = () => {
   const issueData = data?.issue;
   // console.log(issueData);
   const Comments = data?.issue?.comments;
-  console.log(Comments);
+  const d = data?.issue;
+  console.log(d);
   useEffect(() => {
     document.title = `${issueData?.name} | Vyatha`;
   });
@@ -46,12 +48,71 @@ const IndividualComplaintStudent = () => {
   if (isLoading || isFetching) {
     return <div>Loading...</div>;
   }
-  function handleForward() {
-    // Function to handle the submit button
-  }
-  // function handleComments() {
-  //   // Function to handle the comments
-  // }
+
+  const handleForward = async (e) => {
+    e.preventDefault();
+    try {
+      await axios
+        .post(
+          `${import.meta.env.VITE_REACT_APP_API}/raisecomplain`,
+          { issueID },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.message === "Complain raised to warden") {
+            toast("Complain raised to warden");
+          } else if (res.data.message === "Complain raised to dsw") {
+            toast("Complain raised to dsw");
+          }
+        });
+    } catch (er) {
+      if (er.response) {
+        switch (er.response.data.error) {
+          case "Unauthorized":
+            toast("Unauthorized");
+            break;
+          case "User not found":
+            toast("User not found");
+            break;
+          case "Please provide issue ID":
+            toast("Please provide issue ID");
+            break;
+          case "No such issue exists":
+            toast("No such issue exists");
+            break;
+          case "Not authorized to access this issue":
+            toast("Not authorized to access this issue");
+            break;
+          case "Can't raise complain to warden before 7 days":
+            toast("Can't raise complain to warden before 7 days");
+            break;
+          case "Complain already raised to dsw":
+            toast("Complain already raised to dsw");
+            break;
+          case "unavailable operation":
+            toast("unavailable operation");
+            break;
+          case "not authorized to access this endpoint":
+            toast("not authorized to access this endpoint");
+            break;
+          case "Can't raise complain to dsw before 7 days":
+            toast("Can't raise complain to dsw before 7 days");
+            break;
+          case "Internal server error":
+            toast("Internal server error");
+            break;
+          default:
+            toast("Something went wrong");
+            console.log(er.response.data.error);
+            break;
+        }
+      }
+    }
+  };
 
   const token = Cookies.get("authToken");
   const handleAddComment = async (e) => {
@@ -99,6 +160,9 @@ const IndividualComplaintStudent = () => {
     }
   };
 
+  const handleEdit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className={styles.Container}>
       <div className={styles.title}>
@@ -142,7 +206,14 @@ const IndividualComplaintStudent = () => {
                 <span>{item?.author}</span>
               </li>
               <p>{item?.commentBody}</p>
-              <div className={styles.Date}>{item.createdAt}</div>
+              <div className={styles.Date}>
+                <span className={styles.flex_d}>
+                  {item.createdAt}{" "}
+                  <span onClick={handleEdit}>
+                    <HiEllipsisVertical />
+                  </span>
+                </span>
+              </div>
             </main>
           );
         })}
@@ -159,27 +230,54 @@ const IndividualComplaintStudent = () => {
           ></input>
         </div>
         <div>
-          <button id={styles.addcommentbtn} onClick={handleAddComment}>
+          <button
+            style={{
+              opacity: commentBody === "" ? "0.5" : "1",
+              cursor: commentBody === "" ? "not-allowed" : "pointer",
+            }}
+            id={styles.addcommentbtn}
+            onClick={handleAddComment}
+          >
             Add Comment
           </button>
         </div>
         <div className={styles.TapToSelect}>
-          <span>Raise Complaint</span>
-          <select name="TapToSelect" className={styles.TapToSelect} required>
-            <option value="No input" id="No_input" name="TapToSelect">
-              Tap to Select
-            </option>
-            <option value="Warden" id="1" name="Warden">
-              Warden
-            </option>
-            <option value="Supervisor" id="2" name="Supervisor">
-              Supervisor
-            </option>
-          </select>
+          <span>Raise Complain</span>
+          <p>
+            You can raise complain after 7 days if there is no response from the
+            Supervisor side
+          </p>
+          {issueData?.raiseComplainTo?.length > 1 &&
+            issueData?.raiseComplainTo.map((item, index) => {
+              return (
+                <main key={item._id}>
+                  <p
+                    style={{
+                      fontStyle: "italic",
+                      color: "green",
+                      display: index === 0 ? "none" : "block",
+                    }}
+                  >
+                    &quot;{" "}
+                    {`Issue has been raised to ${item?.whom} by the student on ${item?.when}`}{" "}
+                    &quot;
+                  </p>
+                </main>
+              );
+            })}
         </div>
       </div>
       <div className={styles.ForwardButton}>
-        <button onClick={handleForward}>Forward</button>
+        <button
+          disabled={issueData?.raiseComplainTo?.length === 3}
+          style={{
+            opacity: issueData?.raiseComplainTo?.length === 3 ? "0.5" : "1",
+            cursor: issueData?.raiseComplainTo?.length === 3 ? "not-allowed" : "pointer",
+          }}
+          onClick={handleForward}
+        >
+          Forward
+        </button>
       </div>
     </div>
   );

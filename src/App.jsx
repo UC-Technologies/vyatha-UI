@@ -33,6 +33,7 @@ import IndividualIssue from "./Pages/Dashboard/SuperAdmin/AllIssues/IndividualIs
 import IndividualHostel from "./Pages/Dashboard/SuperAdmin/AllIssues/IndividualHostel";
 import HostelWise from "./Pages/Dashboard/SuperAdmin/AllIssues/AllHostel";
 import ClosedIssues from "./Pages/Dashboard/SuperAdmin/AllIssues/ClosedIssues";
+import ClosedIssue from "./Pages/Dashboard/AllRegisteredComplaints/ClosedIssue";
 // import HostelWise from "./Pages/Dashboard/SuperAdmin/AllIssues/AllHostel";
 // import { UserContext } from "./Context/Provider";
 
@@ -67,6 +68,8 @@ const App = () => {
                 path="/:role/complaint/:key"
                 element={<IndividualComplaint />}
               />
+              {/* closed issue */}
+              <Route exact path="/:role/closedissues" element={<ClosedIssue />} />
               {/* profile */}
               <Route exact path="/profile" element={<Profile />} />
               {/* edit profile */}

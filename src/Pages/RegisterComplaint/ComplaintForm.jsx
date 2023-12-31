@@ -74,8 +74,8 @@ const ComplaintForm = () => {
   const token = Cookies.get("authToken");
   const handleIssueSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    console.log(photo);
+    // console.log(formData);
+    // console.log(photo);
     try {
       await axios
         .post(
