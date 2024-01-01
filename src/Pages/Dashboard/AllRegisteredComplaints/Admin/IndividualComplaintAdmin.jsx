@@ -237,6 +237,7 @@ const IndividualComplaintAdmin = () => {
   const Comments = data?.issue?.comments;
   // console.log(Comments)
 
+  // approve ISSUE ONCLICK FUNCTION
   const handleApprove = async (e) => {
     e.preventDefault();
     try {
@@ -292,6 +293,47 @@ const IndividualComplaintAdmin = () => {
       }
     }
   };
+
+  // CLOSE ISSUE ONCLICK FUNCTION
+  const handleClose = async () => {
+    // console.log(issueId)
+    try {
+      await axios
+        .put(
+          `${import.meta.env.VITE_REACT_APP_API}/closeissue`,
+          { issueId },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.message === "Issue closed successfully") {
+            toast("Issue closed successfully");
+          }
+        });
+    } catch (er) {
+      if (er.response) {
+        switch (er.response.data.error) {
+          case "Issue already closed":
+            toast("Issue already closed");
+            break;
+          case "Not authorized to access this issue":
+            toast("Not authorized to access this issue");
+            break;
+          case "Not Authorized to use this api endpoint":
+            toast("Not Authorized to use this api endpoint");
+            break;
+          default:
+            toast("Something went wrong");
+            console.error(er.response.data.error);
+            break;
+        }
+      }
+    }
+  };
+
   return (
     <div className={styles.title_page}>
       <Helmet>
@@ -301,6 +343,7 @@ const IndividualComplaintAdmin = () => {
       <div className={styles.title_bar}>
         <div className={styles.title_content}> {complaint?.title}</div>
       </div>
+
       {complaint?.isSolved && (
         <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
           Issue has been Solved at {complaint?.solvedAt}
@@ -310,6 +353,13 @@ const IndividualComplaintAdmin = () => {
       {complaint?.isClosed && (
         <h1 id={styles.solvedAtDetails} style={{ color: "red" }}>
           Issue has been Closed by the student at {complaint?.closedAt}
+        </h1>
+      )}
+
+      {complaint?.IssueForwardedToDsw[0]?.time && (
+        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
+          Issue has been forwarded to DSW by you at{" "}
+          {complaint?.IssueForwardedToDsw[0]?.time}
         </h1>
       )}
 
@@ -362,7 +412,7 @@ const IndividualComplaintAdmin = () => {
       </div>
 
       <div className={styles.photo_uploaded}>
-        <span>Photo uploaded</span>
+        <span>Uploaded Photo:</span>
         <div className={styles.photodiv}>
           <img src={complaint?.photo} alt={complaint?.name} />
         </div>
@@ -448,6 +498,12 @@ const IndividualComplaintAdmin = () => {
       >
         Approve Issue
       </button>
+
+      {role === "supervisor" && complaint?.isClosed === false && (
+        <button id={styles.addcommentbtn} onClick={handleClose}>
+          Close Issue
+        </button>
+      )}
     </div>
   );
 };

@@ -159,7 +159,20 @@ const AllComplaintStudent = () => {
                   </Link>
                 </div>
                 <div className={styles.StatusImg}>
-                  <img src={complaint.photo} alt="icon" />
+                  {/* <img src={complaint.photo} alt="icon" /> */}
+                  {complaint?.isSolved === false && (
+                    <img
+                      src="https://res.cloudinary.com/dp92qug2f/image/upload/v1704125701/progress-removebg-preview_o7mh87.png"
+                      alt="inprogress"
+                    />
+                  )}
+
+                  {complaint?.isSolved === true && (
+                    <img
+                      src="https://res.cloudinary.com/dp92qug2f/image/upload/v1703209962/tick_skcuzr.jpg"
+                      alt="solved"
+                    />
+                  )}
                 </div>
 
                 {/* link for the complaint status has to be fetched from the json file corresponding to the complaint status */}
@@ -167,12 +180,14 @@ const AllComplaintStudent = () => {
               <div className={styles.DateAndTime}>{complaint.IssueCreatedAt}</div>
               <div className={styles.Description}>
                 <p>{complaint.description}</p>
-                <button
-                  onClick={() => handleCloseIssue(complaint._id)}
-                  className={styles.closebtn}
-                >
-                  Close
-                </button>
+                {complaint?.isClosed === false && (
+                  <button
+                    onClick={() => handleCloseIssue(complaint._id)}
+                    className={styles.closebtn}
+                  >
+                    Close
+                  </button>
+                )}
               </div>
               <div className={styles.SelectBar}>
                 <div

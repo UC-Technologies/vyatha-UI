@@ -203,6 +203,20 @@ const IndividualComplaintStudent = () => {
         </h1>
       )}
 
+      {issueData?.IssueForwardedToWarden[0]?.time && (
+        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
+          Issue has been forwarded to Warden by the supervisor at{" "}
+          {issueData?.IssueForwardedToWarden[0]?.time}
+        </h1>
+      )}
+
+      {issueData?.IssueForwardedToDsw[0]?.time && (
+        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
+          Issue has been forwarded to DSW by the Warden at{" "}
+          {issueData?.IssueForwardedToDsw[0]?.time}
+        </h1>
+      )}
+
       <div className={styles.Identity}>
         <div className={styles.Info}>
           <div className={styles.FilledBy}>Filled by</div>
