@@ -2,7 +2,17 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import styles from "./ComplaintCardA.module.scss";
 
-const ComplaintCardA = ({ title, date, content, id, img, name, room, scholarID }) => {
+const ComplaintCardA = ({
+  title,
+  date,
+  content,
+  id,
+  img,
+  name,
+  room,
+  scholarID,
+  progress,
+}) => {
   const { role } = useParams();
 
   return (
@@ -39,7 +49,11 @@ const ComplaintCardA = ({ title, date, content, id, img, name, room, scholarID }
           <div className={styles.vector1}>
             <div className={styles.vect_card}>
               <img
-                src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811897/UC%20VYATHA/Vector_1_oiwy9x.jpg?_s=public-apps"
+                src={
+                  progress === "registered"
+                    ? "https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811897/UC%20VYATHA/Vector_3_r7gtew.jpg?_s=public-apps"
+                    : "https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811897/UC%20VYATHA/Vector_1_oiwy9x.jpg?_s=public-apps"
+                }
                 width="170px"
                 alt=""
               />
@@ -48,7 +62,11 @@ const ComplaintCardA = ({ title, date, content, id, img, name, room, scholarID }
 
             <div className={styles.vect_card}>
               <img
-                src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811897/UC%20VYATHA/Vector_2_b1t7sy.jpg?_s=public-apps"
+                src={
+                  progress === "supervisor"
+                    ? "https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811897/UC%20VYATHA/Vector_3_r7gtew.jpg?_s=public-apps"
+                    : "https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811897/UC%20VYATHA/Vector_1_oiwy9x.jpg?_s=public-apps"
+                }
                 width="170px"
                 alt=""
               />
@@ -57,7 +75,11 @@ const ComplaintCardA = ({ title, date, content, id, img, name, room, scholarID }
 
             <div className={styles.vect_card}>
               <img
-                src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811897/UC%20VYATHA/Vector_3_r7gtew.jpg?_s=public-apps"
+                src={
+                  progress === "warden"
+                    ? "https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811897/UC%20VYATHA/Vector_3_r7gtew.jpg?_s=public-apps"
+                    : "https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811897/UC%20VYATHA/Vector_1_oiwy9x.jpg?_s=public-apps"
+                }
                 alt=""
                 width="170px"
               />
@@ -66,7 +88,11 @@ const ComplaintCardA = ({ title, date, content, id, img, name, room, scholarID }
 
             <div className={styles.vect_card}>
               <img
-                src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811897/UC%20VYATHA/Vector_4_vnlx6n.jpg?_s=public-apps"
+                src={
+                  progress === "dsw"
+                    ? "https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811897/UC%20VYATHA/Vector_3_r7gtew.jpg?_s=public-apps"
+                    : "https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1697811897/UC%20VYATHA/Vector_1_oiwy9x.jpg?_s=public-apps"
+                }
                 width="170px"
                 alt=""
               />

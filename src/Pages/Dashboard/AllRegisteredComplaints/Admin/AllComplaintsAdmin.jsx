@@ -60,6 +60,7 @@ const AllComplaintsAdmin = () => {
                 name={record?.name}
                 room={record?.room}
                 scholarID={record?.scholarID}
+                progress={record?.forwardedTo}
               />
             </div>
           </div>

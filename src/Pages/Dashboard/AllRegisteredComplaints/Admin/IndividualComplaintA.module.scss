@@ -69,16 +69,24 @@ li {
 }
 .comment_section {
   background-color: #d7faf4;
-  padding: 2rem;
-  height: 14.5rem;
-  width: 70.43rem;
-  border-radius: 0.5rem;
+  padding: 2vw 3vw;
+  #mainComment {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1vw 0;
+    #maincontent {
+      font-size: 1.2vw;
+    }
+  }
 }
 .photo_uploaded {
-  margin-left: 16rem;
+  width: 30vw;
+  margin-left: auto;
+  margin-right: auto;
   span {
-    height: 1.2rem;
-    width: 9.4rem;
+    // height: 1.2rem;
+    // width: 9.4rem;
     color: #000000;
     font-family: "Open Sans Hebrew-Regular", Helvetica;
     font-size: 1.25rem;
@@ -138,6 +146,22 @@ li {
   cursor: pointer;
   font-size: 1.25vw;
   margin-bottom: 2.5vw;
+}
+
+.photodiv {
+  width: 25vw;
+  height: 25vw;
+  // background-color: red;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+#solvedAtDetails {
+  font-size: 1.8vw;
+  font-style: italic;
 }
 
 @media screen and (max-width: 660px) {
@@ -210,5 +234,23 @@ li {
     margin-top: 5vw;
     border: 1px solid #a4e5e1;
     border-radius: 5px;
+  }
+
+  .comment_section {
+    background-color: #d7faf4;
+    padding: 2vw 3vw;
+    #mainComment {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 3vw 0;
+      #maincontent {
+        font-size: 3vw;
+      }
+    }
+  }
+
+  #solvedAtDetails {
+    font-size: 7vw;
   }
 }

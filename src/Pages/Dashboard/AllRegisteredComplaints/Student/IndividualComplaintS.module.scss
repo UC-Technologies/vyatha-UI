@@ -1,4 +1,8 @@
 @media screen and (max-width: 599.99px) {
+  #solvedAtDetails {
+    font-size: 7vw;
+  }
+
   #mainComment {
     display: flex;
     flex-direction: row;
@@ -224,6 +228,12 @@
 
 // --------------------------------------------------------------------LargeScreen------------------------------------------------------------------------------------------
 @media screen and (min-width: 600px) {
+  #solvedAtDetails {
+    font-size: 2vw;
+    font-style: italic;
+    margin: 1vw 0;
+  }
+
   #mainComment {
     display: flex;
     flex-direction: row;

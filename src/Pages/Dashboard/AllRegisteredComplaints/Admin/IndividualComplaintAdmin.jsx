@@ -1,12 +1,14 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-constant-condition */
 /* eslint-disable no-console */
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
 import { useParams } from "react-router-dom";
+import { HiEllipsisVertical } from "react-icons/hi2";
 import styles from "./IndividualComplaintA.module.scss";
 import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import { UserContext } from "../../../../Context/Provider";
@@ -16,6 +18,7 @@ const IndividualComplaintAdmin = () => {
   const issueId = key;
   const issueID = key;
   const [reasonForForwarding, setReasonForForwarding] = useState("");
+
   const handleInputChange = (e) => {
     setReasonForForwarding(e.target.value);
   };
@@ -27,6 +30,26 @@ const IndividualComplaintAdmin = () => {
 
   const { role } = useContext(UserContext);
   const complaint = data?.issue;
+
+  const [forwardBtnVisibility, setForwardBtnVisibility] = useState(false);
+  const forwardTo =
+    complaint?.forwardedTo === "supervisor"
+      ? "warden"
+      : complaint?.forwardedTo === "warden"
+      ? "dsw"
+      : null;
+  useEffect(() => {
+    if (role === "supervisor" && complaint?.forwardedTo === "supervisor") {
+      setForwardBtnVisibility(true);
+    } else if (role === "warden" && complaint?.forwardedTo === "warden") {
+      setForwardBtnVisibility(true);
+    } else if (role === "dsw" && complaint?.forwardedTo === "dsw") {
+      setForwardBtnVisibility(true);
+    } else {
+      setForwardBtnVisibility(false);
+    }
+  }, [complaint?.forwardedTo, role]);
+
   const otherID = complaint?.otherID;
   const [commentBody, setCommentBody] = useState("");
   const handleCommentChange = (e) => {
@@ -91,13 +114,6 @@ const IndividualComplaintAdmin = () => {
   if (isLoading || isFetching) {
     return <div>Loading...</div>;
   }
-
-  const forwardTo =
-    complaint?.forwardedTo === "supervisor"
-      ? "warden"
-      : complaint?.forwardedTo === "warden"
-      ? "dsw"
-      : null;
 
   const handleForwardIssue = async (e) => {
     e.preventDefault();
@@ -217,14 +233,86 @@ const IndividualComplaintAdmin = () => {
       }
     }
   };
+
+  const Comments = data?.issue?.comments;
+  // console.log(Comments)
+
+  const handleApprove = async (e) => {
+    e.preventDefault();
+    try {
+      await axios
+        .put(
+          `${import.meta.env.VITE_REACT_APP_API}/approveissue`,
+          { issueID, otherID },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.message === "Issue approved successfully by the warden") {
+            toast("Issue approved successfully by the warden");
+          } else if (res.data.message === "Issue approved successfully by the dsw") {
+            toast("Issue approved successfully by the dsw");
+          }
+        });
+    } catch (eee) {
+      if (eee.response) {
+        switch (eee.response.data.error) {
+          case "payload missing":
+            toast("payload missing");
+            break;
+          case "No such issue exists":
+            toast("No such issue exists");
+            break;
+          case "Issue has been closed by the student, can't approve":
+            toast("Issue has been closed by the student, can't approve");
+            break;
+          case "No notification exists":
+            toast("No notification exists");
+            break;
+          case "No other role are authorized to approve an issue":
+            toast("No other role are authorized to approve an issue");
+            break;
+          case "Issue has already been approved by the dsw":
+            toast("Issue has already been approved by the dsw");
+            break;
+          case "Issue has already been approved by the warden":
+            toast("Issue has already been approved by the warden");
+            break;
+          case "Something went wrong on the server side":
+            toast("Something went wrong on the server side");
+            break;
+          default:
+            toast("Something went wrong");
+            console.error(eee.response.data.error);
+            break;
+        }
+      }
+    }
+  };
   return (
     <div className={styles.title_page}>
       <Helmet>
         <title>{`${complaint?.title} | Vyatha`}</title>
       </Helmet>
+
       <div className={styles.title_bar}>
         <div className={styles.title_content}> {complaint?.title}</div>
       </div>
+      {complaint?.isSolved && (
+        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
+          Issue has been Solved at {complaint?.solvedAt}
+        </h1>
+      )}
+
+      {complaint?.isClosed && (
+        <h1 id={styles.solvedAtDetails} style={{ color: "red" }}>
+          Issue has been Closed by the student at {complaint?.closedAt}
+        </h1>
+      )}
+
       <div className={styles.dropdown_img}>
         <img src="" alt="" />
       </div>
@@ -247,11 +335,35 @@ const IndividualComplaintAdmin = () => {
         </fieldset>
       </div>
       <div className={styles.comment_section}>
-        <span> Comment hh:mm day - dd/mm/yr</span>
+        {Comments?.length === 0 && (
+          <div className={styles.NoComments}>
+            <p>No comments yet</p>
+          </div>
+        )}
+        {/* <span> Comment hh:mm day - dd/mm/yr</span> */}
+        {Comments?.map((item) => {
+          return (
+            <main id={styles.mainComment} key={item?._id}>
+              <li name={item?.author} value={item?.author}>
+                <span>{item?.author}</span>
+              </li>
+              <p id={styles.maincontent}>{item?.commentBody}</p>
+              <div className={styles.Date}>
+                <span className={styles.flex_d}>
+                  {item.createdAt}{" "}
+                  <span>
+                    <HiEllipsisVertical />
+                  </span>
+                </span>
+              </div>
+            </main>
+          );
+        })}
       </div>
+
       <div className={styles.photo_uploaded}>
         <span>Photo uploaded</span>
-        <div>
+        <div className={styles.photodiv}>
           <img src={complaint?.photo} alt={complaint?.name} />
         </div>
       </div>
@@ -272,47 +384,41 @@ const IndividualComplaintAdmin = () => {
         >
           Add comment
         </button>
-        <main
-          style={{
-            display:
-              role === "dsw"
-                ? "none"
-                : "block" || complaint?.isSolved
-                ? "none"
-                : "block" || complaint?.forwardedTo !== "supervisor"
-                ? "none"
-                : "block",
-          }}
-        >
-          <span>Forward to : </span>
-          <input type="text" placeholder="Tap to Select" value={forwardTo} />
-          <input
-            type="text"
-            placeholder="Reson to forward"
-            value={reasonForForwarding}
-            onChange={handleInputChange}
-          />
-        </main>
+
+        {/* when forwardTo has the value of dsw, then it should have the display of none for the role of supervisor  */}
+        {forwardBtnVisibility === true && (
+          <main
+            style={{
+              display: role === "dsw" ? "none" : "block",
+            }}
+          >
+            <span>Forward to : </span>
+            <input type="text" placeholder="Tap to Select" value={forwardTo} />
+            <input
+              type="text"
+              placeholder="Reason to forward"
+              value={reasonForForwarding}
+              onChange={handleInputChange}
+            />
+          </main>
+        )}
       </div>
 
-      <div
-        onClick={handleForwardIssue}
-        style={{
-          cursor: reasonForForwarding === "" ? "not-allowed" : "pointer",
-          opacity: reasonForForwarding === "" ? "0.5" : "1",
-          display:
-            role === "dsw"
-              ? "none"
-              : "block" || complaint?.isSolved
-              ? "none"
-              : "block" || complaint?.forwardedTo !== "supervisor"
-              ? "none"
-              : "block",
-        }}
-        className={styles.submit}
-      >
-        <input type="submit" />
-      </div>
+      {forwardBtnVisibility === true && (
+        <div
+          onClick={handleForwardIssue}
+          style={{
+            cursor: reasonForForwarding === "" ? "not-allowed" : "pointer",
+            opacity: reasonForForwarding === "" ? "0.5" : "1",
+            display: role === "dsw" ? "none" : "block",
+          }}
+          className={styles.submit}
+        >
+          <input type="submit" />
+        </div>
+      )}
+
+      {/* Mark as  solved button, only for supervisor */}
       <button
         id={styles.addcommentbtn}
         style={{
@@ -325,6 +431,22 @@ const IndividualComplaintAdmin = () => {
         {complaint?.isSolved
           ? "Issue has been marked as solved"
           : "Mark the Issue as solved"}
+      </button>
+
+      {/* Approve issue button only for the warden and dsw */}
+      <button
+        style={{
+          display:
+            role === complaint?.forwardedTo
+              ? "block"
+              : "none" || role === "supervisor"
+              ? "none"
+              : "block",
+        }}
+        id={styles.addcommentbtn}
+        onClick={handleApprove}
+      >
+        Approve Issue
       </button>
     </div>
   );

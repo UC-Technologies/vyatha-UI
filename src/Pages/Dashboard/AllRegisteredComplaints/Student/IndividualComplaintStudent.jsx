@@ -35,13 +35,23 @@ const IndividualComplaintStudent = () => {
 
   const issueData = data?.issue;
   const otherID = data?.issue?.otherID;
-  // console.log(issueData);
   const Comments = data?.issue?.comments;
-  // const d = data?.issue;
-  // console.log(d);
   useEffect(() => {
     document.title = `${issueData?.name} | Vyatha`;
   });
+
+  const [issueVisibility, setIssueVisibility] = useState(false);
+  useEffect(() => {
+    if (issueData?.isSolved === true) {
+      setIssueVisibility(true);
+    } else if (issueData?.isClosed === true) {
+      setIssueVisibility(true);
+    } else if (issueData?.raiseComplainTo?.length === 3) {
+      setIssueVisibility(true);
+    } else {
+      setIssueVisibility(false);
+    }
+  }, [issueData?.isSolved, issueData?.isClosed, issueData?.raiseComplainTo?.length]);
 
   if (error) {
     return <div>Something went wrong!</div>;
@@ -180,6 +190,19 @@ const IndividualComplaintStudent = () => {
         </Link>
         <h1>{issueData?.title}</h1>
       </div>
+
+      {issueData?.isSolved && (
+        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
+          Issue has been Solved at {issueData?.solvedAt}
+        </h1>
+      )}
+
+      {issueData?.isClosed && (
+        <h1 id={styles.solvedAtDetails} style={{ color: "red" }}>
+          Issue has been Closed by the student at {issueData?.closedAt}
+        </h1>
+      )}
+
       <div className={styles.Identity}>
         <div className={styles.Info}>
           <div className={styles.FilledBy}>Filled by</div>
@@ -250,44 +273,57 @@ const IndividualComplaintStudent = () => {
             Add Comment
           </button>
         </div>
-        <div className={styles.TapToSelect}>
-          <span>Raise Complain</span>
-          <p>
-            You can raise complain after 7 days if there is no response from the
-            Supervisor side
-          </p>
-          {issueData?.raiseComplainTo?.length > 1 &&
-            issueData?.raiseComplainTo.map((item, index) => {
-              return (
-                <main key={item._id}>
-                  <p
-                    style={{
-                      fontStyle: "italic",
-                      color: "green",
-                      display: index === 0 ? "none" : "block",
-                    }}
-                  >
-                    &quot;{" "}
-                    {`Issue has been raised to ${item?.whom} by the student on ${item?.when}`}{" "}
-                    &quot;
-                  </p>
-                </main>
-              );
-            })}
-        </div>
+
+        {!issueVisibility && (
+          <div
+            className={styles.TapToSelect}
+            // style={{ display: issueData?.isSolved === true ? "none" : "block" || issueData?.raiseComplainTo?.length === 3 ? "none" : "block" || issueData?.isClosed === true ? "none" : "block" }}
+          >
+            <span>Raise Complain</span>
+            <p>
+              You can raise complain after 7 days if there is no response from the
+              Supervisor side
+            </p>
+            {issueData?.raiseComplainTo?.length > 1 &&
+              issueData?.raiseComplainTo.map((item, index) => {
+                return (
+                  <main key={item._id}>
+                    <p
+                      style={{
+                        fontStyle: "italic",
+                        color: "green",
+                        display: index === 0 ? "none" : "block",
+                      }}
+                    >
+                      &quot;{" "}
+                      {`Issue has been raised to ${item?.whom} by the student on ${item?.when}`}{" "}
+                      &quot;
+                    </p>
+                  </main>
+                );
+              })}
+          </div>
+        )}
       </div>
-      <div className={styles.ForwardButton}>
-        <button
-          disabled={issueData?.raiseComplainTo?.length === 3}
-          style={{
-            opacity: issueData?.raiseComplainTo?.length === 3 ? "0.5" : "1",
-            cursor: issueData?.raiseComplainTo?.length === 3 ? "not-allowed" : "pointer",
-          }}
-          onClick={handleForward}
+
+      {!issueVisibility && (
+        <div
+          // style={{ display: issueData?.isSolved === true ? "none" : "block" || issueData?.raiseComplainTo?.length === 3 ? "none" : "block" || issueData?.isClosed === true ? "none" : "block" }}
+          className={styles.ForwardButton}
         >
-          Forward
-        </button>
-      </div>
+          <button
+            disabled={issueData?.raiseComplainTo?.length === 3}
+            style={{
+              opacity: issueData?.raiseComplainTo?.length === 3 ? "0.5" : "1",
+              cursor:
+                issueData?.raiseComplainTo?.length === 3 ? "not-allowed" : "pointer",
+            }}
+            onClick={handleForward}
+          >
+            Forward
+          </button>
+        </div>
+      )}
     </div>
   );
 };
