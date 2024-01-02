@@ -27,95 +27,103 @@
       }
     }
 
-    .profile_image {
-      height: 20vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 1.2rem;
+    .Profile_details {
+      .profile_image {
+        margin-top: 3rem;
+        height: 20vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 5rem;
 
-      img {
-        width: 5rem;
-        height: 5rem;
-        flex-shrink: 0;
-        border-radius: 50%;
-      }
-
-      // .changeprofile {
-      //   color: #000;
-      //   text-align: center;
-      //   font-family: Lato;
-      //   font-style: normal;
-      //   font-weight: 400;
-      //   letter-spacing: 0.5px;
-
-      //   label {
-      //     background-color: white;
-      //     border: none;
-      //   }
-
-      //   input {
-      //     display: none;
-      //   }
-      // }
-    }
-
-    .details_section {
-      width: 100vw;
-      height: 40vh;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-
-      .details_about {
-        color: #24817b;
-        font-family: Lato;
-        font-size: 0.7rem;
-        font-style: normal;
-        font-weight: 400;
-        width: 40vw;
-
-        .right_section {
-          margin: 1.2rem 0 1rem 1rem;
-          font-size: 1rem;
-          height: 5.5vh;
+        img {
+          width: 5rem;
+          height: 5rem;
+          flex-shrink: 0;
+          border-radius: 50%;
         }
+
+        .changeprofile {
+          display: flex;
+          text-align: center;
+        }
+
+        // .changeprofile {
+        //   color: #000;
+        //   text-align: center;
+        //   font-family: Lato;
+        //   font-style: normal;
+        //   font-weight: 400;
+        //   letter-spacing: 0.5px;
+
+        //   label {
+        //     background-color: white;
+        //     border: none;
+        //   }
+
+        //   input {
+        //     display: none;
+        //   }
+        // }
       }
 
-      .details_fill {
-        width: 60vw;
-        color: #6c6c6c;
-        font-family: Lato;
-        font-size: 1.1rem;
-        font-style: normal;
-        font-weight: 400;
+      .details_section {
+        width: 100vw;
+        height: 40vh;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
 
-        .left_section {
-          margin: 1rem 1rem 1.2rem 0;
-          height: 5.5vh;
+        .details_about {
+          color: #24817b;
+          font-family: Lato;
+          font-size: 0.7rem;
+          font-style: normal;
+          font-weight: 400;
+          width: 40vw;
+
+          .right_section {
+            margin: 1.2rem 0 1rem 1rem;
+            font-size: 1rem;
+            height: 5.5vh;
+          }
+        }
+
+        .details_fill {
+          width: 60vw;
+          color: #6c6c6c;
+          font-family: Lato;
+          font-size: 1.1rem;
+          font-style: normal;
+          font-weight: 400;
+
+          .left_section {
+            margin: 1rem 1rem 1.2rem 0;
+            height: 5.5vh;
+
+            input {
+              border: 1px solid #b6b3b3;
+              width: 50vw;
+              height: 4.6vh;
+            }
+
+            .hostel_options {
+              border: 1px solid #b6b3b3;
+              width: 50vw;
+              height: 4.6vh;
+              border-radius: 5px;
+              background: rgba(240, 240, 240, 0.9);
+            }
+          }
 
           input {
-            border: 1px solid #b6b3b3;
-            width: 50vw;
-            height: 4.6vh;
-          }
-
-          .hostel_options {
-            border: 1px solid #b6b3b3;
-            width: 50vw;
-            height: 4.6vh;
             border-radius: 5px;
             background: rgba(240, 240, 240, 0.9);
-          }
-        }
 
-        input {
-          border-radius: 5px;
-          background: rgba(240, 240, 240, 0.9);
-
-          :hover {
-            cursor: pointer;
+            :hover {
+              cursor: pointer;
+            }
           }
         }
       }
@@ -194,70 +202,93 @@
         }
       }
 
-      .profile_image {
-        margin-top: 2.5rem;
-        background-color: #fff;
-        width: 70vw;
-        height: 20vh;
-        margin-bottom: 0;
-      }
-
-      .details_section {
-        width: 70vw;
-        height: 60%;
+      .Profile_details {
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
+        width: 80vw;
         background-color: #fff;
+        justify-content: center;
+        align-items: center;
+        height: 60vh;
+        margin-top: 4rem;
 
-        .details_about {
-          color: #24817b;
-          font-family: Lato;
-          font-size: 0.65rem;
-          font-style: normal;
-          font-weight: 400;
-          width: 40vw;
+        .profile_image {
+          margin-left: 5rem;
+          margin-top: 3rem;
+          display: flex;
+          background-color: #fff;
+          // justify-content: center;
+          // align-items: center;
+          width: 30%;
+          // height: 100%;
 
-          .right_section {
-            margin: 1.2rem 0 1rem 1rem;
-            font-size: 1rem;
-            height: 5.5vh;
+          .profile_main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-right: 6rem;
           }
         }
 
-        .details_fill {
-          width: 60vw;
-          color: #6c6c6c;
-          font-family: Lato;
-          font-size: 1rem;
-          font-style: normal;
-          font-weight: 400;
+        .details_section {
+          width: 70%;
+          height: 60%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          background-color: #fff;
 
-          .left_section {
-            margin: 1rem 1rem 1.2rem 0;
-            height: 5.5vh;
+          .details_about {
+            height: 100%;
+            color: #24817b;
+            font-family: Lato;
+            font-size: 0.65rem;
+            font-style: normal;
+            font-weight: 400;
+            // width: 40%;
 
-            input {
-              border: 1px solid #b6b3b3;
-              width: 50vw;
-              height: 4.6vh;
-            }
-
-            .hostel_options {
-              border: 1px solid #b6b3b3;
-              width: 50vw;
-              height: 4.6vh;
-              border-radius: 5px;
-              background: rgba(240, 240, 240, 0.9);
+            .right_section {
+              margin: 1.2rem 0 1rem 1rem;
+              font-size: 1rem;
+              height: 5.5vh;
             }
           }
 
-          input {
-            border-radius: 5px;
-            background: rgba(240, 240, 240, 0.9);
+          .details_fill {
+            width: 60%;
+            color: #6c6c6c;
+            font-family: Lato;
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 400;
+            height: 100%;
 
-            :hover {
-              cursor: pointer;
+            .left_section {
+              width: 100%;
+              // margin: 1rem 1rem 1.2rem 0;
+              height: 5.5vh;
+
+              input {
+                border: 1px solid #b6b3b3;
+                width: 190%;
+                height: 4.6vh;
+              }
+
+              .hostel_options {
+                border: 1px solid #b6b3b3;
+                width: 190%;
+                height: 4.6vh;
+                border-radius: 5px;
+                background: rgba(240, 240, 240, 0.9);
+              }
+            }
+
+            input {
+              border-radius: 5px;
+              background: rgba(240, 240, 240, 0.9);
+
+              :hover {
+                cursor: pointer;
+              }
             }
           }
         }
@@ -268,7 +299,7 @@
         height: 6vh;
         display: flex;
         background-color: #fff;
-        width: 70vw;
+        width: 80vw;
         justify-content: space-evenly;
         flex-direction: row;
 

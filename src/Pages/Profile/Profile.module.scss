@@ -1,15 +1,20 @@
 .container {
-  width: 100vw;
+  margin-top: 4rem;
+  width: 100%;
   height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #24817b;
+  background-color: #a4e5e1;
 
   .main {
     background-color: white;
-    min-width: 16.5rem;
-    width: 41.5rem;
+    display: flex;
+    flex-direction: column;
+    // margin-left: 1rem;
+
+    // min-width: 16.5rem;
+    // width: 41.5rem;
 
     .Profileheading {
       width: 100%;
@@ -28,11 +33,14 @@
     }
 
     .Profile_details {
+      display: flex;
+      flex-direction: column;
+
       .profile_image {
         height: 20vh;
         display: flex;
         justify-content: center;
-        align-items: flex-end;
+        align-items: center;
 
         img {
           width: 5rem;
@@ -63,7 +71,7 @@
           .details_about {
             color: #24817b;
             font-family: Lato;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-style: normal;
             font-weight: 400;
             width: 30vw;
@@ -78,7 +86,7 @@
             width: 70vw;
             color: #6c6c6c;
             font-family: Lato;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-style: normal;
             font-weight: 400;
 
@@ -127,199 +135,11 @@
       }
     }
   }
-
-  @media screen and (max-width: 1920px) {
-    .main {
-      width: 50vw;
-    }
-
-    .details_about,
-    .details_info {
-      width: 40vw;
-    }
-  }
-
-  @media screen and (max-width: 1440px) {
-    .main {
-      width: 60vw;
-    }
-
-    .details_about,
-    .details_info {
-      width: 50vw;
-    }
-  }
-
-  @media screen and (max-width: 1024px) {
-    .main {
-      width: 80vw;
-    }
-
-    .details_about,
-    .details_info {
-      width: 60vw;
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    .main {
-      width: 100%;
-    }
-
-    .details_about,
-    .details_info {
-      width: 80%;
-      font-size: 0.6rem;
-    }
-
-    .button_section {
-      height: 40vh;
-    }
-  }
-
-  @media screen and (max-width: 576px) {
-    .main {
-      width: 100%;
-    }
-
-    .details_about,
-    .details_info {
-      width: 100%;
-      font-size: 0.5rem;
-    }
-
-    .button_section {
-      height: 50vh;
-    }
-  }
 }
 
-@media screen and (min-width: 760px) {
-  .container {
-    width: 100%;
-    height: 100%;
+@media screen and (min-width: 660px) {
+  .Profile_details {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #a4e5e1;
-
-    .main {
-      background-color: white;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      .Profileheading {
-        width: 100vw;
-        background-image: linear-gradient(to left, #40bdb6, #347ec5);
-        height: 6vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        p {
-          color: #fff;
-          font-size: 1rem;
-          font-style: normal;
-        }
-
-        .profile {
-          font-size: 2rem;
-          display: inline;
-        }
-      }
-
-      .Profile_details {
-        margin-top: 4rem;
-        display: flex;
-        height: 40vh;
-        align-items: center;
-        width: 70vw;
-
-        .profile_image {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          width: 30%;
-          height: 50vh;
-          display: flex;
-
-          .image {
-            display: flex;
-            justify-content: center;
-            width: 8rem;
-            height: 8rem;
-            flex-shrink: 0;
-            border-radius: 50%;
-
-            img {
-              width: 7rem;
-              height: 7rem;
-            }
-          }
-
-          .profile {
-            display: inline;
-          }
-        }
-
-        .Student_details {
-          width: 70%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-
-          .heading {
-            font-size: 1.5rem;
-            display: inline-block;
-          }
-
-          .details_section {
-            .details_about {
-              font-size: 1rem;
-            }
-            .details_info {
-              font-size: 1rem;
-            }
-          }
-        }
-      }
-
-      .button_section {
-        height: 10vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        button {
-          width: 3.2rem;
-          height: 2.5rem;
-          padding: 0.3rem;
-          border-radius: 0.5rem;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border: none;
-          margin: 0.7rem;
-          background-color: white;
-          border: none;
-
-          div {
-            background-color: #4cddd5;
-            width: 8rem;
-            height: 3rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 1rem;
-          }
-        }
-      }
-    }
+    flex-direction: row;
   }
 }
