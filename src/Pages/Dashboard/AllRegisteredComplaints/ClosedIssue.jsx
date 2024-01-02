@@ -51,7 +51,7 @@ const ClosedIssue = () => {
       ? data?.issuesAssignedToDsw
       : data?.AllRegissues;
 
-  console.log(allClosedIssues);
+  // console.log(allClosedIssues);
 
   if (error) {
     return <div>Something went wrong!</div>;

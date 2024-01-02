@@ -41,7 +41,7 @@ const Logout = () => {
 
       <div className={styles.signedin__details}>
         <div className={styles.user__auth__profile_img}>
-          <img src={User?.userimg} alt="" />
+          <img src={User?.profilepic} alt="" />
         </div>
         <div id={styles.auth__details__cont}>
           <p>

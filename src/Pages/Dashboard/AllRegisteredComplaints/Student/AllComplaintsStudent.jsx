@@ -82,15 +82,15 @@ const AllComplaintStudent = () => {
 
   const fetchedIssues = data?.allIssues;
   // console.log(fetchedIssues);
-
+  // console.log(data?.filteredStudentNotifications)
   const token = Cookies.get("authToken");
-  const handleCloseIssue = async (issueId) => {
+  const handleCloseIssue = async (issueId, otherID) => {
     // console.log(issueId)
     try {
       await axios
         .put(
           `${import.meta.env.VITE_REACT_APP_API}/closeissue`,
-          { issueId },
+          { issueId, otherID },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -182,7 +182,7 @@ const AllComplaintStudent = () => {
                 <p>{complaint.description}</p>
                 {complaint?.isClosed === false && (
                   <button
-                    onClick={() => handleCloseIssue(complaint._id)}
+                    onClick={() => handleCloseIssue(complaint._id, complaint?.otherID)}
                     className={styles.closebtn}
                   >
                     Close

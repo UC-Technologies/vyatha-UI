@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState, useRef, useEffect } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
@@ -81,7 +82,7 @@ export const DashBoardHome = ({ role }) => {
       ? data?.filteredWardenNotifications
       : null;
 
-  console.log(notications);
+  // console.log( notications);
   return (
     <div className={Styles.container}>
       <div className={Styles.RegComplaints}>
@@ -112,11 +113,17 @@ export const DashBoardHome = ({ role }) => {
         {visible ? <img src={img3} alt="ON" /> : <img src={img4} alt="OFF" />}
       </div>
       <div className={Styles.Notifications} ref={ref}>
-        {role === "student" ? (
-          <div>No Notifications</div>
-        ) : (
-          <div>No Pending Comments</div>
-        )}
+        {notications?.map((item) => {
+          return (
+            <main key={item?._id} id={Styles.notification__main}>
+              <div id={Styles.notifications__flex}>
+                <p className={Styles.title_noti}>{item?.issueTitle}</p>
+                <p>{item?.time}</p>
+              </div>
+              <p>{item?.message}</p>
+            </main>
+          );
+        })}
       </div>
     </div>
   );

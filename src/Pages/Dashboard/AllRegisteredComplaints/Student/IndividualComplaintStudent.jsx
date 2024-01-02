@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -9,6 +9,7 @@ import { HiEllipsisVertical } from "react-icons/hi2";
 import Cookies from "js-cookie";
 import styles from "./IndividualComplaintS.module.scss";
 import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
+import { UserContext } from "../../../../Context/Provider";
 
 // import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
@@ -27,6 +28,7 @@ const IndividualComplaintStudent = () => {
   const issueId = key;
   const issueID = key;
   // console.log("profile",profile)
+  const { role } = useContext(UserContext);
   const { data, error, isLoading, isFetching } = useQuery(
     "oneIssue",
     () => fetchIndividualIssue({ issueId }),
@@ -288,7 +290,7 @@ const IndividualComplaintStudent = () => {
           </button>
         </div>
 
-        {!issueVisibility && (
+        {!issueVisibility && role === "student" && (
           <div
             className={styles.TapToSelect}
             // style={{ display: issueData?.isSolved === true ? "none" : "block" || issueData?.raiseComplainTo?.length === 3 ? "none" : "block" || issueData?.isClosed === true ? "none" : "block" }}
@@ -320,7 +322,7 @@ const IndividualComplaintStudent = () => {
         )}
       </div>
 
-      {!issueVisibility && (
+      {!issueVisibility && role === "student" && (
         <div
           // style={{ display: issueData?.isSolved === true ? "none" : "block" || issueData?.raiseComplainTo?.length === 3 ? "none" : "block" || issueData?.isClosed === true ? "none" : "block" }}
           className={styles.ForwardButton}
