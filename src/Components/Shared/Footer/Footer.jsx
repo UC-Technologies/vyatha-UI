@@ -4,8 +4,8 @@ import styles from "./Footer.module.scss";
 
 const Footer = () => {
   const contact = {
-    mailid: "uclimited234@gmail.com",
-    tel: "+91 7165471781",
+    mailid: "unnamedcreators.dev@gmail.com",
+    tel: "+91 8812090429",
     address: "Startup Centre, NIT Silchar",
   };
   const social = {
