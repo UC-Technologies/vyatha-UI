@@ -9,6 +9,7 @@ const Navbar = () => {
   const { isLoggedIn } = useContext(UserContext);
   const conditionalTitle = isLoggedIn ? "Log Out" : "Log In";
   const conditionalAuth = isLoggedIn ? "/logout" : "/auth/login";
+  const conditioanlDashbaord = isLoggedIn ? "/dashboard" : "/auth/login";
   const conditionalIcon = isLoggedIn
     ? "https://res.cloudinary.com/dp92qug2f/image/upload/v1703077878/logout_pz1e7m.png"
     : "https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702566654/Two_Tone_uoa0io.jpg?_s=public-apps";
@@ -29,7 +30,7 @@ const Navbar = () => {
     {
       id: 3,
       title: "All Registered complaint",
-      to: "/dashboard",
+      to: conditioanlDashbaord,
       icon: "https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702566776/Two_Tone_jil29i.jpg?_s=public-apps",
     },
     {
