@@ -14,7 +14,7 @@ const Profile = () => {
   }, []);
 
   const navigate = useNavigate();
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, role } = useContext(UserContext);
   const { data, error, isLoading, isFetching } = useQuery("profile", fetchProfile, {
     refetchOnWindowFocus: "always",
   });
@@ -40,7 +40,7 @@ const Profile = () => {
   };
 
   const handleSignOut = () => {
-    navigate("/auth");
+    navigate("/logout");
   };
 
   const token = Cookies.get("authToken");
@@ -95,6 +95,47 @@ const Profile = () => {
     }
   };
 
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    try {
+      await axios
+        .put(
+          `${import.meta.env.VITE_REACT_APP_API}/studentdeleteaccount`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.message === "Account deletion scheduled successfully") {
+            toast("Account deletion scheduled successfully");
+            Cookies.remove("authToken");
+            navigate("/");
+            window.location.reload();
+          }
+        });
+    } catch (err) {
+      if (err.response) {
+        switch (err.response.data.error) {
+          case "Account already scheduled for deletion":
+            toast("Account already scheduled for deletion");
+            break;
+          case "only role with student are allowed to delete their account":
+            toast("only role with student are allowed to delete their account");
+            break;
+          case "Something went wrong":
+            toast("Something went wrong");
+            break;
+          default:
+            toast("something went wrong");
+            break;
+        }
+      }
+    }
+  };
+
   return (
     <div>
       <div className={styles.container}>
@@ -116,23 +157,32 @@ const Profile = () => {
               <div className={styles.details_section}>
                 <div className={styles.details_about}>
                   <div className={styles.right_section}>Name</div>
-                  <div className={styles.right_section}>Scholar ID</div>
+                  {role === "student" && (
+                    <div className={styles.right_section}>Scholar ID</div>
+                  )}
                   <div className={styles.right_section}>Email</div>
-                  <div className={styles.right_section}>Hostel</div>
-                  <div className={styles.right_section}>Room No.</div>
+                  {role !== "dsw" && <div className={styles.right_section}>Hostel</div>}
+                  {role === "student" && (
+                    <div className={styles.right_section}>Room No.</div>
+                  )}
                   <div className={styles.right_section}>Phone</div>
                 </div>
+
                 <div className={styles.details_info}>
                   <div className={styles.left_section}>{myProfile?.name}</div>
-                  <div
-                    style={{ display: myProfile?.role === "student" ? "block" : "none" }}
-                    className={styles.left_section}
-                  >
-                    {myProfile?.scholarID}
-                  </div>
+                  {role === "student" && (
+                    <div className={styles.left_section}>{myProfile?.scholarID}</div>
+                  )}
+
                   <div className={styles.left_section}>{myProfile?.email}</div>
-                  <div className={styles.left_section}>{myProfile?.hostel}</div>
-                  <div className={styles.left_section}>{myProfile?.room}</div>
+
+                  {role !== "dsw" && (
+                    <div className={styles.left_section}>{myProfile?.hostel}</div>
+                  )}
+                  {role === "student" && (
+                    <div className={styles.left_section}>{myProfile?.room}</div>
+                  )}
+
                   <div className={styles.left_section}>{myProfile?.phone}</div>
                 </div>
               </div>
@@ -171,6 +221,19 @@ const Profile = () => {
                 <div>Send Email verification link</div>
               </div>
             </button>
+
+            {myProfile?.deleteAccount === "no" && (
+              <button
+                type="button"
+                aria-label="Signout"
+                onClick={handleDelete}
+                className={styles.Signout}
+              >
+                <div>
+                  <div>Delete Account</div>
+                </div>
+              </button>
+            )}
           </div>
         </div>
       </div>
