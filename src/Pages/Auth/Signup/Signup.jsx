@@ -161,26 +161,29 @@ const SignUp = () => {
           />
           <label htmlFor="scholar">Scholar ID</label>
         </div>
-        <div className={styles.designation}>
-          <select id="hostel">
-            <option value="">BH1</option>
-            <option>BH2</option>
-            <option>BH3</option>
-            <option>BH4</option>
-            <option>BH6</option>
-            <option>BH7</option>
-            <option>BH8</option>
-            <option>BH9A</option>
-            <option>BH9B</option>
-            <option>BH9C</option>
-            <option>BH9D</option>
-            <option>GH1</option>
-            <option>GH2</option>
-            <option>GH3</option>
-            <option>GH4</option>
-            <option>Aryabhatt-PGH</option>
-          </select>
-        </div>
+        {selects !== "Dean" && (
+          <div className={styles.designation}>
+            <select id="hostel">
+              <option value="">BH1</option>
+              <option>BH2</option>
+              <option>BH3</option>
+              <option>BH4</option>
+              <option>BH6</option>
+              <option>BH7</option>
+              <option>BH8</option>
+              <option>BH9A</option>
+              <option>BH9B</option>
+              <option>BH9C</option>
+              <option>BH9D</option>
+              <option>GH1</option>
+              <option>GH2</option>
+              <option>GH3</option>
+              <option>GH4</option>
+              <option>Aryabhatt-PGH</option>
+            </select>
+          </div>
+        )}
+
         <div
           className={styles.form}
           style={{ display: selects === "Student" ? "block" : "none" }}
