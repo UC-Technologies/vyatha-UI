@@ -12,6 +12,7 @@
     width: 41.5rem;
 
     .Profileheading {
+      margin-top: 4rem;
       width: 100%;
       background-image: linear-gradient(to left, #40bdb6, #347ec5);
       height: 6vh;
@@ -38,8 +39,8 @@
         margin-bottom: 5rem;
 
         img {
-          width: 5rem;
-          height: 5rem;
+          width: 6rem;
+          height: 6rem;
           flex-shrink: 0;
           border-radius: 50%;
         }
@@ -47,6 +48,8 @@
         .changeprofile {
           display: flex;
           text-align: center;
+          justify-content: center;
+          align-items: center;
         }
 
         // .changeprofile {
@@ -78,7 +81,7 @@
         .details_about {
           color: #24817b;
           font-family: Lato;
-          font-size: 0.7rem;
+          font-size: 0.9rem;
           font-style: normal;
           font-weight: 400;
           width: 40vw;
@@ -105,13 +108,13 @@
             input {
               border: 1px solid #b6b3b3;
               width: 50vw;
-              height: 4.6vh;
+              height: 4.5vh;
             }
 
             .hostel_options {
               border: 1px solid #b6b3b3;
               width: 50vw;
-              height: 4.6vh;
+              height: 4.5vh;
               border-radius: 5px;
               background: rgba(240, 240, 240, 0.9);
             }
@@ -168,7 +171,7 @@
   }
 }
 
-@media screen and (min-width: 660px) {
+@media screen and (min-width: 760px) {
   .container {
     width: 100vw;
     height: 70%;
@@ -214,7 +217,7 @@
         margin-top: 3rem;
 
         .profile_image {
-          margin-left: 5rem;
+          // margin-left: 5rem;
           margin-top: 3rem;
           display: flex;
           background-color: #fff;
@@ -229,12 +232,17 @@
             align-items: center;
             padding-right: 6.5rem;
             padding-bottom: 1rem;
+
+            img {
+              width: 8rem;
+              height: 8rem;
+            }
           }
         }
 
         .details_section {
           width: 70%;
-          height: 60%;
+          height: 90%;
           display: flex;
           justify-content: flex-start;
           align-items: center;
@@ -250,14 +258,17 @@
             // width: 40%;
 
             .right_section {
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
               margin: 1.2rem 0 1rem 1rem;
-              font-size: 1rem;
+              font-size: 1.3rem;
               height: 5.5vh;
             }
           }
 
           .details_fill {
-            width: 60%;
+            width: 80%;
             color: #6c6c6c;
             font-family: Lato;
             font-size: 1rem;
@@ -273,13 +284,13 @@
               input {
                 border: 1px solid #b6b3b3;
                 width: 190%;
-                height: 4.6vh;
+                height: 5.5vh;
               }
 
               .hostel_options {
                 border: 1px solid #b6b3b3;
                 width: 190%;
-                height: 4.6vh;
+                height: 5vh;
                 border-radius: 5px;
                 background: rgba(240, 240, 240, 0.9);
               }

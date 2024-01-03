@@ -148,9 +148,7 @@ const Profile = () => {
               <div className={styles.image}>
                 <img src={myProfile?.profilepic} alt="profileimage" />
               </div>
-              <div className={styles.profile}>
-                <p>{myProfile?.name} Profile</p>
-              </div>
+              <div className={styles.profile}>{myProfile?.name} Profile</div>
             </div>
             <div className={styles.Student_details}>
               <div className={styles.heading}>Profile Details</div>

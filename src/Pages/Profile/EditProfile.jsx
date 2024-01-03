@@ -184,7 +184,7 @@ const EditProfile = () => {
                     </div>
                     {/* id card photo */}
                     {role === "student" && (
-                      <div>
+                      <div className={styles.left_section}>
                         {" "}
                         <FileBase64
                           multiple={false}
