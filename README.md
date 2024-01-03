@@ -1,20 +1,28 @@
-<strong>**READ THE BELOW INSTRUCTIONS PROPERLY BEFORE STARTING**</strong>
 
-<strong>Vyatha-UI</strong>
+**Vyatha: Streamlining Hostel Complaints**
 
-Important :
-1. Do not install any new dependencies.
-2. No css frameworks are to be used. Only pure vanilla css is to be used. 
-3. Only make sass files for custom css. No css files are allowed. (One eg for sass is already given in the repo).
-4. Do not make .js files, only .jsx files are allowed.
-5. __Assign atleast 2 reviewers while opening a pull request__
-6. __Do no directly push into the master and dev branchs__
+Welcome to Vyatha, your go-to platform for lodging and tracking hostel complaints. 
 
-Procedures to follow initially :
-1. Clone the repository (git version system is required).
-2. Cmd "pnpm install" / "pnpm i" (to download the required packages).
-3. Cmd "pnpm run dev" to start working. The port will be shown in the cmd window.
-4. Before committing, after staging the files run pnpm precommit and resolve the issues. If there isn't any, preoceed with git commit.
+**Features:**
+- User-Friendly Complaint Submission: Easily submit your complaints, from minor inconveniences to major issues.
+- Real-Time Status Updates:Check the progress of your complaints with real-time status updates.
+- Transparent Communication:Bridge the gap between hostel boarders and administration for efficient issue resolution.
+
+**For Hostel Administrators:**
+- Efficient Administration Interface:Streamline the process of handling complaints with a dedicated admin interface.
+- Quick Status Updates:Admins can update the status of complaints promptly—processing, resolved, or denied.
+
+**How to Get Started:**
+1. Visit [Vyatha.com](https://www.vyatha.com) and create your account.
+2. Lodge your complaints and stay informed about their status.
+3. Administrators can register to manage and address complaints effectively.
+
+Vyatha aims to enhance transparency, communication, and resolution in hostel-related issues. Your feedback and contributions are welcome!
+
+🔗 [Explore Vyatha on GitHub](https://vyatha-ui.onrender.com)
+
+Feel free to contribute and make Vyatha even better! 
+
+Let's go Vyatha! Register<Monitor<Resolve!
 
 
-Additional Rules and Regulations will be updated over time.
