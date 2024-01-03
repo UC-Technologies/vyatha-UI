@@ -171,7 +171,9 @@
 
       .Profile_details {
         display: flex;
-        width: 90%;
+        justify-content: center;
+        align-items: center;
+        width: 80%;
         height: 50vh;
         background-color: #fff;
         margin-top: 3rem;
@@ -182,14 +184,27 @@
           flex-direction: column;
           justify-content: center;
           align-items: center;
-        }
 
-        .profile {
-          display: inline;
+          .image {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 10rem;
+            width: 10rem;
+
+            img {
+              width: 8rem;
+              height: 8rem;
+            }
+          }
+          .profile {
+            display: inline;
+          }
         }
 
         .Student_details {
-          width: 100vw;
+          width: 60vw;
           height: 35vh;
 
           .heading {
@@ -208,7 +223,7 @@
               font-size: 1.3rem;
               font-style: normal;
               font-weight: 400;
-              // width: 30vw;
+              width: 10rem;
               margin-left: 1.5rem;
 
               .right_section {
