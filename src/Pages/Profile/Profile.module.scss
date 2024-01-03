@@ -12,9 +12,8 @@
     display: flex;
     flex-direction: column;
     // margin-left: 1rem;
-
-    // min-width: 16.5rem;
-    // width: 41.5rem;
+    min-width: 16.5rem;
+    width: 41rem;
 
     .Profileheading {
       width: 100%;
@@ -138,8 +137,56 @@
 }
 
 @media screen and (min-width: 660px) {
-  .Profile_details {
+  .container {
+    width: 100%;
+    height: 60%;
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .main {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      background-color: #bce8e6;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .Profileheading {
+        width: 100%;
+        background-image: linear-gradient(to left, #40bdb6, #347ec5);
+        height: 6vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        p {
+          color: #fff;
+          font-size: 1.5rem;
+          font-style: normal;
+          line-height: 130%;
+        }
+      }
+
+      .Profile_details {
+        display: flex;
+        width: 90%;
+        height: 50vh;
+        background-color: #fff;
+        margin-top: 3rem;
+        flex-direction: row;
+
+        .profile_image {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .profile {
+          display: inline;
+        }
+      }
+    }
   }
 }
