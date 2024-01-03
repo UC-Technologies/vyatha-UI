@@ -13,13 +13,11 @@ Welcome to Vyatha, your go-to platform for lodging and tracking hostel complaint
 - Quick Status Updates:Admins can update the status of complaints promptly—processing, resolved, or denied.
 
 **How to Get Started:**
-1. Visit [Vyatha.com](https://www.vyatha.com) and create your account.
+1. Visit [Vyatha.com](https://vyatha-ui.onrender.com) and create your account.
 2. Lodge your complaints and stay informed about their status.
 3. Administrators can register to manage and address complaints effectively.
 
 Vyatha aims to enhance transparency, communication, and resolution in hostel-related issues. Your feedback and contributions are welcome!
-
-🔗 [Explore Vyatha on GitHub](https://vyatha-ui.onrender.com)
 
 Feel free to contribute and make Vyatha even better! 
 
