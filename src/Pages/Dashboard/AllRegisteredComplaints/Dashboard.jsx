@@ -14,6 +14,7 @@ const Dashboard = () => {
   );
 
   useEffect(() => {
+    document.title = "Dashboard | Vyatha";
     if (!possibleRoles.includes(role)) {
       navigate("/");
     }
