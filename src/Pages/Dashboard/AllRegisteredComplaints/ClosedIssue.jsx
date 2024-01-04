@@ -83,80 +83,82 @@ const ClosedIssue = () => {
         </div>
         <div className={styles.ComplaintCard}>
           <div className={styles.ComplaintCardInner}>
-            {allClosedIssues?.map((complaint) => (
-              // <ComplaintCardS key={item.key} complaint={item} />
-              <div className={styles.CardContainer} key={complaint?._id}>
-                <div className={styles.Heading}>
-                  <div className={styles.compliantTitle}>
-                    <Link to={`/student/complaint/${complaint?._id}`}>
-                      <h2>{complaint?.title}</h2>
-                    </Link>
+            {allClosedIssues?.length === 0 && <p>No Closed issues yet</p>}
+            {allClosedIssues?.length > 0 &&
+              allClosedIssues?.map((complaint) => (
+                // <ComplaintCardS key={item.key} complaint={item} />
+                <div className={styles.CardContainer} key={complaint?._id}>
+                  <div className={styles.Heading}>
+                    <div className={styles.compliantTitle}>
+                      <Link to={`/student/complaint/${complaint?._id}`}>
+                        <h2>{complaint?.title}</h2>
+                      </Link>
+                    </div>
+                    <div className={styles.StatusImg}>
+                      <img
+                        src="https://res.cloudinary.com/dp92qug2f/image/upload/v1704126365/closed-removebg-preview_t5jzo7.png"
+                        alt="icon"
+                      />
+                    </div>
+
+                    {/* link for the complaint status has to be fetched from the json file corresponding to the complaint status */}
                   </div>
-                  <div className={styles.StatusImg}>
-                    <img
-                      src="https://res.cloudinary.com/dp92qug2f/image/upload/v1704126365/closed-removebg-preview_t5jzo7.png"
-                      alt="icon"
-                    />
+                  <div className={styles.DateAndTime}>
+                    Issue Created at : {complaint?.IssueCreatedAt}
+                  </div>
+                  <div
+                    style={{ marginTop: "1vw", marginBottom: "1vw" }}
+                    className={styles.DateAndTime}
+                  >
+                    Closed at : {complaint?.closedAt}
                   </div>
 
-                  {/* link for the complaint status has to be fetched from the json file corresponding to the complaint status */}
-                </div>
-                <div className={styles.DateAndTime}>
-                  Issue Created at : {complaint?.IssueCreatedAt}
-                </div>
-                <div
-                  style={{ marginTop: "1vw", marginBottom: "1vw" }}
-                  className={styles.DateAndTime}
-                >
-                  Closed at : {complaint?.closedAt}
-                </div>
-
-                <div className={styles.SelectBar}>
-                  <div
-                    style={{
-                      background:
-                        complaint?.forwardedTo === "registered" ? "#3689C2" : "",
-                    }}
-                    className={`${styles.Registered} ${
-                      complaint?.forwardedTo === "registered" ? "customBG" : ""
-                    }`}
-                  >
-                    Registered
-                  </div>
-                  <div
-                    style={{
-                      background:
-                        complaint?.forwardedTo === "supervisor" ? "#3689C2" : "",
-                    }}
-                    className={`${styles.Supervisor} ${
-                      complaint?.forwardedTo === "supervisor" ? "customBG" : ""
-                    } `}
-                  >
-                    Supervisor
-                  </div>
-                  <div
-                    style={{
-                      background: complaint?.forwardedTo === "warden" ? "#3689C2" : "",
-                    }}
-                    className={`${styles.Warden} ${
-                      complaint?.forwardedTo === "warden" ? "customBG" : ""
-                    }`}
-                  >
-                    Warden
-                  </div>
-                  <div
-                    style={{
-                      background: complaint?.forwardedTo === "dsw" ? "#3689C2" : "",
-                    }}
-                    className={`${styles.Dean} ${
-                      complaint?.forwardedTo === "dsw" ? "customBG" : ""
-                    }`}
-                  >
-                    Dean
+                  <div className={styles.SelectBar}>
+                    <div
+                      style={{
+                        background:
+                          complaint?.forwardedTo === "registered" ? "#3689C2" : "",
+                      }}
+                      className={`${styles.Registered} ${
+                        complaint?.forwardedTo === "registered" ? "customBG" : ""
+                      }`}
+                    >
+                      Registered
+                    </div>
+                    <div
+                      style={{
+                        background:
+                          complaint?.forwardedTo === "supervisor" ? "#3689C2" : "",
+                      }}
+                      className={`${styles.Supervisor} ${
+                        complaint?.forwardedTo === "supervisor" ? "customBG" : ""
+                      } `}
+                    >
+                      Supervisor
+                    </div>
+                    <div
+                      style={{
+                        background: complaint?.forwardedTo === "warden" ? "#3689C2" : "",
+                      }}
+                      className={`${styles.Warden} ${
+                        complaint?.forwardedTo === "warden" ? "customBG" : ""
+                      }`}
+                    >
+                      Warden
+                    </div>
+                    <div
+                      style={{
+                        background: complaint?.forwardedTo === "dsw" ? "#3689C2" : "",
+                      }}
+                      className={`${styles.Dean} ${
+                        complaint?.forwardedTo === "dsw" ? "customBG" : ""
+                      }`}
+                    >
+                      Dean
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>

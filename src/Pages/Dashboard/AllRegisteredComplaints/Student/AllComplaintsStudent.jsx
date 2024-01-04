@@ -80,7 +80,18 @@ const AllComplaintStudent = () => {
     return <div>Loading...</div>;
   }
 
-  const fetchedIssues = data?.allIssues;
+  // const fetchedIssues = data?.allIssues;
+
+  const fetchedIssues =
+    role === "student"
+      ? data?.allIssues
+      : role === "supervisor"
+      ? data?.issuesAssignedToSupervisor
+      : role === "warden"
+      ? data?.sortedIssues
+      : role === "dsw"
+      ? data?.sortedIssues
+      : null;
   // console.log(fetchedIssues);
   // console.log(data?.filteredStudentNotifications)
   const token = Cookies.get("authToken");
@@ -141,98 +152,120 @@ const AllComplaintStudent = () => {
       </div>
       <div className={styles.ComplaintCard}>
         <div className={styles.ComplaintCardInner}>
-          {fetchedIssues?.map((complaint) => (
-            // <ComplaintCardS key={item.key} complaint={item} />
-            <div className={styles.CardContainer} key={complaint._id}>
-              <div className={styles.Heading}>
-                <div className={styles.compliantTitle}>
-                  {complaint?.raiseComplainTo?.length === 2 && (
-                    <p id={styles.forwarddtext}>
-                      Complain Raised to Warden by the student
+          {fetchedIssues?.length === 0 && <p>No Registered Complaints yet</p>}
+          {fetchedIssues?.length > 0 &&
+            fetchedIssues?.map((complaint) => (
+              // <ComplaintCardS key={item.key} complaint={item} />
+              <div className={styles.CardContainer} key={complaint._id}>
+                <div className={styles.Heading}>
+                  <div className={styles.compliantTitle}>
+                    {complaint?.raiseComplainTo?.length === 2 && (
+                      <p id={styles.forwarddtext}>
+                        Complain Raised to Warden by the student
+                      </p>
+                    )}
+                    {complaint?.raiseComplainTo?.length === 3 && (
+                      <p id={styles.forwarddtext}>
+                        Complain Raised to DSW by the student
+                      </p>
+                    )}
+                    <Link to={`/${role}/complaint/${complaint._id}`}>
+                      <h2>{complaint.title}</h2>
+                    </Link>
+                  </div>
+
+                  {role === "student" && (
+                    <div className={styles.StatusImg}>
+                      {/* <img src={complaint.photo} alt="icon" /> */}
+                      {complaint?.isSolved === false && (
+                        <img
+                          src="https://res.cloudinary.com/dp92qug2f/image/upload/v1704125701/progress-removebg-preview_o7mh87.png"
+                          alt="inprogress"
+                        />
+                      )}
+
+                      {complaint?.isSolved === true && (
+                        <img
+                          src="https://res.cloudinary.com/dp92qug2f/image/upload/v1703209962/tick_skcuzr.jpg"
+                          alt="solved"
+                        />
+                      )}
+                    </div>
+                  )}
+
+                  {role !== "student" && (
+                    <div id={styles.issue_img_admin}>
+                      <img src={complaint?.photo} alt="" />
+                    </div>
+                  )}
+
+                  {/* link for the complaint status has to be fetched from the json file corresponding to the complaint status */}
+                </div>
+                <div className={styles.DateAndTime}>{complaint.IssueCreatedAt}</div>
+                {role !== "student" && (
+                  <main>
+                    <p id={styles.issue__details}>
+                      {complaint?.name} | {complaint?.scholarID} | {complaint?.room}
                     </p>
-                  )}
-                  {complaint?.raiseComplainTo?.length === 3 && (
-                    <p id={styles.forwarddtext}>Complain Raised to DSW by the student</p>
-                  )}
-                  <Link to={`/${role}/complaint/${complaint._id}`}>
-                    <h2>{complaint.title}</h2>
-                  </Link>
-                </div>
-                <div className={styles.StatusImg}>
-                  {/* <img src={complaint.photo} alt="icon" /> */}
-                  {complaint?.isSolved === false && (
-                    <img
-                      src="https://res.cloudinary.com/dp92qug2f/image/upload/v1704125701/progress-removebg-preview_o7mh87.png"
-                      alt="inprogress"
-                    />
-                  )}
-
-                  {complaint?.isSolved === true && (
-                    <img
-                      src="https://res.cloudinary.com/dp92qug2f/image/upload/v1703209962/tick_skcuzr.jpg"
-                      alt="solved"
-                    />
-                  )}
-                </div>
-
-                {/* link for the complaint status has to be fetched from the json file corresponding to the complaint status */}
-              </div>
-              <div className={styles.DateAndTime}>{complaint.IssueCreatedAt}</div>
-              <div className={styles.Description}>
-                <p>{complaint.description}</p>
-                {complaint?.isClosed === false && (
-                  <button
-                    onClick={() => handleCloseIssue(complaint._id, complaint?.otherID)}
-                    className={styles.closebtn}
-                  >
-                    Close
-                  </button>
+                  </main>
                 )}
+                <div className={styles.Description}>
+                  <p>{complaint.description}</p>
+                  {complaint?.isClosed === false && role === "student" && (
+                    <button
+                      onClick={() => handleCloseIssue(complaint._id, complaint?.otherID)}
+                      className={styles.closebtn}
+                    >
+                      Close
+                    </button>
+                  )}
+                </div>
+                <div className={styles.SelectBar}>
+                  <div
+                    style={{
+                      background:
+                        complaint?.forwardedTo === "registered" ? "#3689C2" : "",
+                    }}
+                    className={`${styles.Registered} ${
+                      complaint?.forwardedTo === "registered" ? "customBG" : ""
+                    }`}
+                  >
+                    Registered
+                  </div>
+                  <div
+                    style={{
+                      background:
+                        complaint?.forwardedTo === "supervisor" ? "#3689C2" : "",
+                    }}
+                    className={`${styles.Supervisor} ${
+                      complaint?.forwardedTo === "supervisor" ? "customBG" : ""
+                    } `}
+                  >
+                    Supervisor
+                  </div>
+                  <div
+                    style={{
+                      background: complaint?.forwardedTo === "warden" ? "#3689C2" : "",
+                    }}
+                    className={`${styles.Warden} ${
+                      complaint?.forwardedTo === "warden" ? "customBG" : ""
+                    }`}
+                  >
+                    Warden
+                  </div>
+                  <div
+                    style={{
+                      background: complaint?.forwardedTo === "dsw" ? "#3689C2" : "",
+                    }}
+                    className={`${styles.Dean} ${
+                      complaint?.forwardedTo === "dsw" ? "customBG" : ""
+                    }`}
+                  >
+                    Dean
+                  </div>
+                </div>
               </div>
-              <div className={styles.SelectBar}>
-                <div
-                  style={{
-                    background: complaint?.forwardedTo === "registered" ? "#3689C2" : "",
-                  }}
-                  className={`${styles.Registered} ${
-                    complaint?.forwardedTo === "registered" ? "customBG" : ""
-                  }`}
-                >
-                  Registered
-                </div>
-                <div
-                  style={{
-                    background: complaint?.forwardedTo === "supervisor" ? "#3689C2" : "",
-                  }}
-                  className={`${styles.Supervisor} ${
-                    complaint?.forwardedTo === "supervisor" ? "customBG" : ""
-                  } `}
-                >
-                  Supervisor
-                </div>
-                <div
-                  style={{
-                    background: complaint?.forwardedTo === "warden" ? "#3689C2" : "",
-                  }}
-                  className={`${styles.Warden} ${
-                    complaint?.forwardedTo === "warden" ? "customBG" : ""
-                  }`}
-                >
-                  Warden
-                </div>
-                <div
-                  style={{
-                    background: complaint?.forwardedTo === "dsw" ? "#3689C2" : "",
-                  }}
-                  className={`${styles.Dean} ${
-                    complaint?.forwardedTo === "dsw" ? "customBG" : ""
-                  }`}
-                >
-                  Dean
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </div>

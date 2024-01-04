@@ -1,5 +1,6 @@
 .title_page {
   max-width: 70.5rem;
+  // width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -149,6 +150,7 @@ li {
 }
 
 .photodiv {
+  margin-top: 1.5vw;
   width: 25vw;
   height: 25vw;
   // background-color: red;
@@ -164,7 +166,23 @@ li {
   font-style: italic;
 }
 
+#reduced__with {
+  width: 80% !important;
+  margin-left: auto;
+  margin-right: auto;
+}
 @media screen and (max-width: 660px) {
+  .photo_uploaded {
+    span {
+      display: none;
+    }
+  }
+
+  .photodiv {
+    margin-top: 4vw;
+    width: 60vw;
+    height: 60vw;
+  }
   .title_page {
     max-width: 26.9rem;
     margin: 0 auto;
