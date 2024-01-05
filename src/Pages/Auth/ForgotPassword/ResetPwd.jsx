@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import axios from "axios";
@@ -7,7 +7,8 @@ import { UserContext } from "../../../Context/Provider";
 
 const ResetPwd = () => {
   const { token } = useParams();
-
+  const [showPassword, setShowPassword] = useState(false);
+  const handleShowPassword = () => setShowPassword(!showPassword);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const password = document.getElementById("password").value;
@@ -76,7 +77,7 @@ const ResetPwd = () => {
       <div className={styles.form_starts}>
         <div className={styles.form}>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder=""
             className={styles.nameinput}
             id="password"
@@ -92,6 +93,20 @@ const ResetPwd = () => {
             id="confirmpassword"
           />
           <label htmlFor="password">Confirm New Password</label>
+        </div>
+
+        <div className={styles.showpassword__container}>
+          <label className="labelshowpass">
+            <input
+              className="inputshowpass"
+              type="checkbox"
+              name="showPassword"
+              id="showPassword"
+              checked={showPassword}
+              onChange={handleShowPassword}
+            />
+            <span>Show password</span>
+          </label>
         </div>
 
         <button id={styles.forgot_btn} onClick={handleSubmit}>

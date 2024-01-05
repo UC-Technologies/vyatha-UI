@@ -81,7 +81,8 @@ const Home = () => {
             <ul className={styles.listt}>
               <li>
                 Choose &quot;Student&quot; or <br />
-                &quot;Admin&quot; to create an <br />
+                &quot;Supervisor&quot; or &quot;Warden&quot; or &quot;Dean&quot; to create
+                an <br />
                 account.
               </li>
             </ul>

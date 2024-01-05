@@ -83,6 +83,19 @@ input[type="number"] {
   margin-top: -1vw !important;
 }
 
+.showpassword__container {
+  text-align: center;
+  label {
+    cursor: pointer;
+    span {
+      margin-left: 0.3vw;
+    }
+    input {
+      cursor: pointer;
+    }
+  }
+}
+
 @media (max-width: 660px) {
   .reset {
     margin: 50vw auto 0 auto;
@@ -134,5 +147,14 @@ input[type="number"] {
 
   #confirmpass {
     margin-top: 8vw !important;
+  }
+
+  .showpassword__container {
+    margin-top: 10vw !important;
+    label {
+      span {
+        margin-left: 1vw;
+      }
+    }
   }
 }

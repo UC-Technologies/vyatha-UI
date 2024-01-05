@@ -24,7 +24,7 @@ import ResetPwd from "./Pages/Auth/ForgotPassword/ResetPwd";
 import Dashboard from "./Pages/Dashboard/AllRegisteredComplaints/Dashboard";
 import AllComplaints from "./Pages/Dashboard/AllRegisteredComplaints/AllComplaints";
 import Logout from "./Pages/Auth/Logout/Logout";
-import Team from "./Pages/Team/Team";
+// import Team from "./Pages/Team/Team";
 import Scrolling from "./Components/Scrolling/Scrolling";
 import AllSignups from "./Pages/Dashboard/SuperAdmin/AllSignups/AllSignups";
 import IndividualProfile from "./Pages/Dashboard/SuperAdmin/AllSignups/IndividualProfile";
@@ -80,7 +80,7 @@ const App = () => {
               {/*  after the user clicks on link sent on email for reseting password, it will ask for new password */}
               <Route exact path="/resetpassword/:token" element={<ResetPwd />} />
               {/* team page route */}
-              <Route exact path="/team" element={<Team />} />
+              {/* <Route exact path="/team" element={<Team />} /> */}
               {/*  SUPERADMIN ROUTES ONLY */}
               <Route exact path="/superadmin/allsignups" element={<AllSignups />} />
               <Route exact path="/superadmin/allissues" element={<AllIssues />} />

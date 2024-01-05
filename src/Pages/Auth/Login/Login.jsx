@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
@@ -10,6 +10,8 @@ import styles from "./Login.module.scss";
 const Login = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useContext(UserContext);
+  const [showPassword, setShowPassword] = useState(false);
+  const handleShowPassword = () => setShowPassword(!showPassword);
   useEffect(() => {
     if (isLoggedIn) navigate("/dashboard");
     document.title = "Login | Vyatha";
@@ -87,7 +89,7 @@ const Login = () => {
         </div>
         <div className={styles.input_group}>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             className={styles.form_input}
             placeholder=" "
@@ -95,6 +97,20 @@ const Login = () => {
           <label className={styles.form_label} htmlFor="password">
             Password
           </label>
+
+          <div className={styles.showpassword__container}>
+            <label className="labelshowpass">
+              <input
+                className="inputshowpass"
+                type="checkbox"
+                name="showPassword"
+                id="showPassword"
+                checked={showPassword}
+                onChange={handleShowPassword}
+              />
+              <span>Show password</span>
+            </label>
+          </div>
         </div>
         <Link to="/forgotpassword">
           <p id={styles.password_cont} className={styles.password}>

@@ -8,6 +8,8 @@ import styles from "./Signup.module.scss";
 const SignUp = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useContext(UserContext);
+  const [showPassword, setShowPassword] = useState(false);
+  const handleShowPassword = () => setShowPassword(!showPassword);
   useEffect(() => {
     if (isLoggedIn) navigate("/dashboard");
     document.title = "Signup | Vyatha";
@@ -132,9 +134,29 @@ const SignUp = () => {
         </div>
 
         <div className={styles.form}>
-          <input type="password" placeholder=" " className={styles.nameinput} id="pass" />
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder=" "
+            className={styles.nameinput}
+            id="pass"
+          />
           <label htmlFor="pass">Password</label>
         </div>
+
+        <div className={styles.showpassword__container}>
+          <label className="labelshowpass">
+            <input
+              className="inputshowpass"
+              type="checkbox"
+              name="showPassword"
+              id="showPassword"
+              checked={showPassword}
+              onChange={handleShowPassword}
+            />
+            <span>Show password</span>
+          </label>
+        </div>
+
         <div className={styles.form}>
           <input
             type="password"
