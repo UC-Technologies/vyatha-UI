@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useContext } from "react";
+import { useEffect, useState, useRef, useContext, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import axios from "axios";
@@ -32,15 +32,6 @@ const SignUp = () => {
     const room = document.getElementById("room")?.value;
     const scholarID = document.getElementById("scholar")?.value;
     const designation = selects;
-    // // captcha things goes below
-    // const userResponseInt = Number(userResponse);
-    // if (userResponseInt === Answer) {
-    //   toast("Correct")
-    //   generateCaptcha();
-    // } else {
-    //   toast("Invalid Captcha")
-    //   generateCaptcha();
-    // }
 
     const register = async () => {
       try {
@@ -59,8 +50,12 @@ const SignUp = () => {
           .then((response) => {
             toast(response.data.message);
             setTimeout(() => {
-              navigate("/auth/login");
-            }, [3000]);
+              if (captchaVerified === true) {
+                window.location.href = "/auth/login";
+              } else {
+                navigate("/auth/login");
+              }
+            }, 3000);
           });
       } catch (error) {
         if (error.response) {
@@ -92,7 +87,6 @@ const SignUp = () => {
             case "password missing":
               toast("password missing");
               break;
-
             case "Password must contain one uppercase, lowercas, digit and special character":
               toast(
                 "Password must contain one uppercase, lowercas, digit and special character"
@@ -134,43 +128,25 @@ const SignUp = () => {
   const [validConfPassword, setValidConfPassword] = useState(true);
   const [validScholarID, setValidScholarID] = useState(true);
   const [validRoomNumber, setValidRoomNumber] = useState(true);
-  const validateForm = () => {
-    validateEmail();
-    validateName();
-    validatePhone();
-    validatePassword();
-    validateConfPassword();
-    validateRoom();
-    validateScholarID();
-    if (selects !== "Student")
-      return validEmail && validName && validPhone && validPassword && validConfPassword;
-    return (
-      validEmail &&
-      validName &&
-      validPhone &&
-      validPassword &&
-      validConfPassword &&
-      validRoomNumber &&
-      validScholarID
-    );
-  };
-  const validateName = () => {
+
+  const validateName = useCallback(() => {
     const name = document.getElementById("name")?.value;
     if (name.length === 0) {
       setValidName(false);
       setErrors((prev) => ({
         ...prev,
-        name: "Name is mandatory",
+        name: "Name is required",
       }));
     } else setValidName(true);
-  };
-  const validateEmail = () => {
+  }, []);
+
+  const validateEmail = useCallback(() => {
     const email = document.getElementById("email")?.value;
     if (email.length === 0) {
       setValidEmail(false);
       setErrors((prev) => ({
         ...prev,
-        email: "Email is mandatory",
+        email: "Email is required",
       }));
       return;
     }
@@ -189,15 +165,16 @@ const SignUp = () => {
         email: "Only institute email id is allowed",
       }));
     } else setValidEmail(true);
-  };
-  const validatePhone = () => {
+  }, [selects]);
+
+  const validatePhone = useCallback(() => {
     const phone = document.getElementById("phone")?.value;
     if (phone.length !== 10) {
       setValidPhone(false);
       if (phone.length === 0) {
         setErrors((prev) => ({
           ...prev,
-          phone: "Phone number is mandatory",
+          phone: "Phone number is required",
         }));
       } else {
         setErrors((prev) => ({
@@ -206,14 +183,15 @@ const SignUp = () => {
         }));
       }
     } else setValidPhone(true);
-  };
-  const validatePassword = () => {
+  }, []);
+
+  const validatePassword = useCallback(() => {
     const password = document.getElementById("pass")?.value;
     if (password.length === 0) {
       setValidPassword(false);
       setErrors((prev) => ({
         ...prev,
-        password: "Password is mandatory",
+        password: "Password is required",
       }));
     } else if (/\s/.test(password)) {
       setValidPassword(false);
@@ -234,8 +212,9 @@ const SignUp = () => {
         password: "Password must be atleast 8 characters",
       }));
     } else setValidPassword(true);
-  };
-  const validateConfPassword = () => {
+  }, []);
+
+  const validateConfPassword = useCallback(() => {
     const password = document.getElementById("pass")?.value;
     const cpassword = document.getElementById("passconf")?.value;
     if (password !== cpassword) {
@@ -245,15 +224,16 @@ const SignUp = () => {
         confpassword: "Passwords don't match",
       }));
     } else setValidConfPassword(true);
-  };
-  const validateScholarID = () => {
+  }, []);
+
+  const validateScholarID = useCallback(() => {
     const scholarID = document.getElementById("scholar")?.value;
     if (scholarID.length !== 7) {
       setValidScholarID(false);
       if (scholarID.length === 0) {
         setErrors((prev) => ({
           ...prev,
-          scholarID: "Scholar ID is mandatory",
+          scholarID: "Scholar ID is required",
         }));
       } else {
         setErrors((prev) => ({
@@ -262,17 +242,55 @@ const SignUp = () => {
         }));
       }
     } else setValidScholarID(true);
-  };
-  const validateRoom = () => {
+  }, []);
+
+  const validateRoom = useCallback(() => {
     const room = document.getElementById("room")?.value;
     if (room.length === 0) {
       setValidRoomNumber(false);
       setErrors((prev) => ({
         ...prev,
-        room: "Room number is mandatory",
+        room: "Room number is required",
       }));
     } else setValidRoomNumber(true);
-  };
+  }, []);
+
+  const validateForm = useCallback(() => {
+    validateEmail();
+    validateName();
+    validatePhone();
+    validatePassword();
+    validateConfPassword();
+    validateRoom();
+    validateScholarID();
+    if (selects !== "Student")
+      return validEmail && validName && validPhone && validPassword && validConfPassword;
+    return (
+      validEmail &&
+      validName &&
+      validPhone &&
+      validPassword &&
+      validConfPassword &&
+      validRoomNumber &&
+      validScholarID
+    );
+  }, [
+    selects,
+    validConfPassword,
+    validEmail,
+    validName,
+    validPassword,
+    validPhone,
+    validRoomNumber,
+    validScholarID,
+    validateEmail,
+    validateConfPassword,
+    validateName,
+    validatePassword,
+    validatePhone,
+    validateRoom,
+    validateScholarID,
+  ]);
 
   useEffect(() => {
     if (selects === "Student") {
@@ -281,7 +299,7 @@ const SignUp = () => {
       ref.current.style.display = "none";
     }
     validateForm();
-  }, [selects]);
+  }, [selects, validateForm]);
 
   return (
     <div className={styles.maindiv}>
@@ -429,6 +447,7 @@ const SignUp = () => {
           style={{ cursor: "pointer" }}
           type="submit"
           onClick={handleSubmit}
+          // disabled={disabled}
         >
           Submit
         </button>
