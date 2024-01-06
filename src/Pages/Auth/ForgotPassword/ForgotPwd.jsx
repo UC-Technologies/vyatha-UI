@@ -12,7 +12,7 @@ const ForgotPwd = () => {
     if (isLoggedIn === true) navigate("/dashboard");
   }, [isLoggedIn, navigate]);
 
-  const [validEmail, setValidEmail] = useState(true);
+  const [validEmail, setValidEmail] = useState(false);
   const [check, setCheck] = useState(false);
   const [error, setError] = useState("");
 

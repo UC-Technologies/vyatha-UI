@@ -21,7 +21,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 3vw 0;
+  margin: 2rem 0;
+  span {
+    display: none;
+  }
 }
 
 .form label {
@@ -45,13 +48,30 @@
   box-shadow: 1px 1px #e6e0e9;
 }
 
+.error {
+  input {
+    border: 0.125rem solid red;
+    outline: none;
+  }
+  input:focus {
+    border: 0.125rem solid red;
+  }
+  span {
+    display: block;
+    position: absolute;
+    top: 2.5rem;
+    left: 10vw;
+    font-size: 0.6rem;
+    color: red;
+  }
+}
+
 .nameinput:focus ~ label,
 .nameinput:not(:placeholder-shown).nameinput:not(:focus) ~ label {
   top: -27%;
   background-color: white;
   color: black;
   font-size: 16px;
-  font-weight: 500;
 }
 
 input::-webkit-outer-spin-button,
@@ -132,6 +152,17 @@ input[type="number"] {
     font-size: 14px;
     padding: 0.625rem;
     box-shadow: 1px 1px #e6e0e9;
+  }
+
+  .error {
+    input {
+      border: 0.125rem solid red;
+      outline: none;
+    }
+    span {
+      left: 7vw;
+      font-size: 0.6rem;
+    }
   }
 
   #forgot_btn {

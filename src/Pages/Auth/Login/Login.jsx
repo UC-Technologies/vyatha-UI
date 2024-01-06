@@ -79,8 +79,8 @@ const Login = () => {
 
   const [check, setCheck] = useState(false);
   const [errors, setErrors] = useState({});
-  const [validEmail, setValidEmail] = useState(true);
-  const [validPassword, setValidPassword] = useState(true);
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
 
   const validateForm = useCallback(() => {
     validateEmail();

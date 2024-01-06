@@ -29,8 +29,11 @@
       position: relative;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
+      margin: 10px 0 20px 0;
       cursor: pointer;
+      span {
+        display: none;
+      }
       label {
         position: absolute;
         top: 25%;
@@ -65,6 +68,7 @@
         width: 80vw;
         height: 10vh;
         padding: 5px;
+        margin-bottom: -6px;
         border: 2px solid #a4e5e1;
         border-radius: 6px;
         outline: gray;
@@ -95,6 +99,30 @@
 
       input:focus {
         border-bottom: 2px solid #a4e5e1;
+      }
+    }
+    .error {
+      input {
+        border: 0.125rem solid red;
+        outline: none;
+      }
+      input:focus {
+        border: 0.125rem solid red;
+      }
+      textarea {
+        border: 0.125rem solid red;
+        outline: none;
+      }
+      textarea:focus {
+        border: 0.125rem solid red;
+      }
+      span {
+        display: block;
+        position: absolute;
+        bottom: -0.85rem;
+        left: 1.2vw;
+        font-size: 0.6rem;
+        color: red;
       }
     }
     .photoUpload {
