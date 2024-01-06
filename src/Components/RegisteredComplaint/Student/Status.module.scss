@@ -36,26 +36,8 @@
     font-weight: 200;
     margin-left: 1rem;
   }
-  .StatusBar {
-    height: 25%;
-    width: 1vw;
-    margin-left: 2vw;
-    background-color: var(--vyatha-main-color-dark);
-  }
-  .StatusBar2 {
-    height: 25%;
-    width: 1vw;
-    margin-left: 2vw;
-    background-color: var(--vyatha-main-color-dark);
-  }
-  .StatusBar3 {
-    height: 25%;
-    width: 1vw;
-    margin-left: 2vw;
-    background-color: #ffffff;
-  }
-  .StatusBar4 {
-    height: 25%;
+  .StatusBarContainer {
+    height: 100%;
     width: 1vw;
     margin-left: 2vw;
     background-color: #ffffff;
