@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useParams, Link } from "react-router-dom";
 import { fetchClosedComplaints } from "../../../Components/ReactQuery/Fetchers/ClosedIssueFetcher";
@@ -10,6 +10,10 @@ import Data from "../../../Data/ComplaintRegister.json";
 
 const ClosedIssue = () => {
   const { role } = useParams();
+  useEffect(() => {
+    document.title = `Closed Issues for ${role} | Vyatha`;
+  }, [role]);
+
   const [sortBy, setSortBy] = useState("date");
   const [searchInput, setSearchInput] = useState("");
   const [jsonData, setJsonData] = useState(Data);

@@ -4,18 +4,24 @@ import { toast } from "sonner";
 import axios from "axios";
 import { UserContext } from "../../../Context/Provider";
 import styles from "./Signup.module.scss";
+import Captcha from "../../../Components/Shared/CaptchaComponent/Captcha";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, captchaVerified } = useContext(UserContext);
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
+
   useEffect(() => {
     if (isLoggedIn) navigate("/dashboard");
     document.title = "Signup | Vyatha";
   }, [isLoggedIn, navigate]);
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (captchaVerified === false) {
+      toast("Verify captcha first");
+      return;
+    }
     setCheck(true);
     const name = document.getElementById("name")?.value;
     const email = document.getElementById("email")?.value;
@@ -26,6 +32,16 @@ const SignUp = () => {
     const room = document.getElementById("room")?.value;
     const scholarID = document.getElementById("scholar")?.value;
     const designation = selects;
+    // // captcha things goes below
+    // const userResponseInt = Number(userResponse);
+    // if (userResponseInt === Answer) {
+    //   toast("Correct")
+    //   generateCaptcha();
+    // } else {
+    //   toast("Invalid Captcha")
+    //   generateCaptcha();
+    // }
+
     const register = async () => {
       try {
         await axios
@@ -407,7 +423,7 @@ const SignUp = () => {
           <label htmlFor="room">Room Number</label>
           <span>{errors.room}</span>
         </div>
-
+        {captchaVerified === false && <Captcha />}
         <button
           id={styles.btn_signup}
           style={{ cursor: "pointer" }}
@@ -417,9 +433,16 @@ const SignUp = () => {
           Submit
         </button>
 
-        <Link id={styles.already_account_login} to="/auth/login">
-          Already have an account?
-        </Link>
+        {captchaVerified === true ? (
+          <a id={styles.already_account_login} href="/auth/login">
+            {" "}
+            Already have an account?
+          </a>
+        ) : (
+          <Link id={styles.already_account_login} to="/auth/login">
+            Already have an account?
+          </Link>
+        )}
       </form>
     </div>
   );
