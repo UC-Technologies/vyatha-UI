@@ -21,7 +21,7 @@ const Login = () => {
   const verifyCaptcha = async (e) => {
     e.preventDefault();
     if (captchaVerified === false) {
-      toast("Verify catcha first");
+      toast("Verify captcha first");
       return;
     }
 
