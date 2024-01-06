@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
@@ -12,13 +12,27 @@ const ForgotPwd = () => {
     if (isLoggedIn === true) navigate("/dashboard");
   }, [isLoggedIn, navigate]);
 
-  const [email, setEmail] = useState("");
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const [validEmail, setValidEmail] = useState(true);
+  const [check, setCheck] = useState(false);
+  const [error, setError] = useState("");
+
+  const validateEmail = useCallback(() => {
+    const email = document.getElementById("email")?.value;
+    if (email.length === 0) {
+      setError("Email is required");
+      setValidEmail(false);
+    } else if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$/.test(email)) {
+      setError("Invalid email id");
+      setValidEmail(false);
+    } else setValidEmail(true);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setCheck(true);
+    validateEmail();
+    if (!validEmail) return;
+    const email = document.getElementById("email")?.value;
     try {
       await axios
         .post(`${import.meta.env.VITE_REACT_APP_API}/forgotpassword`, { email })
@@ -55,7 +69,7 @@ const ForgotPwd = () => {
         }
       }
     } finally {
-      setEmail("");
+      document.getElementById("email").value = "";
     }
   };
 
@@ -70,16 +84,16 @@ const ForgotPwd = () => {
       </div>
 
       <div className={styles.form_starts}>
-        <div className={styles.form}>
+        <div className={`${styles.form} ${check && !validEmail ? styles.error : null}`}>
           <input
             type="email"
-            placeholder=""
-            value={email}
-            onChange={handleEmailChange}
+            placeholder=" "
+            onChange={validateEmail}
             className={styles.nameinput}
             id="email"
           />
           <label htmlFor="email">Email</label>
+          <span>{error}</span>
         </div>
 
         <button id={styles.forgot_btn} onClick={handleSubmit}>

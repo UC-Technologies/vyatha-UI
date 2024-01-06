@@ -81,11 +81,13 @@ const Login = () => {
   const [errors, setErrors] = useState({});
   const [validEmail, setValidEmail] = useState(true);
   const [validPassword, setValidPassword] = useState(true);
+
   const validateForm = useCallback(() => {
     validateEmail();
     validatePassword();
     return validEmail && validPassword;
   }, [validEmail, validPassword]);
+
   const validateEmail = useCallback(() => {
     const email = document.getElementById("email")?.value;
     if (email.length === 0) {
@@ -102,6 +104,7 @@ const Login = () => {
       }));
     } else setValidEmail(true);
   }, []);
+
   const validatePassword = useCallback(() => {
     const password = document.getElementById("password")?.value;
     if (password.length === 0) {
