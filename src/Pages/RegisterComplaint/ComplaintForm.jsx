@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import FileBase64 from "react-file-base64";
 import styles from "./ComplaintForm.module.scss";
 import { UserContext } from "../../Context/Provider";
+import Captcha from "../../Components/Shared/CaptchaComponent/Captcha";
 // import Captcha from '../../Components/Shared/CaptchaComponent/Captcha'
 
 const ComplaintForm = () => {
@@ -15,7 +16,7 @@ const ComplaintForm = () => {
   }, []);
 
   const navigate = useNavigate();
-  const { isLoggedIn, role, profile } = useContext(UserContext);
+  const { isLoggedIn, role, profile, captchaVerified } = useContext(UserContext);
   useEffect(() => {
     if (isLoggedIn === false) {
       navigate("/auth/login");
@@ -74,8 +75,12 @@ const ComplaintForm = () => {
   const token = Cookies.get("authToken");
   const handleIssueSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData);
-    // console.log(photo);
+
+    if (captchaVerified === false) {
+      toast("Verify Captcha first");
+      return;
+    }
+
     try {
       await axios
         .post(
@@ -229,9 +234,10 @@ const ComplaintForm = () => {
               </label>
             </div>
           </div>
-          <div className={styles.captcha}>
-            <div>Captch Here</div>
-            {/* <Captcha /> */}
+
+          <div>{captchaVerified === false && <Captcha />}</div>
+
+          <div style={{ marginTop: "2vw" }} className={styles.captcha}>
             <button onClick={handleIssueSubmit} type="submit">
               Submit
             </button>

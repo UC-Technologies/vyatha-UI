@@ -4,12 +4,13 @@ import Cookies from "js-cookie";
 import { toast } from "sonner";
 import axios from "axios";
 import { UserContext } from "../../../Context/Provider";
-// import Captcha from "../../../Components/Shared/CaptchaComponent/Captcha";
 import styles from "./Login.module.scss";
+import Captcha from "../../../Components/Shared/CaptchaComponent/Captcha";
+import { ConditionalLink } from "../../../Components/Shared/ConditionalLink";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, captchaVerified } = useContext(UserContext);
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
   useEffect(() => {
@@ -19,6 +20,11 @@ const Login = () => {
 
   const verifyCaptcha = async (e) => {
     e.preventDefault();
+    if (captchaVerified === false) {
+      toast("Verify captcha first");
+      return;
+    }
+
     const email = document.getElementById("email")?.value;
     const password = document.getElementById("password")?.value;
     axios
@@ -112,11 +118,12 @@ const Login = () => {
             </label>
           </div>
         </div>
-        <Link to="/forgotpassword">
+        {captchaVerified === false && <Captcha />}
+        <ConditionalLink to="/forgotpassword">
           <p id={styles.password_cont} className={styles.password}>
             Forgot Password?
           </p>
-        </Link>
+        </ConditionalLink>
 
         {/* <Captcha /> */}
         <div id={styles.password_cont} className={styles.button}>
@@ -124,9 +131,16 @@ const Login = () => {
             Login
           </button>
         </div>
-        <Link id={styles.password_cont} to="/auth/signup">
-          <p className={styles.signup}>Don&apos;t have an account? Sign up</p>
-        </Link>
+        {captchaVerified === true ? (
+          <a id={styles.password_cont} href="/auth/signup">
+            {" "}
+            <p className={styles.signup}>Don&apos;t have an account? Sign up</p>
+          </a>
+        ) : (
+          <Link id={styles.password_cont} to="/auth/signup">
+            <p className={styles.signup}>Don&apos;t have an account? Sign up</p>
+          </Link>
+        )}
       </form>
     </div>
   );
