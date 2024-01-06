@@ -11,6 +11,7 @@ const ContextProvider = ({ children }) => {
   const [allComplaints, setAllComplaints] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [fetching, setFetching] = useState(true);
+  const [captchaVerified, setCaptchaVerified] = useState(false);
 
   useEffect(() => {
     const token = Cookies.get("authToken");
@@ -46,8 +47,15 @@ const ContextProvider = ({ children }) => {
   }, []);
 
   const contextValue = useMemo(
-    () => ({ profile, allComplaints, isLoggedIn, role }),
-    [profile, allComplaints, isLoggedIn, role]
+    () => ({
+      profile,
+      allComplaints,
+      isLoggedIn,
+      role,
+      captchaVerified,
+      setCaptchaVerified,
+    }),
+    [profile, allComplaints, isLoggedIn, role, captchaVerified]
   );
 
   if (fetching) {
