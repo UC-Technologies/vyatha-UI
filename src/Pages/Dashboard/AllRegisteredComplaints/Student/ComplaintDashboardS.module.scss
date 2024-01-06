@@ -41,6 +41,10 @@
 }
 
 @media screen and (max-width: 659px) {
+  #paddtop {
+    padding-top: 4rem;
+  }
+
   #issue__details {
     font-size: 2vw;
     text-align: left;
@@ -84,7 +88,7 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: space-around;
+      justify-content: center;
       background: var(--vyatha4-gradient-1);
       height: 5vh;
       width: 100%;
@@ -92,7 +96,7 @@
       border-color: none;
 
       input {
-        width: 50vw;
+        width: 80vw;
         border-radius: 1vw;
         border-color: transparent;
         height: 30px;
@@ -103,6 +107,7 @@
       a {
         img {
           height: 40px;
+          display: none;
         }
       }
     }
@@ -262,6 +267,10 @@
 }
 
 @media screen and (min-width: 660px) and (max-width: 900px) {
+  #paddtop {
+    padding-top: 4rem !important;
+  }
+
   .container {
     display: flex;
     flex-direction: column;
@@ -275,7 +284,7 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: space-around;
+      justify-content: center;
       background: var(--vyatha4-gradient-1);
       height: 6vh;
       width: 100vw;
@@ -459,11 +468,11 @@
     .SearchBar {
       display: flex;
       flex-direction: row;
-      justify-content: space-around;
+      justify-content: center;
       align-items: center;
       background: var(--vyatha4-gradient-1);
       width: 100vw;
-      padding: 0 0.25vh;
+      padding: 0.85vw 0.25vh;
       border-color: none;
 
       input {
@@ -475,6 +484,7 @@
         border-color: transparent;
         text-align: center;
         font-size: clamp(12px, 2.5vw, 24px);
+        // margin-left: 20vw;
       }
       a {
         img {
@@ -641,5 +651,9 @@
       height: 100%;
       object-fit: cover;
     }
+  }
+
+  #paddtop {
+    padding-top: 4rem;
   }
 }

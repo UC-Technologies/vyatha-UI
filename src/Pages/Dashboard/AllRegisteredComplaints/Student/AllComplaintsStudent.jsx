@@ -7,9 +7,6 @@ import axios from "axios";
 import { toast } from "sonner";
 import Cookies from "js-cookie";
 import styles from "./ComplaintDashboardS.module.scss";
-import Data from "../../../../Data/ComplaintRegister.json";
-// import ComplaintCardS from '../../../Components/RegisteredComplaint/Student/ComplaintCardS';
-import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
 
 const AllComplaintStudent = () => {
@@ -19,68 +16,10 @@ const AllComplaintStudent = () => {
 
   const { role } = useParams();
   // console.log(role)
-  const [jsonData, setJsonData] = useState(Data);
-  const [sortBy, setSortBy] = useState("date");
-  const [searchInput, setSearchInput] = useState("");
-
-  const imgBack =
-    "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703085199/chevron_left_s4usnm.jpg?_s=public-apps";
-
-  const sortData = (e) => {
-    setSortBy(e.target.value);
-    const sortedData = [...jsonData];
-    switch (e.target.value) {
-      case "date":
-        sortedData.sort((a, b) => new Date(b.Date) - new Date(a.Date));
-        break;
-      case "time":
-        sortedData.sort((a, b) => new Date(b.Time) - new Date(a.Time));
-        break;
-      case "name":
-        sortedData.sort((a, b) => a.Name.localeCompare(b.Name));
-        break;
-      default:
-        break;
-    }
-    setJsonData(sortedData);
-  };
-
-  const filterComplaints = (data, search) => {
-    return data.filter((item) => {
-      // Searching keyword
-      const searchLowerCase = search.toLowerCase();
-
-      const title = item.title.toLowerCase();
-      const description = item.Description.toLowerCase();
-      const date = item.Date.toLowerCase();
-      const time = item.Time.toLowerCase();
-
-      return (
-        title.includes(searchLowerCase) ||
-        description.includes(searchLowerCase) ||
-        date.includes(searchLowerCase) ||
-        time.includes(searchLowerCase)
-      );
-    });
-  };
-
-  useEffect(() => {
-    const filteredData = filterComplaints(Data, searchInput);
-    setJsonData(filteredData);
-  }, [searchInput]);
 
   const { data, error, isLoading, isFetching } = useQuery("complaints", fetchComplaints, {
     refetchOnWindowFocus: "always",
   });
-  if (error) {
-    return <div>Something went wrong!</div>;
-  }
-
-  if (isLoading || isFetching) {
-    return <div>Loading...</div>;
-  }
-
-  // const fetchedIssues = data?.allIssues;
 
   const fetchedIssues =
     role === "student"
@@ -92,8 +31,35 @@ const AllComplaintStudent = () => {
       : role === "dsw"
       ? data?.sortedIssues
       : null;
-  // console.log(fetchedIssues);
-  // console.log(data?.filteredStudentNotifications)
+  // console.log(fetchedIssues)
+
+  const [jsonData, setJsonData] = useState(fetchedIssues);
+  const [searchInput, setSearchInput] = useState("");
+
+  // const imgBack =
+  //   "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703085199/chevron_left_s4usnm.jpg?_s=public-apps";
+
+  const filterComplaints = (dData, search) => {
+    return dData?.filter((item) => {
+      const searchLowerCase = search.toLowerCase();
+      const title = item.title?.toLowerCase();
+      return title?.includes(searchLowerCase);
+    });
+  };
+
+  useEffect(() => {
+    const filteredData = filterComplaints(fetchedIssues, searchInput);
+    setJsonData(filteredData);
+  }, [searchInput, fetchedIssues]);
+
+  if (error) {
+    return <div>Something went wrong!</div>;
+  }
+
+  if (isLoading || isFetching) {
+    return <div>Loading...</div>;
+  }
+
   const token = Cookies.get("authToken");
   const handleCloseIssue = async (issueId, otherID) => {
     // console.log(issueId)
@@ -137,24 +103,24 @@ const AllComplaintStudent = () => {
   return (
     <div className={styles.container}>
       <div className={styles.SearchBar}>
-        <Link to="/">
-          <img src={imgBack} alt="Back" />
-        </Link>
+        {/* <Link to="/">
+          <img id={styles.gotodash} src={imgBack} alt="Back" />
+        </Link> */}
         <div className={styles.input}>
           <input
             type="text"
-            placeholder="Search Complaint"
+            placeholder="Search Complaint Based on Title"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
         </div>
-        <SortByButton sortBy={sortBy} handleSort={sortData} />
+        {/* <SortByButton sortBy={sortBy} handleSort={sortData} /> */}
       </div>
       <div className={styles.ComplaintCard}>
         <div className={styles.ComplaintCardInner}>
-          {fetchedIssues?.length === 0 && <p>No Registered Complaints yet</p>}
-          {fetchedIssues?.length > 0 &&
-            fetchedIssues?.map((complaint) => (
+          {jsonData?.length === 0 && <p>No Registered Complaints yet</p>}
+          {jsonData?.length > 0 &&
+            jsonData?.map((complaint) => (
               // <ComplaintCardS key={item.key} complaint={item} />
               <div className={styles.CardContainer} key={complaint._id}>
                 <div className={styles.Heading}>
