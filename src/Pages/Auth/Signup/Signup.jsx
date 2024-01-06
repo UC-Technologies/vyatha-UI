@@ -16,6 +16,7 @@ const SignUp = () => {
   }, [isLoggedIn, navigate]);
   const handleSubmit = (e) => {
     e.preventDefault();
+    setCheck(true);
     const name = document.getElementById("name")?.value;
     const email = document.getElementById("email")?.value;
     const phone = document.getElementById("phone")?.value;
@@ -102,11 +103,160 @@ const SignUp = () => {
         }
       }
     };
-    register();
+    if (validateForm()) register();
   };
 
   const [selects, setSelects] = useState("Student");
   const ref = useRef(null);
+
+  const [check, setCheck] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [validName, setValidName] = useState(true);
+  const [validEmail, setValidEmail] = useState(true);
+  const [validPhone, setValidPhone] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
+  const [validConfPassword, setValidConfPassword] = useState(true);
+  const [validScholarID, setValidScholarID] = useState(true);
+  const [validRoomNumber, setValidRoomNumber] = useState(true);
+  const validateForm = () => {
+    validateEmail();
+    validateName();
+    validatePhone();
+    validatePassword();
+    validateConfPassword();
+    validateRoom();
+    validateScholarID();
+    if (selects !== "Student")
+      return validEmail && validName && validPhone && validPassword && validConfPassword;
+    return (
+      validEmail &&
+      validName &&
+      validPhone &&
+      validPassword &&
+      validConfPassword &&
+      validRoomNumber &&
+      validScholarID
+    );
+  };
+  const validateName = () => {
+    const name = document.getElementById("name")?.value;
+    if (name.length === 0) {
+      setValidName(false);
+      setErrors((prev) => ({
+        ...prev,
+        name: "Name is mandatory",
+      }));
+    } else setValidName(true);
+  };
+  const validateEmail = () => {
+    const email = document.getElementById("email")?.value;
+    if (email.length === 0) {
+      setValidEmail(false);
+      setErrors((prev) => ({
+        ...prev,
+        email: "Email is mandatory",
+      }));
+      return;
+    }
+    if (selects === "Supervisor") {
+      if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$/.test(email)) {
+        setValidEmail(false);
+        setErrors((prev) => ({
+          ...prev,
+          email: "Not a valid email",
+        }));
+      } else setValidEmail(true);
+    } else if (!/^[a-zA-Z0-9._-]+@([a-z]+\.)?nits\.ac\.in$/.test(email)) {
+      setValidEmail(false);
+      setErrors((prev) => ({
+        ...prev,
+        email: "Only institute email id is allowed",
+      }));
+    } else setValidEmail(true);
+  };
+  const validatePhone = () => {
+    const phone = document.getElementById("phone")?.value;
+    if (phone.length !== 10) {
+      setValidPhone(false);
+      if (phone.length === 0) {
+        setErrors((prev) => ({
+          ...prev,
+          phone: "Phone number is mandatory",
+        }));
+      } else {
+        setErrors((prev) => ({
+          ...prev,
+          phone: "Enter a valid phone number",
+        }));
+      }
+    } else setValidPhone(true);
+  };
+  const validatePassword = () => {
+    const password = document.getElementById("pass")?.value;
+    if (password.length === 0) {
+      setValidPassword(false);
+      setErrors((prev) => ({
+        ...prev,
+        password: "Password is mandatory",
+      }));
+    } else if (/\s/.test(password)) {
+      setValidPassword(false);
+      setErrors((prev) => ({
+        ...prev,
+        password: "Password must not have whitespace",
+      }));
+    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&-+=()])/.test(password)) {
+      setValidPassword(false);
+      setErrors((prev) => ({
+        ...prev,
+        password: "Include a digit, lower & uppercase letter, & special character",
+      }));
+    } else if (password.length < 8) {
+      setValidPassword(false);
+      setErrors((prev) => ({
+        ...prev,
+        password: "Password must be atleast 8 characters",
+      }));
+    } else setValidPassword(true);
+  };
+  const validateConfPassword = () => {
+    const password = document.getElementById("pass")?.value;
+    const cpassword = document.getElementById("passconf")?.value;
+    if (password !== cpassword) {
+      setValidConfPassword(false);
+      setErrors((prev) => ({
+        ...prev,
+        confpassword: "Passwords don't match",
+      }));
+    } else setValidConfPassword(true);
+  };
+  const validateScholarID = () => {
+    const scholarID = document.getElementById("scholar")?.value;
+    if (scholarID.length !== 7) {
+      setValidScholarID(false);
+      if (scholarID.length === 0) {
+        setErrors((prev) => ({
+          ...prev,
+          scholarID: "Scholar ID is mandatory",
+        }));
+      } else {
+        setErrors((prev) => ({
+          ...prev,
+          scholarID: "Enter a valid Scholar ID",
+        }));
+      }
+    } else setValidScholarID(true);
+  };
+  const validateRoom = () => {
+    const room = document.getElementById("room")?.value;
+    if (room.length === 0) {
+      setValidRoomNumber(false);
+      setErrors((prev) => ({
+        ...prev,
+        room: "Room number is mandatory",
+      }));
+    } else setValidRoomNumber(true);
+  };
 
   useEffect(() => {
     if (selects === "Student") {
@@ -114,33 +264,59 @@ const SignUp = () => {
     } else {
       ref.current.style.display = "none";
     }
+    validateForm();
   }, [selects]);
 
   return (
     <div className={styles.maindiv}>
       <h1 id={styles.details_heading}>Enter your Details</h1>
       <form action="">
-        <div className={styles.form}>
-          <input type="text" placeholder=" " className={styles.nameinput} id="name" />
+        <div className={`${check && !validName ? styles.error : null} ${styles.form}`}>
+          <input
+            type="text"
+            placeholder=" "
+            className={styles.nameinput}
+            id="name"
+            onChange={validateName}
+          />
           <label htmlFor="name">Name</label>
+          <span>{errors.name}</span>
         </div>
-        <div className={styles.form}>
-          <input type="email" placeholder=" " className={styles.nameinput} id="email" />
+        <div className={`${check && !validEmail ? styles.error : null} ${styles.form}`}>
+          <input
+            type="email"
+            placeholder=" "
+            className={styles.nameinput}
+            id="email"
+            onChange={validateEmail}
+          />
           <label htmlFor="email">Email</label>
+          <span>{errors.email}</span>
         </div>
-        <div className={styles.form}>
-          <input type="number" placeholder=" " className={styles.nameinput} id="phone" />
+        <div className={`${check && !validPhone ? styles.error : null} ${styles.form}`}>
+          <input
+            type="number"
+            placeholder=" "
+            className={styles.nameinput}
+            id="phone"
+            onChange={validatePhone}
+          />
           <label htmlFor="phone">Phone</label>
+          <span>{errors.phone}</span>
         </div>
 
-        <div className={styles.form}>
+        <div
+          className={`${check && !validPassword ? styles.error : null} ${styles.form}`}
+        >
           <input
             type={showPassword ? "text" : "password"}
             placeholder=" "
             className={styles.nameinput}
             id="pass"
+            onChange={validatePassword}
           />
           <label htmlFor="pass">Password</label>
+          <span>{errors.password}</span>
         </div>
 
         <div className={styles.showpassword__container}>
@@ -157,14 +333,20 @@ const SignUp = () => {
           </label>
         </div>
 
-        <div className={styles.form}>
+        <div
+          className={`${check && !validConfPassword ? styles.error : null} ${
+            styles.form
+          }`}
+        >
           <input
             type="password"
             placeholder=" "
             className={styles.nameinput}
             id="passconf"
+            onChange={validateConfPassword}
           />
           <label htmlFor="passconf">Confirm Password</label>
+          <span>{errors.confpassword}</span>
         </div>
         <div className={styles.designation}>
           <select value={selects} onChange={(e) => setSelects(e.target.value)}>
@@ -174,19 +356,24 @@ const SignUp = () => {
             <option>Dean</option>
           </select>
         </div>
-        <div className={styles.form} ref={ref}>
+        <div
+          className={`${check && !validScholarID ? styles.error : null} ${styles.form}`}
+          ref={ref}
+        >
           <input
             type="number"
             placeholder=" "
             className={styles.nameinput}
             id="scholar"
+            onChange={validateScholarID}
           />
           <label htmlFor="scholar">Scholar ID</label>
+          <span>{errors.scholarID}</span>
         </div>
         {selects !== "Dean" && (
           <div className={styles.designation}>
             <select id="hostel">
-              <option value="">BH1</option>
+              <option value="BH1">BH1</option>
               <option>BH2</option>
               <option>BH3</option>
               <option>BH4</option>
@@ -207,11 +394,18 @@ const SignUp = () => {
         )}
 
         <div
-          className={styles.form}
+          className={`${check && !validRoomNumber ? styles.error : null} ${styles.form}`}
           style={{ display: selects === "Student" ? "block" : "none" }}
         >
-          <input type="number" placeholder=" " className={styles.nameinput} id="room" />
-          <label htmlFor="scholar">Room Number</label>
+          <input
+            type="number"
+            placeholder=" "
+            className={styles.nameinput}
+            id="room"
+            onChange={validateRoom}
+          />
+          <label htmlFor="room">Room Number</label>
+          <span>{errors.room}</span>
         </div>
 
         <button

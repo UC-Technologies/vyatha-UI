@@ -50,7 +50,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef(null);
   useEffect(() => {
-    if (window.innerWidth > 600) return () => {};
+    if (window.innerWidth > 660) return () => {};
     const handleOutsideClick = (e) => {
       if (isOpen && navRef.current && !navRef.current.contains(e.target)) {
         setIsOpen(false);
