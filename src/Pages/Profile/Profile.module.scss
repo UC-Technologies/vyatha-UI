@@ -106,8 +106,8 @@
       align-items: center;
 
       button {
-        width: 3.2rem;
-        height: 2.5rem;
+        width: 8.6rem;
+        height: 3.8rem;
         padding: 0.3rem;
         border-radius: 0.5rem;
         display: flex;
@@ -118,7 +118,7 @@
         background-color: white;
         border: none;
 
-        div {
+        p {
           background-color: #4cddd5;
           width: 8rem;
           height: 3rem;
@@ -177,7 +177,7 @@
         justify-content: center;
         align-items: center;
         width: 80%;
-        height: 50vh;
+        height: 40vh;
         background-color: #fff;
         margin-top: 3rem;
         flex-direction: row;
@@ -253,17 +253,26 @@
       .button_section {
         background-color: white;
         width: 80%;
-        height: 10vh;
+        height: 15vh;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
 
         button {
-          margin: 3rem;
-          width: 5rem;
+          margin: 1rem;
+          width: 9.6rem;
+          height: 5.4rem;
+          text-align: center;
           padding-bottom: 2rem;
-          height: 3rem;
+
+          p {
+            background-color: #4cddd5;
+            width: 8rem;
+            height: 3rem;
+            text-align: center;
+            border-radius: 1rem;
+          }
         }
       }
     }
