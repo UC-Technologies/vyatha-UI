@@ -346,6 +346,8 @@
     }
     .Progress {
       background: var(--vyatha-background-1);
+      height: 20vw;
+      width: 25vw;
     }
 
     .Comments {
@@ -541,7 +543,7 @@
         }
       }
       .Progress {
-        border-radius: 2vw;
+        // border-radius: 2vw;
         max-height: 625px;
         width: 44vw;
         background: var(--vyatha-background-1);

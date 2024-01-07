@@ -1,45 +1,183 @@
+.MainDiv {
+  height: 100%;
+  // width: 100vw;
+  border-radius: 2vw;
+
+  background: var(--vyatha-background-1);
+  background-color: #d7faf4;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 0.4vw;
+  .Registered {
+    margin-top: 1vw;
+    height: 35%;
+    text-align: left;
+    padding-top: 0.5rem;
+  }
+  .Supervisor {
+    height: 25%;
+    align-self: flex-start;
+    padding-top: 0.3rem;
+  }
+  .Warden {
+    height: 24%;
+    padding-top: 0.5rem;
+    // padding-top: 1vw;
+  }
+}
+
+h1 {
+  color: black;
+  font-size: 1rem;
+  margin-left: 1rem;
+  font-weight: 700;
+  text-align: left;
+  font-family: Lato;
+}
+h2 {
+  font-size: 1.2vh;
+  font-weight: 200;
+  margin-left: 2rem;
+  font-style: italic;
+  padding: 0.5rem;
+}
+
+.container {
+  // height: 25vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-left: 1vw;
+  height: 100%;
+  padding-top: 1.7vw;
+  padding-bottom: 1vw;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.circlee {
+  width: 15px;
+  height: 15px;
+
+  border-radius: 50%;
+  font-size: xx-small;
+  padding: 10px;
+}
+
+.rectangle {
+  width: 0.3rem;
+  height: 30vh;
+}
+
+.rectangle1 {
+  height: 32%;
+}
+.rectangle2 {
+  height: 21%;
+  // background-color: 'var(--vyatha-main-color-dark)',;
+}
+
+.rectangle3 {
+  height: 18%;
+  //  background-color: 'var(--vyatha-main-color-dark)',;
+}
+
 @media only screen and (max-width: 660px) {
   .MainDiv {
-    height: 30vh;
+    height: 25vh;
     width: 100vw;
     background-color: #d7faf4;
     display: flex;
     flex-wrap: nowrap;
   }
-  .status {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
 
-    .Registered {
-      height: 25%;
-      text-align: left;
-    }
-    .Supervisor {
-      height: 25%;
-      align-self: flex-start;
-    }
-    .Warden {
-      height: 25%;
-    }
+  .Registered {
+    margin-top: 1vw;
+    height: 35%;
+    text-align: left;
+  }
+  .Supervisor {
+    height: 25%;
+    align-self: flex-start;
+  }
+  .Warden {
+    height: 24%;
   }
 
   h1 {
     color: black;
-    font-size: 1rem;
+    font-size: 0.7rem;
     margin-left: 1rem;
     font-weight: 700;
     text-align: left;
+    font-family: Lato;
   }
   h2 {
     font-size: 1.2vh;
     font-weight: 200;
-    margin-left: 1rem;
+    padding: 0.5rem;
+    font-style: italic;
   }
-  .StatusBarContainer {
-    height: 100%;
+
+  .container {
+    padding-top: 1vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 1vw;
+    padding-bottom: 2vw;
+    padding-top: 2.7vw;
+    // margin-top: 2.5vw;
+  }
+
+  .box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .circlee {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    font-size: xx-small;
+  }
+
+  .rectangle {
     width: 1vw;
-    margin-left: 2vw;
-    background-color: #ffffff;
+  }
+  .rectangle1 {
+    height: 32%;
+  }
+  .rectangle2 {
+    height: 21%;
+  }
+
+  .rectangle3 {
+    height: 18%;
+  }
+
+  .status {
+    justify-content: space-between;
+    padding-bottom: 2.8vw;
+  }
+}
+@media screen and (min-width: 600px) and (max-width: 912px) {
+  h2 {
+    font-size: x-small;
+    padding: 0%;
   }
 }
