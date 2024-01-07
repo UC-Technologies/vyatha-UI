@@ -344,6 +344,7 @@ const IndividualComplaintAdmin = () => {
         <div className={styles.title_content}> {complaint?.title}</div>
       </div>
 
+      {/* <div id={styles.reduced__with}> */}
       {complaint?.isSolved && (
         <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
           Issue has been Solved at {complaint?.solvedAt}

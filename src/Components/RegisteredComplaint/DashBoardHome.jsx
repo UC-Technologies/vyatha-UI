@@ -113,17 +113,19 @@ export const DashBoardHome = ({ role }) => {
         {visible ? <img src={img3} alt="ON" /> : <img src={img4} alt="OFF" />}
       </div>
       <div className={Styles.Notifications} ref={ref}>
-        {notications?.map((item) => {
-          return (
-            <main key={item?._id} id={Styles.notification__main}>
-              <div id={Styles.notifications__flex}>
-                <p className={Styles.title_noti}>{item?.issueTitle}</p>
-                <p>{item?.time}</p>
-              </div>
-              <p>{item?.message}</p>
-            </main>
-          );
-        })}
+        {notications?.length === 0 && <p>No notifications yet</p>}
+        {notications?.length > 0 &&
+          notications?.map((item) => {
+            return (
+              <main key={item?._id} id={Styles.notification__main}>
+                <div id={Styles.notifications__flex}>
+                  <p className={Styles.title_noti}>{item?.issueTitle}</p>
+                  <p>{item?.time}</p>
+                </div>
+                <p>{item?.message}</p>
+              </main>
+            );
+          })}
       </div>
     </div>
   );

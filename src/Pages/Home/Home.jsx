@@ -34,33 +34,46 @@ const Home = () => {
           <div className={styles.card}>
             <img className={styles.imge} src={img1} alt="" />
             <p className={styles.par3}>
-              Morbi a metus. <br />
-              Phasellus enim erat, <br />
-              vestibulum vel?
+              <center>
+                {" "}
+                <strong> Registration:</strong>
+              </center>{" "}
+              <br />
+              Join Vyatha! Hostel boarders, register to submit your complaints—simply fill
+              in your credentials. Alternatively, sign up as an authority figure to
+              oversee all submitted complaints.
             </p>
           </div>
 
           <div className={styles.card}>
             <img className={styles.imge} src={img2} alt="" />
             <p className={styles.par3}>
-              Morbi a metus. <br />
-              Phasellus enim erat, <br />
-              vestibulum vel?
+              <center>
+                {" "}
+                <strong>Progress Tracking:</strong>
+              </center>
+              <br />
+              Utilise Vyatha to monitor the status of your concerns. Easily determine
+              whether your issue is in the process of being resolved or has already been
+              addressed
             </p>
           </div>
 
           <div className={styles.card}>
             <img className={styles.imge} src={img3} alt="" />
             <p className={styles.par3}>
-              Morbi a metus. <br />
-              Phasellus enim erat, <br />
-              vestibulum vel?
+              <center>
+                <strong>Resolution Assurance:</strong>
+              </center>
+              <br />
+              Vyatha ensures prompt awareness among authorities regarding your concerns,
+              providing timely updates and solutions to keep you informed
             </p>
           </div>
         </div>
 
         <p className={styles.para2}>
-          Morbi a metus. Phasellus enim erat, vestibulum vel.
+          <strong>Streamlining Hostel Complaints!</strong>
         </p>
 
         <div className={styles.butt1}>
@@ -81,7 +94,8 @@ const Home = () => {
             <ul className={styles.listt}>
               <li>
                 Choose &quot;Student&quot; or <br />
-                &quot;Admin&quot; to create an <br />
+                &quot;Supervisor&quot; or &quot;Warden&quot; or &quot;Dean&quot; to create
+                an <br />
                 account.
               </li>
             </ul>
@@ -93,7 +107,7 @@ const Home = () => {
         </div>
 
         <p className={styles.para2}>
-          Morbi a metus. Phasellus enim erat, vestibulum vel.
+          <strong>Streamlining Hostel Complaints!</strong>
         </p>
 
         <div className={styles.butt1}>
