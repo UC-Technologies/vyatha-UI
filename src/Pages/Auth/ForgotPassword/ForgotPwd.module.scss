@@ -60,7 +60,7 @@
     position: absolute;
     top: 2.5rem;
     left: 10vw;
-    font-size: 0.75rem;
+    font-size: 0.75vw;
     padding-left: 0.4rem;
     color: red;
   }
@@ -144,6 +144,7 @@ input[type="number"] {
     }
     span {
       left: 5vw;
+      font-size: 3.2vw;
     }
   }
 

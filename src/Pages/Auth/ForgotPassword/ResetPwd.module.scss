@@ -61,7 +61,7 @@
     position: absolute;
     top: 2.5rem;
     left: 10vw;
-    font-size: 0.6rem;
+    font-size: 0.8vw;
     color: red;
   }
 }
@@ -99,9 +99,9 @@ input[type="number"] {
   margin-top: 8vw;
 }
 
-#confirmpass {
-  margin-top: -1vw !important;
-}
+// #confirmpass {
+//   margin-top: -1vw !important;
+// }
 
 .showpassword__container {
   text-align: center;
@@ -161,7 +161,7 @@ input[type="number"] {
     }
     span {
       left: 7vw;
-      font-size: 0.6rem;
+      font-size: 3vw;
     }
   }
 

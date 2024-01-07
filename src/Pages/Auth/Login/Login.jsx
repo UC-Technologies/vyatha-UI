@@ -82,12 +82,6 @@ const Login = () => {
   const [validEmail, setValidEmail] = useState(false);
   const [validPassword, setValidPassword] = useState(false);
 
-  const validateForm = useCallback(() => {
-    validateEmail();
-    validatePassword();
-    return validEmail && validPassword;
-  }, [validEmail, validPassword]);
-
   const validateEmail = useCallback(() => {
     const email = document.getElementById("email")?.value;
     if (email.length === 0) {
@@ -115,7 +109,7 @@ const Login = () => {
       }));
     } else if (
       /\s/.test(password) ||
-      !/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()]).{8,}$/.test(password)
+      !/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()!]).{8,}$/.test(password)
     ) {
       setValidPassword(false);
       setErrors((prev) => ({
@@ -124,6 +118,12 @@ const Login = () => {
       }));
     } else setValidPassword(true);
   }, []);
+
+  const validateForm = useCallback(() => {
+    validateEmail();
+    validatePassword();
+    return validEmail && validPassword;
+  }, [validEmail, validPassword, validateEmail, validatePassword]);
 
   return (
     <div className={styles.container}>

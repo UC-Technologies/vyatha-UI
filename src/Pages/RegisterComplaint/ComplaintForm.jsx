@@ -137,12 +137,6 @@ const ComplaintForm = () => {
   const [validTitle, setValidTitle] = useState(false);
   const [validDesc, setValidDesc] = useState(false);
 
-  const validateForm = useCallback(() => {
-    validateTitle();
-    validateDesc();
-    return validTitle && validDesc;
-  }, [validTitle, validDesc]);
-
   const validateTitle = useCallback(() => {
     const title = document.getElementById("title")?.value;
     if (title.length === 0) {
@@ -152,7 +146,8 @@ const ComplaintForm = () => {
         title: "Title is required",
       }));
     } else setValidTitle(true);
-  }, [formData]);
+  }, []);
+
   const validateDesc = useCallback(() => {
     const description = document.getElementById("description")?.value;
     if (description.length === 0) {
@@ -162,7 +157,13 @@ const ComplaintForm = () => {
         desc: "Description is required",
       }));
     } else setValidDesc(true);
-  }, [formData]);
+  }, []);
+
+  const validateForm = useCallback(() => {
+    validateTitle();
+    validateDesc();
+    return validTitle && validDesc;
+  }, [validTitle, validDesc, validateDesc, validateTitle]);
 
   return (
     <div className={styles.ComplaintForm}>

@@ -121,7 +121,8 @@
         position: absolute;
         bottom: -0.85rem;
         left: 1.2vw;
-        font-size: 0.6rem;
+        top: 2.5rem;
+        font-size: 0.8vw;
         color: red;
       }
     }
@@ -214,7 +215,7 @@
 @media (max-width: 660px) {
   .Title {
     font-size: 5vw;
-    margin-top: 5rem;
+    margin-top: 4rem;
     padding-top: 1vw;
     padding-bottom: 1vw;
   }
@@ -223,6 +224,17 @@
     p {
       font-size: 03.15vw !important;
       margin-bottom: 3.5vw !important;
+    }
+  }
+
+  .error {
+    span {
+      display: block;
+      position: absolute;
+      bottom: 0rem;
+      left: 1.2vw;
+      top: 3rem !important;
+      font-size: 2.85vw !important;
     }
   }
 }
