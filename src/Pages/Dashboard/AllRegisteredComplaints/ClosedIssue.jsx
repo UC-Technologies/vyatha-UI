@@ -5,36 +5,13 @@ import { useQuery } from "react-query";
 import { useParams, Link } from "react-router-dom";
 import { fetchClosedComplaints } from "../../../Components/ReactQuery/Fetchers/ClosedIssueFetcher";
 import styles from "./Student/ComplaintDashboardS.module.scss";
-import SortByButton from "../../../Components/RegisteredComplaint/Student/SortByButton";
-import Data from "../../../Data/ComplaintRegister.json";
+// import SortByButton from "../../../Components/RegisteredComplaint/Student/SortByButton";
 
 const ClosedIssue = () => {
   const { role } = useParams();
   useEffect(() => {
     document.title = `Closed Issues for ${role} | Vyatha`;
   }, [role]);
-
-  const [sortBy, setSortBy] = useState("date");
-  const [searchInput, setSearchInput] = useState("");
-  const [jsonData, setJsonData] = useState(Data);
-  const sortData = (e) => {
-    setSortBy(e.target.value);
-    const sortedData = [...jsonData];
-    switch (e.target.value) {
-      case "date":
-        sortedData.sort((a, b) => new Date(b.Date) - new Date(a.Date));
-        break;
-      case "time":
-        sortedData.sort((a, b) => new Date(b.Time) - new Date(a.Time));
-        break;
-      case "name":
-        sortedData.sort((a, b) => a.Name.localeCompare(b.Name));
-        break;
-      default:
-        break;
-    }
-    setJsonData(sortedData);
-  };
 
   const { data, error, isLoading, isFetching } = useQuery(
     "closedComplaints",
@@ -57,6 +34,22 @@ const ClosedIssue = () => {
 
   // console.log(allClosedIssues);
 
+  const [searchInput, setSearchInput] = useState("");
+  const [jsonData, setJsonData] = useState(allClosedIssues);
+  // filter complaints based on title
+  const filterComplaints = (dData, search) => {
+    return dData?.filter((item) => {
+      const searchLowerCase = search.toLowerCase();
+      const title = item.title?.toLowerCase();
+      return title?.includes(searchLowerCase);
+    });
+  };
+
+  useEffect(() => {
+    const filteredData = filterComplaints(allClosedIssues, searchInput);
+    setJsonData(filteredData);
+  }, [searchInput, allClosedIssues]);
+
   if (error) {
     return <div>Something went wrong!</div>;
   }
@@ -65,31 +58,31 @@ const ClosedIssue = () => {
     return <div>Loading...</div>;
   }
 
-  const imgBack =
-    "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703085199/chevron_left_s4usnm.jpg?_s=public-apps";
+  // const imgBack =
+  //   "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703085199/chevron_left_s4usnm.jpg?_s=public-apps";
 
   return (
     <main>
-      <div className={styles.container}>
+      <div className={styles.container} id={styles.paddtop}>
         <div className={styles.SearchBar}>
-          <Link to="/">
+          {/* <Link to="/">
             <img src={imgBack} alt="Back" />
-          </Link>
+          </Link> */}
           <div className={styles.input}>
             <input
               type="text"
-              placeholder="Search Complaint"
+              placeholder="Search Complaint Based on Title"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
           </div>
-          <SortByButton sortBy={sortBy} handleSort={sortData} />
+          {/* <SortByButton sortBy={sortBy} handleSort={sortData} /> */}
         </div>
         <div className={styles.ComplaintCard}>
           <div className={styles.ComplaintCardInner}>
-            {allClosedIssues?.length === 0 && <p>No Closed issues yet</p>}
-            {allClosedIssues?.length > 0 &&
-              allClosedIssues?.map((complaint) => (
+            {jsonData?.length === 0 && <p>No Closed issues yet</p>}
+            {jsonData?.length > 0 &&
+              jsonData?.map((complaint) => (
                 // <ComplaintCardS key={item.key} complaint={item} />
                 <div className={styles.CardContainer} key={complaint?._id}>
                   <div className={styles.Heading}>
