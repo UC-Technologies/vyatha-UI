@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -38,7 +38,7 @@ const ComplaintForm = () => {
   }, [isLoggedIn, navigate, role, profile?.user?.isVerified, profile?.user?.idcard]);
 
   const [formData, setFormData] = useState({
-    category: "",
+    category: "LAN",
     description: "",
     title: "",
   });
@@ -60,7 +60,6 @@ const ComplaintForm = () => {
   function handleDrop(e) {
     // console.log('drop');
     e.preventDefault();
-
     const file = e.dataTransfer.files[0];
 
     if (file) {
@@ -80,7 +79,8 @@ const ComplaintForm = () => {
       toast("Verify Captcha first");
       return;
     }
-
+    setCheck(true);
+    if (!validateForm()) return;
     try {
       await axios
         .post(
@@ -132,36 +132,85 @@ const ComplaintForm = () => {
     }
   };
 
+  const [check, setCheck] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [validTitle, setValidTitle] = useState(false);
+  const [validDesc, setValidDesc] = useState(false);
+
+  const validateTitle = useCallback(() => {
+    const title = document.getElementById("title")?.value;
+    if (title.length === 0) {
+      setValidTitle(false);
+      setErrors((prev) => ({
+        ...prev,
+        title: "Title is required",
+      }));
+    } else setValidTitle(true);
+  }, []);
+
+  const validateDesc = useCallback(() => {
+    const description = document.getElementById("description")?.value;
+    if (description.length === 0) {
+      setValidDesc(false);
+      setErrors((prev) => ({
+        ...prev,
+        desc: "Description is required",
+      }));
+    } else setValidDesc(true);
+  }, []);
+
+  const validateForm = useCallback(() => {
+    validateTitle();
+    validateDesc();
+    return validTitle && validDesc;
+  }, [validTitle, validDesc, validateDesc, validateTitle]);
+
   return (
     <div className={styles.ComplaintForm}>
       <div className={styles.Title}>Complaint form</div>
 
       <div className={styles.CForm}>
         <form className={styles.ComplaintForm}>
-          <div className={styles.form_group}>
+          <div
+            className={`${styles.form_group} ${
+              check && !validTitle ? styles.error : null
+            }`}
+          >
             <input
               type="text"
               id="title"
               value={formData.title}
               name="Title"
-              onChange={handleInput}
+              onChange={(e) => {
+                handleInput(e);
+                validateTitle();
+              }}
               required
             />
-            <label htmlFor="Forwarded">Title of the Issue</label>
+            <label htmlFor="title">Title of the Issue</label>
+            <span>{errors.title}</span>
           </div>
-          <div className={styles.form_group}>
+          <div
+            className={`${styles.form_group} ${
+              check && !validDesc ? styles.error : null
+            }`}
+          >
             <textarea
               type="text"
               id="description"
               value={formData.description}
               name="description"
-              onChange={handleInput}
+              onChange={(e) => {
+                handleInput(e);
+                validateDesc();
+              }}
               autoComplete="off"
               rows="5"
               cols="40"
               required
             />
             <label htmlFor="description">Description of the Issue</label>
+            <span>{errors.desc}</span>
           </div>
           <div className={styles.form_group}>
             <select
