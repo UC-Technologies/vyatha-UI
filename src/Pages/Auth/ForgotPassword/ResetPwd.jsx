@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import axios from "axios";
@@ -11,8 +11,10 @@ const ResetPwd = () => {
   const handleShowPassword = () => setShowPassword(!showPassword);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const password = document.getElementById("password").value;
-    const confirmPassword = document.getElementById("confirmpassword").value;
+    setCheck(true);
+    if (!validateForm()) return;
+    const password = document.getElementById("password")?.value;
+    const confirmPassword = document.getElementById("confpassword")?.value;
     try {
       await axios
         .post(`${import.meta.env.VITE_REACT_APP_API}/resetpassword/${token}`, {
@@ -54,9 +56,61 @@ const ResetPwd = () => {
       }
     } finally {
       document.getElementById("password").value = "";
-      document.getElementById("confirmpassword").value = "";
+      document.getElementById("confpassword").value = "";
     }
   };
+
+  const [check, setCheck] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [validPassword, setValidPassword] = useState(false);
+  const [validConfPassword, setValidConfPassword] = useState(false);
+
+  const validatePassword = useCallback(() => {
+    const password = document.getElementById("password")?.value;
+    if (password.length === 0) {
+      setValidPassword(false);
+      setErrors((prev) => ({
+        ...prev,
+        password: "Password is required",
+      }));
+    } else if (/\s/.test(password)) {
+      setValidPassword(false);
+      setErrors((prev) => ({
+        ...prev,
+        password: "Password must not have whitespace",
+      }));
+    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&-+=()])/.test(password)) {
+      setValidPassword(false);
+      setErrors((prev) => ({
+        ...prev,
+        password: "Include a digit, lower & uppercase letter & special character",
+      }));
+    } else if (password.length < 8) {
+      setValidPassword(false);
+      setErrors((prev) => ({
+        ...prev,
+        password: "Password must be atleast 8 characters",
+      }));
+    } else setValidPassword(true);
+  }, []);
+
+  const validateConfPassword = useCallback(() => {
+    const password = document.getElementById("password")?.value;
+    const cpassword = document.getElementById("confpassword")?.value;
+    if (password !== cpassword) {
+      setValidConfPassword(false);
+      setErrors((prev) => ({
+        ...prev,
+        confpassword: "Passwords don't match",
+      }));
+    } else setValidConfPassword(true);
+  }, []);
+
+  const validateForm = useCallback(() => {
+    validatePassword();
+    validateConfPassword();
+    return validPassword && validConfPassword;
+  }, [validConfPassword, validPassword, validateConfPassword, validatePassword]);
 
   useEffect(() => {
     document.title = "Reset Password | Vyatha";
@@ -75,24 +129,35 @@ const ResetPwd = () => {
       </div>
 
       <div className={styles.form_starts}>
-        <div className={styles.form}>
+        <div
+          className={`${styles.form} ${check && !validPassword ? styles.error : null}`}
+        >
           <input
             type={showPassword ? "text" : "password"}
             placeholder=""
             className={styles.nameinput}
             id="password"
+            onChange={validatePassword}
           />
           <label htmlFor="password">New Password</label>
+          <span>{errors.password}</span>
         </div>
 
-        <div className={styles.form} id={styles.confirmpass}>
+        <div
+          className={`${styles.form} ${
+            check && !validConfPassword ? styles.error : null
+          }`}
+          id={styles.confirmpass}
+        >
           <input
             type="password"
             placeholder=""
             className={styles.nameinput}
-            id="confirmpassword"
+            id="confpassword"
+            onChange={validateConfPassword}
           />
-          <label htmlFor="password">Confirm New Password</label>
+          <label htmlFor="confpassword">Confirm New Password</label>
+          <span>{errors.confpassword}</span>
         </div>
 
         <div className={styles.showpassword__container}>
