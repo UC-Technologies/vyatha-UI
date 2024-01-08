@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { toast } from "sonner";
@@ -15,6 +15,7 @@ const AllComplaintStudent = () => {
   }, []);
 
   const { role } = useParams();
+  const navigate = useNavigate();
   // console.log(role)
 
   const { data, error, isLoading, isFetching } = useQuery("complaints", fetchComplaints, {
@@ -100,6 +101,10 @@ const AllComplaintStudent = () => {
     }
   };
 
+  const handleIssueEdit = (issueId) => {
+    navigate(`/editissue/${issueId}`);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.SearchBar}>
@@ -183,6 +188,16 @@ const AllComplaintStudent = () => {
                       className={styles.closebtn}
                     >
                       Close
+                    </button>
+                  )}
+
+                  {/* Edit issue button only available to the issue author */}
+                  {complaint?.isClosed === false && role === "student" && (
+                    <button
+                      onClick={() => handleIssueEdit(complaint?._id)}
+                      className={styles.closebtn}
+                    >
+                      Edit
                     </button>
                   )}
                 </div>
