@@ -1,9 +1,9 @@
 import React from "react";
+
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import moment from "moment-timezone";
-import { fetchComplaints } from "../../ReactQuery/Fetchers/AllComplaints";
 import styles from "./Status.module.scss";
+import { fetchComplaints } from "../../ReactQuery/Fetchers/AllComplaints";
 
 const StatusOfComplaint = () => {
   const { key } = useParams();
@@ -27,128 +27,129 @@ const StatusOfComplaint = () => {
   //  console.log(complaint);
   //  console.log(key)
   // console.log(complaint.forwardedTo)
-  const parsedData = moment.tz(
-    complaint.IssueCreatedAt,
-    "DD-MM-YYYY h:mma",
-    "Asia/Kolkata"
-  );
+  // var parsedData = moment.tz(complaint.IssueCreatedAt,"DD-MM-YYYY h:mma", "Asia/Kolkata");
 
-  const date = parsedData.format("DD-MM-YYYY");
-  const time = parsedData.format("h:mma");
-  // console.log(time)
+  // var date = parsedData.format("DD-MM-YYYY");
+  // var time = parsedData.format("h:mma")
+  // // console.log(time)
 
-  const parsedData1 = moment.tz(
-    complaint.IssueForwardedAtToSupervisor,
-    "DD-MM-YYYY h:mma",
-    "Asia/Kolkata"
-  );
-  const date1 = parsedData1.format("DD-MM-YYYY");
-  const time1 = parsedData1.format("h:mma");
-  // console.log(time1)
-  // const complaint.forwardedTo="warden"
+  // var parsedData1 = moment.tz(complaint.IssueForwardedAtToSupervisor
+  //   ,"DD-MM-YYYY h:mma", "Asia/Kolkata");
+  // var date1 = parsedData1.format("DD-MM-YYYY");
+  // var time1 = parsedData1.format("h:mma")
+  // // console.log(time1)
+  // // const complaint.forwardedTo="warden"
 
-  // const superStyle = {
-  //   // backgroundColor: complaint.forwardedTo === 'supervisor' ? 'var(--vyatha-main-color-dark)' : '#ffffff' ,width: "1vw", height:"25%",
-  //   backgroundColor: 'var(--vyatha-main-color-dark)',
-  //   width: '1vw',
-  //    height: complaint.forwardedTo === 'supervisor' ? '58%' : complaint.forwardedTo === 'warden' ? '40%' : complaint.forwardedTo === 'dsw' ? '100%' : '34%',
-  //   // height:complaint.forwardedTo === 'supervisor' ? '50%' : complaint.forwardedTo === 'warden' ? '75%' : complaint.forwardedTo === 'dsw' ? '100%' : '25%',
-  // };
+  const date = complaint?.IssueCreatedAt;
+  const timee = complaint?.IssueForwardedAtToSupervisor;
+  // for warden
+  const time2 = complaint?.IssueForwardedToWarden[0]?.time;
+  // for DSW
+  const time3 = complaint?.IssueForwardedToDsw[0]?.time;
 
   return (
-    <div className={styles.MainDiv}>
-      <div className={styles.container}>
-        <div
-          className={`${styles.box} ${styles.circlee} ${styles.circle1}`}
-          style={{ backgroundColor: "#40BDB6" }}
-        >
-          1
+    <div className={styles.container}>
+      <div className={styles.child1}>
+        <div className={styles.child11}>
+          <div className={styles.circle} style={{ backgroundColor: "#40BDB6" }}>
+            1
+          </div>
+          <div
+            className={styles.bar}
+            style={{
+              backgroundColor:
+                complaint.forwardedTo === "supervisor" ||
+                complaint.forwardedTo === "dsw" ||
+                complaint.forwardedTo === "warden"
+                  ? "#40BDB6"
+                  : "white",
+            }}
+          ></div>
         </div>
-        <div
-          className={`${styles.box} ${styles.rectangle} ${styles.rectangle1}`}
-          style={{
-            backgroundColor:
-              complaint.forwardedTo === "supervisor" ||
-              complaint.forwardedTo === "dsw" ||
-              complaint.forwardedTo === "warden"
-                ? "#40BDB6"
-                : "white",
-          }}
-        ></div>
-        <div
-          className={`${styles.box} ${styles.circlee} ${styles.circle2} `}
-          style={{
-            backgroundColor:
-              complaint.forwardedTo === "supervisor" ||
-              complaint.forwardedTo === "dsw" ||
-              complaint.forwardedTo === "warden"
-                ? "#40BDB6"
-                : "white",
-          }}
-        >
-          2
-        </div>
-        <div
-          className={`${styles.box} ${styles.rectangle} ${styles.rectangle2}`}
-          style={{
-            backgroundColor:
-              complaint.forwardedTo === "dsw" || complaint.forwardedTo === "warden"
-                ? "#40BDB6"
-                : "white",
-          }}
-        ></div>
-        <div
-          className={`${styles.box} ${styles.circlee} ${styles.circle3}`}
-          style={{
-            backgroundColor:
-              complaint.forwardedTo === "dsw" || complaint.forwardedTo === "warden"
-                ? "#40BDB6"
-                : "white",
-          }}
-        >
-          3
-        </div>
-        <div
-          className={`${styles.box} ${styles.rectangle} ${styles.rectangle3}`}
-          style={{
-            backgroundColor: complaint.forwardedTo === "dsw" ? "#40BDB6" : "white",
-          }}
-        ></div>
-        <div
-          className={`${styles.box} ${styles.circlee} ${styles.circle4}`}
-          style={{
-            backgroundColor: complaint.forwardedTo === "dsw" ? "#40BDB6" : "white",
-          }}
-        >
-          4
+        <div className={styles.child12}>
+          <div className={styles.text121}>Registered</div>
+          <div className={styles.text2}>delivered: {date}</div>
         </div>
       </div>
-
-      <div className={styles.status}>
-        <div className={styles.Registered}>
-          <h1>Registered</h1>
-          <h2 className="">
-            {time} <br />
-            date <span className="gap">- {date}</span>
-          </h2>
+      <div className={styles.child2}>
+        <div className={styles.child21}>
+          <div
+            className={styles.circle}
+            style={{
+              backgroundColor:
+                complaint.forwardedTo === "supervisor" ||
+                complaint.forwardedTo === "dsw" ||
+                complaint.forwardedTo === "warden"
+                  ? "#40BDB6"
+                  : "white",
+            }}
+          >
+            2
+          </div>
+          <div
+            className={styles.bar}
+            style={{
+              backgroundColor:
+                complaint.forwardedTo === "dsw" || complaint.forwardedTo === "warden"
+                  ? "#40BDB6"
+                  : "white",
+            }}
+          ></div>
         </div>
-
-        <div className={styles.Supervisor}>
-          <h1>Supervisor</h1>
-          <h2 className="hhmm">
-            Delivered{" "}
-            <span className="gap1" style={{ marginLeft: ".5rem" }}>
-              {time1} day - {date1}
-            </span>
-          </h2>
+        <div className={styles.child22}>
+          <div className={styles.text1}>Supervisor</div>
+          <div className={styles.text2}>delivered: {timee}</div>
         </div>
-
-        <div className={styles.Warden}>
-          <h1>Warden</h1>
+      </div>
+      <div className={styles.child3}>
+        <div className={styles.child31}>
+          <div
+            className={styles.circle}
+            style={{
+              backgroundColor:
+                complaint.forwardedTo === "dsw" || complaint.forwardedTo === "warden"
+                  ? "#40BDB6"
+                  : "white",
+            }}
+          >
+            3
+          </div>
+          <div
+            className={styles.bar}
+            style={{
+              backgroundColor: complaint.forwardedTo === "dsw" ? "#40BDB6" : "white",
+            }}
+          ></div>
         </div>
-
-        <div className={styles.Dean}>
-          <h1>Dean</h1>
+        <div className={styles.child32}>
+          <div className={styles.text1}>Warden</div>
+          <div className={styles.text2}>delivered: {time2}</div>
+        </div>
+      </div>
+      <div className={styles.child4}>
+        <div className={styles.child41}>
+          <div
+            className={styles.lastBar}
+            style={{
+              backgroundColor: complaint.forwardedTo === "dsw" ? "#40BDB6" : "white",
+            }}
+          ></div>
+          <div
+            className={styles.circle}
+            style={{
+              backgroundColor: complaint.forwardedTo === "dsw" ? "#40BDB6" : "white",
+            }}
+          >
+            4
+          </div>
+          <div
+            className={styles.bar}
+            style={{ background: "var(--vyatha-background-1)" }}
+          ></div>
+        </div>
+        <div className={styles.child42}>
+          <div className={styles.text1}>Dean</div>
+          <div className={styles.text2}>delivered: {time3}</div>
         </div>
       </div>
     </div>
