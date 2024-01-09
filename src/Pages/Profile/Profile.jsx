@@ -1,29 +1,140 @@
 import { React, useContext, useEffect } from "react";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "sonner";
+import Cookies from "js-cookie";
 import { UserContext } from "../../Context/Provider";
 import styles from "./Profile.module.scss";
+import { fetchProfile } from "../../Components/ReactQuery/Fetchers/User";
 
 const Profile = () => {
   useEffect(() => {
     document.title = "Profile | Vyatha";
   }, []);
+
   const navigate = useNavigate();
-
-  const handleProfileEdit = () => {
-    navigate("/profile/edit");
-  };
-
-  const handleSignOut = () => {
-    navigate("/auth");
-  };
-
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, role } = useContext(UserContext);
+  const { data, error, isLoading, isFetching } = useQuery("profile", fetchProfile, {
+    refetchOnWindowFocus: "always",
+  });
 
   useEffect(() => {
     if (isLoggedIn === false) {
       navigate("/auth");
     }
   }, [isLoggedIn, navigate]);
+
+  if (error) {
+    return <div>Something went wrong!</div>;
+  }
+
+  if (isLoading || isFetching) {
+    return <div>Loading...</div>;
+  }
+
+  const myProfile = data?.user;
+
+  const handleProfileEdit = () => {
+    navigate("/profile/edit");
+  };
+
+  const handleSignOut = () => {
+    navigate("/logout");
+  };
+
+  const token = Cookies.get("authToken");
+  const handleVerify = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios
+        .post(
+          `${import.meta.env.VITE_REACT_APP_API}/sendmagiclink`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.message === "magic link sent successfully") {
+            toast("magic link sent successfully");
+          }
+        });
+    } catch (errr) {
+      if (errr.response) {
+        switch (errr.response.data.message) {
+          case "Email already verified":
+            toast("Email already verified");
+            break;
+          case "Error in generating token":
+            toast("Error in generating token");
+            break;
+          case "Internal Server Error":
+            toast("Internal Server Error");
+            break;
+          default:
+            toast("something went wrong");
+            break;
+        }
+
+        switch (errr.response.data.error) {
+          case "Unauthorized":
+            toast("Unauthorized");
+            break;
+          case "User not found":
+            toast("User not found");
+            break;
+          default:
+            toast("something went wrong");
+            break;
+        }
+      }
+    }
+  };
+
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    try {
+      await axios
+        .put(
+          `${import.meta.env.VITE_REACT_APP_API}/studentdeleteaccount`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.message === "Account deletion scheduled successfully") {
+            toast("Account deletion scheduled successfully");
+            Cookies.remove("authToken");
+            navigate("/");
+            window.location.reload();
+          }
+        });
+    } catch (err) {
+      if (err.response) {
+        switch (err.response.data.error) {
+          case "Account already scheduled for deletion":
+            toast("Account already scheduled for deletion");
+            break;
+          case "only role with student are allowed to delete their account":
+            toast("only role with student are allowed to delete their account");
+            break;
+          case "Something went wrong":
+            toast("Something went wrong");
+            break;
+          default:
+            toast("something went wrong");
+            break;
+        }
+      }
+    }
+  };
 
   return (
     <div>
@@ -35,33 +146,42 @@ const Profile = () => {
           <div className={styles.Profile_details}>
             <div className={styles.profile_image}>
               <div className={styles.image}>
-                <img
-                  src="https://imgv3.fotor.com/images/gallery/Cartoon-Male-Headshot.jpg"
-                  alt="profileimage"
-                />
+                <img src={myProfile?.profilepic} alt="profileimage" />
               </div>
-              <div className={styles.profile}>
-                <p>Student Profile</p>
-              </div>
+              <div className={styles.profile}>{myProfile?.name} Profile</div>
             </div>
             <div className={styles.Student_details}>
               <div className={styles.heading}>Profile Details</div>
               <div className={styles.details_section}>
                 <div className={styles.details_about}>
                   <div className={styles.right_section}>Name</div>
-                  <div className={styles.right_section}>Scholar ID</div>
+                  {role === "student" && (
+                    <div className={styles.right_section}>Scholar ID</div>
+                  )}
                   <div className={styles.right_section}>Email</div>
-                  <div className={styles.right_section}>Hostel</div>
-                  <div className={styles.right_section}>Room No.</div>
+                  {role !== "dsw" && <div className={styles.right_section}>Hostel</div>}
+                  {role === "student" && (
+                    <div className={styles.right_section}>Room No.</div>
+                  )}
                   <div className={styles.right_section}>Phone</div>
                 </div>
+
                 <div className={styles.details_info}>
-                  <div className={styles.left_section}>Jassi Laskar</div>
-                  <div className={styles.left_section}>2211086</div>
-                  <div className={styles.left_section}>jassilaskar27@gmail.com</div>
-                  <div className={styles.left_section}>GH1</div>
-                  <div className={styles.left_section}>320</div>
-                  <div className={styles.left_section}>600********</div>
+                  <div className={styles.left_section}>{myProfile?.name}</div>
+                  {role === "student" && (
+                    <div className={styles.left_section}>{myProfile?.scholarID}</div>
+                  )}
+
+                  <div className={styles.left_section}>{myProfile?.email}</div>
+
+                  {role !== "dsw" && (
+                    <div className={styles.left_section}>{myProfile?.hostel}</div>
+                  )}
+                  {role === "student" && (
+                    <div className={styles.left_section}>{myProfile?.room}</div>
+                  )}
+
+                  <div className={styles.left_section}>{myProfile?.phone}</div>
                 </div>
               </div>
             </div>
@@ -87,6 +207,31 @@ const Profile = () => {
                 <div>Sign out</div>
               </div>
             </button>
+
+            <button
+              style={{ display: myProfile?.isVerified === true ? "none" : "block" }}
+              type="button"
+              aria-label="Signout"
+              className={styles.Signout}
+              onClick={handleVerify}
+            >
+              <div>
+                <div>Send Email verification link</div>
+              </div>
+            </button>
+
+            {myProfile?.deleteAccount === "no" && (
+              <button
+                type="button"
+                aria-label="Signout"
+                onClick={handleDelete}
+                className={styles.Signout}
+              >
+                <div>
+                  <div>Delete Account</div>
+                </div>
+              </button>
+            )}
           </div>
         </div>
       </div>

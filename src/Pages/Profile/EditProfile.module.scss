@@ -1,17 +1,17 @@
 .container {
-  width: 100vw;
+  width: 100%;
   height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #bce8e6;
-
   .main {
     background-color: white;
     min-width: 16.5rem;
     width: 41.5rem;
 
     .Profileheading {
+      margin-top: 4rem;
       width: 100%;
       background-image: linear-gradient(to left, #40bdb6, #347ec5);
       height: 6vh;
@@ -27,95 +27,105 @@
       }
     }
 
-    .profile_image {
-      height: 20vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 1.2rem;
+    .Profile_details {
+      .profile_image {
+        margin-top: 3rem;
+        height: 20vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 5rem;
 
-      img {
-        width: 5rem;
-        height: 5rem;
-        flex-shrink: 0;
-        border-radius: 50%;
-      }
-
-      .changeprofile {
-        color: #000;
-        text-align: center;
-        font-family: Lato;
-        font-style: normal;
-        font-weight: 400;
-        letter-spacing: 0.5px;
-
-        label {
-          background-color: white;
-          border: none;
+        img {
+          width: 6rem;
+          height: 6rem;
+          flex-shrink: 0;
+          border-radius: 50%;
         }
 
-        input {
-          display: none;
+        .changeprofile {
+          display: flex;
+          text-align: center;
+          justify-content: center;
+          align-items: center;
         }
-      }
-    }
 
-    .details_section {
-      width: 100vw;
-      height: 40vh;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+        // .changeprofile {
+        //   color: #000;
+        //   text-align: center;
+        //   font-family: Lato;
+        //   font-style: normal;
+        //   font-weight: 400;
+        //   letter-spacing: 0.5px;
 
-      .details_about {
-        color: #24817b;
-        font-family: Lato;
-        font-size: 0.7rem;
-        font-style: normal;
-        font-weight: 400;
-        width: 40vw;
+        //   label {
+        //     background-color: white;
+        //     border: none;
+        //   }
 
-        .right_section {
-          margin: 1.2rem 0 1rem 1rem;
-          font-size: 1rem;
-          height: 5.5vh;
-        }
+        //   input {
+        //     display: none;
+        //   }
+        // }
       }
 
-      .details_fill {
-        width: 60vw;
-        color: #6c6c6c;
-        font-family: Lato;
-        font-size: 1.1rem;
-        font-style: normal;
-        font-weight: 400;
+      .details_section {
+        width: 100%;
+        height: 40vh;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
 
-        .left_section {
-          margin: 1rem 1rem 1.2rem 0;
-          height: 5.5vh;
+        .details_about {
+          color: #24817b;
+          font-family: Lato;
+          font-size: 0.9rem;
+          font-style: normal;
+          font-weight: 400;
+          width: 40vw;
+
+          .right_section {
+            margin: 1.2rem 0 1rem 1rem;
+            font-size: 1rem;
+            height: 5.5vh;
+          }
+        }
+
+        .details_fill {
+          width: 60vw;
+          color: #6c6c6c;
+          font-family: Lato;
+          font-size: 1.1rem;
+          font-style: normal;
+          font-weight: 400;
+
+          .left_section {
+            margin: 1rem 1rem 1.2rem 0;
+            height: 5.5vh;
+
+            input {
+              border: 1px solid #b6b3b3;
+              width: 50vw;
+              height: 4.5vh;
+            }
+
+            .hostel_options {
+              border: 1px solid #b6b3b3;
+              width: 50vw;
+              height: 4.5vh;
+              border-radius: 5px;
+              background: rgba(240, 240, 240, 0.9);
+            }
+          }
 
           input {
-            border: 1px solid #b6b3b3;
-            width: 50vw;
-            height: 4.6vh;
-          }
-
-          .hostel_options {
-            border: 1px solid #b6b3b3;
-            width: 50vw;
-            height: 4.6vh;
             border-radius: 5px;
             background: rgba(240, 240, 240, 0.9);
-          }
-        }
 
-        input {
-          border-radius: 5px;
-          background: rgba(240, 240, 240, 0.9);
-
-          :hover {
-            cursor: pointer;
+            :hover {
+              cursor: pointer;
+            }
           }
         }
       }
@@ -160,16 +170,16 @@
   }
 }
 
-@media screen and (min-width: 660px) {
+@media screen and (min-width: 760px) {
   .container {
-    width: 100vw;
+    width: 100%;
     height: 70%;
     display: flex;
     align-items: center;
     justify-content: center;
 
     .main {
-      width: 100vw;
+      width: 100%;
       height: 60%;
       background-color: #bce8e6;
       display: flex;
@@ -179,6 +189,7 @@
       // box-shadow: 60px 110px 110px  rgb(162, 156, 156);
 
       .Profileheading {
+        margin-top: 4rem;
         width: 100%;
         background-image: linear-gradient(to left, #40bdb6, #347ec5);
         height: 6vh;
@@ -194,70 +205,103 @@
         }
       }
 
-      .profile_image {
-        margin-top: 2.5rem;
-        background-color: #fff;
-        width: 70vw;
-        height: 20vh;
-        margin-bottom: 0;
-      }
-
-      .details_section {
-        width: 70vw;
-        height: 60%;
+      .Profile_details {
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
+        width: 80vw;
         background-color: #fff;
+        justify-content: center;
+        align-items: center;
+        height: 60vh;
+        // box-shadow: 0px 5px 5px 0px #000000;
+        margin-top: 3rem;
 
-        .details_about {
-          color: #24817b;
-          font-family: Lato;
-          font-size: 0.65rem;
-          font-style: normal;
-          font-weight: 400;
-          width: 40vw;
+        .profile_image {
+          // margin-left: 5rem;
+          margin-top: 3rem;
+          display: flex;
+          background-color: #fff;
+          // justify-content: center;
+          // align-items: center;
+          width: 30%;
+          // height: 100%;
 
-          .right_section {
-            margin: 1.2rem 0 1rem 1rem;
-            font-size: 1rem;
-            height: 5.5vh;
+          .profile_main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-right: 6.5rem;
+            padding-bottom: 1rem;
+
+            img {
+              width: 8rem;
+              height: 8rem;
+            }
           }
         }
 
-        .details_fill {
-          width: 60vw;
-          color: #6c6c6c;
-          font-family: Lato;
-          font-size: 1rem;
-          font-style: normal;
-          font-weight: 400;
+        .details_section {
+          width: 70%;
+          height: 90%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          background-color: #fff;
 
-          .left_section {
-            margin: 1rem 1rem 1.2rem 0;
-            height: 5.5vh;
+          .details_about {
+            height: 100%;
+            color: #24817b;
+            font-family: Lato;
+            font-size: 0.65rem;
+            font-style: normal;
+            font-weight: 400;
+            // width: 40%;
 
-            input {
-              border: 1px solid #b6b3b3;
-              width: 50vw;
-              height: 4.6vh;
-            }
-
-            .hostel_options {
-              border: 1px solid #b6b3b3;
-              width: 50vw;
-              height: 4.6vh;
-              border-radius: 5px;
-              background: rgba(240, 240, 240, 0.9);
+            .right_section {
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              margin: 1.2rem 0 1rem 1rem;
+              font-size: 1.3rem;
+              height: 5.5vh;
             }
           }
 
-          input {
-            border-radius: 5px;
-            background: rgba(240, 240, 240, 0.9);
+          .details_fill {
+            width: 80%;
+            color: #6c6c6c;
+            font-family: Lato;
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 400;
+            height: 100%;
 
-            :hover {
-              cursor: pointer;
+            .left_section {
+              width: 100%;
+              // margin: 1rem 1rem 1.2rem 0;
+              height: 5.5vh;
+
+              input {
+                border: 1px solid #b6b3b3;
+                width: 190%;
+                height: 5.5vh;
+              }
+
+              .hostel_options {
+                border: 1px solid #b6b3b3;
+                width: 190%;
+                height: 5vh;
+                border-radius: 5px;
+                background: rgba(240, 240, 240, 0.9);
+              }
+            }
+
+            input {
+              border-radius: 5px;
+              background: rgba(240, 240, 240, 0.9);
+
+              :hover {
+                cursor: pointer;
+              }
             }
           }
         }
@@ -265,12 +309,16 @@
 
       .button_section {
         margin-bottom: 1rem;
-        height: 6vh;
+        height: 10vh;
+        padding-bottom: 2vw;
+        padding-top: 2vw;
         display: flex;
         background-color: #fff;
-        width: 70vw;
+        // box-shadow: 0px 5px 5px 0px #000000;
+        width: 80vw;
         justify-content: space-evenly;
         flex-direction: row;
+        margin-bottom: 3rem;
 
         button {
           width: 2.8rem;

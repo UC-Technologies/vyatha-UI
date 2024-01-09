@@ -1,18 +1,61 @@
 @media screen and (max-width: 599.99px) {
+  #solvedAtDetails {
+    font-size: 7vw;
+  }
+
+  #mainComment {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 3.5vw 0;
+  }
+
+  #addcommentbtn {
+    background-color: #a4e5e1;
+    border: none;
+    outline: none;
+    padding: 2vw 4vw;
+    cursor: pointer;
+    font-size: 2.5vw;
+    margin-bottom: 5vw;
+    margin-top: 5vw;
+    border: 1px solid #a4e5e1;
+    border-radius: 5px;
+  }
+
+  #flex_d {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .Container {
     display: flex;
     flex-direction: column;
     gap: 1vh;
-    .Title {
-      position: relative;
+    margin-top: 4rem;
+    .title {
+      width: 100%;
+      // position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       background: var(--vyatha4-gradient-1);
       box-shadow: var(--vyatha4-shadow-1);
-      color: #fff;
-      font-size: 4vw;
-      height: 6vh;
+      padding-top: 2vw;
+      padding-bottom: 2vw;
+      h1 {
+        color: #fff;
+        font-size: clamp(14px, 3vw, 24px);
+        font-weight: 300;
+        font-size: 4vw;
+      }
+      a {
+        img {
+          display: none;
+        }
+      }
     }
     .Identity {
       display: flex;
@@ -60,10 +103,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 40vw;
+      height: 70vw;
+      margin-bottom: 10vw;
       img {
         width: 90%;
-        height: 80%;
+        height: 100%;
+        object-fit: cover;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -72,7 +117,6 @@
       }
     }
     .Progress {
-      height: 40vw;
       background: var(--vyatha-background-1);
     }
 
@@ -182,21 +226,66 @@
     }
   }
 }
+
+// --------------------------------------------------------------------LargeScreen------------------------------------------------------------------------------------------
 @media screen and (min-width: 600px) {
+  #solvedAtDetails {
+    font-size: 2vw;
+    font-style: italic;
+    margin: 1vw 0;
+  }
+
+  #mainComment {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.5vw 0;
+  }
+
+  #addcommentbtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #a4e5e1;
+    padding: 1vw 2vw;
+    font-weight: 500;
+    text-align: center;
+    color: black;
+    border: 1px solid #a4e5e1;
+    border-radius: 1vh;
+    cursor: pointer;
+    font-size: 1.25vw;
+    margin-bottom: 2.5vw;
+  }
+
   .Container {
     display: flex;
     flex-direction: column;
     gap: 1vh;
-    .Title {
-      position: relative;
+    .title {
+      width: 100%;
+      // position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       background: var(--vyatha4-gradient-1);
       box-shadow: var(--vyatha4-shadow-1);
-      color: #fff;
-      font-size: 4vw;
-      height: 6vh;
+      // height: 6vh;
+      padding-top: 0.5vw;
+      padding-bottom: 0.5vw;
+      h1 {
+        color: #fff;
+        font-size: clamp(16px, 4vw, 24px);
+        font-weight: 300;
+        // margin-right: 25vw;
+        font-size: 1.75vw;
+      }
+      a {
+        img {
+          zoom: 50%;
+        }
+      }
     }
     .Identity {
       display: flex;
@@ -257,6 +346,8 @@
     }
     .Progress {
       background: var(--vyatha-background-1);
+      height: 20vw;
+      width: 25vw;
     }
 
     .Comments {
@@ -311,8 +402,9 @@
           align-items: center;
           justify-content: center;
           position: relative;
+          min-width: 200px;
           width: 40vw;
-          height: 4vw;
+          height: 6vh;
           background-color: white;
           border-radius: 2vw;
           border: 1px solid gray;
@@ -323,13 +415,19 @@
       .TapToSelect {
         font-size: clamp(12px, 3vw, 24px);
         font-weight: 400;
-        height: 6vw;
+        // margin-top: 4vw;
         select {
           text-align: center;
           border-radius: 2vw;
+          min-width: 200px;
           width: 40vw;
-          height: 8vw;
+          // height: 6vh;
           border: 1px solid gray;
+        }
+        p {
+          font-size: 1vw;
+          margin: 1vw;
+          color: red;
         }
       }
     }
@@ -355,25 +453,27 @@
       }
     }
   }
-}
-@media screen and (min-width: 600px) {
+
+  // ------------------------------------------------------
   .Container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 1vh;
-    .Title {
-      position: relative;
+    .title {
+      // position: relative;
       display: flex;
       align-items: center;
-      width: 100vw;
+      width: 100%;
       justify-content: center;
       background: var(--vyatha4-gradient-1);
       box-shadow: var(--vyatha4-shadow-1);
       color: #fff;
       font-size: 2.75vw;
-      height: 6vh;
+      // height: 6vh;
+      padding-top: 0.5vw;
+      padding-bottom: 0.5vw;
     }
     .Identity {
       max-width: 80vw;
@@ -381,6 +481,7 @@
       flex-direction: row;
       justify-content: center;
       box-shadow: var(--vyatha4-shadow-2);
+      margin-top: 4vw;
       .Info {
         display: flex;
         flex-direction: column;
@@ -442,7 +543,7 @@
         }
       }
       .Progress {
-        border-radius: 2vw;
+        // border-radius: 2vw;
         max-height: 625px;
         width: 44vw;
         background: var(--vyatha-background-1);
@@ -531,12 +632,15 @@
       font-weight: 400;
       padding: 0 1vh;
       select {
-        width: 80vw;
-        max-width: 600px;
-        height: 6vw;
+        min-width: 200px;
+        width: 40vw;
+        height: 6vh;
         border: 2px solid gray;
         border-radius: 2vw;
         option {
+          min-width: 200px;
+          width: 40vw;
+          height: 6vh;
           text-align: center;
           font-size: clamp(12px, 3vw, 24px);
           // display: flex;

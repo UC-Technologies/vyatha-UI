@@ -1,0 +1,10 @@
+.top {
+  min-height: 100vh;
+  padding-top: 8vw;
+}
+
+@media (max-width: 660px) {
+  .top {
+    padding-top: 30vw;
+  }
+}

@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import Lottie from "lottie-react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Auth.module.scss";
 import animationData from "../../Assets/Auth/logo.json";
+import { UserContext } from "../../Context/Provider";
 
 const Auth = () => {
   useEffect(() => {
@@ -10,6 +11,12 @@ const Auth = () => {
   }, []);
 
   const navigate = useNavigate();
+  const { isLoggedIn } = useContext(UserContext);
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      navigate("/dashboard");
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleAdmin = () => {
     navigate("/auth/signup");

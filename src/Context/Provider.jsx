@@ -7,26 +7,38 @@ const UserContext = createContext();
 
 const ContextProvider = ({ children }) => {
   const [profile, setProfile] = useState([]);
+  const [role, setRole] = useState("student");
   const [allComplaints, setAllComplaints] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // client should set the cookie like this in login component
-  // Cookies.set('authToken', token);
+  const [fetching, setFetching] = useState(true);
+  const [captchaVerified, setCaptchaVerified] = useState(false);
 
   useEffect(() => {
     const token = Cookies.get("authToken");
-    if (token) {
+    setFetching(false);
+    if (fetching === true && token) {
       setIsLoggedIn(true);
     }
+  }, [fetching]);
+
+  useEffect(() => {
+    const token = Cookies.get("authToken");
+    const tokenConfig = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
     const fetchData = async () => {
       try {
         const [profileRes, allComplaintRes] = await Promise.all([
-          axios.get(`${import.meta.env.VITE_REACT_APP_API}/dashboard`),
-          axios.get(`${import.meta.env.VITE_REACT_APP_API}/allcomplaints`),
+          axios.get(`${import.meta.env.VITE_REACT_APP_API}/dashboard`, tokenConfig),
+          axios.get(`${import.meta.env.VITE_REACT_APP_API}/fetchissues`, tokenConfig),
         ]);
         setProfile(profileRes.data);
         setAllComplaints(allComplaintRes.data);
+        setRole(profileRes.data.user.role);
+        // setDataFetched(true);
       } catch (err) {
         console.error(err);
       }
@@ -35,10 +47,21 @@ const ContextProvider = ({ children }) => {
   }, []);
 
   const contextValue = useMemo(
-    () => ({ profile, allComplaints, isLoggedIn }),
-    [profile, allComplaints, isLoggedIn]
+    () => ({
+      profile,
+      allComplaints,
+      isLoggedIn,
+      role,
+      captchaVerified,
+      setCaptchaVerified,
+    }),
+    [profile, allComplaints, isLoggedIn, role, captchaVerified]
   );
 
+  if (fetching) {
+    return null;
+  }
+  // console.log(isLoggedIn)
   return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;
 };
 
