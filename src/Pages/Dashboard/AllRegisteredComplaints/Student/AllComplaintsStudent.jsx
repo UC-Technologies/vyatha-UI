@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import Cookies from "js-cookie";
 import styles from "./ComplaintDashboardS.module.scss";
 import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
+import { UserContext } from "../../../../Context/Provider";
 
 const AllComplaintStudent = () => {
   useEffect(() => {
@@ -16,10 +17,13 @@ const AllComplaintStudent = () => {
 
   const { role } = useParams();
   const navigate = useNavigate();
-  // console.log(role)
+  const { isLoggedIn } = useContext(UserContext);
 
-  const { data, error, isLoading, isFetching } = useQuery("complaints", fetchComplaints, {
+  const { data, error, isLoading } = useQuery("complaints", fetchComplaints, {
     refetchOnWindowFocus: "always",
+    enabled: isLoggedIn,
+    refetchInterval: 60000,
+    refetchOnMount: true,
   });
 
   const fetchedIssues =
@@ -32,7 +36,6 @@ const AllComplaintStudent = () => {
       : role === "dsw"
       ? data?.sortedIssues
       : null;
-  // console.log(fetchedIssues)
 
   const [jsonData, setJsonData] = useState(fetchedIssues);
   const [searchInput, setSearchInput] = useState("");
@@ -57,7 +60,7 @@ const AllComplaintStudent = () => {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 

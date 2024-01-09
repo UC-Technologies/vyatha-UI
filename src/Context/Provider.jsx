@@ -28,23 +28,24 @@ const ContextProvider = ({ children }) => {
         Authorization: `Bearer ${token}`,
       },
     };
-
-    const fetchData = async () => {
-      try {
-        const [profileRes, allComplaintRes] = await Promise.all([
-          axios.get(`${import.meta.env.VITE_REACT_APP_API}/dashboard`, tokenConfig),
-          axios.get(`${import.meta.env.VITE_REACT_APP_API}/fetchissues`, tokenConfig),
-        ]);
-        setProfile(profileRes.data);
-        setAllComplaints(allComplaintRes.data);
-        setRole(profileRes.data.user.role);
-        // setDataFetched(true);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchData();
-  }, []);
+    if (isLoggedIn === true) {
+      const fetchData = async () => {
+        try {
+          const [profileRes, allComplaintRes] = await Promise.all([
+            axios.get(`${import.meta.env.VITE_REACT_APP_API}/dashboard`, tokenConfig),
+            axios.get(`${import.meta.env.VITE_REACT_APP_API}/fetchissues`, tokenConfig),
+          ]);
+          setProfile(profileRes.data);
+          setAllComplaints(allComplaintRes.data);
+          setRole(profileRes.data.user.role);
+          // setDataFetched(true);
+        } catch (err) {
+          console.error(err);
+        }
+      };
+      fetchData();
+    }
+  }, [isLoggedIn]);
 
   const contextValue = useMemo(
     () => ({

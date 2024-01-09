@@ -17,7 +17,9 @@ const EditIssue = () => {
   const issueId = issueID;
 
   const navigate = useNavigate();
-  const { isLoggedIn, role, profile, captchaVerified } = useContext(UserContext);
+  const { isLoggedIn, role, profile, captchaVerified, setCaptchaVerified } =
+    useContext(UserContext);
+  const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
     if (isLoggedIn === false) {
       navigate("/auth/login");
@@ -39,7 +41,7 @@ const EditIssue = () => {
   }, [isLoggedIn, navigate, role, profile?.user?.isVerified, profile?.user?.idcard]);
 
   // filling the inputs using the fetched data
-  const { data, isLoading, isFetching } = useQuery(
+  const { data, isLoading } = useQuery(
     "oneIssue",
     () => fetchIndividualIssue({ issueId }),
     { refetchOnWindowFocus: "always" }
@@ -52,10 +54,21 @@ const EditIssue = () => {
   const issueData = data?.issue;
 
   const [formData, setFormData] = useState({
-    category: issueData?.category,
-    description: issueData?.description,
-    title: issueData?.title,
+    category: "",
+    description: "",
+    title: "",
   });
+
+  useEffect(() => {
+    if (issueData) {
+      setFormData({
+        category: issueData.category,
+        description: issueData.description,
+        title: issueData.title,
+      });
+      setPhoto(issueData.photo);
+    }
+  }, [issueData]);
 
   const [photo, setPhoto] = useState("");
   const handleImgChange = (base64) => {
@@ -96,9 +109,10 @@ const EditIssue = () => {
     }
     setCheck(true);
     if (!validateForm()) return;
+    setSubmitting(true);
     try {
       await axios
-        .post(
+        .put(
           `${import.meta.env.VITE_REACT_APP_API}/editissue`,
           {
             description: formData.description,
@@ -117,6 +131,7 @@ const EditIssue = () => {
           if (res.data.message === "Issue updated successfully") {
             toast("Complaint updated successfully");
             navigate("/dashboard");
+            window.location.reload();
             setFormData({
               category: "",
               description: "",
@@ -126,6 +141,7 @@ const EditIssue = () => {
           }
         });
     } catch (err) {
+      setCaptchaVerified(false);
       if (err.response) {
         switch (err.response.data.error) {
           case "Please edit atleast one filled":
@@ -146,11 +162,23 @@ const EditIssue = () => {
           case "Internal Server Error":
             toast("Internal Server Error");
             break;
+          case "Issue is closed, can't edit":
+            toast("Issue is closed, can't edit");
+            break;
+          case "Issue is solved, can't edit":
+            toast("Issue is solved, can't edit");
+            break;
+          case "no changes made":
+            toast("please make some changes to edit");
+            break;
           default:
             toast("Something went wrong");
+            console.error(err.response.data.error);
             break;
         }
       }
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -187,9 +215,8 @@ const EditIssue = () => {
     return validTitle && validDesc;
   }, [validTitle, validDesc, validateDesc, validateTitle]);
 
-  console.log(formData);
   if (!issueData) return null;
-  if (isLoading || isFetching) return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div className={styles.ComplaintForm}>
       <div className={styles.Title}>{data?.issue?.title}</div>
@@ -312,8 +339,16 @@ const EditIssue = () => {
           <div>{captchaVerified === false && <Captcha />}</div>
 
           <div style={{ marginTop: "2vw" }} className={styles.captcha}>
-            <button onClick={handleIssueSubmit} type="submit">
-              Submit
+            <button
+              disabled={submitting}
+              style={{
+                cursor: submitting ? "not-allowed" : "pointer",
+                opacity: submitting ? "0.5" : "1",
+              }}
+              onClick={handleIssueSubmit}
+              type="submit"
+            >
+              {submitting ? "Submitting..." : "Submit"}
             </button>
           </div>
         </form>

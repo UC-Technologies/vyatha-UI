@@ -17,6 +17,7 @@ const ComplaintForm = () => {
 
   const navigate = useNavigate();
   const { isLoggedIn, role, profile, captchaVerified } = useContext(UserContext);
+  const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
     if (isLoggedIn === false) {
       navigate("/auth/login");
@@ -81,6 +82,7 @@ const ComplaintForm = () => {
     }
     setCheck(true);
     if (!validateForm()) return;
+    setSubmitting(true);
     try {
       await axios
         .post(
@@ -129,6 +131,8 @@ const ComplaintForm = () => {
             break;
         }
       }
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -287,8 +291,17 @@ const ComplaintForm = () => {
           <div>{captchaVerified === false && <Captcha />}</div>
 
           <div style={{ marginTop: "2vw" }} className={styles.captcha}>
-            <button onClick={handleIssueSubmit} type="submit">
-              Submit
+            <button
+              disabled={submitting}
+              style={{
+                cursor: submitting ? "not-allowed" : "pointer",
+                opacity: submitting ? "0.5" : "1",
+                marginTop: "2vw",
+              }}
+              onClick={handleIssueSubmit}
+              type="submit"
+            >
+              {submitting ? "Submitting..." : "Submit"}
             </button>
           </div>
         </form>

@@ -1,13 +1,23 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import Styles from "./Dashboard.module.scss";
 import { fetchComplaints } from "../ReactQuery/Fetchers/AllComplaints";
+import { UserContext } from "../../Context/Provider";
 // import { UserContext } from "../../Context/Provider";
 
 export const DashBoardHome = ({ role }) => {
-  // const { profile, isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn } = useContext(UserContext);
+  const { data, error, isLoading } = useQuery("complaints", fetchComplaints, {
+    refetchOnWindowFocus: "always",
+    enabled: isLoggedIn,
+    refetchInterval: 60000,
+    refetchOnMount: true,
+    refetchIntervalInBackground: true,
+    retry: false,
+    retryDelay: false,
+  });
 
   // console.log(isLoggedInRef.current)
   const img1 =
@@ -60,14 +70,11 @@ export const DashBoardHome = ({ role }) => {
     };
   }, [visible]);
 
-  const { data, error, isLoading, isFetching } = useQuery("complaints", fetchComplaints, {
-    refetchOnWindowFocus: "always",
-  });
   if (error) {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 

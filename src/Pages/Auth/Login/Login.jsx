@@ -12,6 +12,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { isLoggedIn, captchaVerified } = useContext(UserContext);
   const [showPassword, setShowPassword] = useState(false);
+  const [loggingin, setLoggingin] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
   useEffect(() => {
     if (isLoggedIn) navigate("/dashboard");
@@ -28,6 +29,7 @@ const Login = () => {
     if (!validateForm()) return;
     const email = document.getElementById("email")?.value;
     const password = document.getElementById("password")?.value;
+    setLoggingin(true);
     axios
       .post(`${import.meta.env.VITE_REACT_APP_API}/login`, {
         email,
@@ -36,7 +38,8 @@ const Login = () => {
       .then((response) => {
         // console.log(response);
         if (response.data.message === "Login successful") {
-          Cookies.set("authToken", response?.data?.token);
+          Cookies.set("authToken", response.data.token, { path: "/" });
+          console.log(response?.data?.token);
           navigate("/dashboard");
           window.location.reload();
         }
@@ -74,6 +77,9 @@ const Login = () => {
               toast("Something went wrong");
           }
         }
+      })
+      .finally(() => {
+        setLoggingin(false);
       });
   };
 
@@ -188,8 +194,17 @@ const Login = () => {
 
         {/* <Captcha /> */}
         <div id={styles.password_cont} className={styles.button}>
-          <button type="submit" onClick={verifyCaptcha} className={styles.btn}>
-            Login
+          <button
+            disabled={loggingin}
+            style={{
+              cursor: loggingin ? "not-allowed" : "pointer",
+              opacity: loggingin ? "0.5" : "1",
+            }}
+            type="submit"
+            onClick={verifyCaptcha}
+            className={styles.btn}
+          >
+            {loggingin ? "Logging in..." : "Log in"}
           </button>
         </div>
         {captchaVerified === true ? (

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -6,8 +7,8 @@ import axios from "axios";
 import FileBase64 from "react-file-base64";
 import Cookies from "js-cookie";
 import styles from "./EditProfile.module.scss";
-import { fetchProfile } from "../../Components/ReactQuery/Fetchers/User";
 import { UserContext } from "../../Context/Provider";
+import { fetchProfile } from "../../Components/ReactQuery/Fetchers/User";
 
 const EditProfile = () => {
   useEffect(() => {
@@ -21,14 +22,15 @@ const EditProfile = () => {
     navigate("/auth/login");
   }
 
-  const { data, error, isLoading, isFetching } = useQuery("profile", fetchProfile, {
-    refetchOnWindowFocus: false,
+  const { data, error, isLoading } = useQuery("profile", fetchProfile, {
+    refetchOnWindowFocus: "always",
   });
 
   const myProfile = data?.user;
   // const [isAdmin, setIsAdmin] = useState(false);
   const [photo, setPhoto] = useState("");
   const [idcard, setIdcard] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const handleImgChange = (base64) => {
     setPhoto(base64);
   };
@@ -52,7 +54,7 @@ const EditProfile = () => {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
@@ -76,6 +78,7 @@ const EditProfile = () => {
     const room = document.getElementById("room")?.value;
 
     try {
+      setSubmitting(true);
       await axios
         .put(
           `${import.meta.env.VITE_REACT_APP_API}/editprofile`,
@@ -114,9 +117,12 @@ const EditProfile = () => {
             toast("Something went wrong");
             break;
           default:
-            toast("something went wrongF");
+            toast("hmm, something went wrong");
+            console.error(err);
         }
       }
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -250,9 +256,14 @@ const EditProfile = () => {
               aria-label="Save Profile"
               className={styles.Editprofile}
               onClick={handleProfileSave}
+              disabled={submitting}
+              style={{
+                cursor: submitting ? "not-allowed" : "pointer",
+                opacity: submitting ? "0.5" : "1",
+              }}
             >
               <div>
-                <div>Save Profile</div>
+                <div>{submitting ? "Submitting..." : "Save Profile"}</div>
               </div>
             </button>
             {/* <button

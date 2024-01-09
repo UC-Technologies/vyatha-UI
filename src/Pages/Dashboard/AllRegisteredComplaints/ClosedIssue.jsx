@@ -13,13 +13,11 @@ const ClosedIssue = () => {
     document.title = `Closed Issues for ${role} | Vyatha`;
   }, [role]);
 
-  const { data, error, isLoading, isFetching } = useQuery(
-    "closedComplaints",
-    fetchClosedComplaints,
-    {
-      refetchOnWindowFocus: "always",
-    }
-  );
+  const { data, error, isLoading } = useQuery("closedComplaints", fetchClosedComplaints, {
+    refetchOnWindowFocus: "always",
+    refetchOnReconnect: "always",
+    refetchOnMount: true,
+  });
 
   const allClosedIssues =
     role === "student"
@@ -54,7 +52,7 @@ const ClosedIssue = () => {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
