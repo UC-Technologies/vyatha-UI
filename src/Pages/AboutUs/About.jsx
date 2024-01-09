@@ -51,13 +51,13 @@ const About = () => {
         <img src={About1} className={styles.img1} alt="" />
         <div className={styles.about_content}>
           <p>
-            We&apos;re Vyatha, powered by the trailblazers at NIT Silchar&apos;s E-Cell.
-            Frustrated with the old, cumbersome hostel complaint system? So are we!
-            That&apos;s why, we&apos;ve created an intuitive platform that empowers you to
-            voice your grievances effortlessly. Not only that, but we also hold
-            authorities accountable with our transparent, step-by-step tracking system.
-            Vyatha is the future of hostel living, and we&apos;re just getting started.
-            Join us, and let&apos;s revolutionize your hostel experience together!
+            We&apos;re Vyatha, powered by the trailblazers at NIT Silchar. Frustrated with
+            the old, cumbersome hostel complaint system? So are we!That&apos;s why,
+            we&apos;ve created an intuitive platform that empowers you to voice your
+            grievances effortlessly. Not only that, but we also hold authorities
+            accountable with our transparent, step-by-step tracking system. Vyatha is the
+            future of hostel living, and we&apos;re just getting started. Join us, and
+            let&apos;s revolutionize your hostel experience together!
           </p>
         </div>
       </div>
