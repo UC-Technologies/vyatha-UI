@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import styles from "./IndividualComplaintS.module.scss";
 import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import { UserContext } from "../../../../Context/Provider";
+import StatusOfComplaint from "../../../../Components/RegisteredComplaint/Student/StatusOfComplaint";
 
 // import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
@@ -236,8 +237,7 @@ const IndividualComplaintStudent = () => {
           <img src={issueData?.photo} alt="ComplaintImg"></img>
         </div>
         <div className={styles.Progress}>
-          {/* This section to be created the Rishab */}
-          Progress details assigned to Rishab
+          <StatusOfComplaint />
         </div>
       </div>
       <div className={styles.Comments}>
