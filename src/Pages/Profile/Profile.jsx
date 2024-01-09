@@ -193,9 +193,7 @@ const Profile = () => {
               className={styles.Editprofile}
               onClick={handleProfileEdit}
             >
-              <div>
-                <div>Edit Profile</div>
-              </div>
+              <p>Edit Profile</p>
             </button>
             <button
               type="button"
@@ -203,21 +201,17 @@ const Profile = () => {
               className={styles.Signout}
               onClick={handleSignOut}
             >
-              <div>
-                <div>Sign out</div>
-              </div>
+              <p>Sign out</p>
             </button>
 
             <button
               style={{ display: myProfile?.isVerified === true ? "none" : "block" }}
               type="button"
               aria-label="Signout"
-              className={styles.Signout}
+              className={styles.EmailVerify}
               onClick={handleVerify}
             >
-              <div>
-                <div>Send Email verification link</div>
-              </div>
+              <p>Send Email verification link</p>
             </button>
 
             {myProfile?.deleteAccount === "no" && (
@@ -227,9 +221,7 @@ const Profile = () => {
                 onClick={handleDelete}
                 className={styles.Signout}
               >
-                <div>
-                  <div>Delete Account</div>
-                </div>
+                <p>Delete Account</p>
               </button>
             )}
           </div>
