@@ -22,10 +22,20 @@ const EditProfile = () => {
   }
 
   const { data, error, isLoading, isFetching } = useQuery("profile", fetchProfile, {
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   });
 
   const myProfile = data?.user;
+
+  const [formData, setFormData] = useState({
+    name: myProfile?.name || "",
+    newpwd: myProfile?.newpwd || "",
+    cnewpwd: myProfile?.cnewpwd || "",
+    hostel: myProfile?.hostel || "",
+    phone: myProfile?.phone || "",
+    room: myProfile?.room || "",
+  });
+
   // const [isAdmin, setIsAdmin] = useState(false);
   const [photo, setPhoto] = useState("");
   const [idcard, setIdcard] = useState("");
@@ -120,6 +130,11 @@ const EditProfile = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    e.preventDefault();
+    setFormData(e.target.value);
+  };
+
   return (
     <div>
       <div className={styles.container}>
@@ -174,13 +189,33 @@ const EditProfile = () => {
 
                   <div className={styles.details_fill}>
                     <div className={styles.left_section}>
-                      <input type="text" id="name" autoComplete="off" />
+                      <input
+                        type="text"
+                        id="name"
+                        autoComplete="off"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                      />
                     </div>
                     <div className={styles.left_section}>
-                      <input type="password" id="newpwd" autoComplete="off" />
+                      <input
+                        type="password"
+                        id="newpwd"
+                        autoComplete="off"
+                        value={formData.newpwd}
+                        onChange={handleInputChange}
+                        placeholder="No Data Available"
+                      />
                     </div>
                     <div className={styles.left_section}>
-                      <input type="password" id="cnewpwd" autoComplete="off" />
+                      <input
+                        type="password"
+                        id="cnewpwd"
+                        autoComplete="off"
+                        value={formData.cnewpwd}
+                        onChange={handleInputChange}
+                        placeholder="No Data Available"
+                      />
                     </div>
                     {/* id card photo */}
                     {role === "student" && (
@@ -209,35 +244,51 @@ const EditProfile = () => {
 
                     {role !== "dsw" && (
                       <div className={styles.left_section}>
-                        <select id="hostel" className={styles.hostel_options}>
-                          <option value="">Aryabhatt PG Hostel</option>
-                          <option>BH1</option>
-                          <option>BH2</option>
-                          <option>BH3</option>
-                          <option>BH4</option>
-                          <option>BH6</option>
-                          <option>BH7</option>
-                          <option>BH8</option>
-                          <option>BH9A</option>
-                          <option>BH9B</option>
-                          <option>BH9C</option>
-                          <option>BH9D</option>
-                          <option>GH1</option>
-                          <option>GH2</option>
-                          <option>GH3</option>
-                          <option>GH4</option>
+                        <select
+                          id="hostel"
+                          className={styles.hostel_options}
+                          defaultValue={formData.hostel}
+                        >
+                          <option value="Aryabhatt PG Hostel">Aryabhatt PG Hostel</option>
+                          <option value="BH1">BH1</option>
+                          <option value="BH2">BH2</option>
+                          <option value="BH3">BH3</option>
+                          <option value="BH4">BH4</option>
+                          <option value="BH6">BH6</option>
+                          <option value="BH7">BH7</option>
+                          <option value="BH8">BH8</option>
+                          <option value="BH9A">BH9A</option>
+                          <option value="BH9B">BH9B</option>
+                          <option value="BH9C">BH9C</option>
+                          <option value="BH9D">BH9D</option>
+                          <option value="GH1">GH1</option>
+                          <option value="GH2">GH2</option>
+                          <option value="GH3">GH3</option>
+                          <option value="GH4">GH4</option>
                         </select>
                       </div>
                     )}
 
                     {role === "student" && (
                       <div className={styles.left_section}>
-                        <input type="text" id="room" autoComplete="off" />
+                        <input
+                          type="text"
+                          id="room"
+                          autoComplete="off"
+                          value={formData.room}
+                          onChange={handleInputChange}
+                        />
                       </div>
                     )}
 
                     <div className={styles.left_section}>
-                      <input type="text" id="phone" autoComplete="off" />
+                      <input
+                        type="text"
+                        id="phone"
+                        autoComplete="off"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                      />
                     </div>
                   </div>
                 </div>

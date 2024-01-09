@@ -63,7 +63,7 @@ const Captcha = () => {
         style={{ cursor: "pointer" }}
         className={styles.Submit}
       >
-        Submit
+        Verify
       </button>
     </div>
   );
