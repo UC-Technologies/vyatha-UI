@@ -138,8 +138,16 @@ const AllComplaintStudent = () => {
                         Complain Raised to Warden by the student
                       </p>
                     )}
+
+                    {complaint?.editIssue?.length > 0 && (
+                      <p id={styles.isEdited}>
+                        Edited {complaint?.editIssue?.length}{" "}
+                        {complaint?.editIssue?.length === 1 ? "time" : "times"}
+                      </p>
+                    )}
+
                     {complaint?.raiseComplainTo?.length === 3 && (
-                      <p id={styles.forwarddtext}>
+                      <p id={styles.forwarddtextToDSW}>
                         Complain Raised to DSW by the student
                       </p>
                     )}

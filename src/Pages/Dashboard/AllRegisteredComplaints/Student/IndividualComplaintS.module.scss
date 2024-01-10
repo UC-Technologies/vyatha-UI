@@ -1,6 +1,6 @@
 @media screen and (max-width: 599.99px) {
   #solvedAtDetails {
-    font-size: 7vw;
+    font-size: 3vw;
   }
 
   #mainComment {
@@ -229,10 +229,15 @@
 
 // --------------------------------------------------------------------LargeScreen------------------------------------------------------------------------------------------
 @media screen and (min-width: 600px) {
-  #solvedAtDetails {
-    font-size: 2vw;
-    font-style: italic;
+  #infossofcomplaint {
+    background-color: #d7faf4;
+    width: 80.5%;
+    // height: 50vh;
     margin: 1vw 0;
+  }
+  #solvedAtDetails {
+    font-size: 1.25vw;
+    // margin: 50vw 0;
   }
 
   #mainComment {

@@ -206,32 +206,6 @@ const IndividualComplaintStudent = () => {
         <h1>{issueData?.title}</h1>
       </div>
 
-      {issueData?.isSolved && (
-        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
-          Issue has been Solved at {issueData?.solvedAt}
-        </h1>
-      )}
-
-      {issueData?.isClosed && (
-        <h1 id={styles.solvedAtDetails} style={{ color: "red" }}>
-          Issue has been Closed by the student at {issueData?.closedAt}
-        </h1>
-      )}
-
-      {issueData?.IssueForwardedToWarden[0]?.time && (
-        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
-          Issue has been forwarded to Warden by the supervisor at{" "}
-          {issueData?.IssueForwardedToWarden[0]?.time}
-        </h1>
-      )}
-
-      {issueData?.IssueForwardedToDsw[0]?.time && (
-        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
-          Issue has been forwarded to DSW by the Warden at{" "}
-          {issueData?.IssueForwardedToDsw[0]?.time}
-        </h1>
-      )}
-
       <div className={styles.Identity}>
         <div className={styles.Info}>
           <div className={styles.FilledBy}>Filled by</div>
@@ -244,6 +218,42 @@ const IndividualComplaintStudent = () => {
           <img src={issueData?.idcard} alt="idcard"></img>
         </div>
       </div>
+
+      {(issueData?.isSolved ||
+        issueData?.isClosed ||
+        issueData?.IssueForwardedToWarden[0]?.time ||
+        issueData?.IssueForwardedToDsw[0]?.time) && (
+        <div id={styles.infossofcomplaint}>
+          <li>
+            {issueData?.isSolved && (
+              <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
+                Issue has been Solved at {issueData?.solvedAt}
+              </h1>
+            )}
+          </li>
+
+          {issueData?.isClosed && (
+            <h1 id={styles.solvedAtDetails} style={{ color: "red" }}>
+              Issue has been Closed by the student at {issueData?.closedAt}
+            </h1>
+          )}
+
+          {issueData?.IssueForwardedToWarden[0]?.time && (
+            <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
+              Issue has been forwarded to Warden by the supervisor at{" "}
+              {issueData?.IssueForwardedToWarden[0]?.time}
+            </h1>
+          )}
+
+          {issueData?.IssueForwardedToDsw[0]?.time && (
+            <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
+              Issue has been forwarded to DSW by the Warden at{" "}
+              {issueData?.IssueForwardedToDsw[0]?.time}
+            </h1>
+          )}
+        </div>
+      )}
+
       <div className={styles.ComplaintProgress}>
         <div className={styles.ComplaintImg}>
           <img src={issueData?.photo} alt="ComplaintImg"></img>
