@@ -176,15 +176,19 @@ const AllComplaintStudent = () => {
                   </main>
                 )}
                 <div className={styles.Description}>
-                  <p>{complaint.description}</p>
-                  {complaint?.isClosed === false && role === "student" && (
-                    <button
-                      onClick={() => handleCloseIssue(complaint._id, complaint?.otherID)}
-                      className={styles.closebtn}
-                    >
-                      Close
-                    </button>
-                  )}
+                  <div>{complaint.description}</div>
+                  <div>
+                    {complaint?.isClosed === false && role === "student" && (
+                      <button
+                        onClick={() =>
+                          handleCloseIssue(complaint._id, complaint?.otherID)
+                        }
+                        className={styles.closebtn}
+                      >
+                        Close
+                      </button>
+                    )}
+                  </div>
                 </div>
                 <div className={styles.SelectBar}>
                   <div
