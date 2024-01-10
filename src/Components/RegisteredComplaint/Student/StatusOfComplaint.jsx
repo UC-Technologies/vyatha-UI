@@ -58,9 +58,9 @@ const StatusOfComplaint = () => {
             className={styles.bar}
             style={{
               backgroundColor:
-                complaint.forwardedTo === "supervisor" ||
-                complaint.forwardedTo === "dsw" ||
-                complaint.forwardedTo === "warden"
+                complaint?.forwardedTo === "supervisor" ||
+                complaint?.forwardedTo === "dsw" ||
+                complaint?.forwardedTo === "warden"
                   ? "#40BDB6"
                   : "white",
             }}
@@ -77,9 +77,9 @@ const StatusOfComplaint = () => {
             className={styles.circle}
             style={{
               backgroundColor:
-                complaint.forwardedTo === "supervisor" ||
-                complaint.forwardedTo === "dsw" ||
-                complaint.forwardedTo === "warden"
+                complaint?.forwardedTo === "supervisor" ||
+                complaint?.forwardedTo === "dsw" ||
+                complaint?.forwardedTo === "warden"
                   ? "#40BDB6"
                   : "white",
             }}
@@ -90,7 +90,7 @@ const StatusOfComplaint = () => {
             className={styles.bar}
             style={{
               backgroundColor:
-                complaint.forwardedTo === "dsw" || complaint.forwardedTo === "warden"
+                complaint?.forwardedTo === "dsw" || complaint?.forwardedTo === "warden"
                   ? "#40BDB6"
                   : "white",
             }}
@@ -107,7 +107,7 @@ const StatusOfComplaint = () => {
             className={styles.circle}
             style={{
               backgroundColor:
-                complaint.forwardedTo === "dsw" || complaint.forwardedTo === "warden"
+                complaint?.forwardedTo === "dsw" || complaint?.forwardedTo === "warden"
                   ? "#40BDB6"
                   : "white",
             }}
@@ -117,7 +117,7 @@ const StatusOfComplaint = () => {
           <div
             className={styles.bar}
             style={{
-              backgroundColor: complaint.forwardedTo === "dsw" ? "#40BDB6" : "white",
+              backgroundColor: complaint?.forwardedTo === "dsw" ? "#40BDB6" : "white",
             }}
           ></div>
         </div>
@@ -131,13 +131,13 @@ const StatusOfComplaint = () => {
           <div
             className={styles.lastBar}
             style={{
-              backgroundColor: complaint.forwardedTo === "dsw" ? "#40BDB6" : "white",
+              backgroundColor: complaint?.forwardedTo === "dsw" ? "#40BDB6" : "white",
             }}
           ></div>
           <div
             className={styles.circle}
             style={{
-              backgroundColor: complaint.forwardedTo === "dsw" ? "#40BDB6" : "white",
+              backgroundColor: complaint?.forwardedTo === "dsw" ? "#40BDB6" : "white",
             }}
           >
             4
