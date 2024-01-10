@@ -26,7 +26,7 @@ const EditProfile = () => {
   });
 
   const myProfile = data?.user;
-  const [isAdmin, setIsAdmin] = useState(false);
+  // const [isAdmin, setIsAdmin] = useState(false);
   const [photo, setPhoto] = useState("");
   const [idcard, setIdcard] = useState("");
   const handleImgChange = (base64) => {
@@ -37,16 +37,16 @@ const EditProfile = () => {
     setIdcard(base64);
   };
 
-  useEffect(() => {
-    if (
-      role === "supervisor" ||
-      role === "superadmin" ||
-      role === "dsw" ||
-      role === "warden"
-    ) {
-      setIsAdmin(true);
-    }
-  }, [role]);
+  // useEffect(() => {
+  //   if (
+  //     role === "supervisor" ||
+  //     role === "superadmin" ||
+  //     role === "dsw" ||
+  //     role === "warden"
+  //   ) {
+  //     setIsAdmin(true);
+  //   }
+  // }, [role]);
 
   if (error) {
     return <div>Something went wrong!</div>;
@@ -127,124 +127,122 @@ const EditProfile = () => {
           <div className={styles.Profileheading}>
             <p>My Profile</p>
           </div>
-          <div className={styles.profile_image}>
-            <div>
-              <img src={myProfile?.profilepic} alt="profileimage" id="profile-pic" />
-            </div>
-
-            <div className={styles.changeprofile}>
-              <FileBase64
-                multiple={false}
-                onDone={({ base64, file }) => {
-                  if (
-                    (file.type === "image/png" ||
-                      file.type === "image/jpeg" ||
-                      file.type === "image/jpg" ||
-                      file.type === "image/webp" ||
-                      file.type === "image/avif") &&
-                    file.size <= 300 * 1024
-                  ) {
-                    handleImgChange(base64);
-                  } else {
-                    toast("Invalid file type or image is greater than 300KB");
-                    setPhoto("");
-                  }
-                }}
-              />
-            </div>
-          </div>
-          <div className={styles.details_section}>
-            <form>
-              <div className={styles.details_section}>
-                <div className={styles.details_about}>
-                  <div className={styles.right_section}>Name</div>
-                  <div className={styles.right_section}>Password</div>
-                  <div className={styles.right_section}>Confirm Password</div>
-                  <div
-                    style={{ display: isAdmin === false ? "block" : "none" }}
-                    className={styles.right_section}
-                  >
-                    Id Card photo
-                  </div>
-                  <div className={styles.right_section}>Hostel</div>
-                  <div
-                    style={{ display: isAdmin === false ? "block" : "none" }}
-                    className={styles.right_section}
-                  >
-                    Room
-                  </div>
-                  <div className={styles.right_section}>Phone</div>
-                </div>
-
-                <div className={styles.details_fill}>
-                  <div className={styles.left_section}>
-                    <input type="text" id="name" autoComplete="off" />
-                  </div>
-                  <div className={styles.left_section}>
-                    <input type="password" id="newpwd" autoComplete="off" />
-                  </div>
-                  <div className={styles.left_section}>
-                    <input type="password" id="cnewpwd" autoComplete="off" />
-                  </div>
-                  {/* id card photo */}
-                  <div style={{ display: isAdmin === false ? "block" : "none" }}>
-                    {" "}
-                    <FileBase64
-                      multiple={false}
-                      onDone={({ base64, file }) => {
-                        if (
-                          (file.type === "image/png" ||
-                            file.type === "image/jpeg" ||
-                            file.type === "image/jpg" ||
-                            file.type === "image/webp" ||
-                            file.type === "image/avif") &&
-                          file.size <= 300 * 1024
-                        ) {
-                          handleIdCardChange(base64);
-                        } else {
-                          toast("Invalid file type or image is greater than 300KB");
-                          setPhoto("");
-                        }
-                      }}
-                    />
-                  </div>
-
-                  <div className={styles.left_section}>
-                    <select id="hostel" className={styles.hostel_options}>
-                      <option value="">Aryabhatt PG Hostel</option>
-                      <option>BH1</option>
-                      <option>BH2</option>
-                      <option>BH3</option>
-                      <option>BH4</option>
-                      <option>BH6</option>
-                      <option>BH7</option>
-                      <option>BH8</option>
-                      <option>BH9A</option>
-                      <option>BH9B</option>
-                      <option>BH9C</option>
-                      <option>BH9D</option>
-                      <option>GH1</option>
-                      <option>GH2</option>
-                      <option>GH3</option>
-                      <option>GH4</option>
-                    </select>
-                  </div>
-
-                  <div className={styles.left_section}>
-                    <input
-                      style={{ display: isAdmin === false ? "block" : "none" }}
-                      type="text"
-                      id="room"
-                      autoComplete="off"
-                    />
-                  </div>
-
-                  <div className={styles.left_section}>
-                    <input type="text" id="phone" autoComplete="off" />
-                  </div>
-                </div>
+          <div className={styles.Profile_details}>
+            <div className={styles.profile_image}>
+              <div className={styles.profile_main}>
+                <img src={myProfile?.profilepic} alt="profileimage" id="profile-pic" />
               </div>
-            </form>
+
+              <div className={styles.changeprofile}>
+                <FileBase64
+                  multiple={false}
+                  onDone={({ base64, file }) => {
+                    if (
+                      (file.type === "image/png" ||
+                        file.type === "image/jpeg" ||
+                        file.type === "image/jpg" ||
+                        file.type === "image/webp" ||
+                        file.type === "image/avif") &&
+                      file.size <= 300 * 1024
+                    ) {
+                      handleImgChange(base64);
+                    } else {
+                      toast("Invalid file type or image is greater than 300KB");
+                      setPhoto("");
+                    }
+                  }}
+                />
+              </div>
+            </div>
+            <div className={styles.details_section}>
+              <form>
+                <div className={styles.details_section}>
+                  <div className={styles.details_about}>
+                    <div className={styles.right_section}>Name</div>
+                    <div className={styles.right_section}>Password</div>
+                    <div className={styles.right_section}>Confirm Password</div>
+                    {role === "student" && (
+                      <div className={styles.right_section}>Id Card photo</div>
+                    )}
+                    {role !== "dsw" && <div className={styles.right_section}>Hostel</div>}
+                    {role === "student" && (
+                      <div className={styles.right_section}>Room</div>
+                    )}
+
+                    <div className={styles.right_section}>Phone</div>
+                  </div>
+
+                  <div className={styles.details_fill}>
+                    <div className={styles.left_section}>
+                      <input type="text" id="name" autoComplete="off" />
+                    </div>
+                    <div className={styles.left_section}>
+                      <input type="password" id="newpwd" autoComplete="off" />
+                    </div>
+                    <div className={styles.left_section}>
+                      <input type="password" id="cnewpwd" autoComplete="off" />
+                    </div>
+                    {/* id card photo */}
+                    {role === "student" && (
+                      <div className={styles.left_section}>
+                        {" "}
+                        <FileBase64
+                          multiple={false}
+                          onDone={({ base64, file }) => {
+                            if (
+                              (file.type === "image/png" ||
+                                file.type === "image/jpeg" ||
+                                file.type === "image/jpg" ||
+                                file.type === "image/webp" ||
+                                file.type === "image/avif") &&
+                              file.size <= 300 * 1024
+                            ) {
+                              handleIdCardChange(base64);
+                            } else {
+                              toast("Invalid file type or image is greater than 300KB");
+                              setPhoto("");
+                            }
+                          }}
+                        />
+                      </div>
+                    )}
+
+                    {role !== "dsw" && (
+                      <div className={styles.left_section}>
+                        <select id="hostel" className={styles.hostel_options}>
+                          <option value="">Aryabhatt PG Hostel</option>
+                          <option>BH1</option>
+                          <option>BH2</option>
+                          <option>BH3</option>
+                          <option>BH4</option>
+                          <option>BH6</option>
+                          <option>BH7</option>
+                          <option>BH8</option>
+                          <option>BH9A</option>
+                          <option>BH9B</option>
+                          <option>BH9C</option>
+                          <option>BH9D</option>
+                          <option>GH1</option>
+                          <option>GH2</option>
+                          <option>GH3</option>
+                          <option>GH4</option>
+                        </select>
+                      </div>
+                    )}
+
+                    {role === "student" && (
+                      <div className={styles.left_section}>
+                        <input type="text" id="room" autoComplete="off" />
+                      </div>
+                    )}
+
+                    <div className={styles.left_section}>
+                      <input type="text" id="phone" autoComplete="off" />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
           <div className={styles.button_section}>
             <button

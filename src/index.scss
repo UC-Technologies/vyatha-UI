@@ -47,9 +47,23 @@
   --vyatha4-navbar-height-mobile: ;
 }
 
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d3f2fa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #347ec5;
+  border-radius: 25px;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: var(--vyatha-font-1);
+  -webkit-tap-highlight-color: transparent;
 }

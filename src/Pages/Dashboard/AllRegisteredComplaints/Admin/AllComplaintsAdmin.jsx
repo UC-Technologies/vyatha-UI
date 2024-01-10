@@ -33,7 +33,7 @@ const AllComplaintsAdmin = () => {
       : role === "dsw"
       ? data?.sortedIssues
       : null;
-  console.log(fetchedIssues);
+  // console.log(fetchedIssues);
 
   return (
     <div className={styles.cardAdmin}>

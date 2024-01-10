@@ -93,17 +93,89 @@ h2 {
     margin: 0;
   }
 
-  h1 {
-    color: black;
-    font-size: 1rem;
-    margin-left: 1rem;
-    font-weight: 700;
-    text-align: left;
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.child1 {
+  flex: 10;
+  display: flex;
+}
+.child2,
+.child3,
+.child4 {
+  flex: 8;
+  display: flex;
+}
+.child11,
+.child21,
+.child31,
+.child41 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.child11 {
+  padding-top: 0.7rem;
+}
+.child12,
+.child22,
+.child32,
+.child42 {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.circle {
+  flex: 4;
+  width: 20%;
+  margin: auto;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: xx-small;
+}
+.bar {
+  flex: 12;
+  width: 7%;
+  margin: auto;
+}
+.lastBar {
+  flex: 2;
+  width: 7%;
+  margin: auto;
+}
+.text1 {
+  flex: 1;
+  padding-left: 0.3rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: "Lato";
+}
+.text121 {
+  flex: 1;
+  padding-top: 0.5rem;
+  padding-left: 0.3rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.text2 {
+  flex: 1;
+  padding-left: 2rem;
+  font-family: "Lato";
+  font-style: italic;
+}
+@media screen and (min-width: 600px) and (max-width: 912px) {
+  .text1,
+  .text121 {
+    font-size: 0.9rem;
   }
-  h2 {
-    font-size: 1.2vh;
-    font-weight: 200;
-    margin-left: 1rem;
+  .text2 {
+    font-size: xx-small;
   }
   .StatusBar {
     height: 25%;
@@ -128,5 +200,25 @@ h2 {
     width: 0.375rem;
     margin-left: 2vw;
     background-color: #ffffff;
+
+}
+@media screen and (max-width: 600px) {
+  .container {
+    width: 100vw;
+    height: 35vh;
+    padding-top: 0.5rem;
+  }
+  .circle {
+    flex: 3;
+  }
+  .text2 {
+    font-family: "Lato";
+    font-size: 0.9rem;
+    font-weight: 200;
+  }
+}
+@media screen and (min-width: 900px) {
+  .circle {
+    width: 19%;
   }
 }

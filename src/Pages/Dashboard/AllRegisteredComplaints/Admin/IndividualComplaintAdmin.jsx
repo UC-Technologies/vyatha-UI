@@ -301,7 +301,7 @@ const IndividualComplaintAdmin = () => {
       await axios
         .put(
           `${import.meta.env.VITE_REACT_APP_API}/closeissue`,
-          { issueId },
+          { issueId, otherID },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -344,6 +344,7 @@ const IndividualComplaintAdmin = () => {
         <div className={styles.title_content}> {complaint?.title}</div>
       </div>
 
+      {/* <div id={styles.reduced__with}> */}
       {complaint?.isSolved && (
         <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
           Issue has been Solved at {complaint?.solvedAt}
@@ -356,9 +357,16 @@ const IndividualComplaintAdmin = () => {
         </h1>
       )}
 
+      {complaint?.IssueForwardedToWarden[0]?.time && (
+        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
+          Issue has been forwarded to Warden by the Supervisor at{" "}
+          {complaint?.IssueForwardedToWarden[0]?.time}
+        </h1>
+      )}
+
       {complaint?.IssueForwardedToDsw[0]?.time && (
         <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
-          Issue has been forwarded to DSW by you at{" "}
+          Issue has been forwarded to DSW by the warden at{" "}
           {complaint?.IssueForwardedToDsw[0]?.time}
         </h1>
       )}
@@ -379,7 +387,9 @@ const IndividualComplaintAdmin = () => {
               <li>Phone Number : {complaint?.phone}</li>
             </ul>
             <div className={styles.card_photo}>
-              <div className={styles.card_photo_content}>ID Card Photo</div>
+              <div className={styles.card_photo_content}>
+                <img src={complaint?.idcard} alt="" />
+              </div>
             </div>
           </div>
         </fieldset>

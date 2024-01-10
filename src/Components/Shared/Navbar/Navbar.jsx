@@ -1,14 +1,23 @@
 // eslint-disable-next-line import/no-unresolved
 // import Vite from './public/vite.svg'
 import { useState, useEffect, useRef, useContext } from "react";
-import { Link } from "react-router-dom";
+import { useQuery } from "react-query";
 import styles from "./Navbar.module.scss";
 import { UserContext } from "../../../Context/Provider";
+import { fetchProfile } from "../../ReactQuery/Fetchers/User";
+import { ConditionalLink } from "../ConditionalLink";
 
 const Navbar = () => {
   const { isLoggedIn } = useContext(UserContext);
+  const { data, error } = useQuery("profile", fetchProfile, {
+    refetchOnWindowFocus: "always",
+  });
+
+  const myProfile = data?.user;
+
   const conditionalTitle = isLoggedIn ? "Log Out" : "Log In";
   const conditionalAuth = isLoggedIn ? "/logout" : "/auth/login";
+  const conditioanlDashbaord = isLoggedIn ? "/dashboard" : "/auth/login";
   const conditionalIcon = isLoggedIn
     ? "https://res.cloudinary.com/dp92qug2f/image/upload/v1703077878/logout_pz1e7m.png"
     : "https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702566654/Two_Tone_uoa0io.jpg?_s=public-apps";
@@ -29,7 +38,7 @@ const Navbar = () => {
     {
       id: 3,
       title: "All Registered complaint",
-      to: "/dashboard",
+      to: conditioanlDashbaord,
       icon: "https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702566776/Two_Tone_jil29i.jpg?_s=public-apps",
     },
     {
@@ -49,7 +58,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef(null);
   useEffect(() => {
-    if (window.innerWidth > 600) return () => {};
+    if (window.innerWidth > 660) return () => {};
     const handleOutsideClick = (e) => {
       if (isOpen && navRef.current && !navRef.current.contains(e.target)) {
         setIsOpen(false);
@@ -66,17 +75,22 @@ const Navbar = () => {
   const close = () => {
     setIsOpen(false);
   };
+
+  if (error) {
+    return <div>Something went wrong!</div>;
+  }
+
   return (
     <>
       <nav ref={navRef} className={styles.nav}>
-        <Link to="/" className={styles.header} onClick={close}>
+        <ConditionalLink to="/" className={styles.header} onClick={close}>
           <img
             src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694542881/Frame_58099_igiaij.jpg?_s=public-apps"
             className={styles.logo}
             alt=""
           />
           <h1 className={styles.text}>Vyatha</h1>
-        </Link>
+        </ConditionalLink>
         <div className={styles.mobile_navbar}>
           <div onClick={open}>
             <img
@@ -100,23 +114,32 @@ const Navbar = () => {
               </div>
             </div>
             {links.map((link) => (
-              <Link key={link.id} to={link.to} onClick={close}>
+              <ConditionalLink key={link.id} to={link.to} onClick={close}>
                 <img src={link.icon} alt="" />
                 {link.title}
-              </Link>
+              </ConditionalLink>
             ))}
           </div>
         </div>
         <div className={styles.desktop_navbar}>
-          <Link to="/">Home</Link>
-          <Link to="/about">About Us</Link>
-          <Link to={conditionalProfile}>
-            <img
-              className={styles.profile}
-              src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702566250/user_1_hntf9t.jpg?_s=public-apps"
-              alt=""
-            />
-          </Link>
+          <ConditionalLink to="/">Home</ConditionalLink>
+          <ConditionalLink to="/about">About Us</ConditionalLink>
+          <ConditionalLink to={conditionalProfile}>
+            {isLoggedIn ? (
+              <div className={styles.profile}>
+                {" "}
+                <img src={myProfile?.profilepic} alt="profilepic" />
+              </div>
+            ) : (
+              <div className={styles.profile}>
+                {" "}
+                <img
+                  src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702566250/user_1_hntf9t.jpg?_s=public-apps"
+                  alt=""
+                />
+              </div>
+            )}
+          </ConditionalLink>
         </div>
       </nav>
       <div
@@ -143,12 +166,17 @@ const Navbar = () => {
           )}
         </div>
         {links.map((link) => (
-          <Link className={styles.link} key={link.id} to={link.to} onClick={close}>
+          <ConditionalLink
+            className={styles.link}
+            key={link.id}
+            to={link.to}
+            onClick={close}
+          >
             <div className={styles.icon}>
               <img src={link.icon} alt="" />
             </div>
             <div className={`${styles.title}`}>{link.title}</div>
-          </Link>
+          </ConditionalLink>
         ))}
       </div>
     </>

@@ -7,17 +7,22 @@ import SuperAdminDashboard from "../SuperAdmin/SuperAdminDashboard";
 const Dashboard = () => {
   const navigate = useNavigate();
   // get the role consuming the context
-  const { role } = useContext(UserContext);
+  const { role, isLoggedIn } = useContext(UserContext);
   const possibleRoles = useMemo(
     () => ["student", "warden", "dsw", "supervisor", "superadmin"],
     []
   );
 
   useEffect(() => {
+    document.title = "Dashboard | Vyatha";
     if (!possibleRoles.includes(role)) {
       navigate("/");
     }
-  }, [navigate, possibleRoles, role]);
+
+    if (isLoggedIn === false) {
+      navigate("/auth/login");
+    }
+  }, [navigate, possibleRoles, role, isLoggedIn]);
 
   return (
     <div>
