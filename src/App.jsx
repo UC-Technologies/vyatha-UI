@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./Components/Shared/Navbar/Navbar";
 import Footer from "./Components/Shared/Footer/Footer";
 import Home from "./Pages/Home/Home";
-
 import Auth from "./Pages/Auth/Auth";
 import About from "./Pages/AboutUs/About";
 import Login from "./Pages/Auth/Login/Login";
