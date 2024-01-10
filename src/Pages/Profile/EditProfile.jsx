@@ -35,6 +35,7 @@ const EditProfile = () => {
     phone: myProfile?.phone || "",
     room: myProfile?.room || "",
   });
+  console.log(myProfile);
 
   // const [isAdmin, setIsAdmin] = useState(false);
   const [photo, setPhoto] = useState("");
