@@ -163,7 +163,6 @@ const Home = () => {
                   </li>
                 </ul>
               </div>
-
               <div className={styles.card1}>
                 <img className={styles.imgee} src={img6} alt="Step3" />
               </div>
