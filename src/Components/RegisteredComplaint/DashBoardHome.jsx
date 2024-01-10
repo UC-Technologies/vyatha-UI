@@ -44,7 +44,12 @@ export const DashBoardHome = ({ role }) => {
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
-      if (visible && ref.current && !ref.current.contains(e.target)) {
+      if (
+        visible &&
+        ref.current &&
+        !ref.current.contains(e.target) &&
+        window.innerWidth > 768
+      ) {
         const parentElement = ref.current;
         parentElement.style.left = "100vw";
         setTimeout(() => {
