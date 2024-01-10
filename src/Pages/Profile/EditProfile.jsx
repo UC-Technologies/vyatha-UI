@@ -29,13 +29,13 @@ const EditProfile = () => {
 
   const [formData, setFormData] = useState({
     name: myProfile?.name || "",
-    newpwd: myProfile?.newpwd || "",
-    cnewpwd: myProfile?.cnewpwd || "",
+    newpwd: "",
+    cnewpwd: "",
     hostel: myProfile?.hostel || "",
     phone: myProfile?.phone || "",
     room: myProfile?.room || "",
   });
-  console.log(myProfile);
+  // console.log(myProfile);
 
   // const [isAdmin, setIsAdmin] = useState(false);
   const [photo, setPhoto] = useState("");
@@ -205,7 +205,7 @@ const EditProfile = () => {
                         autoComplete="off"
                         value={formData.newpwd}
                         onChange={handleInputChange}
-                        placeholder="No Data Available"
+                        placeholder="Password"
                       />
                     </div>
                     <div className={styles.left_section}>
@@ -215,7 +215,7 @@ const EditProfile = () => {
                         autoComplete="off"
                         value={formData.cnewpwd}
                         onChange={handleInputChange}
-                        placeholder="No Data Available"
+                        placeholder="Confirm Password"
                       />
                     </div>
                     {/* id card photo */}
