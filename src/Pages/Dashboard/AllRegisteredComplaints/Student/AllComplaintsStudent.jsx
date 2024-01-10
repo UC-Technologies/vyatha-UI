@@ -25,12 +25,12 @@ const AllComplaintStudent = () => {
     role === "student"
       ? data?.allIssues
       : role === "supervisor"
-        ? data?.issuesAssignedToSupervisor
-        : role === "warden"
-          ? data?.sortedIssues
-          : role === "dsw"
-            ? data?.sortedIssues
-            : null;
+      ? data?.issuesAssignedToSupervisor
+      : role === "warden"
+      ? data?.sortedIssues
+      : role === "dsw"
+      ? data?.sortedIssues
+      : null;
   // console.log(fetchedIssues)
 
   const [jsonData, setJsonData] = useState(fetchedIssues);
