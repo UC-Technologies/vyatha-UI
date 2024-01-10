@@ -13,7 +13,7 @@ const AllSignups = () => {
 
   const navigate = useNavigate();
 
-  const { role } = useContext(UserContext);
+  const { role, isLoggedIn } = useContext(UserContext);
   useEffect(() => {
     if (role !== "superadmin") {
       navigate("/");
@@ -22,6 +22,7 @@ const AllSignups = () => {
 
   const { data, error, isLoading, isFetching } = useQuery("profile", fetchAllAccounts, {
     refetchOnWindowFocus: "always",
+    enabled: isLoggedIn,
   });
 
   if (isLoading || isFetching) return <h1>Loading...</h1>;

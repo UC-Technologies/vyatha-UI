@@ -10,7 +10,7 @@ import { fetchAllClosedIssuesHostelWise } from "../../../../Components/ReactQuer
 const ClosedIssues = () => {
   const { hostel } = useParams();
   const navigate = useNavigate();
-  const { role } = useContext(UserContext);
+  const { role, isLoggedIn } = useContext(UserContext);
 
   useEffect(() => {
     document.title = `${hostel} Closed issues | Vyatha`;
@@ -22,7 +22,7 @@ const ClosedIssues = () => {
   const { data, error, isLoading, isFetching } = useQuery(
     "allClosedIssuesHostelWise",
     () => fetchAllClosedIssuesHostelWise({ hostel }),
-    { refetchOnWindowFocus: "always" }
+    { refetchOnWindowFocus: "always", enabled: isLoggedIn }
   );
 
   if (error) {

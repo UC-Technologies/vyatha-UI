@@ -2,6 +2,8 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+// import Cookies from "js-cookie";
+// import axios from "axios";
 import Styles from "./Dashboard.module.scss";
 import { fetchComplaints } from "../ReactQuery/Fetchers/AllComplaints";
 import { UserContext } from "../../Context/Provider";
@@ -15,9 +17,9 @@ export const DashBoardHome = ({ role }) => {
     refetchInterval: 60000,
     refetchOnMount: true,
     refetchIntervalInBackground: true,
-    retry: false,
-    retryDelay: false,
   });
+
+  // const [fetchedData, setFetcedData] = useState({})
 
   // console.log(isLoggedInRef.current)
   const img1 =
@@ -70,14 +72,6 @@ export const DashBoardHome = ({ role }) => {
     };
   }, [visible]);
 
-  if (error) {
-    return <div>Something went wrong!</div>;
-  }
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   const notications =
     role === "student"
       ? data?.filteredStudentNotifications
@@ -90,6 +84,13 @@ export const DashBoardHome = ({ role }) => {
       : null;
 
   // console.log( notications);
+  if (error) {
+    return <div>Something went wrong!</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className={Styles.container}>
       <div className={Styles.RegComplaints}>

@@ -1,10 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useQuery } from "react-query";
 import { useParams, Link } from "react-router-dom";
 import { fetchClosedComplaints } from "../../../Components/ReactQuery/Fetchers/ClosedIssueFetcher";
 import styles from "./Student/ComplaintDashboardS.module.scss";
+import { UserContext } from "../../../Context/Provider";
 // import SortByButton from "../../../Components/RegisteredComplaint/Student/SortByButton";
 
 const ClosedIssue = () => {
@@ -13,10 +14,13 @@ const ClosedIssue = () => {
     document.title = `Closed Issues for ${role} | Vyatha`;
   }, [role]);
 
+  const { isLoggedIn } = useContext(UserContext);
+
   const { data, error, isLoading } = useQuery("closedComplaints", fetchClosedComplaints, {
     refetchOnWindowFocus: "always",
     refetchOnReconnect: "always",
     refetchOnMount: true,
+    enabled: isLoggedIn,
   });
 
   const allClosedIssues =

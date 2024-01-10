@@ -8,7 +8,7 @@ const UserContext = createContext();
 const ContextProvider = ({ children }) => {
   const [profile, setProfile] = useState([]);
   const [role, setRole] = useState("student");
-  const [allComplaints, setAllComplaints] = useState([]);
+  // const [allComplaints, setAllComplaints] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [fetching, setFetching] = useState(true);
   const [captchaVerified, setCaptchaVerified] = useState(false);
@@ -31,12 +31,12 @@ const ContextProvider = ({ children }) => {
     if (isLoggedIn === true) {
       const fetchData = async () => {
         try {
-          const [profileRes, allComplaintRes] = await Promise.all([
+          const [profileRes] = await Promise.all([
             axios.get(`${import.meta.env.VITE_REACT_APP_API}/dashboard`, tokenConfig),
-            axios.get(`${import.meta.env.VITE_REACT_APP_API}/fetchissues`, tokenConfig),
+            // axios.get(`${import.meta.env.VITE_REACT_APP_API}/fetchissues`, tokenConfig),
           ]);
           setProfile(profileRes.data);
-          setAllComplaints(allComplaintRes.data);
+          // setAllComplaints(allComplaintRes.data);
           setRole(profileRes.data.user.role);
           // setDataFetched(true);
         } catch (err) {
@@ -50,13 +50,13 @@ const ContextProvider = ({ children }) => {
   const contextValue = useMemo(
     () => ({
       profile,
-      allComplaints,
+
       isLoggedIn,
       role,
       captchaVerified,
       setCaptchaVerified,
     }),
-    [profile, allComplaints, isLoggedIn, role, captchaVerified]
+    [profile, isLoggedIn, role, captchaVerified]
   );
 
   if (fetching) {

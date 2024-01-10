@@ -19,6 +19,7 @@ const AllIssues = () => {
 
   const { data, error, isLoading, isFetching } = useQuery("allIssues", fetchAllIssues, {
     refetchOnWindowFocus: "always",
+    enabled: isLoggedIn,
   });
   if (error) {
     return <div>Something went wrong!</div>;

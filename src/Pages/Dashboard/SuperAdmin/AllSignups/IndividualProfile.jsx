@@ -17,7 +17,7 @@ const IndividualProfile = () => {
 
   const navigate = useNavigate();
 
-  const { role } = useContext(UserContext);
+  const { role, isLoggedIn } = useContext(UserContext);
   useEffect(() => {
     if (role !== "superadmin") {
       navigate("/");
@@ -25,13 +25,13 @@ const IndividualProfile = () => {
   }, [role, navigate]);
 
   const { _id } = useParams();
-  const { data, error, isLoading, isFetching } = useQuery(
+  const { data, error, isLoading } = useQuery(
     "indiProfile",
     () => individualProfile({ _id }),
-    { refetchOnWindowFocus: "always" }
+    { refetchOnWindowFocus: "always", enabled: isLoggedIn }
   );
 
-  if (isLoading || isFetching) return <h1>Loading...</h1>;
+  if (isLoading) return <h1>Loading...</h1>;
   if (error) return <h1>Error fetching data</h1>;
 
   const all = data.individualProfile;

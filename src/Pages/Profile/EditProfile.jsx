@@ -24,6 +24,7 @@ const EditProfile = () => {
 
   const { data, error, isLoading } = useQuery("profile", fetchProfile, {
     refetchOnWindowFocus: "always",
+    enabled: isLoggedIn,
   });
 
   const myProfile = data?.user;

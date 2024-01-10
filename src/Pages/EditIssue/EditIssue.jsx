@@ -44,7 +44,7 @@ const EditIssue = () => {
   const { data, isLoading } = useQuery(
     "oneIssue",
     () => fetchIndividualIssue({ issueId }),
-    { refetchOnWindowFocus: "always" }
+    { refetchOnWindowFocus: "always", enabled: isLoggedIn }
   );
 
   useEffect(() => {

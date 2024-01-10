@@ -39,7 +39,6 @@ const Login = () => {
         // console.log(response);
         if (response.data.message === "Login successful") {
           Cookies.set("authToken", response.data.token, { path: "/" });
-          console.log(response?.data?.token);
           navigate("/dashboard");
           window.location.reload();
         }
