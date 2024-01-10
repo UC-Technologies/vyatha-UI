@@ -33,7 +33,7 @@ const Home = () => {
   return (
     <div className={styles.main}>
       <div className={styles.main2}>
-        <h1 className={styles.head}>
+        <h1 className={styles.head} id={styles.top__head}>
           The Hostel <span className={styles.grievance}>Grievance</span> Website
         </h1>
 
@@ -91,7 +91,7 @@ const Home = () => {
       </div>
 
       <div className={styles.main1}>
-        <h1 className={styles.head}>
+        <h1 className={styles.head} id={styles.howitwworks}>
           How it <span className={styles.works}>Works</span>?
         </h1>
         <Swiper
@@ -170,7 +170,7 @@ const Home = () => {
           </SwiperSlide>
         </Swiper>
         <p className={styles.para2}>
-          <strong>Streamlining Hostel Complaints!</strong>
+          <strong>Register. Monitor. Resolve.</strong>
         </p>
 
         <div className={styles.butt1}>

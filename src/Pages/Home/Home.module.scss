@@ -140,6 +140,11 @@ button {
   }
 }
 
+#howitwworks {
+  padding-top: 5vw !important;
+  padding-bottom: 5vw !important;
+}
+
 @media (max-width: 320px) {
   .head1 {
     font-size: x-large;
@@ -157,12 +162,33 @@ button {
   .card {
     width: 45%;
   }
+
+  #top__head {
+    font-size: 5vw !important;
+    padding-top: 15vw !important;
+  }
+
+  #howitwworks {
+    padding-top: 10vw !important;
+    padding-bottom: 10vw !important;
+  }
 }
 
 @media (max-width: 660px) {
+  #top__head {
+    font-size: 7vw !important;
+    padding-top: 30vw !important;
+  }
+
   .head {
     font-size: 3rem;
   }
+
+  #howitwworks {
+    padding-top: 15vw !important;
+    padding-bottom: 15vw !important;
+  }
+
   .container1 {
     flex-direction: column;
     justify-content: center;
