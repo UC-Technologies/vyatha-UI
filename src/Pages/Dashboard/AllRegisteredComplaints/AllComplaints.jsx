@@ -21,6 +21,7 @@ const AllComplaints = () => {
         role === "dsw" ||
         role === "student") && <AllComplaintsStudent />}
       {role === "superadmin" && <SuperAdminDashboard />}
+      <hr style={{ height: "6px", backgroundColor: "#dce5e4", opacity: ".7" }}></hr>
     </main>
   );
 };
