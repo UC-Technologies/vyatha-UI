@@ -173,7 +173,7 @@ const EditIssue = () => {
             break;
           default:
             toast("Something went wrong");
-            console.error(err.response.data.error);
+            console.error(err);
             break;
         }
       }

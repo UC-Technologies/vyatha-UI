@@ -184,25 +184,30 @@ const AllComplaintStudent = () => {
                   </main>
                 )}
                 <div className={styles.Description}>
-                  <p>{complaint.description}</p>
-                  {complaint?.isClosed === false && role === "student" && (
-                    <button
-                      onClick={() => handleCloseIssue(complaint._id, complaint?.otherID)}
-                      className={styles.closebtn}
-                    >
-                      Close
-                    </button>
-                  )}
-
-                  {/* Edit issue button only available to the issue author */}
-                  {complaint?.isClosed === false && role === "student" && (
-                    <button
-                      onClick={() => handleIssueEdit(complaint?._id)}
-                      className={styles.closebtn}
-                    >
-                      Edit
-                    </button>
-                  )}
+                  <div>{complaint.description}</div>
+                  <div>
+                    {complaint?.isClosed === false && role === "student" && (
+                      <button
+                        onClick={() =>
+                          handleCloseIssue(complaint._id, complaint?.otherID)
+                        }
+                        className={styles.closebtn}
+                      >
+                        Close
+                      </button>
+                    )}
+                  </div>
+                  <div>
+                    {/* Edit issue button only available to the issue author */}
+                    {complaint?.isClosed === false && role === "student" && (
+                      <button
+                        onClick={() => handleIssueEdit(complaint?._id)}
+                        className={styles.closebtn}
+                      >
+                        Edit
+                      </button>
+                    )}
+                  </div>
                 </div>
                 <div className={styles.SelectBar}>
                   <div

@@ -10,7 +10,9 @@ import Cookies from "js-cookie";
 import styles from "./IndividualComplaintS.module.scss";
 // import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import { UserContext } from "../../../../Context/Provider";
-import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
+import StatusOfComplaint from "../../../../Components/RegisteredComplaint/Student/StatusOfComplaint";
+// import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
+import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 
 // import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
@@ -30,25 +32,23 @@ const IndividualComplaintStudent = () => {
   const issueID = key;
   // console.log("profile",profile)
   const { role, isLoggedIn } = useContext(UserContext);
-  // const { data, error, isLoading } = useQuery(
-  //   "oneIssue",
-  //   () => fetchIndividualIssue({ issueId }),
-  //   { enabled:isLoggedIn,
-  //   refetchOnWindowFocus:"always"
-  //   }
-  // );
+  const { data, error, isLoading } = useQuery(
+    "oneIssue",
+    () => fetchIndividualIssue({ issueId }),
+    { enabled: isLoggedIn, refetchOnWindowFocus: "always" }
+  );
 
-  const { data, error, isLoading } = useQuery("complaints", fetchComplaints, {
-    refetchOnWindowFocus: false,
-    enabled: isLoggedIn,
-    refetchInterval: 60000,
-    refetchOnMount: false,
-    refetchIntervalInBackground: true,
-  });
+  // const { data, error, isLoading } = useQuery("complaints", fetchComplaints, {
+  //   refetchOnWindowFocus: false,
+  //   enabled: isLoggedIn,
+  //   refetchInterval: 60000,
+  //   refetchOnMount: false,
+  //   refetchIntervalInBackground: true,
+  // });
 
-  const issueData = data?.allIssues?.find((item) => item._id === issueId);
+  // const issueData = data?.allIssues?.find((item) => item._id === issueId);
 
-  // const issueData = data?.issue;
+  const issueData = data?.issue;
   const otherID = issueData?.otherID;
   const Comments = issueData?.comments;
   useEffect(() => {
@@ -249,8 +249,7 @@ const IndividualComplaintStudent = () => {
           <img src={issueData?.photo} alt="ComplaintImg"></img>
         </div>
         <div className={styles.Progress}>
-          {/* This section to be created the Rishab */}
-          Progress details assigned to Rishab
+          <StatusOfComplaint />
         </div>
       </div>
       <div className={styles.Comments}>
@@ -262,7 +261,15 @@ const IndividualComplaintStudent = () => {
         )}
         {Comments?.map((item) => {
           return (
-            <main id={styles.mainComment} key={item?._id}>
+            <main
+              id={styles.mainComment}
+              key={item?._id}
+              style={{
+                height: "auto",
+                maxHeight: "40vh",
+                overflowY: "auto",
+              }}
+            >
               <li name={item?.author} value={item?.author}>
                 <span>{item?.author}</span>
               </li>
@@ -308,7 +315,7 @@ const IndividualComplaintStudent = () => {
             className={styles.TapToSelect}
             // style={{ display: issueData?.isSolved === true ? "none" : "block" || issueData?.raiseComplainTo?.length === 3 ? "none" : "block" || issueData?.isClosed === true ? "none" : "block" }}
           >
-            <span>Raise Complain</span>
+            {/* <span>Raise Complain</span> */}
             <p>
               You can raise complain after 7 days if there is no response from the
               Supervisor side
@@ -346,10 +353,11 @@ const IndividualComplaintStudent = () => {
               opacity: issueData?.raiseComplainTo?.length === 3 ? "0.5" : "1",
               cursor:
                 issueData?.raiseComplainTo?.length === 3 ? "not-allowed" : "pointer",
+              fontSize: "clamp(12px,2.5vw,20px)",
             }}
             onClick={handleForward}
           >
-            Forward
+            Raise Complain
           </button>
         </div>
       )}
