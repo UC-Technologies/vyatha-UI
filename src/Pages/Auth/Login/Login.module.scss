@@ -31,7 +31,10 @@
     // width:10vw;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
+    p {
+      display: none;
+    }
     .input_group {
       position: relative;
       color: var(--gray-default, #505255);
@@ -65,6 +68,20 @@
         left: 1rem;
         background-color: white;
         color: #000;
+      }
+    }
+    .error {
+      input {
+        border: 0.125rem solid red;
+        outline: none;
+      }
+      p {
+        display: block;
+        position: absolute;
+        top: 2.4rem;
+        left: 0.5rem;
+        font-size: 0.75vw;
+        color: red;
       }
     }
     .signup {
@@ -123,7 +140,17 @@
       }
     }
   }
+
+  .showpassword__container {
+    margin-top: 1.2rem;
+    label {
+      span {
+        margin-left: 1vw;
+      }
+    }
+  }
 }
+
 @media screen and (max-height: 700px) {
   .container {
     // height: 100vw;
@@ -135,7 +162,7 @@
 @media screen and (min-width: 660px) {
   .container {
     width: 60vw;
-    margin-top: 7vw;
+    margin-top: 7rem;
     // height: 731px;
     flex-shrink: 0;
     border-radius: 50px;
@@ -171,4 +198,33 @@
       line-height: 26px; /* 104% */
     }
   }
+
+  .showpassword__container {
+    label {
+      span {
+        margin-left: 0.3vw !important;
+      }
+      cursor: pointer;
+      input {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (max-width: 660px) {
+  .error {
+    p {
+      display: block;
+      position: absolute;
+      top: 2.5rem;
+      left: 0.5rem;
+      font-size: 2.5vw !important;
+      color: red;
+    }
+  }
+}
+
+#password_cont {
+  display: block !important;
 }

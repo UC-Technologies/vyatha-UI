@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
 import React, { useState, useEffect, useContext } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { toast } from "sonner";
@@ -10,6 +10,7 @@ import Cookies from "js-cookie";
 import styles from "./IndividualComplaintS.module.scss";
 import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import { UserContext } from "../../../../Context/Provider";
+import StatusOfComplaint from "../../../../Components/RegisteredComplaint/Student/StatusOfComplaint";
 
 // import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
@@ -18,8 +19,8 @@ const IndividualComplaintStudent = () => {
   // const imageDown =
   //   "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703025668/arrow_drop_down_FILL1_wght400_GRAD0_opsz24_br1ybe.jpg?_s=public-apps";
 
-  const imgBack =
-    "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703085199/chevron_left_s4usnm.jpg?_s=public-apps";
+  // const imgBack =
+  //   "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703085199/chevron_left_s4usnm.jpg?_s=public-apps";
   const [commentBody, setCommentBody] = useState("");
   const handleCommentChange = (e) => {
     setCommentBody(e.target.value);
@@ -39,7 +40,7 @@ const IndividualComplaintStudent = () => {
   const otherID = data?.issue?.otherID;
   const Comments = data?.issue?.comments;
   useEffect(() => {
-    document.title = `${issueData?.name} | Vyatha`;
+    document.title = `${issueData?.title} | Vyatha`;
   });
 
   const [issueVisibility, setIssueVisibility] = useState(false);
@@ -187,9 +188,9 @@ const IndividualComplaintStudent = () => {
   return (
     <div className={styles.Container}>
       <div className={styles.title}>
-        <Link to="/dashboard">
+        {/* <Link to="/dashboard">
           <img src={imgBack} alt="Back" />
-        </Link>
+        </Link> */}
         <h1>{issueData?.title}</h1>
       </div>
 
@@ -236,8 +237,7 @@ const IndividualComplaintStudent = () => {
           <img src={issueData?.photo} alt="ComplaintImg"></img>
         </div>
         <div className={styles.Progress}>
-          {/* This section to be created the Rishab */}
-          Progress details assigned to Rishab
+          <StatusOfComplaint />
         </div>
       </div>
       <div className={styles.Comments}>
@@ -249,7 +249,15 @@ const IndividualComplaintStudent = () => {
         )}
         {Comments?.map((item) => {
           return (
-            <main id={styles.mainComment} key={item?._id}>
+            <main
+              id={styles.mainComment}
+              key={item?._id}
+              style={{
+                height: "auto",
+                maxHeight: "40vh",
+                overflowY: "auto",
+              }}
+            >
               <li name={item?.author} value={item?.author}>
                 <span>{item?.author}</span>
               </li>
@@ -295,7 +303,7 @@ const IndividualComplaintStudent = () => {
             className={styles.TapToSelect}
             // style={{ display: issueData?.isSolved === true ? "none" : "block" || issueData?.raiseComplainTo?.length === 3 ? "none" : "block" || issueData?.isClosed === true ? "none" : "block" }}
           >
-            <span>Raise Complain</span>
+            {/* <span>Raise Complain</span> */}
             <p>
               You can raise complain after 7 days if there is no response from the
               Supervisor side
@@ -333,10 +341,11 @@ const IndividualComplaintStudent = () => {
               opacity: issueData?.raiseComplainTo?.length === 3 ? "0.5" : "1",
               cursor:
                 issueData?.raiseComplainTo?.length === 3 ? "not-allowed" : "pointer",
+              fontSize: "clamp(12px,2.5vw,20px)",
             }}
             onClick={handleForward}
           >
-            Forward
+            Raise Complain
           </button>
         </div>
       )}

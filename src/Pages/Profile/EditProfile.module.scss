@@ -1,11 +1,10 @@
 .container {
-  width: 100vw;
+  width: 100%;
   height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #bce8e6;
-
   .main {
     background-color: white;
     min-width: 16.5rem;
@@ -72,7 +71,7 @@
       }
 
       .details_section {
-        width: 100vw;
+        width: 100%;
         height: 40vh;
         display: flex;
         justify-content: flex-start;
@@ -109,6 +108,7 @@
               border: 1px solid #b6b3b3;
               width: 50vw;
               height: 4.5vh;
+              padding-left: 0.5rem;
             }
 
             .hostel_options {
@@ -173,14 +173,14 @@
 
 @media screen and (min-width: 760px) {
   .container {
-    width: 100vw;
+    width: 100%;
     height: 70%;
     display: flex;
     align-items: center;
     justify-content: center;
 
     .main {
-      width: 100vw;
+      width: 100%;
       height: 60%;
       background-color: #bce8e6;
       display: flex;
@@ -213,7 +213,7 @@
         justify-content: center;
         align-items: center;
         height: 60vh;
-        box-shadow: 0px 5px 5px 0px #000000;
+        // box-shadow: 0px 5px 5px 0px #000000;
         margin-top: 3rem;
 
         .profile_image {
@@ -310,10 +310,12 @@
 
       .button_section {
         margin-bottom: 1rem;
-        height: 6vh;
+        height: 10vh;
+        padding-bottom: 2vw;
+        padding-top: 2vw;
         display: flex;
         background-color: #fff;
-        box-shadow: 0px 5px 5px 0px #000000;
+        // box-shadow: 0px 5px 5px 0px #000000;
         width: 80vw;
         justify-content: space-evenly;
         flex-direction: row;

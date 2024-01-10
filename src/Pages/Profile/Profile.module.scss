@@ -18,14 +18,15 @@
     .Profileheading {
       width: 100%;
       background-image: linear-gradient(to left, #40bdb6, #347ec5);
-      height: 6vh;
+      // height: 6vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 3vw 0;
 
       p {
         color: #fff;
-        font-size: 1rem;
+        font-size: 5vw;
         font-style: normal;
         line-height: 130%;
       }
@@ -157,14 +158,15 @@
       .Profileheading {
         width: 100%;
         background-image: linear-gradient(to left, #40bdb6, #347ec5);
-        height: 6vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+        padding-top: 0.75vw;
+        padding-bottom: 0.75vw;
 
         p {
           color: #fff;
-          font-size: 1.5rem;
+          font-size: 1.8vw;
           font-style: normal;
           line-height: 130%;
         }

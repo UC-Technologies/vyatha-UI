@@ -29,11 +29,11 @@ const AllComplaintsAdmin = () => {
     role === "supervisor"
       ? data?.issuesAssignedToSupervisor
       : role === "warden"
-      ? data?.sortedIssues
-      : role === "dsw"
-      ? data?.sortedIssues
-      : null;
-  console.log(fetchedIssues);
+        ? data?.sortedIssues
+        : role === "dsw"
+          ? data?.sortedIssues
+          : null;
+  // console.log(fetchedIssues);
 
   return (
     <div className={styles.cardAdmin}>

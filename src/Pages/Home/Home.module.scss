@@ -12,7 +12,7 @@
 .head {
   text-align: center;
   padding-top: 0 8px;
-  font-size: 3.5vw;
+  font-size: 3.5rem;
   padding: 4%;
   padding-top: 8vw;
 }
@@ -53,6 +53,7 @@ p {
 }
 .par3 {
   padding: 2rem;
+  text-align: justify;
 }
 .para2 {
   margin-top: 2.5rem;
@@ -105,31 +106,43 @@ button {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: centre;
   justify-content: space-evenly;
-  // margin-top: 10%;
+  .card1 {
+    top: 1rem;
+    .head1 {
+      text-align: center;
+      margin-bottom: 1rem;
+      margin-top: 0;
+      font-weight: 400;
+      font-size: 2rem;
+    }
+    .acc {
+      font-weight: 500;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    .imgee {
+      width: 22rem;
+      height: 22rem;
+      text-align: center;
+      margin: 0 auto;
+      display: block;
+    }
+    .listt {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      li {
+        margin-bottom: 2rem;
+        display: list-item;
+        list-style-type: disc;
+      }
+    }
+  }
 }
 
-.acc {
-  padding: 80px;
-  padding-left: 8px;
-}
-
-.card1 {
-  padding-top: 27px;
-}
-
-.head1 {
-  padding-left: 38px;
-}
-
-.imgee {
-  padding-top: 23px;
-  width: 350px;
-  height: 350px;
-  text-align: center;
-  margin: 0 auto;
-  display: block;
+#howitwworks {
+  padding-top: 5vw !important;
+  padding-bottom: 5vw !important;
 }
 
 @media (max-width: 320px) {
@@ -149,17 +162,45 @@ button {
   .card {
     width: 45%;
   }
-  .head {
-    font-size: x-large;
+
+  #top__head {
+    font-size: 5vw !important;
+    padding-top: 15vw !important;
+  }
+
+  #howitwworks {
+    padding-top: 10vw !important;
+    padding-bottom: 10vw !important;
   }
 }
 
 @media (max-width: 660px) {
-  .head {
-    padding-top: 30vw;
-    font-size: 6vw;
+  #top__head {
+    font-size: 7vw !important;
+    padding-top: 30vw !important;
   }
 
+  .head {
+    font-size: 3rem;
+  }
+
+  #howitwworks {
+    padding-top: 15vw !important;
+    padding-bottom: 15vw !important;
+  }
+
+  .container1 {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    ul {
+      text-align: none;
+      li {
+        display: list-item;
+        list-style-type: disc;
+      }
+    }
+  }
   .imgee {
     padding-top: 23px;
     width: 280px;

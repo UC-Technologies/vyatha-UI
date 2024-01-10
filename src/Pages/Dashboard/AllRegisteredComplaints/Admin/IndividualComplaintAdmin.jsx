@@ -36,8 +36,8 @@ const IndividualComplaintAdmin = () => {
     complaint?.forwardedTo === "supervisor"
       ? "warden"
       : complaint?.forwardedTo === "warden"
-      ? "dsw"
-      : null;
+        ? "dsw"
+        : null;
   useEffect(() => {
     if (role === "supervisor" && complaint?.forwardedTo === "supervisor") {
       setForwardBtnVisibility(true);
@@ -344,6 +344,7 @@ const IndividualComplaintAdmin = () => {
         <div className={styles.title_content}> {complaint?.title}</div>
       </div>
 
+      {/* <div id={styles.reduced__with}> */}
       {complaint?.isSolved && (
         <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
           Issue has been Solved at {complaint?.solvedAt}
@@ -499,8 +500,8 @@ const IndividualComplaintAdmin = () => {
             role === complaint?.forwardedTo
               ? "block"
               : "none" || role === "supervisor"
-              ? "none"
-              : "block",
+                ? "none"
+                : "block",
         }}
         id={styles.addcommentbtn}
         onClick={handleApprove}
