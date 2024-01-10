@@ -1,11 +1,12 @@
 .container {
   display: flex;
   margin: auto;
-  width: 23.34rem;
+  width: 100%;
   height: auto;
   background: #e4f4f3;
   flex-direction: column;
   .heading {
+    // margin-top:9vh;
     display: flex;
     width: 23.375rem;
     height: 3.5rem;
@@ -37,10 +38,16 @@
   }
   .about_content {
     display: flex;
-    width: 19.375rem;
+    // justify-content: space-around;
+    // align-items: center;
+    width: 80%;
     font-size: clamp(0vw, 4vw, 7vw);
     // margin-right: 0.5vw;
     text-align: center;
+    p {
+      display: flex;
+      justify-content: center;
+    }
   }
   .accordion {
     display: flex;
@@ -98,6 +105,11 @@
         color: #455a64;
         border-bottom: none;
         background: #fff;
+        // font-size: 4vw;
+        p {
+          display: flex;
+          align-items: center;
+        }
 
         .img3 {
           width: 2.54rem;
@@ -136,6 +148,9 @@
       width: 100vw;
     }
     .about_content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin-left: 9vw;
       width: 80vw;
     }
@@ -150,6 +165,7 @@
     width: 100%;
     margin-top: 4rem;
     // gap:2rem;
+
     .heading {
       width: 100%;
       font-size: 1.8rem;
@@ -230,5 +246,11 @@
         }
       }
     }
+  }
+}
+
+@media (max-width: 599px) {
+  .container {
+    padding-bottom: 2rem;
   }
 }
