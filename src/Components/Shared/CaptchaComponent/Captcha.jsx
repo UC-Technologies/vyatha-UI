@@ -29,7 +29,7 @@ const Captcha = () => {
     e.preventDefault();
     const userResponseInt = Number(userResponse);
     if (userResponseInt === Answer) {
-      toast("Correct");
+      toast("Captcha verified");
       setCaptchaVerified(true);
       generateCaptcha();
     } else {

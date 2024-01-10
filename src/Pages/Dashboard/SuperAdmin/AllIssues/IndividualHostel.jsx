@@ -9,7 +9,7 @@ import styles from "../AllSignups/Style.module.scss";
 const IndividualHostel = () => {
   const { hostel } = useParams();
   const navigate = useNavigate();
-  const { role } = useContext(UserContext);
+  const { role, isLoggedIn } = useContext(UserContext);
 
   useEffect(() => {
     document.title = `${hostel} open issues | Vyatha`;
@@ -21,7 +21,7 @@ const IndividualHostel = () => {
   const { data, error, isLoading, isFetching } = useQuery(
     "allIssuesHostelWise",
     () => fetchAllIssuesHostelWise({ hostel }),
-    { refetchOnWindowFocus: "always" }
+    { refetchOnWindowFocus: "always", enabled: isLoggedIn }
   );
 
   if (error) {

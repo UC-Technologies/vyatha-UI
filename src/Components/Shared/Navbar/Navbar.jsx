@@ -11,6 +11,7 @@ const Navbar = () => {
   const { isLoggedIn } = useContext(UserContext);
   const { data, error } = useQuery("profile", fetchProfile, {
     refetchOnWindowFocus: "always",
+    enabled: isLoggedIn,
   });
 
   const myProfile = data?.user;

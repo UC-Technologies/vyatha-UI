@@ -18,17 +18,16 @@ const IndividualComplaintAdmin = () => {
   const issueId = key;
   const issueID = key;
   const [reasonForForwarding, setReasonForForwarding] = useState("");
-
+  const { role, isLoggedIn } = useContext(UserContext);
   const handleInputChange = (e) => {
     setReasonForForwarding(e.target.value);
   };
-  const { data, error, isLoading, isFetching } = useQuery(
+  const { data, error, isLoading } = useQuery(
     "oneIssue",
     () => fetchIndividualIssue({ issueId }),
-    { refetchOnWindowFocus: "always" }
+    { enabled: isLoggedIn, refetchOnWindowFocus: "always" }
   );
 
-  const { role } = useContext(UserContext);
   const complaint = data?.issue;
 
   const [forwardBtnVisibility, setForwardBtnVisibility] = useState(false);
@@ -111,7 +110,7 @@ const IndividualComplaintAdmin = () => {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 

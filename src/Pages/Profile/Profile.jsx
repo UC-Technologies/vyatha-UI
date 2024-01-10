@@ -15,7 +15,9 @@ const Profile = () => {
 
   const navigate = useNavigate();
   const { isLoggedIn, role } = useContext(UserContext);
-  const { data, error, isLoading, isFetching } = useQuery("profile", fetchProfile, {
+  const { data, error, isLoading } = useQuery("profile", fetchProfile, {
+    enabled: isLoggedIn,
+    refetchInterval: 60000,
     refetchOnWindowFocus: "always",
   });
 
@@ -29,7 +31,7 @@ const Profile = () => {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 

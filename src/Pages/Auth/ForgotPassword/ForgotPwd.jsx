@@ -8,6 +8,7 @@ import { UserContext } from "../../../Context/Provider";
 const ForgotPwd = () => {
   const navigate = useNavigate();
   const { isLoggedIn } = useContext(UserContext);
+  const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
     if (isLoggedIn === true) navigate("/dashboard");
   }, [isLoggedIn, navigate]);
@@ -34,6 +35,7 @@ const ForgotPwd = () => {
     if (!validEmail) return;
     const email = document.getElementById("email")?.value;
     try {
+      setSubmitting(true);
       await axios
         .post(`${import.meta.env.VITE_REACT_APP_API}/forgotpassword`, { email })
         .then((res) => {
@@ -70,6 +72,7 @@ const ForgotPwd = () => {
       }
     } finally {
       document.getElementById("email").value = "";
+      setSubmitting(false);
     }
   };
 
@@ -96,8 +99,16 @@ const ForgotPwd = () => {
           <span>{error}</span>
         </div>
 
-        <button id={styles.forgot_btn} onClick={handleSubmit}>
-          Submit
+        <button
+          disabled={submitting}
+          style={{
+            cursor: submitting ? "not-allowed" : "pointer",
+            opacity: submitting ? "0.5" : "1",
+          }}
+          id={styles.forgot_btn}
+          onClick={handleSubmit}
+        >
+          {submitting ? "Submitting..." : "Submit"}
         </button>
       </div>
     </div>

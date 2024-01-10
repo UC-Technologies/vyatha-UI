@@ -15,6 +15,7 @@ import ComplaintForm from "./Pages/RegisterComplaint/ComplaintForm";
 
 import NotFound from "./Pages/NotFound/NotFound";
 import Verify from "./Pages/Auth/VerifyEmail/Verify";
+// import  from "./Pages/Profile/EditProfile";
 import EditProfile from "./Pages/Profile/EditProfile";
 // import AllComplaints from "./Pages/Dashboard/AllRegisteredComplaints/AllComplaints";
 import IndividualComplaint from "./Pages/Dashboard/AllRegisteredComplaints/IndividualComplaint";
@@ -33,6 +34,7 @@ import IndividualHostel from "./Pages/Dashboard/SuperAdmin/AllIssues/IndividualH
 import HostelWise from "./Pages/Dashboard/SuperAdmin/AllIssues/AllHostel";
 import ClosedIssues from "./Pages/Dashboard/SuperAdmin/AllIssues/ClosedIssues";
 import ClosedIssue from "./Pages/Dashboard/AllRegisteredComplaints/ClosedIssue";
+import EditIssue from "./Pages/EditIssue/EditIssue";
 // import HostelWise from "./Pages/Dashboard/SuperAdmin/AllIssues/AllHostel";
 // import { UserContext } from "./Context/Provider";
 import styles from "./app.module.scss";
@@ -69,6 +71,8 @@ const App = () => {
                     path="/:role/complaint/:key"
                     element={<IndividualComplaint />}
                   />
+                  {/* Edit Issue */}
+                  <Route path="/editissue/:issueID" element={<EditIssue />} />
                   {/* closed issue */}
                   <Route exact path="/:role/closedissues" element={<ClosedIssue />} />
                   {/* profile */}

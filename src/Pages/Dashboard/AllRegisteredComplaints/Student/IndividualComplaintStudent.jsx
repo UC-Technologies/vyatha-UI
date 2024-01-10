@@ -8,9 +8,11 @@ import { toast } from "sonner";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import Cookies from "js-cookie";
 import styles from "./IndividualComplaintS.module.scss";
-import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
+// import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import { UserContext } from "../../../../Context/Provider";
 import StatusOfComplaint from "../../../../Components/RegisteredComplaint/Student/StatusOfComplaint";
+// import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
+import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 
 // import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
@@ -29,16 +31,26 @@ const IndividualComplaintStudent = () => {
   const issueId = key;
   const issueID = key;
   // console.log("profile",profile)
-  const { role } = useContext(UserContext);
-  const { data, error, isLoading, isFetching } = useQuery(
+  const { role, isLoggedIn } = useContext(UserContext);
+  const { data, error, isLoading } = useQuery(
     "oneIssue",
     () => fetchIndividualIssue({ issueId }),
-    { refetchOnWindowFocus: "always" }
+    { enabled: isLoggedIn, refetchOnWindowFocus: "always" }
   );
 
+  // const { data, error, isLoading } = useQuery("complaints", fetchComplaints, {
+  //   refetchOnWindowFocus: false,
+  //   enabled: isLoggedIn,
+  //   refetchInterval: 60000,
+  //   refetchOnMount: false,
+  //   refetchIntervalInBackground: true,
+  // });
+
+  // const issueData = data?.allIssues?.find((item) => item._id === issueId);
+
   const issueData = data?.issue;
-  const otherID = data?.issue?.otherID;
-  const Comments = data?.issue?.comments;
+  const otherID = issueData?.otherID;
+  const Comments = issueData?.comments;
   useEffect(() => {
     document.title = `${issueData?.title} | Vyatha`;
   });
@@ -60,7 +72,7 @@ const IndividualComplaintStudent = () => {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 

@@ -8,6 +8,7 @@ import { UserContext } from "../../../Context/Provider";
 const ResetPwd = () => {
   const { token } = useParams();
   const [showPassword, setShowPassword] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +17,7 @@ const ResetPwd = () => {
     const password = document.getElementById("password")?.value;
     const confirmPassword = document.getElementById("confpassword")?.value;
     try {
+      setSubmitting(true);
       await axios
         .post(`${import.meta.env.VITE_REACT_APP_API}/resetpassword/${token}`, {
           password,
@@ -57,6 +59,7 @@ const ResetPwd = () => {
     } finally {
       document.getElementById("password").value = "";
       document.getElementById("confpassword").value = "";
+      setSubmitting(false);
     }
   };
 
@@ -174,8 +177,16 @@ const ResetPwd = () => {
           </label>
         </div>
 
-        <button id={styles.forgot_btn} onClick={handleSubmit}>
-          Submit
+        <button
+          disabled={submitting}
+          style={{
+            cursor: submitting ? "not-allowed" : "pointer",
+            opacity: submitting ? "0.5" : "1",
+          }}
+          id={styles.forgot_btn}
+          onClick={handleSubmit}
+        >
+          {submitting ? "Submitting..." : "Submit"}
         </button>
       </div>
     </div>

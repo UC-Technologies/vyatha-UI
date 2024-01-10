@@ -23,7 +23,7 @@ const IndividualIssue = () => {
   const { data, error, isLoading, isFetching } = useQuery(
     "oneIssue",
     () => fetchIndividualIssue({ issueId }),
-    { refetchOnWindowFocus: "always" }
+    { refetchOnWindowFocus: "always", enabled: isLoggedIn }
   );
 
   const issueData = data?.issue;
