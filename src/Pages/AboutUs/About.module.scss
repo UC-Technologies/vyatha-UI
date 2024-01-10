@@ -165,6 +165,7 @@
     width: 100%;
     margin-top: 4rem;
     // gap:2rem;
+
     .heading {
       width: 100%;
       font-size: 1.8rem;
@@ -245,5 +246,11 @@
         }
       }
     }
+  }
+}
+
+@media (max-width: 599px) {
+  .container {
+    padding-bottom: 2rem;
   }
 }
