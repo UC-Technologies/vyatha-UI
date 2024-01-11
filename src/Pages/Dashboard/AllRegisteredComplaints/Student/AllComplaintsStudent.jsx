@@ -194,28 +194,30 @@ const AllComplaintStudent = () => {
                 )}
                 <div className={styles.Description}>
                   <div>{complaint.description}</div>
-                  <div>
-                    {complaint?.isClosed === false && role === "student" && (
-                      <button
-                        onClick={() =>
-                          handleCloseIssue(complaint._id, complaint?.otherID)
-                        }
-                        className={styles.closebtn}
-                      >
-                        Close
-                      </button>
-                    )}
-                  </div>
-                  <div>
-                    {/* Edit issue button only available to the issue author */}
-                    {complaint?.isClosed === false && role === "student" && (
-                      <button
-                        onClick={() => handleIssueEdit(complaint?._id)}
-                        className={styles.closebtn}
-                      >
-                        Edit
-                      </button>
-                    )}
+                  <div className={styles.twoButtons}>
+                    <div>
+                      {complaint?.isClosed === false && role === "student" && (
+                        <button
+                          onClick={() =>
+                            handleCloseIssue(complaint._id, complaint?.otherID)
+                          }
+                          className={styles.closebtn}
+                        >
+                          Close
+                        </button>
+                      )}
+                    </div>
+                    <div>
+                      {/* Edit issue button only available to the issue author */}
+                      {complaint?.isClosed === false && role === "student" && (
+                        <button
+                          onClick={() => handleIssueEdit(complaint?._id)}
+                          className={styles.closebtn}
+                        >
+                          Edit
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div className={styles.SelectBar}>
