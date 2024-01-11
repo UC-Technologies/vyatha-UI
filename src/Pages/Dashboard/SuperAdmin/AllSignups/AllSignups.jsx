@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Style.module.scss";
 import { fetchAllAccounts } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/AllAccounts";
 import { UserContext } from "../../../../Context/Provider";
+import Loading from "../../../../Components/Shared/Loading/loading";
 
 const AllSignups = () => {
   useEffect(() => {
@@ -25,7 +26,7 @@ const AllSignups = () => {
     enabled: isLoggedIn,
   });
 
-  if (isLoading || isFetching) return <h1>Loading...</h1>;
+  if (isLoading || isFetching) return { Loading };
   if (error) return <h1>Error fetching data</h1>;
 
   const all = data?.allAccounts;

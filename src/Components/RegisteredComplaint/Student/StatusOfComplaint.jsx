@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import styles from "./Status.module.scss";
 import { fetchComplaints } from "../../ReactQuery/Fetchers/AllComplaints";
+import Loading from "../../Shared/Loading/loading";
 
 const StatusOfComplaint = () => {
   const { key } = useParams();
@@ -17,7 +18,7 @@ const StatusOfComplaint = () => {
   }
 
   if (isLoading || isFetching) {
-    return <div>Loading...</div>;
+    return { Loading };
   }
 
   /* eslint-disable no-underscore-dangle */

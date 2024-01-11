@@ -5,6 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../../../Context/Provider";
 import { fetchAllIssues } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/AllIssues";
 import styles from "../AllSignups/Style.module.scss";
+import Loading from "../../../../Components/Shared/Loading/loading";
 
 const AllIssues = () => {
   const { isLoggedIn } = useContext(UserContext);
@@ -26,7 +27,7 @@ const AllIssues = () => {
   }
 
   if (isLoading || isFetching) {
-    return <div>Loading...</div>;
+    return { Loading };
   }
   // console.log(data?.AllRegissues)
   const Issues = data?.AllRegissues;

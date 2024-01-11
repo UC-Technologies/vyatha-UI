@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { UserContext } from "../../../../Context/Provider";
 import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import styles from "../AllSignups/Style.module.scss";
+import Loading from "../../../../Components/Shared/Loading/loading";
 const IndividualIssue = () => {
   const { _id } = useParams();
   const issueId = _id;
@@ -36,7 +37,7 @@ const IndividualIssue = () => {
   }
 
   if (isLoading || isFetching) {
-    return <div>Loading...</div>;
+    return { Loading };
   }
 
   // console.log(typeof data?.issue?.IssueForwardedToDsw);

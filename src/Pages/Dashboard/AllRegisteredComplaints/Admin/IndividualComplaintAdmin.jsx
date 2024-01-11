@@ -12,6 +12,7 @@ import { HiEllipsisVertical } from "react-icons/hi2";
 import styles from "./IndividualComplaintA.module.scss";
 import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import { UserContext } from "../../../../Context/Provider";
+import Loading from "../../../../Components/Shared/Loading/loading";
 
 const IndividualComplaintAdmin = () => {
   const { key } = useParams(); // Extracted the key
@@ -111,7 +112,7 @@ const IndividualComplaintAdmin = () => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return { Loading };
   }
 
   const handleForwardIssue = async (e) => {

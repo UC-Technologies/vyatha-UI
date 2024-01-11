@@ -13,6 +13,7 @@ import { UserContext } from "../../../../Context/Provider";
 import StatusOfComplaint from "../../../../Components/RegisteredComplaint/Student/StatusOfComplaint";
 // import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
 import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
+import Loading from "../../../../Components/Shared/Loading/loading";
 
 // import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
@@ -73,7 +74,7 @@ const IndividualComplaintStudent = () => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return { Loading };
   }
 
   const handleForward = async (e) => {

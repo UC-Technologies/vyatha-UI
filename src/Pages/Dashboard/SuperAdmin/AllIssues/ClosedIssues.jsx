@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { UserContext } from "../../../../Context/Provider";
 import styles from "../AllSignups/Style.module.scss";
 import { fetchAllClosedIssuesHostelWise } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/ClosedIssues";
+import Loading from "../../../../Components/Shared/Loading/loading";
 // closed issue
 
 const ClosedIssues = () => {
@@ -30,7 +31,7 @@ const ClosedIssues = () => {
   }
 
   if (isLoading || isFetching) {
-    return <div>Loading...</div>;
+    return { Loading };
   }
 
   const allHostelSpecificIssues = data?.allHostelSpecificIssues;
