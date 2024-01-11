@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { UserContext } from "../../../../Context/Provider";
 import { fetchAllIssuesHostelWise } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualHostelIssue";
 import styles from "../AllSignups/Style.module.scss";
+import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 // open issue
 const IndividualHostel = () => {
   const { hostel } = useParams();
@@ -18,7 +19,7 @@ const IndividualHostel = () => {
     }
   }, [hostel, role, navigate]);
 
-  const { data, error, isLoading, isFetching } = useQuery(
+  const { data, error, isLoading } = useQuery(
     "allIssuesHostelWise",
     () => fetchAllIssuesHostelWise({ hostel }),
     { refetchOnWindowFocus: "always", enabled: isLoggedIn }
@@ -28,8 +29,8 @@ const IndividualHostel = () => {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <Skeleton />;
   }
 
   const allHostelSpecificIssues = data?.allHostelSpecificIssues;

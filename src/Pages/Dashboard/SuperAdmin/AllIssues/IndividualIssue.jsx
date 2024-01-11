@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { UserContext } from "../../../../Context/Provider";
 import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import styles from "../AllSignups/Style.module.scss";
+import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 const IndividualIssue = () => {
   const { _id } = useParams();
   const issueId = _id;
@@ -20,7 +21,7 @@ const IndividualIssue = () => {
     }
   }, [isLoggedIn, navigate, role]);
 
-  const { data, error, isLoading, isFetching } = useQuery(
+  const { data, error, isLoading } = useQuery(
     "oneIssue",
     () => fetchIndividualIssue({ issueId }),
     { refetchOnWindowFocus: "always", enabled: isLoggedIn }
@@ -35,8 +36,8 @@ const IndividualIssue = () => {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <Skeleton />;
   }
 
   // console.log(typeof data?.issue?.IssueForwardedToDsw);

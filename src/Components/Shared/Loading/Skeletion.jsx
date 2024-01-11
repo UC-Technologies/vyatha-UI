@@ -1,6 +1,6 @@
 import styles from "./Loading.module.scss";
 
-const Loading = () => {
+const Skeleton = () => {
   return (
     <div className={styles.maindiv}>
       <div className={styles.text}>
@@ -16,4 +16,4 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default Skeleton;

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Styles from "./Dashboard.module.scss";
 import { fetchComplaints } from "../ReactQuery/Fetchers/AllComplaints";
 import { UserContext } from "../../Context/Provider";
+import Skeleton from "../Shared/Loading/Skeletion";
 // import { UserContext } from "../../Context/Provider";
 
 export const DashBoardHome = ({ role }) => {
@@ -94,8 +95,9 @@ export const DashBoardHome = ({ role }) => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Skeleton />;
   }
+
   return (
     <div className={Styles.container}>
       <div className={Styles.RegComplaints}>

@@ -5,6 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../../../Context/Provider";
 import { fetchAllIssues } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/AllIssues";
 import styles from "../AllSignups/Style.module.scss";
+import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 
 const AllIssues = () => {
   const { isLoggedIn } = useContext(UserContext);
@@ -17,7 +18,7 @@ const AllIssues = () => {
     }
   }, [isLoggedIn, navigate]);
 
-  const { data, error, isLoading, isFetching } = useQuery("allIssues", fetchAllIssues, {
+  const { data, error, isLoading } = useQuery("allIssues", fetchAllIssues, {
     refetchOnWindowFocus: "always",
     enabled: isLoggedIn,
   });
@@ -25,8 +26,8 @@ const AllIssues = () => {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <Skeleton />;
   }
   // console.log(data?.AllRegissues)
   const Issues = data?.AllRegissues;

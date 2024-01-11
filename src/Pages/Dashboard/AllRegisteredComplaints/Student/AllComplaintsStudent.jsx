@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import styles from "./ComplaintDashboardS.module.scss";
 import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
 import { UserContext } from "../../../../Context/Provider";
+import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 
 const AllComplaintStudent = () => {
   useEffect(() => {
@@ -61,7 +62,7 @@ const AllComplaintStudent = () => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Skeleton />;
   }
 
   const token = Cookies.get("authToken");

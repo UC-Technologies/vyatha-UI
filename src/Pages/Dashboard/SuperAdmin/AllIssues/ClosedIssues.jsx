@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { UserContext } from "../../../../Context/Provider";
 import styles from "../AllSignups/Style.module.scss";
 import { fetchAllClosedIssuesHostelWise } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/ClosedIssues";
+import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 // closed issue
 
 const ClosedIssues = () => {
@@ -19,7 +20,7 @@ const ClosedIssues = () => {
     }
   }, [hostel, role, navigate]);
 
-  const { data, error, isLoading, isFetching } = useQuery(
+  const { data, error, isLoading } = useQuery(
     "allClosedIssuesHostelWise",
     () => fetchAllClosedIssuesHostelWise({ hostel }),
     { refetchOnWindowFocus: "always", enabled: isLoggedIn }
@@ -29,8 +30,8 @@ const ClosedIssues = () => {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <Skeleton />;
   }
 
   const allHostelSpecificIssues = data?.allHostelSpecificIssues;

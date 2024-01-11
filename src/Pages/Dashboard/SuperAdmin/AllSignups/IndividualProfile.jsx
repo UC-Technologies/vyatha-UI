@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import { UserContext } from "../../../../Context/Provider";
 import { individualProfile } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualProfile";
 import styles from "./Style.module.scss";
+import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 
 const IndividualProfile = () => {
   useEffect(() => {
@@ -31,7 +32,7 @@ const IndividualProfile = () => {
     { refetchOnWindowFocus: "always", enabled: isLoggedIn }
   );
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <Skeleton />;
   if (error) return <h1>Error fetching data</h1>;
 
   const all = data.individualProfile;
