@@ -1,10 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useQuery } from "react-query";
 import { useParams, Link } from "react-router-dom";
 import { fetchClosedComplaints } from "../../../Components/ReactQuery/Fetchers/ClosedIssueFetcher";
 import styles from "./Student/ComplaintDashboardS.module.scss";
+import { UserContext } from "../../../Context/Provider";
+import Skeleton from "../../../Components/Shared/Loading/Skeletion";
 // import SortByButton from "../../../Components/RegisteredComplaint/Student/SortByButton";
 
 const ClosedIssue = () => {
@@ -13,13 +15,14 @@ const ClosedIssue = () => {
     document.title = `Closed Issues for ${role} | Vyatha`;
   }, [role]);
 
-  const { data, error, isLoading, isFetching } = useQuery(
-    "closedComplaints",
-    fetchClosedComplaints,
-    {
-      refetchOnWindowFocus: "always",
-    }
-  );
+  const { isLoggedIn } = useContext(UserContext);
+
+  const { data, error, isLoading } = useQuery("closedComplaints", fetchClosedComplaints, {
+    refetchOnWindowFocus: "always",
+    refetchOnReconnect: "always",
+    refetchOnMount: true,
+    enabled: isLoggedIn,
+  });
 
   const allClosedIssues =
     role === "student"
@@ -54,8 +57,8 @@ const ClosedIssue = () => {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <Skeleton />;
   }
 
   // const imgBack =

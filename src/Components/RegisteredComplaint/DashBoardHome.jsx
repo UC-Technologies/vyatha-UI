@@ -1,13 +1,26 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+// import Cookies from "js-cookie";
+// import axios from "axios";
 import Styles from "./Dashboard.module.scss";
 import { fetchComplaints } from "../ReactQuery/Fetchers/AllComplaints";
+import { UserContext } from "../../Context/Provider";
+import Skeleton from "../Shared/Loading/Skeletion";
 // import { UserContext } from "../../Context/Provider";
 
 export const DashBoardHome = ({ role }) => {
-  // const { profile, isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn } = useContext(UserContext);
+  const { data, error, isLoading } = useQuery("complaints", fetchComplaints, {
+    refetchOnWindowFocus: "always",
+    enabled: isLoggedIn,
+    refetchInterval: 60000,
+    refetchOnMount: true,
+    refetchIntervalInBackground: true,
+  });
+
+  // const [fetchedData, setFetcedData] = useState({})
 
   // console.log(isLoggedInRef.current)
   const img1 =
@@ -65,17 +78,6 @@ export const DashBoardHome = ({ role }) => {
     };
   }, [visible]);
 
-  const { data, error, isLoading, isFetching } = useQuery("complaints", fetchComplaints, {
-    refetchOnWindowFocus: "always",
-  });
-  if (error) {
-    return <div>Something went wrong!</div>;
-  }
-
-  if (isLoading || isFetching) {
-    return <div>Loading...</div>;
-  }
-
   const notications =
     role === "student"
       ? data?.filteredStudentNotifications
@@ -88,6 +90,14 @@ export const DashBoardHome = ({ role }) => {
       : null;
 
   // console.log( notications);
+  if (error) {
+    return <div>Something went wrong!</div>;
+  }
+
+  if (isLoading) {
+    return <Skeleton />;
+  }
+
   return (
     <div className={Styles.container}>
       <div className={Styles.RegComplaints}>
@@ -103,21 +113,31 @@ export const DashBoardHome = ({ role }) => {
         <div className={Styles.registered}>
           <Link to={`/${role}/allcomplaints`}>
             <img src={img2} alt="registered complaints" />
-            <h3 id={Styles.extramargintop}>Registered Complaints</h3>
+            {/* <h3 id={Styles.extramargintop}>Registered Complaints</h3> */}
+            <h3 id={Styles.extramargintop}>
+              {role === "student" ? "All Registered Complaints" : "All Forwarded Issues"}
+            </h3>
           </Link>
         </div>
 
         <div className={Styles.registered}>
           <Link to={`/${role}/closedissues`}>
             <img src={img2} alt="All Closed Complaints" />
-            <h3 id={Styles.extramargintop}>All Closed Complaints</h3>
+            <h3 id={Styles.extramargintop}>
+              {role === "student" ? "All Closed Complaints" : "All Closed Issues"}
+            </h3>
           </Link>
         </div>
       </div>
       <div className={Styles.Icon} onClick={handleClick}>
         {visible ? <img src={img3} alt="ON" /> : <img src={img4} alt="OFF" />}
       </div>
-      <div className={Styles.Notifications} ref={ref}>
+      <div
+        className={`${Styles.Notifications} ${
+          notications?.length === 0 ? Styles.nonotifications : ""
+        }`}
+        ref={ref}
+      >
         {notications?.length === 0 && <p>No notifications yet</p>}
         {notications?.length > 0 &&
           notications?.map((item) => {

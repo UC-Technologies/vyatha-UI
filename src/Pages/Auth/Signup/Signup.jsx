@@ -10,6 +10,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const { isLoggedIn, captchaVerified } = useContext(UserContext);
   const [showPassword, setShowPassword] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const SignUp = () => {
     const designation = selects;
 
     const register = async () => {
+      setSubmitting(true);
       try {
         await axios
           .post(`${import.meta.env.VITE_REACT_APP_API}/signup`, {
@@ -111,6 +113,8 @@ const SignUp = () => {
               toast("Something went wrong");
           }
         }
+      } finally {
+        setSubmitting(false);
       }
     };
     if (validateForm()) register();
@@ -444,12 +448,16 @@ const SignUp = () => {
         {captchaVerified === false && <Captcha />}
         <button
           id={styles.btn_signup}
-          style={{ cursor: "pointer" }}
+          style={{
+            cursor: submitting ? "not-allowed" : "pointer",
+            opacity: submitting ? "0.5" : "1",
+          }}
           type="submit"
           onClick={handleSubmit}
+          disabled={submitting}
           // disabled={disabled}
         >
-          Submit
+          {submitting ? "Submitting..." : "Sign Up"}
         </button>
 
         {captchaVerified === true ? (

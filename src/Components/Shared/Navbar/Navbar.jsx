@@ -11,6 +11,7 @@ const Navbar = () => {
   const { isLoggedIn } = useContext(UserContext);
   const { data, error } = useQuery("profile", fetchProfile, {
     refetchOnWindowFocus: "always",
+    enabled: isLoggedIn,
   });
 
   const myProfile = data?.user;
@@ -128,7 +129,7 @@ const Navbar = () => {
             {isLoggedIn ? (
               <div className={styles.profile}>
                 {" "}
-                <img src={myProfile?.profilepic} alt="profilepic" />
+                <img src={myProfile?.profilepic} alt="" />
               </div>
             ) : (
               <div className={styles.profile}>

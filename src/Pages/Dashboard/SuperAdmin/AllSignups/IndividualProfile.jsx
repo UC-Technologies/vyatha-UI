@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 import { UserContext } from "../../../../Context/Provider";
 import { individualProfile } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualProfile";
 import styles from "./Style.module.scss";
+import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 
 const IndividualProfile = () => {
   useEffect(() => {
@@ -17,7 +18,7 @@ const IndividualProfile = () => {
 
   const navigate = useNavigate();
 
-  const { role } = useContext(UserContext);
+  const { role, isLoggedIn } = useContext(UserContext);
   useEffect(() => {
     if (role !== "superadmin") {
       navigate("/");
@@ -25,13 +26,13 @@ const IndividualProfile = () => {
   }, [role, navigate]);
 
   const { _id } = useParams();
-  const { data, error, isLoading, isFetching } = useQuery(
+  const { data, error, isLoading } = useQuery(
     "indiProfile",
     () => individualProfile({ _id }),
-    { refetchOnWindowFocus: "always" }
+    { refetchOnWindowFocus: "always", enabled: isLoggedIn }
   );
 
-  if (isLoading || isFetching) return <h1>Loading...</h1>;
+  if (isLoading) return <Skeleton />;
   if (error) return <h1>Error fetching data</h1>;
 
   const all = data.individualProfile;

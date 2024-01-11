@@ -12,23 +12,23 @@ import { HiEllipsisVertical } from "react-icons/hi2";
 import styles from "./IndividualComplaintA.module.scss";
 import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import { UserContext } from "../../../../Context/Provider";
+import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 
 const IndividualComplaintAdmin = () => {
   const { key } = useParams(); // Extracted the key
   const issueId = key;
   const issueID = key;
   const [reasonForForwarding, setReasonForForwarding] = useState("");
-
+  const { role, isLoggedIn } = useContext(UserContext);
   const handleInputChange = (e) => {
     setReasonForForwarding(e.target.value);
   };
-  const { data, error, isLoading, isFetching } = useQuery(
+  const { data, error, isLoading } = useQuery(
     "oneIssue",
     () => fetchIndividualIssue({ issueId }),
-    { refetchOnWindowFocus: "always" }
+    { enabled: isLoggedIn, refetchOnWindowFocus: "always" }
   );
 
-  const { role } = useContext(UserContext);
   const complaint = data?.issue;
 
   const [forwardBtnVisibility, setForwardBtnVisibility] = useState(false);
@@ -111,8 +111,8 @@ const IndividualComplaintAdmin = () => {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <Skeleton />;
   }
 
   const handleForwardIssue = async (e) => {
@@ -344,31 +344,45 @@ const IndividualComplaintAdmin = () => {
         <div className={styles.title_content}> {complaint?.title}</div>
       </div>
 
-      {/* <div id={styles.reduced__with}> */}
-      {complaint?.isSolved && (
-        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
-          Issue has been Solved at {complaint?.solvedAt}
-        </h1>
-      )}
+      {(complaint?.isSolved ||
+        complaint?.isClosed ||
+        complaint?.IssueForwardedToWarden[0]?.time ||
+        complaint?.IssueForwardedToDsw[0]?.time) && (
+        <div id={styles.infossofcomplaint}>
+          <ul>
+            {complaint?.isSolved && (
+              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                Issue has been Solved at {complaint?.solvedAt}
+              </li>
+            )}
+          </ul>
 
-      {complaint?.isClosed && (
-        <h1 id={styles.solvedAtDetails} style={{ color: "red" }}>
-          Issue has been Closed by the student at {complaint?.closedAt}
-        </h1>
-      )}
+          <ul>
+            {complaint?.isClosed && (
+              <li id={styles.solvedAtDetails} style={{ color: "red" }}>
+                Issue has been Closed by the student at {complaint?.closedAt}
+              </li>
+            )}
+          </ul>
 
-      {complaint?.IssueForwardedToWarden[0]?.time && (
-        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
-          Issue has been forwarded to Warden by the Supervisor at{" "}
-          {complaint?.IssueForwardedToWarden[0]?.time}
-        </h1>
-      )}
+          <ul>
+            {complaint?.IssueForwardedToWarden[0]?.time && (
+              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                Issue has been forwarded to Warden by the Supervisor at{" "}
+                {complaint?.IssueForwardedToWarden[0]?.time}
+              </li>
+            )}
+          </ul>
 
-      {complaint?.IssueForwardedToDsw[0]?.time && (
-        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
-          Issue has been forwarded to DSW by the warden at{" "}
-          {complaint?.IssueForwardedToDsw[0]?.time}
-        </h1>
+          <ul>
+            {complaint?.IssueForwardedToDsw[0]?.time && (
+              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                Issue has been forwarded to DSW by the warden at{" "}
+                {complaint?.IssueForwardedToDsw[0]?.time}
+              </li>
+            )}
+          </ul>
+        </div>
       )}
 
       <div className={styles.dropdown_img}>
@@ -441,6 +455,7 @@ const IndividualComplaintAdmin = () => {
             opacity: commentBody === "" ? "0.5" : "1",
             cursor: commentBody === "" ? "not-allowed" : "pointer",
           }}
+          disabled={commentBody === ""}
         >
           Add comment
         </button>

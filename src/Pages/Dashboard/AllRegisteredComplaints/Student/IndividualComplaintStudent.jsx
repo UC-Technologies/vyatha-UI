@@ -8,9 +8,12 @@ import { toast } from "sonner";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import Cookies from "js-cookie";
 import styles from "./IndividualComplaintS.module.scss";
-import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
+// import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import { UserContext } from "../../../../Context/Provider";
 import StatusOfComplaint from "../../../../Components/RegisteredComplaint/Student/StatusOfComplaint";
+// import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
+import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
+import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 
 // import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
@@ -29,16 +32,26 @@ const IndividualComplaintStudent = () => {
   const issueId = key;
   const issueID = key;
   // console.log("profile",profile)
-  const { role } = useContext(UserContext);
-  const { data, error, isLoading, isFetching } = useQuery(
+  const { role, isLoggedIn } = useContext(UserContext);
+  const { data, error, isLoading } = useQuery(
     "oneIssue",
     () => fetchIndividualIssue({ issueId }),
-    { refetchOnWindowFocus: "always" }
+    { enabled: isLoggedIn, refetchOnWindowFocus: "always" }
   );
 
+  // const { data, error, isLoading } = useQuery("complaints", fetchComplaints, {
+  //   refetchOnWindowFocus: false,
+  //   enabled: isLoggedIn,
+  //   refetchInterval: 60000,
+  //   refetchOnMount: false,
+  //   refetchIntervalInBackground: true,
+  // });
+
+  // const issueData = data?.allIssues?.find((item) => item._id === issueId);
+
   const issueData = data?.issue;
-  const otherID = data?.issue?.otherID;
-  const Comments = data?.issue?.comments;
+  const otherID = issueData?.otherID;
+  const Comments = issueData?.comments;
   useEffect(() => {
     document.title = `${issueData?.title} | Vyatha`;
   });
@@ -60,8 +73,8 @@ const IndividualComplaintStudent = () => {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <Skeleton />;
   }
 
   const handleForward = async (e) => {
@@ -122,7 +135,7 @@ const IndividualComplaintStudent = () => {
             break;
           default:
             toast("Something went wrong");
-            console.log(er.response.data.error);
+            console.error(er);
             break;
         }
       }
@@ -194,44 +207,61 @@ const IndividualComplaintStudent = () => {
         <h1>{issueData?.title}</h1>
       </div>
 
-      {issueData?.isSolved && (
-        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
-          Issue has been Solved at {issueData?.solvedAt}
-        </h1>
-      )}
-
-      {issueData?.isClosed && (
-        <h1 id={styles.solvedAtDetails} style={{ color: "red" }}>
-          Issue has been Closed by the student at {issueData?.closedAt}
-        </h1>
-      )}
-
-      {issueData?.IssueForwardedToWarden[0]?.time && (
-        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
-          Issue has been forwarded to Warden by the supervisor at{" "}
-          {issueData?.IssueForwardedToWarden[0]?.time}
-        </h1>
-      )}
-
-      {issueData?.IssueForwardedToDsw[0]?.time && (
-        <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
-          Issue has been forwarded to DSW by the Warden at{" "}
-          {issueData?.IssueForwardedToDsw[0]?.time}
-        </h1>
-      )}
-
       <div className={styles.Identity}>
         <div className={styles.Info}>
           <div className={styles.FilledBy}>Filled by</div>
-          <li>Name of the Student:{issueData?.name}</li>
-          <li>Scholar ID:{issueData?.scholarID}</li>
-          <li>Room No.:{issueData?.room}</li>
+          <li>Name of the Student: {issueData?.name}</li>
+          <li>Scholar ID: {issueData?.scholarID}</li>
+          <li>Hostel: {issueData?.hostel}</li>
+          <li>Room Number: {issueData?.room}</li>
           {/* <li>Phone No.:{issueData?.phone}</li> */}
         </div>
         <div className={styles.img}>
           <img src={issueData?.idcard} alt="idcard"></img>
         </div>
       </div>
+
+      {(issueData?.isSolved ||
+        issueData?.isClosed ||
+        issueData?.IssueForwardedToWarden[0]?.time ||
+        issueData?.IssueForwardedToDsw[0]?.time) && (
+        <div id={styles.infossofcomplaint}>
+          <ul>
+            {issueData?.isSolved && (
+              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                Issue has been Solved at {issueData?.solvedAt}
+              </li>
+            )}
+          </ul>
+
+          <ul>
+            {issueData?.isClosed && (
+              <li id={styles.solvedAtDetails} style={{ color: "red" }}>
+                Issue has been Closed by the student at {issueData?.closedAt}
+              </li>
+            )}
+          </ul>
+
+          <ul>
+            {issueData?.IssueForwardedToWarden[0]?.time && (
+              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                Issue has been forwarded to Warden by the supervisor at{" "}
+                {issueData?.IssueForwardedToWarden[0]?.time}
+              </li>
+            )}
+          </ul>
+
+          <ul>
+            {issueData?.IssueForwardedToDsw[0]?.time && (
+              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                Issue has been forwarded to DSW by the Warden at{" "}
+                {issueData?.IssueForwardedToDsw[0]?.time}
+              </li>
+            )}
+          </ul>
+        </div>
+      )}
+
       <div className={styles.ComplaintProgress}>
         <div className={styles.ComplaintImg}>
           <img src={issueData?.photo} alt="ComplaintImg"></img>
@@ -293,6 +323,7 @@ const IndividualComplaintStudent = () => {
             }}
             id={styles.addcommentbtn}
             onClick={handleAddComment}
+            disabled={commentBody === ""}
           >
             Add Comment
           </button>

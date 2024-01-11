@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { UserContext } from "../../Context/Provider";
 import styles from "./Profile.module.scss";
 import { fetchProfile } from "../../Components/ReactQuery/Fetchers/User";
+import Skeleton from "../../Components/Shared/Loading/Skeletion";
 
 const Profile = () => {
   useEffect(() => {
@@ -15,7 +16,9 @@ const Profile = () => {
 
   const navigate = useNavigate();
   const { isLoggedIn, role } = useContext(UserContext);
-  const { data, error, isLoading, isFetching } = useQuery("profile", fetchProfile, {
+  const { data, error, isLoading } = useQuery("profile", fetchProfile, {
+    enabled: isLoggedIn,
+    refetchInterval: 60000,
     refetchOnWindowFocus: "always",
   });
 
@@ -29,8 +32,8 @@ const Profile = () => {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <Skeleton />;
   }
 
   const myProfile = data?.user;

@@ -1,22 +1,25 @@
 /* eslint-disable no-console */
 import { useState, useEffect, useContext, useCallback } from "react";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useQuery } from "react-query";
 import FileBase64 from "react-file-base64";
-import styles from "./ComplaintForm.module.scss";
+import styles from "../RegisterComplaint/ComplaintForm.module.scss";
 import { UserContext } from "../../Context/Provider";
 import Captcha from "../../Components/Shared/CaptchaComponent/Captcha";
+import { fetchIndividualIssue } from "../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
+import Skeleton from "../../Components/Shared/Loading/Skeletion";
 // import Captcha from '../../Components/Shared/CaptchaComponent/Captcha'
 
-const ComplaintForm = () => {
-  useEffect(() => {
-    document.title = "Complaint Form | Vyatha";
-  }, []);
+const EditIssue = () => {
+  const { issueID } = useParams();
+  const issueId = issueID;
 
   const navigate = useNavigate();
-  const { isLoggedIn, role, profile, captchaVerified } = useContext(UserContext);
+  const { isLoggedIn, role, profile, captchaVerified, setCaptchaVerified } =
+    useContext(UserContext);
   const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
     if (isLoggedIn === false) {
@@ -38,17 +41,39 @@ const ComplaintForm = () => {
     }
   }, [isLoggedIn, navigate, role, profile?.user?.isVerified, profile?.user?.idcard]);
 
+  // filling the inputs using the fetched data
+  const { data, isLoading } = useQuery(
+    "oneIssue",
+    () => fetchIndividualIssue({ issueId }),
+    { refetchOnWindowFocus: "always", enabled: isLoggedIn }
+  );
+
+  useEffect(() => {
+    document.title = `Edit ${data?.issue?.title} | Vyatha`;
+  }, [data?.issue?.title]);
+
+  const issueData = data?.issue;
+
   const [formData, setFormData] = useState({
-    category: "LAN",
+    category: "",
     description: "",
     title: "",
   });
-  const [photo, setPhoto] = useState("");
-  const [imagePreview, setImagePreview] = useState(null);
 
+  useEffect(() => {
+    if (issueData) {
+      setFormData({
+        category: issueData.category,
+        description: issueData.description,
+        title: issueData.title,
+      });
+      setPhoto(issueData.photo);
+    }
+  }, [issueData]);
+
+  const [photo, setPhoto] = useState("");
   const handleImgChange = (base64) => {
     setPhoto(base64);
-    setImagePreview(base64);
   };
 
   const handleInput = (e) => {
@@ -88,13 +113,14 @@ const ComplaintForm = () => {
     setSubmitting(true);
     try {
       await axios
-        .post(
-          `${import.meta.env.VITE_REACT_APP_API}/createissue`,
+        .put(
+          `${import.meta.env.VITE_REACT_APP_API}/editissue`,
           {
             description: formData.description,
             category: formData.category,
             title: formData.title,
             photo,
+            issueID,
           },
           {
             headers: {
@@ -103,9 +129,10 @@ const ComplaintForm = () => {
           }
         )
         .then((res) => {
-          if (res.data.message === "Issue registered successfully") {
-            toast("Complaint Registered Successfully");
+          if (res.data.message === "Issue updated successfully") {
+            toast("Complaint updated successfully");
             navigate("/dashboard");
+            window.location.reload();
             setFormData({
               category: "",
               description: "",
@@ -115,22 +142,39 @@ const ComplaintForm = () => {
           }
         });
     } catch (err) {
+      setCaptchaVerified(false);
       if (err.response) {
         switch (err.response.data.error) {
-          case "You must verify your email to submit an issue":
-            toast("You must verify your email to submit an issue");
+          case "Please edit atleast one filled":
+            toast("Please edit atleast one filled");
             break;
-          case "Please provide title, description and photo":
-            toast("Please provide title, description, category and photo");
+          case "issueID missing":
+            toast("issueID missing");
             break;
-          case "Only student can file an issue":
-            toast("Only student can file an issue");
+          case "Issue not found":
+            toast("Issue not found");
             break;
-          case "Something went wrong on the server side":
-            toast("Something went wrong on the server side");
+          case "Not authorized to edit this issue":
+            toast("Not authorized to edit this issue");
+            break;
+          case "Not authorized":
+            toast("Not authorized");
+            break;
+          case "Internal Server Error":
+            toast("Internal Server Error");
+            break;
+          case "Issue is closed, can't edit":
+            toast("Issue is closed, can't edit");
+            break;
+          case "Issue is solved, can't edit":
+            toast("Issue is solved, can't edit");
+            break;
+          case "no changes made":
+            toast("please make some changes to edit");
             break;
           default:
             toast("Something went wrong");
+            console.error(err);
             break;
         }
       }
@@ -172,9 +216,11 @@ const ComplaintForm = () => {
     return validTitle && validDesc;
   }, [validTitle, validDesc, validateDesc, validateTitle]);
 
+  if (!issueData) return null;
+  if (isLoading) return <Skeleton />;
   return (
     <div className={styles.ComplaintForm}>
-      <div className={styles.Title}>Complaint form</div>
+      <div className={styles.Title}>{data?.issue?.title}</div>
 
       <div className={styles.CForm}>
         <form className={styles.ComplaintForm}>
@@ -241,75 +287,54 @@ const ComplaintForm = () => {
             </select>
             <label htmlFor="category">Category</label>
           </div>
-          {/* <div  className={styles.Uploadyourphoto}>
-          <p>Upload Your Photo</p>
-            </div> */}
-          <div className={styles.photoUpload}>
-            {/* <p>Upload Your Photo</p> */}
-            <div className={styles.twodiv1}>
-              <div className={styles.Uploadyourphoto}>
-                <div>Upload Your Photo</div>
-              </div>
-              <div
-                // className={styles.photoupload_inner}
-                className={`${styles.photoupload_inner} ${
-                  imagePreview === null ? styles.fullSize : styles.fixedImageArea
-                }`}
-                onDragOver={handleDragOver}
-                onDrop={handleDrop}
-              >
-                {/* <p>Upload Your Photo</p> */}
-                <img
-                  src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694535132/UC%20VYATHA/Frame_58066_1_nnkr62.jpg?_s=public-apps"
-                  alt=""
-                  draggable="true"
-                  onDragStart={(e) => e.preventDefault()}
-                />
-                <div className={styles.photouploadcontent}>
-                  <span className={styles.Dragdrop}>Drag and Drop File</span>
-                  <span className={styles.or}>-OR-</span>
-                </div>
 
-                <label
-                  id="Browsebutton"
-                  style={imagePreview ? { width: "150px", height: "50px" } : {}}
-                >
-                  BROWSE
-                  {/* <input
+          <div className={styles.photoUpload}>
+            <p>Upload Your Photo</p>
+            <div
+              className={styles.photoupload_inner}
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
+            >
+              <img
+                src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694535132/UC%20VYATHA/Frame_58066_1_nnkr62.jpg?_s=public-apps"
+                alt=""
+                draggable="true"
+                onDragStart={(e) => e.preventDefault()}
+              />
+              <div className={styles.photouploadcontent}>
+                <span className={styles.Dragdrop}>Drag and Drop File</span>
+                <span className={styles.or}>-OR-</span>
+              </div>
+
+              <label id="Browsebutton">
+                BROWSE
+                {/* <input
                   type="file"
                   name="Imagefile"
                   id="imagebrowse"
                   
                 /> */}
-                  <FileBase64
-                    id="imagebrowse"
-                    multiple={false}
-                    onDone={({ base64, file }) => {
-                      if (
-                        (file.type === "image/png" ||
-                          file.type === "image/jpeg" ||
-                          file.type === "image/jpg" ||
-                          file.type === "image/webp" ||
-                          file.type === "image/avif") &&
-                        file.size <= 300 * 1024
-                      ) {
-                        handleImgChange(base64);
-                      } else {
-                        toast("Invalid file type or image is greater than 300KB");
-                        setPhoto("");
-                      }
-                    }}
-                  />
-                </label>
-              </div>
+                <FileBase64
+                  id="imagebrowse"
+                  multiple={false}
+                  onDone={({ base64, file }) => {
+                    if (
+                      (file.type === "image/png" ||
+                        file.type === "image/jpeg" ||
+                        file.type === "image/jpg" ||
+                        file.type === "image/webp" ||
+                        file.type === "image/avif") &&
+                      file.size <= 300 * 1024
+                    ) {
+                      handleImgChange(base64);
+                    } else {
+                      toast("Invalid file type or image is greater than 300KB");
+                      setPhoto("");
+                    }
+                  }}
+                />
+              </label>
             </div>
-
-            {imagePreview && (
-              <div className={styles.imagePreview}>
-                {/* <p>Image Preview:</p> */}
-                <img src={imagePreview} alt="Preview" />
-              </div>
-            )}
           </div>
 
           <div>{captchaVerified === false && <Captcha />}</div>
@@ -320,7 +345,6 @@ const ComplaintForm = () => {
               style={{
                 cursor: submitting ? "not-allowed" : "pointer",
                 opacity: submitting ? "0.5" : "1",
-                marginTop: "2vw",
               }}
               onClick={handleIssueSubmit}
               type="submit"
@@ -333,4 +357,4 @@ const ComplaintForm = () => {
     </div>
   );
 };
-export default ComplaintForm;
+export default EditIssue;

@@ -1,6 +1,17 @@
 @media screen and (max-width: 599.99px) {
+  #infossofcomplaint {
+    background-color: #d7faf4;
+    width: 98% !important;
+    padding: 4vw 6vw;
+    margin: 3vw auto;
+    text-align: left;
+    li {
+      list-style-type: disc;
+    }
+  }
+
   #solvedAtDetails {
-    font-size: 7vw;
+    font-size: 2.5vw;
   }
 
   #mainComment {
@@ -99,21 +110,25 @@
         }
       }
     }
-    .ComplaintImg {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 70vw;
-      margin-bottom: 10vw;
-      img {
-        width: 90%;
-        height: 100%;
-        object-fit: cover;
+    .ComplaintProgress {
+      margin: 1.3rem 0rem;
+      .ComplaintImg {
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 2vw;
-        background: var(--vyatha-background-1);
+        height: 60vw;
+        margin-bottom: 1.5rem;
+        padding: 0rem 1.5rem;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 2vw;
+          background: var(--vyatha-background-1);
+        }
       }
     }
     .Progress {
@@ -229,10 +244,18 @@
 
 // --------------------------------------------------------------------LargeScreen------------------------------------------------------------------------------------------
 @media screen and (min-width: 600px) {
-  #solvedAtDetails {
-    font-size: 2vw;
-    font-style: italic;
+  #infossofcomplaint {
+    background-color: #d7faf4;
+    width: 80.5%;
+    padding: 2vw 4vw;
     margin: 1vw 0;
+    margin-top: 2vw;
+    li {
+      list-style-type: disc;
+    }
+  }
+  #solvedAtDetails {
+    font-size: 1.25vw;
   }
 
   #mainComment {
@@ -329,21 +352,21 @@
         }
       }
     }
-    .ComplaintImg {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 40vw;
-      img {
-        width: 90%;
-        height: 80%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 2vw;
-        background: var(--vyatha-background-1);
-      }
-    }
+    // .ComplaintImg {
+    //   display: flex;
+    //   justify-content: center;
+    //   align-items: center;
+    //   height: 40vw;
+    //   img {
+    //     width: 90%;
+    //     height: 80%;
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
+    //     border-radius: 2vw;
+    //     background: var(--vyatha-background-1);
+    //   }
+    // }
     .Progress {
       background: var(--vyatha-background-1);
       height: 20vw;
@@ -535,9 +558,7 @@
         img {
           width: 100%;
           height: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          object-fit: cover;
           border-radius: 2vw;
           background: var(--vyatha-background-1);
         }
