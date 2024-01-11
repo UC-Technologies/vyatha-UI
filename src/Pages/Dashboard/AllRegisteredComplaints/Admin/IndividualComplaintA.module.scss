@@ -161,9 +161,18 @@ li {
   }
 }
 
+#infossofcomplaint {
+  background-color: #d7faf4;
+  width: 80.5%;
+  padding: 2vw 4vw;
+  margin: 1vw 0;
+  margin-top: 2vw;
+  li {
+    list-style-type: disc;
+  }
+}
 #solvedAtDetails {
-  font-size: 1.8vw;
-  font-style: italic;
+  font-size: 1.25vw;
 }
 
 #reduced__with {
@@ -171,7 +180,23 @@ li {
   margin-left: auto;
   margin-right: auto;
 }
+
 @media screen and (max-width: 660px) {
+  #infossofcomplaint {
+    background-color: #d7faf4;
+    width: 98% !important;
+    padding: 4vw 6vw;
+    margin: 3vw auto;
+    text-align: left;
+    li {
+      list-style-type: disc;
+    }
+  }
+
+  #solvedAtDetails {
+    font-size: 2.5vw;
+  }
+
   .photo_uploaded {
     span {
       display: none;
@@ -266,9 +291,5 @@ li {
         font-size: 3vw;
       }
     }
-  }
-
-  #solvedAtDetails {
-    font-size: 7vw;
   }
 }

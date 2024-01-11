@@ -135,7 +135,7 @@ const IndividualComplaintStudent = () => {
             break;
           default:
             toast("Something went wrong");
-            console.log(er.response.data.error);
+            console.error(er);
             break;
         }
       }
@@ -210,9 +210,10 @@ const IndividualComplaintStudent = () => {
       <div className={styles.Identity}>
         <div className={styles.Info}>
           <div className={styles.FilledBy}>Filled by</div>
-          <li>Name of the Student:{issueData?.name}</li>
-          <li>Scholar ID:{issueData?.scholarID}</li>
-          <li>Room No.:{issueData?.room}</li>
+          <li>Name of the Student: {issueData?.name}</li>
+          <li>Scholar ID: {issueData?.scholarID}</li>
+          <li>Hostel: {issueData?.hostel}</li>
+          <li>Room Number: {issueData?.room}</li>
           {/* <li>Phone No.:{issueData?.phone}</li> */}
         </div>
         <div className={styles.img}>
@@ -225,33 +226,39 @@ const IndividualComplaintStudent = () => {
         issueData?.IssueForwardedToWarden[0]?.time ||
         issueData?.IssueForwardedToDsw[0]?.time) && (
         <div id={styles.infossofcomplaint}>
-          <li>
+          <ul>
             {issueData?.isSolved && (
-              <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
+              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
                 Issue has been Solved at {issueData?.solvedAt}
-              </h1>
+              </li>
             )}
-          </li>
+          </ul>
 
-          {issueData?.isClosed && (
-            <h1 id={styles.solvedAtDetails} style={{ color: "red" }}>
-              Issue has been Closed by the student at {issueData?.closedAt}
-            </h1>
-          )}
+          <ul>
+            {issueData?.isClosed && (
+              <li id={styles.solvedAtDetails} style={{ color: "red" }}>
+                Issue has been Closed by the student at {issueData?.closedAt}
+              </li>
+            )}
+          </ul>
 
-          {issueData?.IssueForwardedToWarden[0]?.time && (
-            <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
-              Issue has been forwarded to Warden by the supervisor at{" "}
-              {issueData?.IssueForwardedToWarden[0]?.time}
-            </h1>
-          )}
+          <ul>
+            {issueData?.IssueForwardedToWarden[0]?.time && (
+              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                Issue has been forwarded to Warden by the supervisor at{" "}
+                {issueData?.IssueForwardedToWarden[0]?.time}
+              </li>
+            )}
+          </ul>
 
-          {issueData?.IssueForwardedToDsw[0]?.time && (
-            <h1 id={styles.solvedAtDetails} style={{ color: "green" }}>
-              Issue has been forwarded to DSW by the Warden at{" "}
-              {issueData?.IssueForwardedToDsw[0]?.time}
-            </h1>
-          )}
+          <ul>
+            {issueData?.IssueForwardedToDsw[0]?.time && (
+              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                Issue has been forwarded to DSW by the Warden at{" "}
+                {issueData?.IssueForwardedToDsw[0]?.time}
+              </li>
+            )}
+          </ul>
         </div>
       )}
 
@@ -316,6 +323,7 @@ const IndividualComplaintStudent = () => {
             }}
             id={styles.addcommentbtn}
             onClick={handleAddComment}
+            disabled={commentBody === ""}
           >
             Add Comment
           </button>

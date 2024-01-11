@@ -87,7 +87,7 @@
     border-radius: 2vw;
     box-shadow: 0px 0px 10px 8px rgba(0, 0, 0, 0.14);
     transition: all 0.35s ease;
-    height: 130vh;
+    height: 80vh;
     overflow-y: scroll;
   }
 
@@ -107,7 +107,28 @@
 .Notifications::-webkit-scrollbar {
   display: none;
 }
+
+.nonotifications {
+  position: relative;
+  top: -10vw;
+  height: 50vh !important;
+  width: 20vw !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (max-width: 768px) {
+  .nonotifications {
+    height: 50vh !important;
+    width: 95% !important;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .container {
     background-image: url("https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1702904047/Admin_xa7qfr.jpg?_s=public-apps");
     background-repeat: no-repeat;
@@ -176,10 +197,10 @@
       border-radius: 2vw;
       box-shadow: 0px 0px 10px 8px rgba(0, 0, 0, 0.14);
       transition: all 0.35s ease;
-      width: 100vw;
+      width: 95%;
       margin: 5vw auto 10vw auto !important;
       height: auto;
-      min-height: 50vh;
+      height: 80vh;
       overflow-y: scroll;
       margin-bottom: 20px !important;
     }
