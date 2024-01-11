@@ -113,21 +113,31 @@ export const DashBoardHome = ({ role }) => {
         <div className={Styles.registered}>
           <Link to={`/${role}/allcomplaints`}>
             <img src={img2} alt="registered complaints" />
-            <h3 id={Styles.extramargintop}>Registered Complaints</h3>
+            {/* <h3 id={Styles.extramargintop}>Registered Complaints</h3> */}
+            <h3 id={Styles.extramargintop}>
+              {role === "student" ? "All Registered Complaints" : "All Forwarded Issues"}
+            </h3>
           </Link>
         </div>
 
         <div className={Styles.registered}>
           <Link to={`/${role}/closedissues`}>
             <img src={img2} alt="All Closed Complaints" />
-            <h3 id={Styles.extramargintop}>All Closed Complaints</h3>
+            <h3 id={Styles.extramargintop}>
+              {role === "student" ? "All Closed Complaints" : "All Closed Issues"}
+            </h3>
           </Link>
         </div>
       </div>
       <div className={Styles.Icon} onClick={handleClick}>
         {visible ? <img src={img3} alt="ON" /> : <img src={img4} alt="OFF" />}
       </div>
-      <div className={Styles.Notifications} ref={ref}>
+      <div
+        className={`${Styles.Notifications} ${
+          notications?.length === 0 ? Styles.nonotifications : ""
+        }`}
+        ref={ref}
+      >
         {notications?.length === 0 && <p>No notifications yet</p>}
         {notications?.length > 0 &&
           notications?.map((item) => {
