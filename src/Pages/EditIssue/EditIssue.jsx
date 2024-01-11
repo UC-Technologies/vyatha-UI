@@ -10,7 +10,6 @@ import styles from "../RegisterComplaint/ComplaintForm.module.scss";
 import { UserContext } from "../../Context/Provider";
 import Captcha from "../../Components/Shared/CaptchaComponent/Captcha";
 import { fetchIndividualIssue } from "../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
-import Loading from "../../Components/Shared/Loading/loading";
 // import Captcha from '../../Components/Shared/CaptchaComponent/Captcha'
 
 const EditIssue = () => {
@@ -217,7 +216,7 @@ const EditIssue = () => {
   }, [validTitle, validDesc, validateDesc, validateTitle]);
 
   if (!issueData) return null;
-  if (isLoading) return { Loading };
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div className={styles.ComplaintForm}>
       <div className={styles.Title}>{data?.issue?.title}</div>

@@ -9,7 +9,6 @@ import Cookies from "js-cookie";
 import styles from "./EditProfile.module.scss";
 import { UserContext } from "../../Context/Provider";
 import { fetchProfile } from "../../Components/ReactQuery/Fetchers/User";
-import Loading from "../../Components/Shared/Loading/loading";
 
 const EditProfile = () => {
   useEffect(() => {
@@ -68,7 +67,7 @@ const EditProfile = () => {
   }
 
   if (isLoading) {
-    return { Loading };
+    return <div>Loading...</div>;
   }
 
   // const profilePic = document.getElementById("profile-pic");

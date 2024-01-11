@@ -7,7 +7,6 @@ import Cookies from "js-cookie";
 import { UserContext } from "../../Context/Provider";
 import styles from "./Profile.module.scss";
 import { fetchProfile } from "../../Components/ReactQuery/Fetchers/User";
-import Loading from "../../Components/Shared/Loading/loading";
 
 const Profile = () => {
   useEffect(() => {
@@ -33,7 +32,7 @@ const Profile = () => {
   }
 
   if (isLoading) {
-    return { Loading };
+    return <div>Loading...</div>;
   }
 
   const myProfile = data?.user;

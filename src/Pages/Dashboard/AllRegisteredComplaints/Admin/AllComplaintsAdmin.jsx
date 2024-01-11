@@ -6,7 +6,6 @@ import styles from "./ComplaintDashboardA.module.scss";
 import ComplaintCardA from "../../../../Components/RegisteredComplaint/Admin/ComplaintCardA";
 import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
 import { UserContext } from "../../../../Context/Provider";
-import Loading from "../../../../Components/Shared/Loading/loading";
 
 const AllComplaintsAdmin = () => {
   useEffect(() => {
@@ -22,7 +21,7 @@ const AllComplaintsAdmin = () => {
   }
 
   if (isLoading || isFetching) {
-    return { Loading };
+    return <div>Loading...</div>;
   }
 
   // const fetchedIssues = data?.sortedIssues;

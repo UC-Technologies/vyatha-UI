@@ -5,7 +5,6 @@ import { useQuery } from "react-query";
 import { UserContext } from "../../../../Context/Provider";
 import { fetchAllIssuesHostelWise } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualHostelIssue";
 import styles from "../AllSignups/Style.module.scss";
-import Loading from "../../../../Components/Shared/Loading/loading";
 // open issue
 const IndividualHostel = () => {
   const { hostel } = useParams();
@@ -30,7 +29,7 @@ const IndividualHostel = () => {
   }
 
   if (isLoading || isFetching) {
-    return { Loading };
+    return <div>Loading...</div>;
   }
 
   const allHostelSpecificIssues = data?.allHostelSpecificIssues;
