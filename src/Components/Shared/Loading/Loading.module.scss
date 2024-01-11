@@ -45,3 +45,30 @@
     background-color: lightgrey;
   }
 }
+
+@media only screen and (max-width: 900px) {
+  .maindiv {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .text {
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-top: 5rem;
+      .SkeletonText {
+        margin-left: 0.5rem;
+      }
+      .SkeletonText:last-child {
+        width: 30%;
+      }
+    }
+    .SkeletonSquare {
+      margin: none;
+      margin: 7rem 0rem 0rem 0rem;
+      height: 18rem;
+      width: 15rem;
+      align-self: center;
+    }
+  }
+}
