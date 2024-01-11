@@ -129,7 +129,7 @@ const Navbar = () => {
             {isLoggedIn ? (
               <div className={styles.profile}>
                 {" "}
-                <img src={myProfile?.profilepic} alt="profilepic" />
+                <img src={myProfile?.profilepic} alt="" />
               </div>
             ) : (
               <div className={styles.profile}>

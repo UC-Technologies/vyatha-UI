@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Style.module.scss";
 import { fetchAllAccounts } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/AllAccounts";
 import { UserContext } from "../../../../Context/Provider";
+import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 
 const AllSignups = () => {
   useEffect(() => {
@@ -20,12 +21,12 @@ const AllSignups = () => {
     }
   }, [role, navigate]);
 
-  const { data, error, isLoading, isFetching } = useQuery("profile", fetchAllAccounts, {
+  const { data, error, isLoading } = useQuery("profile", fetchAllAccounts, {
     refetchOnWindowFocus: "always",
     enabled: isLoggedIn,
   });
 
-  if (isLoading || isFetching) return <h1>Loading...</h1>;
+  if (isLoading) return <Skeleton />;
   if (error) return <h1>Error fetching data</h1>;
 
   const all = data?.allAccounts;
