@@ -6,6 +6,7 @@ import { useParams, Link } from "react-router-dom";
 import { fetchClosedComplaints } from "../../../Components/ReactQuery/Fetchers/ClosedIssueFetcher";
 import styles from "./Student/ComplaintDashboardS.module.scss";
 import { UserContext } from "../../../Context/Provider";
+import Skeleton from "../../../Components/Shared/Loading/Skeletion";
 // import SortByButton from "../../../Components/RegisteredComplaint/Student/SortByButton";
 
 const ClosedIssue = () => {
@@ -57,7 +58,7 @@ const ClosedIssue = () => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Skeleton />;
   }
 
   // const imgBack =
