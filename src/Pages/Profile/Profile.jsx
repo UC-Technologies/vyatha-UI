@@ -311,7 +311,7 @@ const Profile = () => {
               </div>
             </button>
 
-            {myProfile?.deleteAccount === "no" && (
+            {myProfile?.deleteAccount === "no" && role === "student" && (
               <button
                 type="button"
                 aria-label="Signout"

@@ -30,7 +30,7 @@ const IndividualIssue = () => {
 
   const issueData = data?.issue;
   useEffect(() => {
-    document.title = `${issueData?.name} | Vyatha`;
+    document.title = `${issueData?.title} | Vyatha`;
   });
 
   if (error) {
