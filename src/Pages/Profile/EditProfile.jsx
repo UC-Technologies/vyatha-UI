@@ -31,13 +31,25 @@ const EditProfile = () => {
   const myProfile = data?.user;
 
   const [formData, setFormData] = useState({
-    name: myProfile?.name || "",
+    name: "",
     newpwd: "",
     cnewpwd: "",
-    hostel: myProfile?.hostel || "",
-    phone: myProfile?.phone || "",
-    room: myProfile?.room || "",
+    hostel: "",
+    phone: "",
+    room: "",
   });
+
+  useEffect(() => {
+    if (myProfile) {
+      setFormData({
+        name: myProfile?.name,
+        hostel: myProfile?.hostel,
+        phone: myProfile?.phone,
+        room: myProfile?.room,
+      });
+      setIdcard(myProfile?.idcard);
+    }
+  }, [myProfile]);
   // console.log(myProfile);
 
   // const [isAdmin, setIsAdmin] = useState(false);
@@ -187,7 +199,7 @@ const EditProfile = () => {
 
               {role === "student" && idcard && (
                 <div style={{ marginTop: "2vw" }}>
-                  <p id={styles.marginbelowp}>Uploaded ID Card: </p>
+                  <p id={styles.marginbelowp}>ID Card: </p>
                   <img
                     style={{ pointerEvents: "none" }}
                     src={idcard}
@@ -265,7 +277,7 @@ const EditProfile = () => {
                               handleIdCardChange(base64);
                             } else {
                               toast("Invalid file type or image is greater than 300KB");
-                              setPhoto("");
+                              setIdcard("");
                             }
                           }}
                         />
