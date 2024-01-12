@@ -167,6 +167,7 @@ const Profile = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            boxShadow: "0px 0px 10px 8px rgba(0, 0, 0, 0.14)",
             backdropFilter: showPopUp && "blur(10px)",
             width: "100%",
             height: "100%",
@@ -180,8 +181,9 @@ const Profile = () => {
               justifyContent: "center",
               alignItems: "center",
               minWidth: "250px",
-              width: "50%",
+              width: window.innerWidth < 768 ? "90%" : "50%",
               height: window.innerWidth > 768 ? "30rem" : "50%",
+              boxShadow: "0px 0px 10px 8px rgba(0, 0, 0, 0.14)",
               borderRadius: "10px",
               background: "#fff",
               padding: "2rem",
@@ -200,6 +202,7 @@ const Profile = () => {
                   color: "#fff",
                   fontSize: "16px",
                   fontWeight: "700",
+                  cursor: "pointer",
                 }}
                 onClick={handleDelete}
               >
@@ -212,10 +215,11 @@ const Profile = () => {
                   minHeight: "10px",
                   height: "2rem",
                   borderRadius: "5px",
-                  backgroundColor: "Blue",
+                  backgroundColor: "#40bdb6",
                   color: "#fff",
                   fontSize: "16px",
                   fontWeight: "700",
+                  cursor: "pointer",
                 }}
                 onClick={handleShowPopUp}
               >

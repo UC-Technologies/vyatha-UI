@@ -35,12 +35,12 @@ const AllComplaintStudent = () => {
     role === "student"
       ? data?.allIssues
       : role === "supervisor"
-        ? data?.issuesAssignedToSupervisor
-        : role === "warden"
-          ? data?.sortedIssues
-          : role === "dsw"
-            ? data?.sortedIssues
-            : null;
+      ? data?.issuesAssignedToSupervisor
+      : role === "warden"
+      ? data?.sortedIssues
+      : role === "dsw"
+      ? data?.sortedIssues
+      : null;
 
   const [jsonData, setJsonData] = useState(fetchedIssues);
   const [searchInput, setSearchInput] = useState("");
@@ -90,6 +90,8 @@ const AllComplaintStudent = () => {
         .then((res) => {
           if (res.data.message === "Issue closed successfully") {
             toast("Issue closed successfully");
+            handleShowPopUp();
+            window.location.reload();
           }
         });
     } catch (er) {
@@ -169,12 +171,12 @@ const AllComplaintStudent = () => {
                   gap: "20px",
                   justifyContent: "center",
                   alignItems: "center",
-                  width: "40vw",
-                  minWidth: "250px",
-                  height: "30rem",
                   borderRadius: "10px",
                   background: "#fff",
                   fontSize: "clamp(12px,4vw,18px)",
+                  width: window.innerWidth < 768 ? "90%" : "50%",
+                  height: window.innerWidth > 768 ? "30rem" : "50%",
+                  boxShadow: "0px 0px 10px 8px rgba(0, 0, 0, 0.14)",
                 }}
               >
                 <div style={{ textAlign: "center", fontSize: "clamp(14px,2.5vw,18px)" }}>
@@ -192,6 +194,7 @@ const AllComplaintStudent = () => {
                       color: "#ffffff",
                       fontSize: "16px",
                       fontWeight: "700",
+                      cursor: "pointer",
                     }}
                     onClick={() => {
                       handleCloseIssue(complaintId, otherComplaintId);
@@ -207,10 +210,11 @@ const AllComplaintStudent = () => {
                       minHeight: "10px",
                       height: "2rem",
                       borderRadius: "5px",
-                      backgroundColor: "Blue",
+                      backgroundColor: "#40bdb6",
                       color: "#fff",
                       fontSize: "16px",
                       fontWeight: "700",
+                      cursor: "pointer",
                     }}
                     onClick={handleShowPopUp}
                   >
@@ -292,8 +296,8 @@ const AllComplaintStudent = () => {
                       {complaint?.isClosed === false && role === "student" && (
                         <button
                           onClick={() => {
-                            setComplaintId(complaint._id);
-                            setOtherComplaintId(complaint.otherID);
+                            setComplaintId(complaint?._id);
+                            setOtherComplaintId(complaint?.otherID);
                             handleShowPopUp();
                             scrollToTop();
                           }}
