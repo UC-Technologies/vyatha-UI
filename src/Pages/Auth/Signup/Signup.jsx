@@ -357,8 +357,8 @@ const SignUp = () => {
           <span>{errors.password}</span>
         </div>
 
-        <div className={styles.showpassword__container}>
-          <label className="labelshowpass">
+        <div className={styles.Showpassword__container}>
+          <div className={styles.inputPass}>
             <input
               className="inputshowpass"
               type="checkbox"
@@ -367,8 +367,9 @@ const SignUp = () => {
               checked={showPassword}
               onChange={handleShowPassword}
             />
-            <span>Show password</span>
-          </label>
+            {/* <span>Show password</span> */}
+          </div>
+          <div className="div">Show password</div>
         </div>
 
         <div
