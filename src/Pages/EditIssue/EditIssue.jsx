@@ -68,12 +68,16 @@ const EditIssue = () => {
         title: issueData.title,
       });
       setPhoto(issueData.photo);
+      setImagePreview(issueData.photo);
     }
   }, [issueData]);
 
   const [photo, setPhoto] = useState("");
+  // Image preview
+  const [imagePreview, setImagePreview] = useState(null);
   const handleImgChange = (base64) => {
     setPhoto(base64);
+    setImagePreview(base64);
   };
 
   const handleInput = (e) => {
@@ -289,52 +293,65 @@ const EditIssue = () => {
           </div>
 
           <div className={styles.photoUpload}>
-            <p>Upload Your Photo</p>
-            <div
-              className={styles.photoupload_inner}
-              onDragOver={handleDragOver}
-              onDrop={handleDrop}
-            >
-              <img
-                src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694535132/UC%20VYATHA/Frame_58066_1_nnkr62.jpg?_s=public-apps"
-                alt=""
-                draggable="true"
-                onDragStart={(e) => e.preventDefault()}
-              />
-              <div className={styles.photouploadcontent}>
-                <span className={styles.Dragdrop}>Drag and Drop File</span>
-                <span className={styles.or}>-OR-</span>
+            <div className={styles.twodiv1}>
+              <div className={styles.Uploadyourphoto}>
+                <div>Upload Your Photo</div>
               </div>
+              <div
+                className={`${styles.photoupload_inner} ${
+                  imagePreview ? styles.fullSize : styles.fixedImageArea
+                }`}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+              >
+                <img
+                  src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694535132/UC%20VYATHA/Frame_58066_1_nnkr62.jpg?_s=public-apps"
+                  alt=""
+                  draggable="true"
+                  onDragStart={(e) => e.preventDefault()}
+                />
+                <div className={styles.photouploadcontent}>
+                  <span className={styles.Dragdrop}>Drag and Drop File</span>
+                  <span className={styles.or}>-OR-</span>
+                </div>
 
-              <label id="Browsebutton">
-                BROWSE
-                {/* <input
+                <label id="Browsebutton">
+                  BROWSE
+                  {/* <input
                   type="file"
                   name="Imagefile"
                   id="imagebrowse"
                   
                 /> */}
-                <FileBase64
-                  id="imagebrowse"
-                  multiple={false}
-                  onDone={({ base64, file }) => {
-                    if (
-                      (file.type === "image/png" ||
-                        file.type === "image/jpeg" ||
-                        file.type === "image/jpg" ||
-                        file.type === "image/webp" ||
-                        file.type === "image/avif") &&
-                      file.size <= 300 * 1024
-                    ) {
-                      handleImgChange(base64);
-                    } else {
-                      toast("Invalid file type or image is greater than 300KB");
-                      setPhoto("");
-                    }
-                  }}
-                />
-              </label>
+                  <FileBase64
+                    id="imagebrowse"
+                    multiple={false}
+                    onDone={({ base64, file }) => {
+                      if (
+                        (file.type === "image/png" ||
+                          file.type === "image/jpeg" ||
+                          file.type === "image/jpg" ||
+                          file.type === "image/webp" ||
+                          file.type === "image/avif") &&
+                        file.size <= 300 * 1024
+                      ) {
+                        handleImgChange(base64);
+                      } else {
+                        toast("Invalid file type or image is greater than 300KB");
+                        setPhoto("");
+                      }
+                    }}
+                  />
+                </label>
+              </div>
             </div>
+
+            {imagePreview && (
+              <div className={styles.imagePreview}>
+                {/* <p>Image Preview:</p> */}
+                <img style={{ pointerEvents: "none" }} src={imagePreview} alt="Preview" />
+              </div>
+            )}
           </div>
 
           <div>{captchaVerified === false && <Captcha />}</div>

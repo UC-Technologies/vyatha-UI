@@ -152,9 +152,16 @@ const EditProfile = () => {
             <p>My Profile</p>
           </div>
           <div className={styles.Profile_details}>
-            <div className={styles.profile_image}>
+            <div
+              className={styles.profile_image}
+              id={`${idcard ? styles.largeheight : ""}`}
+            >
               <div className={styles.profile_main}>
-                <img src={myProfile?.profilepic} alt="profileimage" id="profile-pic" />
+                <img
+                  src={photo === "" ? myProfile?.profilepic : photo}
+                  alt=""
+                  id="profile-pic"
+                />
               </div>
 
               <div className={styles.changeprofile}>
@@ -177,7 +184,20 @@ const EditProfile = () => {
                   }}
                 />
               </div>
+
+              {role === "student" && idcard && (
+                <div style={{ marginTop: "2vw" }}>
+                  <p id={styles.marginbelowp}>Uploaded ID Card: </p>
+                  <img
+                    style={{ pointerEvents: "none" }}
+                    src={idcard}
+                    alt=""
+                    id="profile-pic"
+                  />
+                </div>
+              )}
             </div>
+
             <div className={styles.details_section}>
               <form>
                 <div className={styles.details_section}>
@@ -188,6 +208,7 @@ const EditProfile = () => {
                     {role === "student" && (
                       <div className={styles.right_section}>Id Card photo</div>
                     )}
+
                     {role !== "dsw" && <div className={styles.right_section}>Hostel</div>}
                     {role === "student" && (
                       <div className={styles.right_section}>Room</div>
