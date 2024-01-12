@@ -47,10 +47,10 @@ const IndividualProfile = () => {
     all.role === "student"
       ? "promotetosupervisor"
       : all.role === "supervisor"
-      ? "promotetowarden"
-      : all.role === "warden"
-      ? "promotetodsw"
-      : null;
+        ? "promotetowarden"
+        : all.role === "warden"
+          ? "promotetodsw"
+          : null;
 
   const handleElevate = async (e) => {
     e.preventDefault();
@@ -117,10 +117,10 @@ const IndividualProfile = () => {
     all.role === "student"
       ? "Promote to Supervisor"
       : all.role === "supervisor"
-      ? "Promote to Warden"
-      : all.role === "warden"
-      ? "Promote to DSW"
-      : null;
+        ? "Promote to Warden"
+        : all.role === "warden"
+          ? "Promote to DSW"
+          : null;
 
   const handleDeleteAccount = async (e) => {
     e.preventDefault();
