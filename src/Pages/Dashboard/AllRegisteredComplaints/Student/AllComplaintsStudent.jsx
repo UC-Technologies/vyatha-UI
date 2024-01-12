@@ -12,6 +12,10 @@ import { UserContext } from "../../../../Context/Provider";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 
 const AllComplaintStudent = () => {
+  const [complaintId, setComplaintId] = useState();
+  const [otherComplaintId, setOtherComplaintId] = useState();
+  const [showPopUpClose, setShowPopUpClose] = useState(false);
+
   useEffect(() => {
     document.title = "All Complaints | Vyatha";
   }, []);
@@ -52,6 +56,10 @@ const AllComplaintStudent = () => {
     });
   };
 
+  const handleShowPopUp = () => {
+    setShowPopUpClose(!showPopUpClose);
+  };
+
   useEffect(() => {
     const filteredData = filterComplaints(fetchedIssues, searchInput);
     setJsonData(filteredData);
@@ -82,6 +90,8 @@ const AllComplaintStudent = () => {
         .then((res) => {
           if (res.data.message === "Issue closed successfully") {
             toast("Issue closed successfully");
+            handleShowPopUp();
+            window.location.reload();
           }
         });
     } catch (er) {
@@ -101,9 +111,21 @@ const AllComplaintStudent = () => {
             console.error(er.response.data.error);
             break;
         }
+
+        handleShowPopUp();
+        window.location.reload();
       }
     }
   };
+
+  function scrollToTop() {
+    // Calculate the center of the popup
+    window.scrollTo({
+      top: "0",
+      left: "0",
+      behavior: "smooth",
+    });
+  }
 
   const handleIssueEdit = (issueId) => {
     navigate(`/editissue/${issueId}`);
@@ -127,6 +149,81 @@ const AllComplaintStudent = () => {
       </div>
       <div className={styles.ComplaintCard}>
         <div className={styles.ComplaintCardInner}>
+          {showPopUpClose && (
+            <div
+              style={{
+                position: "absolute",
+                left: "0",
+                top: "0",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backdropFilter: showPopUpClose && "blur(10px)",
+                width: "100%",
+                height: "calc(130%)",
+                zIndex: "10",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "20px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "10px",
+                  background: "#fff",
+                  fontSize: "clamp(12px,4vw,18px)",
+                  width: window.innerWidth < 768 ? "90%" : "50%",
+                  height: window.innerWidth > 768 ? "30rem" : "50%",
+                  boxShadow: "0px 0px 10px 8px rgba(0, 0, 0, 0.14)",
+                }}
+              >
+                <div style={{ textAlign: "center", fontSize: "clamp(14px,2.5vw,18px)" }}>
+                  Are you sure you want to close this complaint?
+                </div>
+                <div style={{ display: "flex", gap: "2rem" }}>
+                  <button
+                    style={{
+                      minWidth: "40px",
+                      width: "5rem",
+                      minHeight: "10px",
+                      height: "2rem",
+                      borderRadius: "5px",
+                      backgroundColor: "Red",
+                      color: "#ffffff",
+                      fontSize: "16px",
+                      fontWeight: "700",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      handleCloseIssue(complaintId, otherComplaintId);
+                      // handleShowPopUp();
+                    }}
+                  >
+                    Yes
+                  </button>
+                  <button
+                    style={{
+                      minWidth: "40px",
+                      width: "5rem",
+                      minHeight: "10px",
+                      height: "2rem",
+                      borderRadius: "5px",
+                      backgroundColor: "#40bdb6",
+                      color: "#fff",
+                      fontSize: "16px",
+                      fontWeight: "700",
+                      cursor: "pointer",
+                    }}
+                    onClick={handleShowPopUp}
+                  >
+                    No
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
           {jsonData?.length === 0 && <p>No Registered Complaints yet</p>}
           {jsonData?.length > 0 &&
             jsonData?.map((complaint) => (
@@ -198,9 +295,12 @@ const AllComplaintStudent = () => {
                     <div>
                       {complaint?.isClosed === false && role === "student" && (
                         <button
-                          onClick={() =>
-                            handleCloseIssue(complaint._id, complaint?.otherID)
-                          }
+                          onClick={() => {
+                            setComplaintId(complaint?._id);
+                            setOtherComplaintId(complaint?.otherID);
+                            handleShowPopUp();
+                            scrollToTop();
+                          }}
                           className={styles.closebtn}
                         >
                           Close

@@ -28,12 +28,12 @@ const ClosedIssue = () => {
     role === "student"
       ? data?.allIssues
       : role === "supervisor"
-      ? data?.issuesAssignedToSupervisor
-      : role === "warden"
-      ? data?.issuesAssignedToWarden
-      : role === "dsw"
-      ? data?.issuesAssignedToDsw
-      : data?.AllRegissues;
+        ? data?.issuesAssignedToSupervisor
+        : role === "warden"
+          ? data?.issuesAssignedToWarden
+          : role === "dsw"
+            ? data?.issuesAssignedToDsw
+            : data?.AllRegissues;
 
   // console.log(allClosedIssues);
 

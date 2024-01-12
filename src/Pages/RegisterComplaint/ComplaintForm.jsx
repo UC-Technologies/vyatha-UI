@@ -307,7 +307,7 @@ const ComplaintForm = () => {
             {imagePreview && (
               <div className={styles.imagePreview}>
                 {/* <p>Image Preview:</p> */}
-                <img src={imagePreview} alt="Preview" />
+                <img style={{ pointerEvents: "none" }} src={imagePreview} alt="Preview" />
               </div>
             )}
           </div>

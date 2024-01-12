@@ -342,4 +342,19 @@
       }
     }
   }
+
+  #largeheight {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 660px) {
+  #largeheight {
+    height: 70vw;
+    justify-content: space-between;
+  }
+
+  #marginbelowp {
+    margin-bottom: 2vw;
+  }
 }
