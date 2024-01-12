@@ -224,7 +224,9 @@ const EditIssue = () => {
   if (isLoading) return <Skeleton />;
   return (
     <div className={styles.ComplaintForm}>
-      <div className={styles.Title}>{data?.issue?.title}</div>
+      <div className={styles.Title} id={styles.paddd}>
+        {data?.issue?.title}
+      </div>
 
       <div className={styles.CForm}>
         <form className={styles.ComplaintForm}>

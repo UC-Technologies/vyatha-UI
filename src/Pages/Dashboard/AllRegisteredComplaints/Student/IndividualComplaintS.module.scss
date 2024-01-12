@@ -54,8 +54,7 @@
       justify-content: center;
       background: var(--vyatha4-gradient-1);
       box-shadow: var(--vyatha4-shadow-1);
-      padding-top: 2vw;
-      padding-bottom: 2vw;
+      padding: 2vw;
       h1 {
         color: #fff;
         font-size: clamp(14px, 3vw, 24px);
@@ -295,8 +294,7 @@
       background: var(--vyatha4-gradient-1);
       box-shadow: var(--vyatha4-shadow-1);
       // height: 6vh;
-      padding-top: 0.5vw;
-      padding-bottom: 0.5vw;
+      padding: 0.5vw 2vw;
       h1 {
         color: #fff;
         font-size: clamp(16px, 4vw, 24px);

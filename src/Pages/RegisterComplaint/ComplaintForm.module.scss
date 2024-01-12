@@ -9,7 +9,7 @@
   font-size: clamp(12px, 4vw, 36px);
   margin-top: 4rem;
   // height: 6vh;
-  padding: 2vw !important;
+  padding: 0.5vw !important;
 }
 .CForm {
   background-color: #fff;
@@ -271,11 +271,20 @@
   height: 50px;
 }
 
+#paddd {
+  padding: 1vw 4vw !important;
+}
+
 @media (max-width: 660px) {
   .Title {
     padding: 4vw !important;
-    font-size: 3.55vw;
+    font-size: 7vw;
     margin-top: 4rem;
+  }
+
+  #paddd {
+    padding: 2vw 4vw !important;
+    font-size: 4vw;
   }
 
   // .photoUpload {
