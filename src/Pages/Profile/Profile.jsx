@@ -1,4 +1,4 @@
-import { React, useContext, useEffect } from "react";
+import { React, useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -14,6 +14,20 @@ const Profile = () => {
     document.title = "Profile | Vyatha";
   }, []);
 
+  const [showPopUp, setShowPopUp] = useState(false);
+
+  function scrollToTop() {
+    window.scrollTo({
+      top: "0",
+      left: "0",
+      behavior: "smooth",
+    });
+  }
+
+  useEffect(() => {
+    if (showPopUp) scrollToTop();
+  }, [showPopUp]);
+
   const navigate = useNavigate();
   const { isLoggedIn, role } = useContext(UserContext);
   const { data, error, isLoading } = useQuery("profile", fetchProfile, {
@@ -21,6 +35,10 @@ const Profile = () => {
     refetchInterval: 60000,
     refetchOnWindowFocus: "always",
   });
+
+  const handleShowPopUp = () => {
+    setShowPopUp(!showPopUp);
+  };
 
   useEffect(() => {
     if (isLoggedIn === false) {
@@ -140,7 +158,73 @@ const Profile = () => {
   };
 
   return (
-    <div>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      {showPopUp && (
+        <div
+          id={styles.PopUp}
+          style={{
+            position: "absolute",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backdropFilter: showPopUp && "blur(10px)",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              justifyContent: "center",
+              alignItems: "center",
+              minWidth: "250px",
+              width: "50%",
+              height: window.innerWidth > 768 ? "30rem" : "50%",
+              borderRadius: "10px",
+              background: "#fff",
+              padding: "2rem",
+            }}
+          >
+            <div>Are you sure you want to delete the account?</div>
+            <div style={{ display: "flex", gap: "2rem" }}>
+              <button
+                style={{
+                  minWidth: "40px",
+                  width: "5rem",
+                  minHeight: "10px",
+                  height: "2rem",
+                  borderRadius: "5px",
+                  backgroundColor: "Red",
+                  color: "#fff",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                }}
+                onClick={handleDelete}
+              >
+                Yes
+              </button>
+              <button
+                style={{
+                  minWidth: "40px",
+                  width: "5rem",
+                  minHeight: "10px",
+                  height: "2rem",
+                  borderRadius: "5px",
+                  backgroundColor: "Blue",
+                  color: "#fff",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                }}
+                onClick={handleShowPopUp}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className={styles.container}>
         <div className={styles.main}>
           <div className={styles.Profileheading}>
@@ -227,7 +311,7 @@ const Profile = () => {
               <button
                 type="button"
                 aria-label="Signout"
-                onClick={handleDelete}
+                onClick={handleShowPopUp}
                 className={styles.Signout}
               >
                 <div>

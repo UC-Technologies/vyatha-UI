@@ -82,12 +82,12 @@ export const DashBoardHome = ({ role }) => {
     role === "student"
       ? data?.filteredStudentNotifications
       : role === "supervisor"
-      ? data?.filteredSupervisorNotifications
-      : role === "dsw"
-      ? data?.filteredDswNotifications
-      : role === "warden"
-      ? data?.filteredWardenNotifications
-      : null;
+        ? data?.filteredSupervisorNotifications
+        : role === "dsw"
+          ? data?.filteredDswNotifications
+          : role === "warden"
+            ? data?.filteredWardenNotifications
+            : null;
 
   // console.log( notications);
   if (error) {

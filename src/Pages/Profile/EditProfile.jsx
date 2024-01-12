@@ -38,6 +38,17 @@ const EditProfile = () => {
     phone: myProfile?.phone || "",
     room: myProfile?.room || "",
   });
+
+  useEffect(() => {
+    setFormData({
+      name: myProfile?.name || "",
+      newpwd: myProfile?.newpwd || "",
+      cnewpwd: myProfile?.cnewpwd || "",
+      hostel: myProfile?.hostel || "",
+      phone: myProfile?.phone || "",
+      room: myProfile?.room || "",
+    });
+  });
   // console.log(myProfile);
 
   // const [isAdmin, setIsAdmin] = useState(false);
