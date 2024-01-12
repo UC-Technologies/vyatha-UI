@@ -38,6 +38,8 @@ import EditIssue from "./Pages/EditIssue/EditIssue";
 // import HostelWise from "./Pages/Dashboard/SuperAdmin/AllIssues/AllHostel";
 // import { UserContext } from "./Context/Provider";
 import styles from "./app.module.scss";
+import AllDeletedAccounts from "./Pages/Dashboard/SuperAdmin/AllSignups/AllDeletedAccounts";
+import ScheduledAccounts from "./Pages/Dashboard/SuperAdmin/AllSignups/ScheduledAccounts";
 const App = () => {
   // const isLoggedIn = useContext(UserContext)
   return (
@@ -106,6 +108,12 @@ const App = () => {
                     element={<IndividualIssue />}
                   />
                   <Route exact path="/profile/:_id" element={<IndividualProfile />} />
+                  <Route
+                    exact
+                    path="/scheduledaccounts"
+                    element={<ScheduledAccounts />}
+                  />
+                  <Route exact path="/deletedaccounts" element={<AllDeletedAccounts />} />
                   {/* 404 route */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>

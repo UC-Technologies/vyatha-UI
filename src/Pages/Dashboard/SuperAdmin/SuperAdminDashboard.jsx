@@ -23,6 +23,12 @@ const SuperAdminDashboard = () => {
         <div>
           <Link to="/superadmin/hostelwise">Hostel wise Issue</Link>
         </div>
+        <div>
+          <Link to="/scheduledaccounts">All Scheduled to be Deleted Accounts</Link>
+        </div>
+        <div>
+          <Link to="/deletedaccounts">All Deleted Accounts</Link>
+        </div>
       </h1>
     </main>
   );

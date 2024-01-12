@@ -33,13 +33,13 @@ const AllIssues = () => {
   const Issues = data?.AllRegissues;
   return (
     <main className={styles.top}>
-      <h1>All Issues</h1>
+      <h1>All Issues({Issues?.length})</h1>
       {Issues?.map((item) => {
         return (
           <div key={item._id}>
             <Link to={`/superadmin/issue/${item._id}`}>
               {" "}
-              <h3>Description: {item.description}</h3>
+              <h3>Title: {item.title}</h3>
             </Link>
             <hr />
           </div>
