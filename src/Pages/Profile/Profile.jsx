@@ -311,7 +311,7 @@ const Profile = () => {
               <button
                 type="button"
                 aria-label="Signout"
-                onClick={handleDelete}
+                onClick={handleShowPopUp}
                 className={styles.Signout}
               >
                 <div>

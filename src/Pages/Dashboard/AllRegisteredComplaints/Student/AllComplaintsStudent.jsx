@@ -195,7 +195,7 @@ const AllComplaintStudent = () => {
                     }}
                     onClick={() => {
                       handleCloseIssue(complaintId, otherComplaintId);
-                      handleShowPopUp();
+                      // handleShowPopUp();
                     }}
                   >
                     Yes

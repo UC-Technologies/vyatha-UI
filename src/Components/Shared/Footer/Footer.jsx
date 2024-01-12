@@ -65,27 +65,27 @@ const Footer = () => {
         </div>
       </div>
       <div className={styles.social_bar}>
-        <a href={social.linkedin} target="_blank">
+        <Link to={social.linkedin} target="_blank">
           <img
             src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694536788/UC%20VYATHA/Social_Icons_3_ekkehv.jpg?_s=public-apps"
             className={styles.social_icon}
             alt=""
           />
-        </a>
-        <a href={social.facebook} target="_blank">
+        </Link>
+        <Link to={social.facebook} target="_blank">
           <img
             src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694536731/UC%20VYATHA/Social_Icons_1_carjly.jpg?_s=public-apps"
             className={styles.social_icon}
             alt=""
           />
-        </a>
-        <a href={social.twitter} target="_blank">
+        </Link>
+        <Link to={social.twitter} target="_blank">
           <img
             src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694536775/UC%20VYATHA/Social_Icons_2_omyuzn.jpg?_s=public-apps"
             className={styles.social_icon}
             alt=""
           />
-        </a>
+        </Link>
       </div>
     </footer>
   );
