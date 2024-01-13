@@ -55,6 +55,7 @@ const Profile = () => {
   }
 
   const myProfile = data?.user;
+  console.log(myProfile);
 
   const handleProfileEdit = () => {
     navigate("/profile/edit");
@@ -246,12 +247,12 @@ const Profile = () => {
               <div className={styles.details_section}>
                 <div className={styles.details_about}>
                   <div className={styles.right_section}>Name</div>
-                  {role === "student" && (
+                  {role === "student" && myProfile?.designation === "Student" && (
                     <div className={styles.right_section}>Scholar ID</div>
                   )}
                   <div className={styles.right_section}>Email</div>
                   {role !== "dsw" && <div className={styles.right_section}>Hostel</div>}
-                  {role === "student" && (
+                  {role === "student" && myProfile?.designation === "Student" && (
                     <div className={styles.right_section}>Room No.</div>
                   )}
                   <div className={styles.right_section}>Phone</div>

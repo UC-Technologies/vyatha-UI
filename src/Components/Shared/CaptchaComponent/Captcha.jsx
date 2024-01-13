@@ -40,31 +40,40 @@ const Captcha = () => {
 
   return (
     <div className={styles.Container}>
-      <div className={styles.heading} style={{ userSelect: "none" }}>
-        {Num1} + {Num2}
+      <div className={styles.one}>
+        <div
+          className={styles.heading}
+          style={{ userSelect: "none", borderRadius: "0.25rem", padding: ".3rem 0" }}
+        >
+          {Num1} + {Num2}
+        </div>
+        <div
+          style={{ flex: "1", display: "flex", justifyContent: "end", alignItems: "end" }}
+        >
+          <input
+            type="text"
+            placeholder="Enter your answer"
+            value={userResponse}
+            onChange={(e) => {
+              setUserResponse(e.target.value);
+            }}
+            style={{ padding: ".3rem 0 .3rem .625rem", borderRadius: "0.25rem" }}
+          />
+        </div>
       </div>
-      <input
-        type="text"
-        placeholder="Enter your answer"
-        value={userResponse}
-        onChange={(e) => {
-          setUserResponse(e.target.value);
-        }}
-      />
-      <button
-        onClick={generateCaptcha}
-        style={{ cursor: "pointer" }}
-        className={styles.refresh}
-      >
-        Refresh
-      </button>
-      <button
-        onClick={verifyCaptcha}
-        style={{ cursor: "pointer" }}
-        className={styles.Submit}
-      >
-        Verify
-      </button>
+      <div className={styles.two}>
+        <div className={styles.refresh}>
+          <button onClick={generateCaptcha} style={{ cursor: "pointer" }}>
+            Refresh
+          </button>
+        </div>
+        <div className={styles.Submit}>
+          <button onClick={verifyCaptcha} style={{ cursor: "pointer" }}>
+            Verify
+            {/* Refresh */}
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
