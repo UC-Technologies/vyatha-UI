@@ -33,7 +33,7 @@ const AllSignups = () => {
   // console.log(typeof all)
   return (
     <main className={styles.top}>
-      <h1>All Signups</h1>
+      <h1>All Signups({all?.length})</h1>
       {all?.map((item) => {
         return (
           <div className={styles.card}>
