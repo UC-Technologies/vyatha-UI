@@ -81,7 +81,7 @@ const Profile = () => {
         )
         .then((res) => {
           if (res.data.message === "magic link sent successfully") {
-            toast("magic link sent successfully");
+            toast("Verification link sent successfully");
           }
         });
     } catch (errr) {
@@ -311,7 +311,7 @@ const Profile = () => {
               </div>
             </button>
 
-            {myProfile?.deleteAccount === "no" && (
+            {myProfile?.deleteAccount === "no" && role === "student" && (
               <button
                 type="button"
                 aria-label="Signout"

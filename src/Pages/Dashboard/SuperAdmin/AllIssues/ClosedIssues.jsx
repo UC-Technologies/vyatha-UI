@@ -38,13 +38,15 @@ const ClosedIssues = () => {
   // console.log(allHostelSpecificIssues)
   return (
     <div className={styles.top}>
-      <h1>{hostel}&apos;s Closed issues : </h1>
+      <h1>
+        {hostel}&apos;s Closed issues({allHostelSpecificIssues?.length}) :{" "}
+      </h1>
       {allHostelSpecificIssues?.map((item) => {
         return (
           <main>
             <Link to={`/superadmin/issue/${item._id}`}>
               {" "}
-              <h3>{item.description}</h3>
+              <h3>{item.title}</h3>
             </Link>
             <br />
             <hr />

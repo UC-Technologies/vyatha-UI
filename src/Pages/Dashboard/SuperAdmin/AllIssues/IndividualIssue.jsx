@@ -6,6 +6,7 @@ import { UserContext } from "../../../../Context/Provider";
 import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import styles from "../AllSignups/Style.module.scss";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
+
 const IndividualIssue = () => {
   const { _id } = useParams();
   const issueId = _id;
@@ -29,7 +30,7 @@ const IndividualIssue = () => {
 
   const issueData = data?.issue;
   useEffect(() => {
-    document.title = `${issueData?.name} | Vyatha`;
+    document.title = `${issueData?.title} | Vyatha`;
   });
 
   if (error) {
@@ -57,7 +58,7 @@ const IndividualIssue = () => {
           <h3>description: {issueData?.description}</h3>
           <h3>category: {issueData?.category}</h3>
           <h3>Photo: </h3>
-          <div>
+          <div id={styles.imgholder}>
             <img src={issueData?.photo} alt="" />
           </div>
           <h3>Forwarded to : {issueData?.forwardedTo}</h3>

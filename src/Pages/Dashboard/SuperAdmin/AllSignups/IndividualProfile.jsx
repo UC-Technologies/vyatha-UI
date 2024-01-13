@@ -12,10 +12,6 @@ import styles from "./Style.module.scss";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 
 const IndividualProfile = () => {
-  useEffect(() => {
-    document.title = "All Signups | Vyatha";
-  }, []);
-
   const navigate = useNavigate();
 
   const { role, isLoggedIn } = useContext(UserContext);
@@ -32,25 +28,29 @@ const IndividualProfile = () => {
     { refetchOnWindowFocus: "always", enabled: isLoggedIn }
   );
 
+  useEffect(() => {
+    if (data) document.title = `${data?.individualProfile?.name} | Vyatha`;
+  }, [data]);
+
   if (isLoading) return <Skeleton />;
   if (error) return <h1>Error fetching data</h1>;
 
-  const all = data.individualProfile;
+  const all = data?.individualProfile;
   const token = Cookies.get("authToken");
   const tokenConfig = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
-  const accountID = all._id;
+  const accountID = all?._id;
   const wrtrole =
     all.role === "student"
       ? "promotetosupervisor"
       : all.role === "supervisor"
-        ? "promotetowarden"
-        : all.role === "warden"
-          ? "promotetodsw"
-          : null;
+      ? "promotetowarden"
+      : all.role === "warden"
+      ? "promotetodsw"
+      : null;
 
   const handleElevate = async (e) => {
     e.preventDefault();
@@ -117,10 +117,10 @@ const IndividualProfile = () => {
     all.role === "student"
       ? "Promote to Supervisor"
       : all.role === "supervisor"
-        ? "Promote to Warden"
-        : all.role === "warden"
-          ? "Promote to DSW"
-          : null;
+      ? "Promote to Warden"
+      : all.role === "warden"
+      ? "Promote to DSW"
+      : null;
 
   const handleDeleteAccount = async (e) => {
     e.preventDefault();
@@ -144,14 +144,15 @@ const IndividualProfile = () => {
   return (
     <main className={styles.top}>
       <h1>Individual Profile</h1>
-      <h2>Name: {all.name}</h2>
-      <h3>Email: {all.email}</h3>
-      <h3>Phone: {all.phone}</h3>
-      <h3>Hostel: {all.hostel}</h3>
-      <h3>Room: {all.room}</h3>
-      <h3>Designation: {all.designation}</h3>
-      <h3>Scholar ID: {all.scholarID}</h3>
-      <h3>Role: {all.role}</h3>
+      <h2>Name: {all?.name}</h2>
+      <h3>Email: {all?.email}</h3>
+      <h3>Phone: {all?.phone}</h3>
+      <h3>Hostel: {all?.hostel}</h3>
+      <h3>Room: {all?.room}</h3>
+      <h3>Designation: {all?.designation}</h3>
+      <h3>Scholar ID: {all?.scholarID}</h3>
+      <h3>Role: {all?.role}</h3>
+      <h3>DeleteAccount: {all?.deleteAccount}</h3>
 
       <button onClick={handleElevate}>{roleElevate}</button>
 
