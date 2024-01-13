@@ -56,7 +56,8 @@
 
       .Student_details {
         width: 100vw;
-        height: 35vh;
+        // height: 29vh;
+        height: 18rem;
 
         .heading {
           display: none;
@@ -99,35 +100,47 @@
     }
 
     .button_section {
-      height: 30vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      gap: 1.4rem;
+      margin-bottom: 3rem;
 
       button {
-        width: 3.2rem;
-        height: 2.5rem;
-        padding: 0.3rem;
-        border-radius: 0.5rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        width: 8rem;
+        height: 3rem;
         border: none;
-        margin: 0.7rem;
-        background-color: white;
-        border: none;
-
-        div {
-          background-color: #4cddd5;
-          width: 8rem;
-          height: 3rem;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 1rem;
-        }
+        border-radius: 1rem;
+        background-color: #4cddd5;
       }
+      // height: 30vh;
+      // display: flex;
+      // flex-direction: column;
+      // justify-content: center;
+      // align-items: center;
+
+      // button {
+      //    width: 3.2rem;
+      //    height: 2.5rem;
+      //   padding: 0.3rem;
+      //   border-radius: 0.5rem;
+      //   display: flex;
+      //   justify-content: center;
+      //   align-items: center;
+      //   border: none;
+      //   margin: 0.7rem;
+      //   background-color: white;
+      //   border: none;
+
+      //   div {
+      //     background-color: #4cddd5;
+      //     width: 8rem;
+      //     height: 3rem;
+      //     display: flex;
+      //     justify-content: center;
+      //     align-items: center;
+      //     border-radius: 1rem;
+      //   }
+      // }
 
       .Editprofile:hover,
       .Signout:hover {
@@ -177,7 +190,7 @@
         justify-content: center;
         align-items: center;
         width: 80%;
-        height: 50vh;
+        height: 26rem;
         background-color: #fff;
         margin-top: 3rem;
         flex-direction: row;
@@ -251,21 +264,35 @@
       }
 
       .button_section {
-        background-color: white;
-        width: 80%;
-        height: 10vh;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        margin-bottom: 0rem;
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        gap: 2rem;
 
-        button {
-          margin: 3rem;
-          width: 5rem;
-          padding-bottom: 2rem;
-          height: 3rem;
-        }
+        width: 80%;
+        background-color: white;
       }
+
+      // .button_section {
+      //   background-color: white;
+      //   width: 80%;
+      //   height: 10vh;
+      //   display: flex;
+      //   flex-direction: row;
+      //   justify-content: center;
+      //   align-items: center;
+
+      //   button {
+      //     margin: 3rem;
+      //     width: 5rem;
+      //     padding-bottom: 2rem;
+      //     height: 3rem;
+      //   }
+      // }
     }
   }
 }

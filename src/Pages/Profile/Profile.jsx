@@ -279,51 +279,51 @@ const Profile = () => {
             </div>
           </div>
           <div className={styles.button_section}>
-            <button
-              type="button"
-              aria-label="Edit Profile"
-              className={styles.Editprofile}
-              onClick={handleProfileEdit}
-            >
-              <div>
-                <div>Edit Profile</div>
-              </div>
-            </button>
-            <button
-              type="button"
-              aria-label="Signout"
-              className={styles.Signout}
-              onClick={handleSignOut}
-            >
-              <div>
-                <div>Sign out</div>
-              </div>
-            </button>
-
-            <button
-              style={{ display: myProfile?.isVerified === true ? "none" : "block" }}
-              type="button"
-              aria-label="Signout"
-              className={styles.Signout}
-              onClick={handleVerify}
-            >
-              <div>
-                <div>Send Email verification link</div>
-              </div>
-            </button>
-
-            {myProfile?.deleteAccount === "no" && role === "student" && (
+            <div>
+              <button
+                type="button"
+                aria-label="Edit Profile"
+                className={styles.Editprofile}
+                onClick={handleProfileEdit}
+              >
+                Edit Profile
+              </button>
+            </div>
+            <div>
               <button
                 type="button"
                 aria-label="Signout"
-                onClick={handleShowPopUp}
                 className={styles.Signout}
+                onClick={handleSignOut}
               >
-                <div>
-                  <div>Delete Account</div>
-                </div>
+                Sign out
               </button>
-            )}
+            </div>
+
+            <div>
+              <button
+                style={{ display: myProfile?.isVerified === true ? "none" : "block" }}
+                type="button"
+                aria-label="Signout"
+                className={styles.Signout}
+                onClick={handleVerify}
+              >
+                Send Email verification link
+              </button>
+            </div>
+
+            <div>
+              {myProfile?.deleteAccount === "no" && role === "student" && (
+                <button
+                  type="button"
+                  aria-label="Signout"
+                  onClick={handleShowPopUp}
+                  className={styles.Signout}
+                >
+                  Delete Account
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
