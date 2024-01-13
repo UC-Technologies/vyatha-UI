@@ -221,7 +221,11 @@ const EditProfile = () => {
                       <div className={styles.right_section}>Id Card photo</div>
                     )}
 
-                    {role !== "dsw" && <div className={styles.right_section}>Hostel</div>}
+                    {(role === "student" ||
+                      role === "supervisor" ||
+                      role === "warden") && (
+                      <div className={styles.right_section}>Hostel</div>
+                    )}
                     {role === "student" && (
                       <div className={styles.right_section}>Room</div>
                     )}
@@ -284,7 +288,9 @@ const EditProfile = () => {
                       </div>
                     )}
 
-                    {role !== "dsw" && (
+                    {(role === "student" ||
+                      role === "supervisor" ||
+                      role === "warden") && (
                       <div className={styles.left_section}>
                         <select
                           id="hostel"

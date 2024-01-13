@@ -39,7 +39,7 @@ const Captcha = () => {
   }
 
   return (
-    <div className={styles.Container}>
+    <div className={styles.Container} style={{ userSelect: "none" }}>
       <div className={styles.one}>
         <div
           className={styles.heading}
@@ -62,13 +62,19 @@ const Captcha = () => {
         </div>
       </div>
       <div className={styles.two}>
-        <div className={styles.refresh}>
-          <button onClick={generateCaptcha} style={{ cursor: "pointer" }}>
-            Refresh
-          </button>
+        <div
+          onClick={generateCaptcha}
+          style={{ cursor: "pointer" }}
+          className={styles.refresh}
+        >
+          <button>Refresh</button>
         </div>
-        <div className={styles.Submit}>
-          <button onClick={verifyCaptcha} style={{ cursor: "pointer" }}>
+        <div
+          onClick={verifyCaptcha}
+          style={{ cursor: "pointer" }}
+          className={styles.Submit}
+        >
+          <button>
             Verify
             {/* Refresh */}
           </button>
