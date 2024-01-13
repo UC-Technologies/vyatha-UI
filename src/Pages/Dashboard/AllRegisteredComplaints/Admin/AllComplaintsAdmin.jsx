@@ -29,10 +29,10 @@ const AllComplaintsAdmin = () => {
     role === "supervisor"
       ? data?.issuesAssignedToSupervisor
       : role === "warden"
-        ? data?.sortedIssues
-        : role === "dsw"
-          ? data?.sortedIssues
-          : null;
+      ? data?.sortedIssues
+      : role === "dsw"
+      ? data?.sortedIssues
+      : null;
   // console.log(fetchedIssues);
 
   return (
