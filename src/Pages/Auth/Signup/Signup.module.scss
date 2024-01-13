@@ -25,7 +25,7 @@
       width: 35vw;
       max-width: 30rem;
       height: 2rem;
-      color: #a9a9ac;
+      color: #000000;
       cursor: pointer;
       border: 0.1rem solid grey;
       border-radius: 0.25rem;
@@ -162,14 +162,13 @@ h1 {
 
   // }
 
-  // @media only screen and (max-width: 600px) {
-  //   // width: 84%;
-  //   width: 80vw;
-  //   padding: 0;
-  // }
-  // @media only screen and (min-width: 600px) and (max-width: 900px) {
-  //   width: 39vw;
-  // }
+  @media only screen and (max-width: 600px) {
+    width: 80vw;
+    padding: 0;
+  }
+  @media only screen and (min-width: 600px) and (max-width: 900px) {
+    width: 39vw;
+  }
 }
 
 //   // margin-left: -15vw ;
