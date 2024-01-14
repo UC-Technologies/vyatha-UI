@@ -16,10 +16,14 @@ const AllDeletedAccounts = () => {
     }
   }, [role, navigate]);
 
-  const { data, error, isLoading } = useQuery("allIssues", fetchAllDeletedAccounts, {
-    refetchOnWindowFocus: "always",
-    enabled: isLoggedIn,
-  });
+  const { data, error, isLoading } = useQuery(
+    "allDeletedAccounts",
+    fetchAllDeletedAccounts,
+    {
+      refetchOnWindowFocus: "always",
+      enabled: isLoggedIn,
+    }
+  );
 
   const deltedAccountsData = data?.allDeletedAccounts;
   // console.log(deltedAccountsData)

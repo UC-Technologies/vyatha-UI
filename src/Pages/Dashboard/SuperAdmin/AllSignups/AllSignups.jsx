@@ -21,7 +21,7 @@ const AllSignups = () => {
     }
   }, [role, navigate]);
 
-  const { data, error, isLoading } = useQuery("profile", fetchAllAccounts, {
+  const { data, error, isLoading } = useQuery("accounts", fetchAllAccounts, {
     refetchOnWindowFocus: "always",
     enabled: isLoggedIn,
   });
@@ -34,27 +34,28 @@ const AllSignups = () => {
   return (
     <main className={styles.top}>
       <h1>All Signups({all?.length})</h1>
-      {all?.map((item) => {
-        return (
-          <div className={styles.card}>
-            <Link to={`/profile/${item._id}`}>
-              {" "}
-              <h3>Email : {item.email}</h3>
-            </Link>
+      {all?.length > 0 &&
+        all?.map((item) => {
+          return (
+            <div className={styles.card}>
+              <Link to={`/profile/${item._id}`}>
+                {" "}
+                <h3>Email : {item.email}</h3>
+              </Link>
 
-            <hr />
-            {/* <h2>Name: {item.name}</h2>
+              <hr />
+              {/* <h2>Name: {item.name}</h2>
             <h3>Phone: {item.phone}</h3>
             <h3>Hostel :{item.hostel}</h3>
             <h3>Room: {item.room}</h3>
             <h3>Designation :{item.designation}</h3>
             <h3>Scholar id:{item.scholarID}</h3>
             <h3>Role: {item.role}</h3> */}
-            {/* <h3>_id: {item._id}</h3> */}
-            <hr />
-          </div>
-        );
-      })}
+              {/* <h3>_id: {item._id}</h3> */}
+              <hr />
+            </div>
+          );
+        })}
     </main>
   );
 };

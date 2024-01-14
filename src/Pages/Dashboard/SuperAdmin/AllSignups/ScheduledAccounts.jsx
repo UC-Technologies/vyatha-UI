@@ -17,10 +17,14 @@ const ScheduledAccounts = () => {
     }
   }, [role, navigate]);
 
-  const { data, error, isLoading } = useQuery("allIssues", fetchAllDeletedAccounts, {
-    refetchOnWindowFocus: "always",
-    enabled: isLoggedIn,
-  });
+  const { data, error, isLoading } = useQuery(
+    "allDeletedAccounts",
+    fetchAllDeletedAccounts,
+    {
+      refetchOnWindowFocus: "always",
+      enabled: isLoggedIn,
+    }
+  );
 
   const scheduledAccountsData = data?.allScheduledAccounts;
 
