@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-/* eslint-disable no-constant-condition */
 /* eslint-disable no-console */
 import React, { useState, useContext, useEffect } from "react";
 import { Helmet } from "react-helmet";
@@ -15,6 +14,10 @@ import { UserContext } from "../../../../Context/Provider";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 
 const IndividualComplaintAdmin = () => {
+  const [closing, setClosing] = useState(false);
+  const [markingSolve, setMarkingSolve] = useState(false);
+  const [addingComment, setAddingComment] = useState(false);
+  const [approvingIssue, setApprovingIssue] = useState(false);
   const { key } = useParams(); // Extracted the key
   const issueId = key;
   const issueID = key;
@@ -56,8 +59,11 @@ const IndividualComplaintAdmin = () => {
     setCommentBody(e.target.value);
   };
   const token = Cookies.get("authToken");
+
+  // ADD COMMENT ONCLICK FUNCTION
   const handleAddComment = async (e) => {
     e.preventDefault();
+    setAddingComment(true);
     try {
       await axios
         .post(
@@ -96,6 +102,9 @@ const IndividualComplaintAdmin = () => {
           case "Issue has been closed by the student, can't add comment":
             toast("Issue has been closed by the student, can't add comment");
             break;
+          case "Issue has been solved, can't add comment":
+            toast("Issue has been solved, can't add comment");
+            break;
           case "No comment body found":
             toast("No comment body found");
             break;
@@ -104,6 +113,8 @@ const IndividualComplaintAdmin = () => {
             break;
         }
       }
+    } finally {
+      setAddingComment(false);
     }
   };
 
@@ -133,13 +144,13 @@ const IndividualComplaintAdmin = () => {
             res.data.message ===
             "Issue forwarded successfully to the warden and notification saved"
           ) {
-            toast("Issue forwarded successfully to the warden and notification saved");
+            toast("Issue forwarded successfully to the warden");
             setReasonForForwarding("");
           } else if (
             res.data.message ===
             "Issue forwarded successfully to the dsw and notification saved"
           ) {
-            toast("Issue forwarded successfully to the dsw and notification saved");
+            toast("Issue forwarded successfully to the dsw");
             setReasonForForwarding("");
           }
         });
@@ -186,6 +197,7 @@ const IndividualComplaintAdmin = () => {
 
   const handleMarkAsSolved = async (e) => {
     e.preventDefault();
+    setMarkingSolve(true);
     try {
       await axios
         .put(
@@ -231,6 +243,8 @@ const IndividualComplaintAdmin = () => {
             break;
         }
       }
+    } finally {
+      setMarkingSolve(false);
     }
   };
 
@@ -240,6 +254,7 @@ const IndividualComplaintAdmin = () => {
   // approve ISSUE ONCLICK FUNCTION
   const handleApprove = async (e) => {
     e.preventDefault();
+    setApprovingIssue(true);
     try {
       await axios
         .put(
@@ -291,12 +306,15 @@ const IndividualComplaintAdmin = () => {
             break;
         }
       }
+    } finally {
+      setApprovingIssue(false);
     }
   };
 
   // CLOSE ISSUE ONCLICK FUNCTION
   const handleClose = async () => {
     // console.log(issueId)
+    setClosing(true);
     try {
       await axios
         .put(
@@ -316,6 +334,9 @@ const IndividualComplaintAdmin = () => {
     } catch (er) {
       if (er.response) {
         switch (er.response.data.error) {
+          case "Issue is solved":
+            toast("Issue is solved, can't close");
+            break;
           case "Issue already closed":
             toast("Issue already closed");
             break;
@@ -327,12 +348,19 @@ const IndividualComplaintAdmin = () => {
             break;
           default:
             toast("Something went wrong");
-            console.error(er.response.data.error);
+            console.error(er);
             break;
         }
       }
+    } finally {
+      setClosing(false);
     }
   };
+
+  const dswApproved = complaint?.IssueForwardedToDsw[0]?.isApproved;
+  const wardenApproved = complaint?.IssueForwardedToWarden[0]?.isApproved;
+  const isIssueApproved =
+    role === "warden" ? wardenApproved : role === "dsw" ? dswApproved : null;
 
   return (
     <div className={styles.title_page}>
@@ -352,7 +380,7 @@ const IndividualComplaintAdmin = () => {
           <ul>
             {complaint?.isSolved && (
               <li id={styles.solvedAtDetails} style={{ color: "green" }}>
-                Issue has been Solved at {complaint?.solvedAt}
+                Issue has been <strong>Solved</strong> at {complaint?.solvedAt}
               </li>
             )}
           </ul>
@@ -360,7 +388,7 @@ const IndividualComplaintAdmin = () => {
           <ul>
             {complaint?.isClosed && (
               <li id={styles.solvedAtDetails} style={{ color: "red" }}>
-                Issue has been Closed by the student at {complaint?.closedAt}
+                Issue has been <strong>Closed</strong> at {complaint?.closedAt}
               </li>
             )}
           </ul>
@@ -368,7 +396,7 @@ const IndividualComplaintAdmin = () => {
           <ul>
             {complaint?.IssueForwardedToWarden[0]?.time && (
               <li id={styles.solvedAtDetails} style={{ color: "green" }}>
-                Issue has been forwarded to Warden by the Supervisor at{" "}
+                Issue has been forwarded to <strong>Warden</strong> by the Supervisor at{" "}
                 {complaint?.IssueForwardedToWarden[0]?.time}
               </li>
             )}
@@ -377,8 +405,24 @@ const IndividualComplaintAdmin = () => {
           <ul>
             {complaint?.IssueForwardedToDsw[0]?.time && (
               <li id={styles.solvedAtDetails} style={{ color: "green" }}>
-                Issue has been forwarded to DSW by the warden at{" "}
+                Issue has been forwarded to <strong>DSW</strong> by the Warden at{" "}
                 {complaint?.IssueForwardedToDsw[0]?.time}
+              </li>
+            )}
+          </ul>
+
+          <ul>
+            {complaint?.IssueForwardedToWarden[0]?.isApproved === true && (
+              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                Issue has been approved by the <strong>Warden</strong>
+              </li>
+            )}
+          </ul>
+
+          <ul>
+            {complaint?.IssueForwardedToDsw[0]?.isApproved === true && (
+              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                Issue has been approved by the <strong>DSW</strong>
               </li>
             )}
           </ul>
@@ -452,12 +496,12 @@ const IndividualComplaintAdmin = () => {
           onClick={handleAddComment}
           id={styles.addcommentbtn}
           style={{
-            opacity: commentBody === "" ? "0.5" : "1",
-            cursor: commentBody === "" ? "not-allowed" : "pointer",
+            opacity: commentBody === "" || addingComment ? "0.5" : "1",
+            cursor: commentBody === "" || addingComment ? "not-allowed" : "pointer",
           }}
-          disabled={commentBody === ""}
+          disabled={commentBody === "" || addingComment}
         >
-          Add comment
+          {addingComment ? "Adding Comment..." : "Add Comment"}
         </button>
 
         {/* when forwardTo has the value of dsw, then it should have the display of none for the role of supervisor  */}
@@ -479,6 +523,7 @@ const IndividualComplaintAdmin = () => {
         )}
       </div>
 
+      {/* Forward Issue */}
       {forwardBtnVisibility === true && (
         <div
           onClick={handleForwardIssue}
@@ -494,41 +539,54 @@ const IndividualComplaintAdmin = () => {
       )}
 
       {/* Mark as  solved button, only for supervisor */}
-      <button
-        id={styles.addcommentbtn}
-        style={{
-          display: role === "supervisor" ? "block" : "none",
-          cursor: complaint?.isSolved ? "not-allowed" : "pointer",
-          opacity: complaint?.isSolved ? "0.5" : "1",
-        }}
-        onClick={handleMarkAsSolved}
-      >
-        {complaint?.isSolved
-          ? "Issue has been marked as solved"
-          : "Mark the Issue as solved"}
-      </button>
-
-      {/* Approve issue button only for the warden and dsw */}
-      <button
-        style={{
-          display:
-            role === complaint?.forwardedTo
-              ? "block"
-              : "none" || role === "supervisor"
-              ? "none"
-              : "block",
-        }}
-        id={styles.addcommentbtn}
-        onClick={handleApprove}
-      >
-        Approve Issue
-      </button>
-
-      {role === "supervisor" && complaint?.isClosed === false && (
-        <button id={styles.addcommentbtn} onClick={handleClose}>
-          Close Issue
+      {role === "supervisor" && (
+        <button
+          id={styles.addcommentbtn}
+          style={{
+            // display: role === "supervisor" ? "block" : "none",
+            cursor: complaint?.isSolved ? "not-allowed" : "pointer",
+            opacity: complaint?.isSolved ? "0.5" : "1",
+          }}
+          onClick={handleMarkAsSolved}
+        >
+          {complaint?.isSolved
+            ? "Issue has been marked as solved"
+            : markingSolve
+            ? "Marking as solved..."
+            : "Mark as solved"}
         </button>
       )}
+
+      {/* if warden or dsw has marked the issue as approved then show the text issue has been approved and remove the button from the DOM */}
+
+      {/* Approve issue button only for the warden and dsw */}
+      {!isIssueApproved && role !== "supervisor" && (
+        <button
+          style={{
+            display: role === complaint?.forwardedTo ? "block" : "none",
+          }}
+          id={styles.addcommentbtn}
+          onClick={handleApprove}
+        >
+          {approvingIssue ? "Approving Issue..." : "Approve Issue"}
+        </button>
+      )}
+
+      {/* Close issue button */}
+      {role === "supervisor" &&
+        complaint?.isClosed === false &&
+        complaint?.isSolved === false && (
+          <button
+            style={{
+              cursor: closing ? "not-allowed" : "pointer",
+              opacity: closing ? "0.5" : "1",
+            }}
+            id={styles.addcommentbtn}
+            onClick={handleClose}
+          >
+            {closing ? "Closing issue..." : "Close Issue"}
+          </button>
+        )}
     </div>
   );
 };

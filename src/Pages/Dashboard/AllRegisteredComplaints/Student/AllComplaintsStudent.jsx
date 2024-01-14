@@ -97,6 +97,9 @@ const AllComplaintStudent = () => {
     } catch (er) {
       if (er.response) {
         switch (er.response.data.error) {
+          case "Issue is solved":
+            toast("Issue is solved, can't close");
+            break;
           case "Issue already closed":
             toast("Issue already closed");
             break;

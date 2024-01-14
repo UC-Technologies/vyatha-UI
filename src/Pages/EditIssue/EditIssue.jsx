@@ -54,6 +54,18 @@ const EditIssue = () => {
 
   const issueData = data?.issue;
 
+  useEffect(() => {
+    if (issueData?.isSolved === true) {
+      toast("Issue is Solved, can't edit");
+      navigate(`/dashboard`);
+    }
+
+    if (issueData?.isClosed === true) {
+      toast("Issue is Closed, can't edit");
+      navigate(`/dashboard`);
+    }
+  }, [issueData?.isSolved, issueData?.isClosed, navigate]);
+
   const [formData, setFormData] = useState({
     category: "",
     description: "",

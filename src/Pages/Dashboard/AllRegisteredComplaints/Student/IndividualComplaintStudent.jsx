@@ -18,6 +18,8 @@ import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 // import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
 const IndividualComplaintStudent = () => {
+  const [raising, setRaising] = useState(false);
+  const [addingComment, setAddingComment] = useState(false);
   // const imageUp = "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703025668/arrow_drop_up_FILL1_wght400_GRAD0_opsz24_twmqne.jpg?_s=public-apps";
   // const imageDown =
   //   "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703025668/arrow_drop_down_FILL1_wght400_GRAD0_opsz24_br1ybe.jpg?_s=public-apps";
@@ -79,6 +81,7 @@ const IndividualComplaintStudent = () => {
 
   const handleForward = async (e) => {
     e.preventDefault();
+    setRaising(true);
     try {
       await axios
         .post(
@@ -139,12 +142,15 @@ const IndividualComplaintStudent = () => {
             break;
         }
       }
+    } finally {
+      setRaising(false);
     }
   };
 
   const token = Cookies.get("authToken");
   const handleAddComment = async (e) => {
     e.preventDefault();
+    setAddingComment(true);
     try {
       await axios
         .post(
@@ -183,6 +189,9 @@ const IndividualComplaintStudent = () => {
           case "Issue has been closed by the student, can't add comment":
             toast("Issue has been closed by the student, can't add comment");
             break;
+          case "Issue has been solved, can't add comment":
+            toast("Issue has been solved, can't add comment");
+            break;
           case "No comment body found":
             toast("No comment body found");
             break;
@@ -191,6 +200,8 @@ const IndividualComplaintStudent = () => {
             break;
         }
       }
+    } finally {
+      setAddingComment(false);
     }
   };
 
@@ -229,7 +240,7 @@ const IndividualComplaintStudent = () => {
           <ul>
             {issueData?.isSolved && (
               <li id={styles.solvedAtDetails} style={{ color: "green" }}>
-                Issue has been Solved at {issueData?.solvedAt}
+                Issue has been <strong>Solved</strong> at {issueData?.solvedAt}
               </li>
             )}
           </ul>
@@ -237,7 +248,7 @@ const IndividualComplaintStudent = () => {
           <ul>
             {issueData?.isClosed && (
               <li id={styles.solvedAtDetails} style={{ color: "red" }}>
-                Issue has been Closed by the student at {issueData?.closedAt}
+                Issue has been <strong>Closed</strong> at {issueData?.closedAt}
               </li>
             )}
           </ul>
@@ -245,7 +256,7 @@ const IndividualComplaintStudent = () => {
           <ul>
             {issueData?.IssueForwardedToWarden[0]?.time && (
               <li id={styles.solvedAtDetails} style={{ color: "green" }}>
-                Issue has been forwarded to Warden by the supervisor at{" "}
+                Issue has been forwarded to <strong>Warden</strong> by the supervisor at{" "}
                 {issueData?.IssueForwardedToWarden[0]?.time}
               </li>
             )}
@@ -254,8 +265,24 @@ const IndividualComplaintStudent = () => {
           <ul>
             {issueData?.IssueForwardedToDsw[0]?.time && (
               <li id={styles.solvedAtDetails} style={{ color: "green" }}>
-                Issue has been forwarded to DSW by the Warden at{" "}
+                Issue has been forwarded to <strong>DSW</strong> by the Warden at{" "}
                 {issueData?.IssueForwardedToDsw[0]?.time}
+              </li>
+            )}
+          </ul>
+
+          <ul>
+            {issueData?.IssueForwardedToWarden[0]?.isApproved === true && (
+              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                Issue has been approved by the <strong>Warden</strong>
+              </li>
+            )}
+          </ul>
+
+          <ul>
+            {issueData?.IssueForwardedToDsw[0]?.isApproved === true && (
+              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                Issue has been approved by the <strong>DSW</strong>
               </li>
             )}
           </ul>
@@ -318,14 +345,14 @@ const IndividualComplaintStudent = () => {
         <div>
           <button
             style={{
-              opacity: commentBody === "" ? "0.5" : "1",
-              cursor: commentBody === "" ? "not-allowed" : "pointer",
+              opacity: commentBody === "" || addingComment ? "0.5" : "1",
+              cursor: commentBody === "" || addingComment ? "not-allowed" : "pointer",
             }}
             id={styles.addcommentbtn}
             onClick={handleAddComment}
-            disabled={commentBody === ""}
+            disabled={commentBody === "" || addingComment}
           >
-            Add Comment
+            {addingComment ? "Adding Comment..." : "Add Comment"}
           </button>
         </div>
 
@@ -367,16 +394,18 @@ const IndividualComplaintStudent = () => {
           className={styles.ForwardButton}
         >
           <button
-            disabled={issueData?.raiseComplainTo?.length === 3}
+            disabled={issueData?.raiseComplainTo?.length === 3 || raising}
             style={{
-              opacity: issueData?.raiseComplainTo?.length === 3 ? "0.5" : "1",
+              opacity: issueData?.raiseComplainTo?.length === 3 || raising ? "0.5" : "1",
               cursor:
-                issueData?.raiseComplainTo?.length === 3 ? "not-allowed" : "pointer",
+                issueData?.raiseComplainTo?.length === 3 || raising
+                  ? "not-allowed"
+                  : "pointer",
               fontSize: "clamp(12px,2.5vw,20px)",
             }}
             onClick={handleForward}
           >
-            Raise Complain
+            {raising ? "Raising Complain..." : "Raise Complain"}
           </button>
         </div>
       )}
