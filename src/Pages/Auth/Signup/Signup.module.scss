@@ -25,7 +25,7 @@
       width: 35vw;
       max-width: 30rem;
       height: 2rem;
-      color: #a9a9ac;
+      color: #000000;
       cursor: pointer;
       border: 0.1rem solid grey;
       border-radius: 0.25rem;
@@ -136,21 +136,54 @@ h1 {
 #btn_signup:hover {
   background-color: var(--vyatha-main-color-dark);
 }
+.Showpassword__container {
+  width: 100%;
+  padding-left: 1rem;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 
-.showpassword__container {
-  // margin-left: -15vw ;
-  // display: none;
-  // margin-top: 10px;
-  label {
-    cursor: pointer;
-    span {
-      margin-left: 0.3vw;
-    }
-    input {
-      cursor: pointer;
-    }
+  .inputPass {
+    display: flex;
+    align-items: center;
+  }
+
+  // input{
+  //   padding-top: 140px;
+  //  margin-top: 50px;
+  //   height: unset;
+  //   width: unset;
+  //   max-width: unset;
+  //   border-radius: unset;
+  //   border: unset;
+  //   font-size: unset;
+  //   padding: unset;
+
+  // }
+
+  @media only screen and (max-width: 600px) {
+    width: 80vw;
+    padding: 0;
+  }
+  @media only screen and (min-width: 600px) and (max-width: 900px) {
+    width: 39vw;
   }
 }
+
+//   // margin-left: -15vw ;
+//   // // display: none;
+//   // margin-top: 10px;
+//   label {
+//     cursor: pointer;
+//     span {
+//       margin-left: 0.3vw;
+//     }
+//     input {
+//       cursor: pointer;
+//     }
+//   }
+// }
 //Mobile View
 @media only screen and (max-width: 660px) {
   .maindiv {
@@ -167,13 +200,13 @@ h1 {
     flex-direction: column;
   }
 
-  .form {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem;
-  }
+  // .form {
+  //   position: relative;
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   margin: 1rem;
+  // }
 
   .error {
     span {
@@ -256,13 +289,13 @@ h1 {
     margin-top: 1.25rem;
   }
 
-  .showpassword__container {
-    text-align: left !important;
-    label {
-      cursor: pointer;
-      span {
-        margin-left: 1vw;
-      }
-    }
-  }
+  // .Showpassword__container {
+  //   text-align: left !important;
+  //   label {
+  //     cursor: pointer;
+  //     span {
+  //       margin-left: 1vw;
+  //     }
+  //   }
+  // }
 }
