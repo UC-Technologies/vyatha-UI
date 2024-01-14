@@ -251,7 +251,9 @@ const Profile = () => {
                     <div className={styles.right_section}>Scholar ID</div>
                   )}
                   <div className={styles.right_section}>Email</div>
-                  {role !== "dsw" && <div className={styles.right_section}>Hostel</div>}
+                  {(role === "student" || role === "supervisor" || role === "warden") && (
+                    <div className={styles.right_section}>Hostel</div>
+                  )}
                   {role === "student" && myProfile?.designation === "Student" && (
                     <div className={styles.right_section}>Room No.</div>
                   )}
@@ -260,16 +262,16 @@ const Profile = () => {
 
                 <div className={styles.details_info}>
                   <div className={styles.left_section}>{myProfile?.name}</div>
-                  {role === "student" && (
+                  {role === "student" && myProfile?.designation === "Student" && (
                     <div className={styles.left_section}>{myProfile?.scholarID}</div>
                   )}
 
                   <div className={styles.left_section}>{myProfile?.email}</div>
 
-                  {role !== "dsw" && (
+                  {(role === "student" || role === "supervisor" || role === "warden") && (
                     <div className={styles.left_section}>{myProfile?.hostel}</div>
                   )}
-                  {role === "student" && (
+                  {role === "student" && myProfile?.designation === "Student" && (
                     <div className={styles.left_section}>{myProfile?.room}</div>
                   )}
 
@@ -279,51 +281,51 @@ const Profile = () => {
             </div>
           </div>
           <div className={styles.button_section}>
-            <button
-              type="button"
-              aria-label="Edit Profile"
-              className={styles.Editprofile}
-              onClick={handleProfileEdit}
-            >
-              <div>
-                <div>Edit Profile</div>
-              </div>
-            </button>
-            <button
-              type="button"
-              aria-label="Signout"
-              className={styles.Signout}
-              onClick={handleSignOut}
-            >
-              <div>
-                <div>Sign out</div>
-              </div>
-            </button>
-
-            <button
-              style={{ display: myProfile?.isVerified === true ? "none" : "block" }}
-              type="button"
-              aria-label="Signout"
-              className={styles.Signout}
-              onClick={handleVerify}
-            >
-              <div>
-                <div>Send Email verification link</div>
-              </div>
-            </button>
-
-            {myProfile?.deleteAccount === "no" && role === "student" && (
+            <div>
+              <button
+                type="button"
+                aria-label="Edit Profile"
+                className={styles.Editprofile}
+                onClick={handleProfileEdit}
+              >
+                Edit Profile
+              </button>
+            </div>
+            <div>
               <button
                 type="button"
                 aria-label="Signout"
-                onClick={handleShowPopUp}
                 className={styles.Signout}
+                onClick={handleSignOut}
               >
-                <div>
-                  <div>Delete Account</div>
-                </div>
+                Sign out
               </button>
-            )}
+            </div>
+
+            <div>
+              <button
+                style={{ display: myProfile?.isVerified === true ? "none" : "block" }}
+                type="button"
+                aria-label="Signout"
+                className={styles.Signout}
+                onClick={handleVerify}
+              >
+                Send Email verification link
+              </button>
+            </div>
+
+            <div>
+              {myProfile?.deleteAccount === "no" && role === "student" && (
+                <button
+                  type="button"
+                  aria-label="Signout"
+                  onClick={handleShowPopUp}
+                  className={styles.Signout}
+                >
+                  Delete Account
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
