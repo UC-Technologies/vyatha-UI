@@ -131,7 +131,7 @@ const IndividualComplaintStudent = () => {
             toast("not authorized to access this endpoint");
             break;
           case "Can't raise complain to dsw before 7 days":
-            toast("Can't raise complain to dsw before 7 days");
+            toast("Can't raise complain to DSW before 7 days");
             break;
           case "Internal server error":
             toast("Internal server error");
@@ -231,6 +231,27 @@ const IndividualComplaintStudent = () => {
           <img src={issueData?.idcard} alt="idcard"></img>
         </div>
       </div>
+
+      <main id={styles.infoofraise}>
+        {issueData?.raiseComplainTo?.length > 1 &&
+          issueData?.raiseComplainTo.map((item, index) => {
+            return (
+              <main key={item._id}>
+                <p
+                  style={{
+                    fontStyle: "italic",
+                    color: "green",
+                    display: index === 0 ? "none" : "block",
+                  }}
+                >
+                  &quot;{" "}
+                  {`Issue has been raised to ${item?.whom} by the student on ${item?.when}`}{" "}
+                  &quot;
+                </p>
+              </main>
+            );
+          })}
+      </main>
 
       {(issueData?.isSolved ||
         issueData?.isClosed ||
@@ -366,24 +387,6 @@ const IndividualComplaintStudent = () => {
               You can raise complain after 7 days if there is no response from the
               Supervisor side
             </p>
-            {issueData?.raiseComplainTo?.length > 1 &&
-              issueData?.raiseComplainTo.map((item, index) => {
-                return (
-                  <main key={item._id}>
-                    <p
-                      style={{
-                        fontStyle: "italic",
-                        color: "green",
-                        display: index === 0 ? "none" : "block",
-                      }}
-                    >
-                      &quot;{" "}
-                      {`Issue has been raised to ${item?.whom} by the student on ${item?.when}`}{" "}
-                      &quot;
-                    </p>
-                  </main>
-                );
-              })}
           </div>
         )}
       </div>

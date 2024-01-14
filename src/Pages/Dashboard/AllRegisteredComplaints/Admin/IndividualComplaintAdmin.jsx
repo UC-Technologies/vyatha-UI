@@ -357,6 +357,7 @@ const IndividualComplaintAdmin = () => {
     }
   };
 
+  // make sure the dean and warden has got the privilege to approve the issue even when the issue has been raised directly to the dsw and warden and not been forwarded
   const dswApproved = complaint?.IssueForwardedToDsw[0]?.isApproved;
   const wardenApproved = complaint?.IssueForwardedToWarden[0]?.isApproved;
   const isIssueApproved =
