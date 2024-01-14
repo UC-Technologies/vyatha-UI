@@ -251,7 +251,9 @@ const Profile = () => {
                     <div className={styles.right_section}>Scholar ID</div>
                   )}
                   <div className={styles.right_section}>Email</div>
-                  {role !== "dsw" && <div className={styles.right_section}>Hostel</div>}
+                  {(role === "student" || role === "supervisor" || role === "warden") && (
+                    <div className={styles.right_section}>Hostel</div>
+                  )}
                   {role === "student" && myProfile?.designation === "Student" && (
                     <div className={styles.right_section}>Room No.</div>
                   )}
@@ -260,16 +262,16 @@ const Profile = () => {
 
                 <div className={styles.details_info}>
                   <div className={styles.left_section}>{myProfile?.name}</div>
-                  {role === "student" && (
+                  {role === "student" && myProfile?.designation === "Student" && (
                     <div className={styles.left_section}>{myProfile?.scholarID}</div>
                   )}
 
                   <div className={styles.left_section}>{myProfile?.email}</div>
 
-                  {role !== "dsw" && (
+                  {(role === "student" || role === "supervisor" || role === "warden") && (
                     <div className={styles.left_section}>{myProfile?.hostel}</div>
                   )}
-                  {role === "student" && (
+                  {role === "student" && myProfile?.designation === "Student" && (
                     <div className={styles.left_section}>{myProfile?.room}</div>
                   )}
 
