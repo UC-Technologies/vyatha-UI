@@ -36,8 +36,8 @@ const IndividualComplaintAdmin = () => {
     complaint?.forwardedTo === "supervisor"
       ? "warden"
       : complaint?.forwardedTo === "warden"
-        ? "dsw"
-        : null;
+      ? "dsw"
+      : null;
   useEffect(() => {
     if (role === "supervisor" && complaint?.forwardedTo === "supervisor") {
       setForwardBtnVisibility(true);
@@ -515,8 +515,8 @@ const IndividualComplaintAdmin = () => {
             role === complaint?.forwardedTo
               ? "block"
               : "none" || role === "supervisor"
-                ? "none"
-                : "block",
+              ? "none"
+              : "block",
         }}
         id={styles.addcommentbtn}
         onClick={handleApprove}

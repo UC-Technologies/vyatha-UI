@@ -55,7 +55,7 @@ const Profile = () => {
   }
 
   const myProfile = data?.user;
-  console.log(myProfile);
+  // console.log(myProfile);
 
   const handleProfileEdit = () => {
     navigate("/profile/edit");
