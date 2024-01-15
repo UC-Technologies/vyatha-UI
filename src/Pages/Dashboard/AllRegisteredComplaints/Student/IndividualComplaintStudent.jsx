@@ -244,9 +244,9 @@ const IndividualComplaintStudent = () => {
                     display: index === 0 ? "none" : "block",
                   }}
                 >
-                  &quot;{" "}
-                  {`Issue has been raised to ${item?.whom} by the student on ${item?.when}`}{" "}
-                  &quot;
+                  &quot; {`Issue has been raised to `}
+                  <strong>{item?.whom}</strong>
+                  {` by the student on `} <strong>{item?.when}</strong> &quot;
                 </p>
               </main>
             );
