@@ -66,10 +66,17 @@ const IndividualComplaintStudent = () => {
       setIssueVisibility(true);
     } else if (issueData?.raiseComplainTo?.length === 3) {
       setIssueVisibility(true);
+    } else if (issueData?.forwardedTo === "dsw") {
+      setIssueVisibility(true);
     } else {
       setIssueVisibility(false);
     }
-  }, [issueData?.isSolved, issueData?.isClosed, issueData?.raiseComplainTo?.length]);
+  }, [
+    issueData?.isSolved,
+    issueData?.forwardedTo,
+    issueData?.isClosed,
+    issueData?.raiseComplainTo?.length,
+  ]);
 
   if (error) {
     return <div>Something went wrong!</div>;
@@ -390,6 +397,13 @@ const IndividualComplaintStudent = () => {
           </div>
         )}
       </div>
+
+      {/* following conditions for the Raise complain button: 
+      1. if the issue is solved, then the button will not be visible (implemented)
+      2. if the issue is closed, then the button will not be visible (implemented)
+      3. if the issue is forwarded to warden, then the raise button will raise the issue to dsw only (todo)
+      4. if the issue is forwarded to dsw, then the raise button will not be visible (implemented)
+      */}
 
       {!issueVisibility && role === "student" && (
         <div

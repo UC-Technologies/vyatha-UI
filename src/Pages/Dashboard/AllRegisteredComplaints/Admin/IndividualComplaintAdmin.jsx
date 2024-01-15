@@ -18,6 +18,7 @@ const IndividualComplaintAdmin = () => {
   const [markingSolve, setMarkingSolve] = useState(false);
   const [addingComment, setAddingComment] = useState(false);
   const [approvingIssue, setApprovingIssue] = useState(false);
+  const [forwarding, setForwarding] = useState(false);
   const { key } = useParams(); // Extracted the key
   const issueId = key;
   const issueID = key;
@@ -128,6 +129,7 @@ const IndividualComplaintAdmin = () => {
 
   const handleForwardIssue = async (e) => {
     e.preventDefault();
+    setForwarding(true);
     try {
       await axios
         .put(
@@ -158,7 +160,7 @@ const IndividualComplaintAdmin = () => {
       if (ew.response) {
         switch (ew.response.data.error) {
           case "body incomplete":
-            toast("body incomplete");
+            toast("Please provide the reason for forwarding");
             break;
           case "No notification exists":
             toast("No notification exists");
@@ -192,6 +194,8 @@ const IndividualComplaintAdmin = () => {
             break;
         }
       }
+    } finally {
+      setForwarding(false);
     }
   };
 
@@ -548,18 +552,27 @@ const IndividualComplaintAdmin = () => {
         )}
       </div>
 
-      {/* Forward Issue */}
+      {/* Forward Issue only for warden and DSW */}
       {forwardBtnVisibility === true && (
         <div
           onClick={handleForwardIssue}
+          type="submit"
           style={{
-            cursor: reasonForForwarding === "" ? "not-allowed" : "pointer",
-            opacity: reasonForForwarding === "" ? "0.5" : "1",
+            cursor: reasonForForwarding === "" || forwarding ? "not-allowed" : "pointer",
+            opacity: reasonForForwarding === "" || forwarding ? "0.5" : "1",
             display: role === "dsw" ? "none" : "block",
           }}
           className={styles.submit}
         >
-          <input type="submit" />
+          <input
+            disabled={reasonForForwarding === "" || forwarding}
+            type="submit"
+            title="Forward the issue"
+            style={{
+              cursor:
+                reasonForForwarding === "" || forwarding ? "not-allowed" : "pointer",
+            }}
+          />
         </div>
       )}
 
@@ -569,10 +582,11 @@ const IndividualComplaintAdmin = () => {
           id={styles.addcommentbtn}
           style={{
             // display: role === "supervisor" ? "block" : "none",
-            cursor: complaint?.isSolved ? "not-allowed" : "pointer",
-            opacity: complaint?.isSolved ? "0.5" : "1",
+            cursor: complaint?.isSolved || markingSolve ? "not-allowed" : "pointer",
+            opacity: complaint?.isSolved || markingSolve ? "0.5" : "1",
           }}
           onClick={handleMarkAsSolved}
+          disabled={complaint?.isSolved || markingSolve}
         >
           {complaint?.isSolved
             ? "Issue has been marked as solved"
@@ -589,15 +603,18 @@ const IndividualComplaintAdmin = () => {
         <button
           style={{
             display: role === complaint?.forwardedTo ? "block" : "none",
+            cursor: approvingIssue ? "not-allowed" : "pointer",
+            opacity: approvingIssue ? "0.5" : "1",
           }}
           id={styles.addcommentbtn}
           onClick={handleApprove}
+          disabled={approvingIssue}
         >
           {approvingIssue ? "Approving Issue..." : "Approve Issue"}
         </button>
       )}
 
-      {/* Close issue button */}
+      {/* Close issue button only for supervisor */}
       {role === "supervisor" &&
         complaint?.isClosed === false &&
         complaint?.isSolved === false && (
@@ -608,6 +625,7 @@ const IndividualComplaintAdmin = () => {
             }}
             id={styles.addcommentbtn}
             onClick={handleClose}
+            disabled={closing}
           >
             {closing ? "Closing issue..." : "Close Issue"}
           </button>
