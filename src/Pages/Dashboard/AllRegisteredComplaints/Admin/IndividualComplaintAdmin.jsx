@@ -374,22 +374,23 @@ const IndividualComplaintAdmin = () => {
       </div>
 
       {/*  display reason for forwarding to only warden and dsw */}
-      {role === "warden" && complaint?.forwardedTo === "warden" && (
-        <div id={styles.infossofcomplaint}>
-          <ul>
-            <li id={styles.solvedAtDetails} style={{ color: "green" }}>
-              <strong>Reason for Forwarding</strong> :{" "}
-              {complaint?.IssueForwardedToWarden[0]?.reasonForForwarding}
-            </li>
-          </ul>
-        </div>
-      )}
+      {role === "warden" &&
+        (complaint?.forwardedTo === "warden" || complaint?.forwardedTo === "dsw") && (
+          <div id={styles.infossofcomplaint}>
+            <ul>
+              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                <strong>Reason for Forwarding from the Supervisor</strong> :{" "}
+                {complaint?.IssueForwardedToWarden[0]?.reasonForForwarding}
+              </li>
+            </ul>
+          </div>
+        )}
 
       {role === "dsw" && complaint?.forwardedTo === "dsw" && (
         <div id={styles.infossofcomplaint}>
           <ul>
             <li id={styles.solvedAtDetails} style={{ color: "green" }}>
-              <strong>Reason for Forwarding</strong> :{" "}
+              <strong>Reason for Forwarding from the Warden</strong> :{" "}
               {complaint?.IssueForwardedToDsw[0]?.reasonForForwarding}
             </li>
           </ul>
