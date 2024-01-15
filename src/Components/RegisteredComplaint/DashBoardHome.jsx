@@ -89,7 +89,13 @@ export const DashBoardHome = ({ role }) => {
       ? data?.filteredWardenNotifications
       : null;
 
-  // console.log( notications);
+  const notifications = [];
+  if (notications?.length > 0) {
+    for (let i = notications.length - 1; i >= 0; i -= 1) {
+      notifications.push(notications[i]);
+    }
+  }
+
   if (error) {
     return <div>Something went wrong!</div>;
   }
@@ -134,17 +140,20 @@ export const DashBoardHome = ({ role }) => {
       </div>
       <div
         className={`${Styles.Notifications} ${
-          notications?.length === 0 ? Styles.nonotifications : ""
+          notifications?.length === 0 ? Styles.nonotifications : ""
         }`}
         ref={ref}
       >
-        {notications?.length === 0 && <p>No notifications yet</p>}
-        {notications?.length > 0 &&
-          notications?.map((item) => {
+        {notifications?.length === 0 && <p>No notifications yet</p>}
+        {notifications?.length > 0 &&
+          notifications?.map((item) => {
             return (
               <main key={item?._id} id={Styles.notification__main}>
                 <div id={Styles.notifications__flex}>
-                  <p className={Styles.title_noti}>{item?.issueTitle}</p>
+                  <Link to={`/${role}/complaint/${item?.issueID}`}>
+                    {" "}
+                    <p className={Styles.title_noti}>{item?.issueTitle}</p>
+                  </Link>
                   <p>{item?.time}</p>
                 </div>
                 <p>{item?.message}</p>

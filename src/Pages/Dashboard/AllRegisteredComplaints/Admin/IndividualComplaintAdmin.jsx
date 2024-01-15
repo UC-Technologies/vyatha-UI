@@ -373,6 +373,29 @@ const IndividualComplaintAdmin = () => {
         <div className={styles.title_content}> {complaint?.title}</div>
       </div>
 
+      {/*  display reason for forwarding to only warden and dsw */}
+      {role === "warden" && complaint?.forwardedTo === "warden" && (
+        <div id={styles.infossofcomplaint}>
+          <ul>
+            <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+              <strong>Reason for Forwarding</strong> :{" "}
+              {complaint?.IssueForwardedToWarden[0]?.reasonForForwarding}
+            </li>
+          </ul>
+        </div>
+      )}
+
+      {role === "dsw" && complaint?.forwardedTo === "dsw" && (
+        <div id={styles.infossofcomplaint}>
+          <ul>
+            <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+              <strong>Reason for Forwarding</strong> :{" "}
+              {complaint?.IssueForwardedToDsw[0]?.reasonForForwarding}
+            </li>
+          </ul>
+        </div>
+      )}
+
       {(complaint?.isSolved ||
         complaint?.isClosed ||
         complaint?.IssueForwardedToWarden[0]?.time ||
