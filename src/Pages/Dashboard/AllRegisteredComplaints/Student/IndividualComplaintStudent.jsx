@@ -60,23 +60,23 @@ const IndividualComplaintStudent = () => {
 
   const [issueVisibility, setIssueVisibility] = useState(false);
   useEffect(() => {
-    if (issueData?.isSolved === true) {
-      setIssueVisibility(true);
-    } else if (issueData?.isClosed === true) {
-      setIssueVisibility(true);
-    } else if (issueData?.raiseComplainTo?.length === 3) {
-      setIssueVisibility(true);
-    } else if (issueData?.forwardedTo === "dsw") {
-      setIssueVisibility(true);
-    } else {
-      setIssueVisibility(false);
+    if (issueData) {
+      if (issueData?.isSolved === true) {
+        setIssueVisibility(true);
+      } else if (issueData?.isClosed === true) {
+        setIssueVisibility(true);
+      } else if (issueData?.raiseComplainTo?.length === 3) {
+        setIssueVisibility(true);
+      } else if (
+        issueData?.forwardedTo === "dsw" ||
+        issueData?.forwardedTo === "warden"
+      ) {
+        setIssueVisibility(true);
+      } else {
+        setIssueVisibility(false);
+      }
     }
-  }, [
-    issueData?.isSolved,
-    issueData?.forwardedTo,
-    issueData?.isClosed,
-    issueData?.raiseComplainTo?.length,
-  ]);
+  }, [issueData]);
 
   if (error) {
     return <div>Something went wrong!</div>;
@@ -115,6 +115,12 @@ const IndividualComplaintStudent = () => {
             break;
           case "User not found":
             toast("User not found");
+            break;
+          case "Issue is already solved, can't raise complain":
+            toast("Issue is already solved, can't raise complain");
+            break;
+          case "Issue has been forwarded to DSW, can't raise complain":
+            toast("Issue has been forwarded to DSW, can't raise complain");
             break;
           case "Please provide issue ID and otherID":
             toast("Please provide issue ID and otherID");
@@ -402,6 +408,7 @@ const IndividualComplaintStudent = () => {
       1. if the issue is solved, then the button will not be visible (implemented)
       2. if the issue is closed, then the button will not be visible (implemented)
       3. if the issue is forwarded to warden, then the raise button will raise the issue to dsw only (todo)
+      as of now we are disablng the raise complaint button if issue has been atleast forwarded to warden
       4. if the issue is forwarded to dsw, then the raise button will not be visible (implemented)
       */}
 
