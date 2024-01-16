@@ -335,7 +335,7 @@ const IndividualComplaintAdmin = () => {
   };
 
   return (
-    <div className={styles.title_page}>
+    <div>
       <Helmet>
         <title>{`${complaint?.title} | Vyatha`}</title>
       </Helmet>
@@ -343,192 +343,207 @@ const IndividualComplaintAdmin = () => {
       <div className={styles.title_bar}>
         <div className={styles.title_content}> {complaint?.title}</div>
       </div>
+      <div className={styles.title_page}>
+        {/* <Helmet>
+        <title>{`${complaint?.title} | Vyatha`}</title>
+      </Helmet>
 
-      {(complaint?.isSolved ||
-        complaint?.isClosed ||
-        complaint?.IssueForwardedToWarden[0]?.time ||
-        complaint?.IssueForwardedToDsw[0]?.time) && (
-        <div id={styles.infossofcomplaint}>
-          <ul>
-            {complaint?.isSolved && (
-              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
-                Issue has been Solved at {complaint?.solvedAt}
-              </li>
-            )}
-          </ul>
+      <div className={styles.title_bar}>
+        <div className={styles.title_content}> {complaint?.title}</div>
+      </div> */}
 
-          <ul>
-            {complaint?.isClosed && (
-              <li id={styles.solvedAtDetails} style={{ color: "red" }}>
-                Issue has been Closed by the student at {complaint?.closedAt}
-              </li>
-            )}
-          </ul>
-
-          <ul>
-            {complaint?.IssueForwardedToWarden[0]?.time && (
-              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
-                Issue has been forwarded to Warden by the Supervisor at{" "}
-                {complaint?.IssueForwardedToWarden[0]?.time}
-              </li>
-            )}
-          </ul>
-
-          <ul>
-            {complaint?.IssueForwardedToDsw[0]?.time && (
-              <li id={styles.solvedAtDetails} style={{ color: "green" }}>
-                Issue has been forwarded to DSW by the warden at{" "}
-                {complaint?.IssueForwardedToDsw[0]?.time}
-              </li>
-            )}
-          </ul>
-        </div>
-      )}
-
-      <div className={styles.dropdown_img}>
-        <img src="" alt="" />
-      </div>
-      <div className={styles.student_info}>
-        <fieldset className={styles.field_set}>
-          <legend>
-            <div>Filled by</div>
-          </legend>
-          <div className={styles.list}>
+        {(complaint?.isSolved ||
+          complaint?.isClosed ||
+          complaint?.IssueForwardedToWarden[0]?.time ||
+          complaint?.IssueForwardedToDsw[0]?.time) && (
+          <div id={styles.infossofcomplaint}>
             <ul>
-              <li>Name of the Student : {complaint?.name}</li>
-              <li>Scholar ID : {complaint?.scholarID}</li>
-              <li>Room Number : {complaint?.room}</li>
-              <li>Phone Number : {complaint?.phone}</li>
+              {complaint?.isSolved && (
+                <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                  Issue has been Solved at {complaint?.solvedAt}
+                </li>
+              )}
             </ul>
-            <div className={styles.card_photo}>
-              <div className={styles.card_photo_content}>
-                <img src={complaint?.idcard} alt="" />
+
+            <ul>
+              {complaint?.isClosed && (
+                <li id={styles.solvedAtDetails} style={{ color: "red" }}>
+                  Issue has been Closed by the student at {complaint?.closedAt}
+                </li>
+              )}
+            </ul>
+
+            <ul>
+              {complaint?.IssueForwardedToWarden[0]?.time && (
+                <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                  Issue has been forwarded to Warden by the Supervisor at{" "}
+                  {complaint?.IssueForwardedToWarden[0]?.time}
+                </li>
+              )}
+            </ul>
+
+            <ul>
+              {complaint?.IssueForwardedToDsw[0]?.time && (
+                <li id={styles.solvedAtDetails} style={{ color: "green" }}>
+                  Issue has been forwarded to DSW by the warden at{" "}
+                  {complaint?.IssueForwardedToDsw[0]?.time}
+                </li>
+              )}
+            </ul>
+          </div>
+        )}
+
+        <div className={styles.dropdown_img}>
+          <img src="" alt="" />
+        </div>
+        <div className={styles.student_info}>
+          <fieldset className={styles.field_set}>
+            <legend>
+              <div>Filled by</div>
+            </legend>
+            <div className={styles.list}>
+              <ul>
+                <li>Name of the Student : {complaint?.name}</li>
+                <li>Scholar ID : {complaint?.scholarID}</li>
+                <li>Room Number : {complaint?.room}</li>
+                <li>Phone Number : {complaint?.phone}</li>
+              </ul>
+              <div className={styles.card_photo}>
+                <div className={styles.card_photo_content}>
+                  <img
+                    src={complaint?.idcard}
+                    alt=""
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                </div>
               </div>
             </div>
+          </fieldset>
+        </div>
+        <div className={styles.comment_section}>
+          {Comments?.length === 0 && (
+            <div className={styles.NoComments}>
+              <p>No comments yet</p>
+            </div>
+          )}
+          {/* <span> Comment hh:mm day - dd/mm/yr</span> */}
+          {Comments?.map((item) => {
+            return (
+              <main id={styles.mainComment} key={item?._id}>
+                <li name={item?.author} value={item?.author}>
+                  <span>{item?.author}</span>
+                </li>
+                <p id={styles.maincontent}>{item?.commentBody}</p>
+                <div className={styles.Date}>
+                  <span className={styles.flex_d}>
+                    {item.createdAt}{" "}
+                    <span>
+                      <HiEllipsisVertical />
+                    </span>
+                  </span>
+                </div>
+              </main>
+            );
+          })}
+        </div>
+
+        <div className={styles.photo_uploaded}>
+          <span>Uploaded Photo:</span>
+          <div className={styles.photodiv}>
+            <img src={complaint?.photo} alt={complaint?.name} />
           </div>
-        </fieldset>
-      </div>
-      <div className={styles.comment_section}>
-        {Comments?.length === 0 && (
-          <div className={styles.NoComments}>
-            <p>No comments yet</p>
+        </div>
+        <div className={styles.comment_form}>
+          <input
+            type="text"
+            placeholder="Tap to Comment "
+            value={commentBody}
+            onChange={handleCommentChange}
+          />
+          <button
+            onClick={handleAddComment}
+            id={styles.addcommentbtn}
+            style={{
+              opacity: commentBody === "" ? "0.5" : "1",
+              cursor: commentBody === "" ? "not-allowed" : "pointer",
+            }}
+            disabled={commentBody === ""}
+          >
+            Add comment
+          </button>
+
+          {/* when forwardTo has the value of dsw, then it should have the display of none for the role of supervisor  */}
+          {forwardBtnVisibility === true && (
+            <main
+              style={{
+                display: role === "dsw" ? "none" : "block",
+              }}
+            >
+              <span>Forward to : </span>
+              <input type="text" placeholder="Tap to Select" value={forwardTo} />
+              <input
+                type="text"
+                placeholder="Reason to forward"
+                value={reasonForForwarding}
+                onChange={handleInputChange}
+              />
+            </main>
+          )}
+        </div>
+
+        {forwardBtnVisibility === true && (
+          <div className={styles.submit}>
+            <div
+              onClick={handleForwardIssue}
+              style={{
+                cursor: reasonForForwarding === "" ? "not-allowed" : "pointer",
+                opacity: reasonForForwarding === "" ? "0.5" : "1",
+                display: role === "dsw" ? "none" : "block",
+              }}
+              className={styles.submit}
+            >
+              <input type="submit" />
+            </div>
           </div>
         )}
-        {/* <span> Comment hh:mm day - dd/mm/yr</span> */}
-        {Comments?.map((item) => {
-          return (
-            <main id={styles.mainComment} key={item?._id}>
-              <li name={item?.author} value={item?.author}>
-                <span>{item?.author}</span>
-              </li>
-              <p id={styles.maincontent}>{item?.commentBody}</p>
-              <div className={styles.Date}>
-                <span className={styles.flex_d}>
-                  {item.createdAt}{" "}
-                  <span>
-                    <HiEllipsisVertical />
-                  </span>
-                </span>
-              </div>
-            </main>
-          );
-        })}
-      </div>
 
-      <div className={styles.photo_uploaded}>
-        <span>Uploaded Photo:</span>
-        <div className={styles.photodiv}>
-          <img src={complaint?.photo} alt={complaint?.name} />
-        </div>
-      </div>
-      <div className={styles.comment_form}>
-        <input
-          type="text"
-          placeholder="Tap to Comment "
-          value={commentBody}
-          onChange={handleCommentChange}
-        />
+        {/* Mark as  solved button, only for supervisor */}
         <button
-          onClick={handleAddComment}
           id={styles.addcommentbtn}
           style={{
-            opacity: commentBody === "" ? "0.5" : "1",
-            cursor: commentBody === "" ? "not-allowed" : "pointer",
+            display: role === "supervisor" ? "block" : "none",
+            cursor: complaint?.isSolved ? "not-allowed" : "pointer",
+            opacity: complaint?.isSolved ? "0.5" : "1",
           }}
-          disabled={commentBody === ""}
+          onClick={handleMarkAsSolved}
         >
-          Add comment
+          {complaint?.isSolved
+            ? "Issue has been marked as solved"
+            : "Mark the Issue as solved"}
         </button>
 
-        {/* when forwardTo has the value of dsw, then it should have the display of none for the role of supervisor  */}
-        {forwardBtnVisibility === true && (
-          <main
-            style={{
-              display: role === "dsw" ? "none" : "block",
-            }}
-          >
-            <span>Forward to : </span>
-            <input type="text" placeholder="Tap to Select" value={forwardTo} />
-            <input
-              type="text"
-              placeholder="Reason to forward"
-              value={reasonForForwarding}
-              onChange={handleInputChange}
-            />
-          </main>
+        {/* Approve issue button only for the warden and dsw */}
+        <button
+          style={{
+            display:
+              role === complaint?.forwardedTo
+                ? "block"
+                : "none" || role === "supervisor"
+                ? "none"
+                : "block",
+          }}
+          id={styles.addcommentbtn}
+          onClick={handleApprove}
+        >
+          Approve Issue
+        </button>
+
+        {role === "supervisor" && complaint?.isClosed === false && (
+          <button id={styles.addcommentbtn} onClick={handleClose}>
+            Close Issue
+          </button>
         )}
       </div>
-
-      {forwardBtnVisibility === true && (
-        <div
-          onClick={handleForwardIssue}
-          style={{
-            cursor: reasonForForwarding === "" ? "not-allowed" : "pointer",
-            opacity: reasonForForwarding === "" ? "0.5" : "1",
-            display: role === "dsw" ? "none" : "block",
-          }}
-          className={styles.submit}
-        >
-          <input type="submit" />
-        </div>
-      )}
-
-      {/* Mark as  solved button, only for supervisor */}
-      <button
-        id={styles.addcommentbtn}
-        style={{
-          display: role === "supervisor" ? "block" : "none",
-          cursor: complaint?.isSolved ? "not-allowed" : "pointer",
-          opacity: complaint?.isSolved ? "0.5" : "1",
-        }}
-        onClick={handleMarkAsSolved}
-      >
-        {complaint?.isSolved
-          ? "Issue has been marked as solved"
-          : "Mark the Issue as solved"}
-      </button>
-
-      {/* Approve issue button only for the warden and dsw */}
-      <button
-        style={{
-          display:
-            role === complaint?.forwardedTo
-              ? "block"
-              : "none" || role === "supervisor"
-              ? "none"
-              : "block",
-        }}
-        id={styles.addcommentbtn}
-        onClick={handleApprove}
-      >
-        Approve Issue
-      </button>
-
-      {role === "supervisor" && complaint?.isClosed === false && (
-        <button id={styles.addcommentbtn} onClick={handleClose}>
-          Close Issue
-        </button>
-      )}
     </div>
   );
 };
