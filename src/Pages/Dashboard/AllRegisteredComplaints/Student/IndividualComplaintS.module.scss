@@ -1,4 +1,9 @@
 @media screen and (max-width: 599.99px) {
+  #infoofraise {
+    margin-top: 4vw;
+    margin-bottom: 4vw;
+  }
+
   #infossofcomplaint {
     background-color: #d7faf4;
     width: 98% !important;
@@ -243,6 +248,11 @@
 
 // --------------------------------------------------------------------LargeScreen------------------------------------------------------------------------------------------
 @media screen and (min-width: 600px) {
+  #infoofraise {
+    margin-top: 1.5vw;
+    margin-bottom: 1.5vw;
+  }
+
   #infossofcomplaint {
     background-color: #d7faf4;
     width: 80.5%;

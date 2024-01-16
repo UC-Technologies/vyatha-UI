@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -31,16 +31,17 @@ const AllComplaintStudent = () => {
     refetchOnMount: true,
   });
 
-  const fetchedIssues =
-    role === "student"
+  const fetchedIssues = useMemo(() => {
+    return role === "student"
       ? data?.allIssues
       : role === "supervisor"
       ? data?.issuesAssignedToSupervisor
       : role === "warden"
-      ? data?.sortedIssues
+      ? [...(data?.sortedIssues || []), ...(data?.allComplaintsRaisedToWarden || [])]
       : role === "dsw"
-      ? data?.sortedIssues
+      ? [...(data?.sortedIssues || []), ...(data?.allComplaintsRaisedToDsw || [])]
       : null;
+  }, [data, role]);
 
   const [jsonData, setJsonData] = useState(fetchedIssues);
   const [searchInput, setSearchInput] = useState("");
@@ -97,6 +98,9 @@ const AllComplaintStudent = () => {
     } catch (er) {
       if (er.response) {
         switch (er.response.data.error) {
+          case "Issue is solved":
+            toast("Issue is solved, can't close");
+            break;
           case "Issue already closed":
             toast("Issue already closed");
             break;

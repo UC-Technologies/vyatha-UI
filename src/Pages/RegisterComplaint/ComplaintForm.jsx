@@ -36,8 +36,19 @@ const ComplaintForm = () => {
       toast("you must upload your id card first");
       navigate("/dashboard");
     }
-  }, [isLoggedIn, navigate, role, profile?.user?.isVerified, profile?.user?.idcard]);
 
+    if (profile?.user?.designation !== "Student") {
+      toast("Only students can file an issue");
+      navigate("/dashboard");
+    }
+  }, [
+    isLoggedIn,
+    navigate,
+    profile?.user?.designation,
+    role,
+    profile?.user?.isVerified,
+    profile?.user?.idcard,
+  ]);
   const [formData, setFormData] = useState({
     category: "LAN",
     description: "",
@@ -106,6 +117,7 @@ const ComplaintForm = () => {
           if (res.data.message === "Issue registered successfully") {
             toast("Complaint Registered Successfully");
             navigate("/dashboard");
+            window.location.reload();
             setFormData({
               category: "",
               description: "",

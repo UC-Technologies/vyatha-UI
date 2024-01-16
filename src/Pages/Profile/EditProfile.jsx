@@ -295,7 +295,7 @@ const EditProfile = () => {
                         <select
                           id="hostel"
                           className={styles.hostel_options}
-                          defaultValue={formData.hostel}
+                          value={formData.hostel}
                         >
                           <option value="Aryabhatt PG Hostel">Aryabhatt PG Hostel</option>
                           <option value="BH1">BH1</option>

@@ -34,7 +34,7 @@ const HostelWise = () => {
   return (
     <main className={styles.top}>
       <h1 style={{ textDecoration: "underline" }}>Issues which are not closed: </h1>
-      {allHostels.map((item) => {
+      {allHostels?.map((item) => {
         return (
           <div>
             <Link to={`/superadmin/issues/${item}`}>
@@ -45,7 +45,7 @@ const HostelWise = () => {
       })}
 
       <h1 style={{ textDecoration: "underline" }}>Closed Issues: </h1>
-      {allHostels.map((item) => {
+      {allHostels?.map((item) => {
         return (
           <div>
             <Link to={`/superadmin/issues/closed/${item}`}>

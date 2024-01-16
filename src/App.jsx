@@ -40,11 +40,13 @@ import EditIssue from "./Pages/EditIssue/EditIssue";
 import styles from "./app.module.scss";
 import AllDeletedAccounts from "./Pages/Dashboard/SuperAdmin/AllSignups/AllDeletedAccounts";
 import ScheduledAccounts from "./Pages/Dashboard/SuperAdmin/AllSignups/ScheduledAccounts";
+import Loader from "./Pages/LoaderScreen/Loader";
 const App = () => {
   // const isLoggedIn = useContext(UserContext)
   return (
     <>
       <BrowserRouter>
+        <Loader />
         <Navbar />
         <div className={styles.bodyy}>
           <div>
