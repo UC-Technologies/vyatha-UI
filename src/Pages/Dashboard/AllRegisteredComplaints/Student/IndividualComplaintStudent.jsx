@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -35,10 +35,11 @@ const IndividualComplaintStudent = () => {
   const issueID = key;
   // console.log("profile",profile)
   const { role, isLoggedIn } = useContext(UserContext);
+  const queryKey = useMemo(() => ["oneIssue"], []);
   const { data, error, isLoading } = useQuery(
-    "oneIssue",
+    queryKey,
     () => fetchIndividualIssue({ issueId }),
-    { enabled: isLoggedIn, refetchOnWindowFocus: "always" }
+    { enabled: isLoggedIn, refetchOnWindowFocus: false, retry: 0, retryDelay: 100000 }
   );
 
   // const { data, error, isLoading } = useQuery("complaints", fetchComplaints, {

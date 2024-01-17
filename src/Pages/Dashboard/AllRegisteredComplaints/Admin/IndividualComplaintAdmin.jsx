@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -27,10 +27,11 @@ const IndividualComplaintAdmin = () => {
   const handleInputChange = (e) => {
     setReasonForForwarding(e.target.value);
   };
+  const queryKey = useMemo(() => ["oneIssue"], []);
   const { data, error, isLoading } = useQuery(
-    "oneIssue",
+    queryKey,
     () => fetchIndividualIssue({ issueId }),
-    { enabled: isLoggedIn, refetchOnWindowFocus: "always" }
+    { enabled: isLoggedIn, refetchOnWindowFocus: false, retry: 0, retryDelay: 100000 }
   );
 
   const complaint = data?.issue;

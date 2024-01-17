@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../../../Context/Provider";
@@ -15,15 +15,13 @@ const AllDeletedAccounts = () => {
       navigate("/");
     }
   }, [role, navigate]);
-
-  const { data, error, isLoading } = useQuery(
-    "allDeletedAccounts",
-    fetchAllDeletedAccounts,
-    {
-      refetchOnWindowFocus: "always",
-      enabled: isLoggedIn,
-    }
-  );
+  const queryKey = useMemo(() => ["allDeletedAccounts"], []);
+  const { data, error, isLoading } = useQuery(queryKey, fetchAllDeletedAccounts, {
+    refetchOnWindowFocus: false,
+    enabled: isLoggedIn,
+    retry: 0,
+    retryDelay: 100000,
+  });
 
   const deltedAccountsData = data?.allDeletedAccounts;
   // console.log(deltedAccountsData)

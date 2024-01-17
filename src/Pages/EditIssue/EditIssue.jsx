@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext, useCallback, useMemo } from "react";
 import { toast } from "sonner";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -42,10 +42,11 @@ const EditIssue = () => {
   }, [isLoggedIn, navigate, role, profile?.user?.isVerified, profile?.user?.idcard]);
 
   // filling the inputs using the fetched data
+  const queryKey = useMemo(() => ["oneIssue"], []);
   const { data, isLoading } = useQuery(
-    "oneIssue",
+    queryKey,
     () => fetchIndividualIssue({ issueId }),
-    { refetchOnWindowFocus: "always", enabled: isLoggedIn }
+    { refetchOnWindowFocus: false, enabled: isLoggedIn, retry: 0, retryDelay: 100000 }
   );
 
   useEffect(() => {

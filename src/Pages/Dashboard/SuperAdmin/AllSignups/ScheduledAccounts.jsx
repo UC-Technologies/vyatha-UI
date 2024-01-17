@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { useQuery } from "react-query";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../../../Context/Provider";
@@ -16,15 +16,13 @@ const ScheduledAccounts = () => {
       navigate("/");
     }
   }, [role, navigate]);
-
-  const { data, error, isLoading } = useQuery(
-    "allDeletedAccounts",
-    fetchAllDeletedAccounts,
-    {
-      refetchOnWindowFocus: "always",
-      enabled: isLoggedIn,
-    }
-  );
+  const queryKey = useMemo(() => ["allDeletedAccounts"], []);
+  const { data, error, isLoading } = useQuery(queryKey, fetchAllDeletedAccounts, {
+    refetchOnWindowFocus: false,
+    enabled: isLoggedIn,
+    retry: 0,
+    retryDelay: 100000,
+  });
 
   const scheduledAccountsData = data?.allScheduledAccounts;
 

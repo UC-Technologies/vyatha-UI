@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { UserContext } from "../../../../Context/Provider";
@@ -18,11 +18,11 @@ const IndividualHostel = () => {
       navigate("/");
     }
   }, [hostel, role, navigate]);
-
+  const queryKey = useMemo(() => ["allIssuesHostelWise"], []);
   const { data, error, isLoading } = useQuery(
-    "allIssuesHostelWise",
+    queryKey,
     () => fetchAllIssuesHostelWise({ hostel }),
-    { refetchOnWindowFocus: "always", enabled: isLoggedIn }
+    { refetchOnWindowFocus: false, enabled: isLoggedIn, retry: 0, retryDelay: 100000 }
   );
 
   if (error) {

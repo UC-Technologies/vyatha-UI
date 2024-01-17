@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { UserContext } from "../../../../Context/Provider";
@@ -21,11 +21,11 @@ const IndividualIssue = () => {
       navigate("/");
     }
   }, [isLoggedIn, navigate, role]);
-
+  const queryKey = useMemo(() => ["oneIssue"], []);
   const { data, error, isLoading } = useQuery(
-    "oneIssue",
+    queryKey,
     () => fetchIndividualIssue({ issueId }),
-    { refetchOnWindowFocus: "always", enabled: isLoggedIn }
+    { refetchOnWindowFocus: false, enabled: isLoggedIn, retry: 0, retryDelay: 100000 }
   );
 
   const issueData = data?.issue;

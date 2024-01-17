@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import { useQuery } from "react-query";
 import { useParams, Link } from "react-router-dom";
 import { fetchClosedComplaints } from "../../../Components/ReactQuery/Fetchers/ClosedIssueFetcher";
@@ -16,12 +16,14 @@ const ClosedIssue = () => {
   }, [role]);
 
   const { isLoggedIn } = useContext(UserContext);
-
-  const { data, error, isLoading } = useQuery("closedComplaints", fetchClosedComplaints, {
-    refetchOnWindowFocus: "always",
+  const queryKey = useMemo(() => ["closedComplaints"], []);
+  const { data, error, isLoading } = useQuery(queryKey, fetchClosedComplaints, {
+    refetchOnWindowFocus: false,
     refetchOnReconnect: "always",
     refetchOnMount: true,
     enabled: isLoggedIn,
+    retry: 0,
+    retryDelay: 100000,
   });
 
   const allClosedIssues =

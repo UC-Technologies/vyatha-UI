@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { useQuery } from "react-query";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../../../Context/Provider";
@@ -17,10 +17,12 @@ const AllIssues = () => {
       navigate("/auth");
     }
   }, [isLoggedIn, navigate]);
-
-  const { data, error, isLoading } = useQuery("allIssues", fetchAllIssues, {
-    refetchOnWindowFocus: "always",
+  const queryKey = useMemo(() => ["allIssues"], []);
+  const { data, error, isLoading } = useQuery(queryKey, fetchAllIssues, {
+    refetchOnWindowFocus: false,
     enabled: isLoggedIn,
+    retry: 0,
+    retryDelay: 100000,
   });
   if (error) {
     return <div>Something went wrong!</div>;

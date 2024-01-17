@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -22,10 +22,11 @@ const IndividualProfile = () => {
   }, [role, navigate]);
 
   const { _id } = useParams();
+  const queryKey = useMemo(() => ["indiProfile"], []);
   const { data, error, isLoading } = useQuery(
-    "indiProfile",
+    queryKey,
     () => individualProfile({ _id }),
-    { refetchOnWindowFocus: "always", enabled: isLoggedIn }
+    { refetchOnWindowFocus: false, enabled: isLoggedIn, retry: 0, retryDelay: 100000 }
   );
 
   useEffect(() => {
