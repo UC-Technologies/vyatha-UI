@@ -1,27 +1,49 @@
-import React from "react";
-
+import React, { useMemo, useContext } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import styles from "./Status.module.scss";
 import { fetchComplaints } from "../../ReactQuery/Fetchers/AllComplaints";
+import { UserContext } from "../../../Context/Provider";
 
 const StatusOfComplaint = () => {
-  const { key } = useParams();
-  const { data, error, isLoading, isFetching } = useQuery(
-    "complaint",
-    fetchComplaints,
-    {}
-  );
+  const { key, status } = useParams();
+  const issueId = key;
+  const { isLoggedIn, role } = useContext(UserContext);
+  const queryKey = useMemo(() => ["complaints"], []);
+  const isTrue = useMemo(() => {
+    return isLoggedIn && role === "student";
+  }, [isLoggedIn, role]);
+  const { data, error, isLoading } = useQuery(queryKey, fetchComplaints, {
+    enabled: isTrue,
+  });
   if (error) {
     return <div>Something went wrong!</div>;
   }
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
   /* eslint-disable no-underscore-dangle */
-  const complaint = data.allIssues.find((item) => item._id === key);
+  // const complaint = data.allIssues.find((item) => item._id === key);
+  const complaint =
+    role === "student" && !status
+      ? data?.allIssues?.find((item) => item._id === issueId)
+      : role === "student" && status === "closed"
+      ? data?.allClosedIssues?.find((item) => item._id === issueId)
+      : role === "supervisor" && !status
+      ? data?.issuesAssignedToSupervisor?.find((item) => item._id === issueId)
+      : role === "supervisor" && status === "closed"
+      ? data?.closedIssuesAssignedToSupervisor?.find((item) => item._id === issueId)
+      : role === "warden" && !status
+      ? data?.sortedIssues?.find((item) => item._id === issueId)
+      : role === "warden" && status === "closed"
+      ? data?.closedIssuesAssignedToWarden?.find((item) => item._id === issueId)
+      : role === "dsw" && !status
+      ? data?.sortedIssues?.find((item) => item._id === issueId)
+      : role === "dsw" && status === "closed"
+      ? data?.closedIssuesAssignedToDsw?.find((item) => item._id === issueId)
+      : null;
   /* eslint-enable no-underscore-dangle */
 
   //  console.log(complaint);

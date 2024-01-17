@@ -21,11 +21,11 @@ const AllSignups = () => {
     }
   }, [role, navigate]);
   const queryKey = useMemo(() => ["accounts"], []);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role === "superadmin");
+  }, [isLoggedIn, role]);
   const { data, error, isLoading } = useQuery(queryKey, fetchAllAccounts, {
-    refetchOnWindowFocus: false,
-    enabled: isLoggedIn,
-    retry: 0,
-    retryDelay: 100000,
+    enabled: isTrue,
   });
 
   if (isLoading) return <Skeleton />;

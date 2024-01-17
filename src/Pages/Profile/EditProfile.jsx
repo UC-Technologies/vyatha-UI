@@ -23,11 +23,11 @@ const EditProfile = () => {
     navigate("/auth/login");
   }
   const queryKey = useMemo(() => ["profile"], []);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role);
+  }, [isLoggedIn, role]);
   const { data, error, isLoading } = useQuery(queryKey, fetchProfile, {
-    refetchOnWindowFocus: false,
-    enabled: isLoggedIn,
-    retry: 0,
-    retryDelay: 100000,
+    enabled: isTrue,
   });
 
   const myProfile = data?.user;

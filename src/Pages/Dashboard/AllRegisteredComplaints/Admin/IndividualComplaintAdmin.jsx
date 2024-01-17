@@ -9,9 +9,10 @@ import { toast } from "sonner";
 import { useParams } from "react-router-dom";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import styles from "./IndividualComplaintA.module.scss";
-import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
+// import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import { UserContext } from "../../../../Context/Provider";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
+import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
 
 const IndividualComplaintAdmin = () => {
   const [closing, setClosing] = useState(false);
@@ -19,7 +20,8 @@ const IndividualComplaintAdmin = () => {
   const [addingComment, setAddingComment] = useState(false);
   const [approvingIssue, setApprovingIssue] = useState(false);
   const [forwarding, setForwarding] = useState(false);
-  const { key } = useParams(); // Extracted the key
+  const { key, status } = useParams(); // Extracted the key
+  // console.log("status: ", status)
   const issueId = key;
   const issueID = key;
   const [reasonForForwarding, setReasonForForwarding] = useState("");
@@ -27,14 +29,47 @@ const IndividualComplaintAdmin = () => {
   const handleInputChange = (e) => {
     setReasonForForwarding(e.target.value);
   };
-  const queryKey = useMemo(() => ["oneIssue"], []);
-  const { data, error, isLoading } = useQuery(
-    queryKey,
-    () => fetchIndividualIssue({ issueId }),
-    { enabled: isLoggedIn, refetchOnWindowFocus: false, retry: 0, retryDelay: 100000 }
-  );
+  // const queryKey = useMemo(() => ["oneIssue"], []);
+  const queryKey = useMemo(() => ["complaints"], []);
+  const isTrue = useMemo(() => {
+    return Boolean(
+      isLoggedIn &&
+        (role === "supervisor" ||
+          role === "warden" ||
+          role === "dsw" ||
+          role === "superadmin")
+    );
+  }, [role, isLoggedIn]);
 
-  const complaint = data?.issue;
+  // const { data, error, isLoading } = useQuery(
+  //   queryKey,
+  //   () => fetchIndividualIssue({ issueId }),
+  //   { enabled: isTrue }
+  // );
+
+  const { data, error, isLoading } = useQuery(queryKey, fetchComplaints, {
+    enabled: isTrue,
+  });
+  // console.log(data)
+
+  const complaint =
+    role === "supervisor" && !status
+      ? data?.issuesAssignedToSupervisor?.find((item) => item._id === issueId)
+      : role === "supervisor" && status === "closed"
+      ? data?.closedIssuesAssignedToSupervisor?.find((item) => item._id === issueId)
+      : role === "warden" && !status
+      ? data?.sortedIssues?.find((item) => item._id === issueId)
+      : role === "warden" && status === "closed"
+      ? data?.closedIssuesAssignedToWarden?.find((item) => item._id === issueId)
+      : role === "dsw" && !status
+      ? data?.sortedIssues?.find((item) => item._id === issueId)
+      : role === "dsw" && status === "closed"
+      ? data?.closedIssuesAssignedToDsw?.find((item) => item._id === issueId)
+      : role === "superadmin" && !status
+      ? data?.AllRegissues?.find((item) => item._id === issueId)
+      : role === "superadmin" && status === "closed"
+      ? data?.AllClosedissues?.find((item) => item._id === issueId)
+      : null;
 
   const [forwardBtnVisibility, setForwardBtnVisibility] = useState(false);
   const forwardTo =

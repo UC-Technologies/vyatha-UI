@@ -23,12 +23,13 @@ const AllComplaintStudent = () => {
   const { role } = useParams();
   const navigate = useNavigate();
   const { isLoggedIn } = useContext(UserContext);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role !== "superadmin");
+  }, [isLoggedIn, role]);
   const queryKey = useMemo(() => ["complaints"], []);
   const { data, error, isLoading } = useQuery(queryKey, fetchComplaints, {
     refetchOnWindowFocus: false,
-    enabled: isLoggedIn,
-    retry: 0,
-    retryDelay: 100000,
+    enabled: isTrue,
   });
 
   const fetchedIssues = useMemo(() => {

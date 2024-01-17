@@ -8,17 +8,14 @@ import { UserContext } from "../../../Context/Provider";
 import { fetchProfile } from "../../../Components/ReactQuery/Fetchers/User";
 
 const Logout = () => {
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, role } = useContext(UserContext);
   const queryKey = useMemo(() => ["profile"], []);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role);
+  }, [isLoggedIn, role]);
+
   const { data } = useQuery(queryKey, fetchProfile, {
-    enabled: isLoggedIn,
-    refetchInterval: 60000,
-    refetchOnMount: true,
-    refetchIntervalInBackground: true,
-    refetchOnReconnect: true,
-    refetchOnWindowFocus: false,
-    retry: 0,
-    retryDelay: 100000,
+    enabled: isTrue,
   });
   const User = data?.user;
   const navigate = useNavigate();

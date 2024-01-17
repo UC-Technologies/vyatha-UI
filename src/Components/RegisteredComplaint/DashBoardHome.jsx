@@ -13,14 +13,13 @@ import Skeleton from "../Shared/Loading/Skeletion";
 export const DashBoardHome = ({ role }) => {
   const { isLoggedIn } = useContext(UserContext);
   const queryKey = useMemo(() => ["complaints"], []);
+
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role !== "superadmin");
+  }, [isLoggedIn, role]);
+
   const { data, error, isLoading } = useQuery(queryKey, fetchComplaints, {
-    refetchOnWindowFocus: false,
-    enabled: isLoggedIn,
-    refetchInterval: 60000,
-    refetchOnMount: true,
-    refetchIntervalInBackground: true,
-    retry: 0,
-    retryDelay: 100000,
+    enabled: isTrue,
   });
 
   // const [fetchedData, setFetcedData] = useState({})

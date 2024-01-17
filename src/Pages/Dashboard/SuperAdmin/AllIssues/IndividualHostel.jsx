@@ -3,9 +3,10 @@ import React, { useContext, useEffect, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { UserContext } from "../../../../Context/Provider";
-import { fetchAllIssuesHostelWise } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualHostelIssue";
+// import { fetchAllIssuesHostelWise } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualHostelIssue";
 import styles from "../AllSignups/Style.module.scss";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
+import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
 // open issue
 const IndividualHostel = () => {
   const { hostel } = useParams();
@@ -18,12 +19,13 @@ const IndividualHostel = () => {
       navigate("/");
     }
   }, [hostel, role, navigate]);
-  const queryKey = useMemo(() => ["allIssuesHostelWise"], []);
-  const { data, error, isLoading } = useQuery(
-    queryKey,
-    () => fetchAllIssuesHostelWise({ hostel }),
-    { refetchOnWindowFocus: false, enabled: isLoggedIn, retry: 0, retryDelay: 100000 }
-  );
+  const queryKey = useMemo(() => ["complaints"], []);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role === "superadmin");
+  }, [isLoggedIn, role]);
+  const { data, error, isLoading } = useQuery(queryKey, fetchComplaints, {
+    enabled: isTrue,
+  });
 
   if (error) {
     return <div>Something went wrong!</div>;
@@ -33,17 +35,20 @@ const IndividualHostel = () => {
     return <Skeleton />;
   }
 
-  const allHostelSpecificIssues = data?.allHostelSpecificIssues;
-  // console.log(allHostelSpecificIssues)
+  const allHostelSpecificIssues = data?.AllRegissues?.filter(
+    (issue) => issue.hostel === hostel && issue.isSolved === false
+  );
+
   return (
     <div className={styles.top}>
       <h1>
         {hostel}&apos;s open issues({allHostelSpecificIssues?.length}) :{" "}
       </h1>
+
       {allHostelSpecificIssues?.map((item) => {
         return (
           <main>
-            <Link to={`/superadmin/issue/${item._id}`}>
+            <Link to={`/open/superadmin/issue/${item._id}`}>
               {" "}
               <h3>{item.title}</h3>
             </Link>

@@ -31,12 +31,14 @@ const Profile = () => {
   const navigate = useNavigate();
   const { isLoggedIn, role } = useContext(UserContext);
   const queryKey = useMemo(() => ["profile"], []);
+
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role);
+  }, [isLoggedIn, role]);
+  // console.log(isTrue)
+
   const { data, error, isLoading } = useQuery(queryKey, fetchProfile, {
-    enabled: isLoggedIn,
-    refetchInterval: 60000,
-    retry: 0,
-    retryDelay: 100000,
-    refetchOnWindowFocus: false,
+    enabled: isTrue,
   });
 
   const handleShowPopUp = () => {

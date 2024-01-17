@@ -3,32 +3,38 @@ import React, { useContext, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { UserContext } from "../../../../Context/Provider";
-import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
+// import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import styles from "../AllSignups/Style.module.scss";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
+import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
 
 const IndividualIssue = () => {
-  const { _id } = useParams();
+  const { _id, status } = useParams();
+
+  console.log(status);
   const issueId = _id;
   const { isLoggedIn, role } = useContext(UserContext);
   const navigate = useNavigate();
   useEffect(() => {
-    if (isLoggedIn === false) {
-      navigate("/auth");
-    }
-
     if (role !== "superadmin") {
       navigate("/");
     }
-  }, [isLoggedIn, navigate, role]);
-  const queryKey = useMemo(() => ["oneIssue"], []);
-  const { data, error, isLoading } = useQuery(
-    queryKey,
-    () => fetchIndividualIssue({ issueId }),
-    { refetchOnWindowFocus: false, enabled: isLoggedIn, retry: 0, retryDelay: 100000 }
-  );
-
-  const issueData = data?.issue;
+  }, [navigate, role]);
+  const queryKey = useMemo(() => ["complaints"], []);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role === "superadmin");
+  }, [isLoggedIn, role]);
+  const { data, error, isLoading } = useQuery(queryKey, fetchComplaints, {
+    enabled: isTrue,
+  });
+  // console.log(data)
+  const issueData =
+    status === "open"
+      ? data?.AllRegissues?.find((issue) => issue._id === issueId)
+      : status === "closed"
+      ? data?.AllClosedissues?.find((issue) => issue._id === issueId)
+      : null;
+  // console.log(issueData)
   useEffect(() => {
     document.title = `${issueData?.title} | Vyatha`;
   });
@@ -67,9 +73,9 @@ const IndividualIssue = () => {
           <h3>
             IssueForwardedAtToSupervisor : {issueData?.IssueForwardedAtToSupervisor}
           </h3>
-          <h3>isSolved : {issueData?.isSolved}</h3>
+          <h3>isSolved : {issueData?.isSolved ? "true" : "false"}</h3>
           <h3>solvedAt : {issueData?.solvedAt}</h3>
-          <h3>isClosed : {issueData?.isClosed}</h3>
+          <h3>isClosed : {issueData?.isClosed ? "true" : "false"}</h3>
           {/* {issueData?.IssueForwardedToDsw && <h3>IssueForwardedToDsw (time) : {issueData?.IssueForwardedToDsw[0]}</h3>} */}
           <h3>IssueForwarded to Warden : </h3>
           {issueData?.IssueForwardedToWarden && (
@@ -79,7 +85,10 @@ const IndividualIssue = () => {
                 reasonForForwarding :{" "}
                 {issueData?.IssueForwardedToWarden[0]?.reasonForForwarding}
               </h3>
-              <h3>isApproved : {issueData?.IssueForwardedToWarden[0]?.isApproved}</h3>
+              <h3>
+                isApproved :{" "}
+                {issueData?.IssueForwardedToWarden[0]?.isApproved ? "true" : "false"}
+              </h3>
             </main>
           )}
           <br />
@@ -92,7 +101,10 @@ const IndividualIssue = () => {
                 reasonForForwarding :{" "}
                 {issueData?.IssueForwardedToDsw[0]?.reasonForForwarding}
               </h3>
-              <h3>isApproved : {issueData?.IssueForwardedToDsw[0]?.isApproved}</h3>
+              <h3>
+                isApproved :{" "}
+                {issueData?.IssueForwardedToDsw[0]?.isApproved ? "true" : "false"}
+              </h3>
             </main>
           )}
           <br />

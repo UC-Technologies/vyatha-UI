@@ -3,27 +3,29 @@ import React, { useContext, useEffect, useMemo } from "react";
 import { useQuery } from "react-query";
 import { useNavigate, Link } from "react-router-dom";
 import { UserContext } from "../../../../Context/Provider";
-import { fetchAllIssues } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/AllIssues";
+// import { fetchAllIssues } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/AllIssues";
 import styles from "../AllSignups/Style.module.scss";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
+import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
 
 const AllIssues = () => {
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, role } = useContext(UserContext);
   const navigate = useNavigate();
   useEffect(() => {
     document.title = "All Issues | Vyatha";
 
-    if (isLoggedIn === false) {
+    if (role !== "superadmin") {
       navigate("/auth");
     }
-  }, [isLoggedIn, navigate]);
-  const queryKey = useMemo(() => ["allIssues"], []);
-  const { data, error, isLoading } = useQuery(queryKey, fetchAllIssues, {
-    refetchOnWindowFocus: false,
-    enabled: isLoggedIn,
-    retry: 0,
-    retryDelay: 100000,
+  }, [role, navigate]);
+  const queryKey = useMemo(() => ["complaints"], []);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role === "superadmin");
+  }, [isLoggedIn, role]);
+  const { data, error, isLoading } = useQuery(queryKey, fetchComplaints, {
+    enabled: isTrue,
   });
+
   if (error) {
     return <div>Something went wrong!</div>;
   }

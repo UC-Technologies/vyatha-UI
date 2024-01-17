@@ -17,11 +17,11 @@ const ScheduledAccounts = () => {
     }
   }, [role, navigate]);
   const queryKey = useMemo(() => ["allDeletedAccounts"], []);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role === "superadmin");
+  }, [isLoggedIn, role]);
   const { data, error, isLoading } = useQuery(queryKey, fetchAllDeletedAccounts, {
-    refetchOnWindowFocus: false,
-    enabled: isLoggedIn,
-    retry: 0,
-    retryDelay: 100000,
+    enabled: isTrue,
   });
 
   const scheduledAccountsData = data?.allScheduledAccounts;

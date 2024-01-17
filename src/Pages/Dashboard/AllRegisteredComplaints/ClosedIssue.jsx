@@ -3,10 +3,11 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { useQuery } from "react-query";
 import { useParams, Link } from "react-router-dom";
-import { fetchClosedComplaints } from "../../../Components/ReactQuery/Fetchers/ClosedIssueFetcher";
+// import { fetchClosedComplaints } from "../../../Components/ReactQuery/Fetchers/ClosedIssueFetcher";
 import styles from "./Student/ComplaintDashboardS.module.scss";
 import { UserContext } from "../../../Context/Provider";
 import Skeleton from "../../../Components/Shared/Loading/Skeletion";
+import { fetchComplaints } from "../../../Components/ReactQuery/Fetchers/AllComplaints";
 // import SortByButton from "../../../Components/RegisteredComplaint/Student/SortByButton";
 
 const ClosedIssue = () => {
@@ -16,26 +17,31 @@ const ClosedIssue = () => {
   }, [role]);
 
   const { isLoggedIn } = useContext(UserContext);
-  const queryKey = useMemo(() => ["closedComplaints"], []);
-  const { data, error, isLoading } = useQuery(queryKey, fetchClosedComplaints, {
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: "always",
-    refetchOnMount: true,
-    enabled: isLoggedIn,
-    retry: 0,
-    retryDelay: 100000,
+  const queryKey = useMemo(() => ["complaints"], []);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role);
+  }, [isLoggedIn, role]);
+
+  // const { data, error, isLoading } = useQuery(queryKey, fetchClosedComplaints, {
+  //   enabled: isTrue,
+  // });
+
+  const { data, error, isLoading } = useQuery(queryKey, fetchComplaints, {
+    enabled: isTrue,
   });
 
   const allClosedIssues =
     role === "student"
-      ? data?.allIssues
+      ? data?.allClosedIssues
       : role === "supervisor"
-      ? data?.issuesAssignedToSupervisor
+      ? data?.closedIssuesAssignedToSupervisor
       : role === "warden"
-      ? data?.issuesAssignedToWarden
+      ? data?.closedIssuesAssignedToWarden
       : role === "dsw"
-      ? data?.issuesAssignedToDsw
-      : data?.AllRegissues;
+      ? data?.closedIssuesAssignedToDsw
+      : role === "superadmin"
+      ? data?.AllClosedissues
+      : null;
 
   // console.log(allClosedIssues);
 
@@ -65,7 +71,7 @@ const ClosedIssue = () => {
 
   // const imgBack =
   //   "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703085199/chevron_left_s4usnm.jpg?_s=public-apps";
-
+  const status = "closed";
   return (
     <main>
       <div className={styles.container} id={styles.paddtop}>
@@ -92,7 +98,7 @@ const ClosedIssue = () => {
                 <div className={styles.CardContainer} key={complaint?._id}>
                   <div className={styles.Heading}>
                     <div className={styles.compliantTitle}>
-                      <Link to={`/student/complaint/${complaint?._id}`}>
+                      <Link to={`/${status}/${role}/complaint/${complaint?._id}`}>
                         <h2>{complaint?.title}</h2>
                       </Link>
                     </div>

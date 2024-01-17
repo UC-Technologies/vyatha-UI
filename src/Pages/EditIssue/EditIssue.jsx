@@ -42,11 +42,14 @@ const EditIssue = () => {
   }, [isLoggedIn, navigate, role, profile?.user?.isVerified, profile?.user?.idcard]);
 
   // filling the inputs using the fetched data
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role === "student");
+  }, [isLoggedIn, role]);
   const queryKey = useMemo(() => ["oneIssue"], []);
   const { data, isLoading } = useQuery(
     queryKey,
     () => fetchIndividualIssue({ issueId }),
-    { refetchOnWindowFocus: false, enabled: isLoggedIn, retry: 0, retryDelay: 100000 }
+    { enabled: isTrue }
   );
 
   useEffect(() => {
