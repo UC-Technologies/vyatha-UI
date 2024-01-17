@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { GoArrowLeft } from "react-icons/go";
 import { useQuery } from "react-query";
@@ -8,14 +8,14 @@ import { UserContext } from "../../../Context/Provider";
 import { fetchProfile } from "../../../Components/ReactQuery/Fetchers/User";
 
 const Logout = () => {
-  const { isLoggedIn } = useContext(UserContext);
-  const { data } = useQuery("profile", fetchProfile, {
-    enabled: isLoggedIn,
-    refetchInterval: 60000,
-    refetchOnMount: true,
-    refetchIntervalInBackground: true,
-    refetchOnReconnect: true,
-    refetchOnWindowFocus: "always",
+  const { isLoggedIn, role } = useContext(UserContext);
+  const queryKey = useMemo(() => ["profile"], []);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role);
+  }, [isLoggedIn, role]);
+
+  const { data } = useQuery(queryKey, fetchProfile, {
+    enabled: isTrue,
   });
   const User = data?.user;
   const navigate = useNavigate();

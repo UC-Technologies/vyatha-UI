@@ -1,4 +1,4 @@
-import { React, useContext, useEffect, useState } from "react";
+import { React, useMemo, useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -30,10 +30,15 @@ const Profile = () => {
 
   const navigate = useNavigate();
   const { isLoggedIn, role } = useContext(UserContext);
-  const { data, error, isLoading } = useQuery("profile", fetchProfile, {
-    enabled: isLoggedIn,
-    refetchInterval: 60000,
-    refetchOnWindowFocus: "always",
+  const queryKey = useMemo(() => ["profile"], []);
+
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role);
+  }, [isLoggedIn, role]);
+  // console.log(isTrue)
+
+  const { data, error, isLoading } = useQuery(queryKey, fetchProfile, {
+    enabled: isTrue,
   });
 
   const handleShowPopUp = () => {

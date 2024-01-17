@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-unresolved
 // import Vite from './public/vite.svg'
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef, useContext, useMemo } from "react";
 import { useQuery } from "react-query";
 import styles from "./Navbar.module.scss";
 import { UserContext } from "../../../Context/Provider";
@@ -8,10 +8,13 @@ import { fetchProfile } from "../../ReactQuery/Fetchers/User";
 import { ConditionalLink } from "../ConditionalLink";
 
 const Navbar = () => {
-  const { isLoggedIn } = useContext(UserContext);
-  const { data, error } = useQuery("profile", fetchProfile, {
-    refetchOnWindowFocus: "always",
-    enabled: isLoggedIn,
+  const { isLoggedIn, role } = useContext(UserContext);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role);
+  }, [isLoggedIn, role]);
+  const queryKey = useMemo(() => ["profile"], []);
+  const { data, error } = useQuery(queryKey, fetchProfile, {
+    enabled: isTrue,
   });
 
   const myProfile = data?.user;

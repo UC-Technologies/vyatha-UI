@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useMemo } from "react";
 import { useQuery } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Style.module.scss";
@@ -20,10 +20,12 @@ const AllSignups = () => {
       navigate("/");
     }
   }, [role, navigate]);
-
-  const { data, error, isLoading } = useQuery("accounts", fetchAllAccounts, {
-    refetchOnWindowFocus: "always",
-    enabled: isLoggedIn,
+  const queryKey = useMemo(() => ["accounts"], []);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role === "superadmin");
+  }, [isLoggedIn, role]);
+  const { data, error, isLoading } = useQuery(queryKey, fetchAllAccounts, {
+    enabled: isTrue,
   });
 
   if (isLoading) return <Skeleton />;

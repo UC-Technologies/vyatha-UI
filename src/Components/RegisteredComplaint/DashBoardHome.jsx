@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useState, useContext, useRef, useEffect } from "react";
+import React, { useState, useContext, useRef, useEffect, useMemo } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 // import Cookies from "js-cookie";
@@ -12,12 +12,14 @@ import Skeleton from "../Shared/Loading/Skeletion";
 
 export const DashBoardHome = ({ role }) => {
   const { isLoggedIn } = useContext(UserContext);
-  const { data, error, isLoading } = useQuery("complaints", fetchComplaints, {
-    refetchOnWindowFocus: "always",
-    enabled: isLoggedIn,
-    refetchInterval: 60000,
-    refetchOnMount: true,
-    refetchIntervalInBackground: true,
+  const queryKey = useMemo(() => ["complaints"], []);
+
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role !== "superadmin");
+  }, [isLoggedIn, role]);
+
+  const { data, error, isLoading } = useQuery(queryKey, fetchComplaints, {
+    enabled: isTrue,
   });
 
   // const [fetchedData, setFetcedData] = useState({})

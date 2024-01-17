@@ -75,6 +75,11 @@ const App = () => {
                     path="/:role/complaint/:key"
                     element={<IndividualComplaint />}
                   />
+                  <Route
+                    exact
+                    path="/:status/:role/complaint/:key"
+                    element={<IndividualComplaint />}
+                  />
                   {/* Edit Issue */}
                   <Route path="/editissue/:issueID" element={<EditIssue />} />
                   {/* closed issue */}
@@ -106,7 +111,7 @@ const App = () => {
                   />
                   <Route
                     exact
-                    path="/superadmin/issue/:_id"
+                    path="/:status/superadmin/issue/:_id"
                     element={<IndividualIssue />}
                   />
                   <Route exact path="/profile/:_id" element={<IndividualProfile />} />

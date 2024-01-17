@@ -22,9 +22,10 @@ const IndividualComplaint = () => {
     <div style={{ marginTop: "4rem" }}>
       {role === "student" && <IndividualComplaintStudent />}
 
-      {(role === "supervisor" || role === "warden" || role === "dsw") && (
-        <IndividualComplaintAdmin />
-      )}
+      {(role === "supervisor" ||
+        role === "warden" ||
+        role === "dsw" ||
+        role === "superadmin") && <IndividualComplaintAdmin />}
     </div>
   );
 };

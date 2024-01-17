@@ -1,15 +1,16 @@
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { toast } from "sonner";
 import Cookies from "js-cookie";
 import { UserContext } from "../../../../Context/Provider";
-import { individualProfile } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualProfile";
+// import { individualProfile } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualProfile";
 import styles from "./Style.module.scss";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
+import { fetchAllAccounts } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/AllAccounts";
 
 const IndividualProfile = () => {
   const navigate = useNavigate();
@@ -22,11 +23,19 @@ const IndividualProfile = () => {
   }, [role, navigate]);
 
   const { _id } = useParams();
-  const { data, error, isLoading } = useQuery(
-    "indiProfile",
-    () => individualProfile({ _id }),
-    { refetchOnWindowFocus: "always", enabled: isLoggedIn }
-  );
+  const queryKey = useMemo(() => ["accounts"], []);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role === "superadmin");
+  }, [isLoggedIn, role]);
+  // console.log(isTrue)
+  // const { data, error, isLoading } = useQuery(
+  //   queryKey,
+  //   () => individualProfile({ _id }),
+  //   {  enabled: isTrue }
+  // );
+  const { data, error, isLoading } = useQuery(queryKey, fetchAllAccounts, {
+    enabled: isTrue,
+  });
 
   useEffect(() => {
     if (data) document.title = `${data?.individualProfile?.name} | Vyatha`;
@@ -35,7 +44,7 @@ const IndividualProfile = () => {
   if (isLoading) return <Skeleton />;
   if (error) return <h1>Error fetching data</h1>;
 
-  const all = data?.individualProfile;
+  const all = data?.allAccounts?.find((acc) => acc._id === _id);
   const token = Cookies.get("authToken");
   const tokenConfig = {
     headers: {

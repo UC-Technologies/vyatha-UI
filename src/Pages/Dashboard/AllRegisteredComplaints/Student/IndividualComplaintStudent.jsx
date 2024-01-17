@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -11,8 +11,8 @@ import styles from "./IndividualComplaintS.module.scss";
 // import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import { UserContext } from "../../../../Context/Provider";
 import StatusOfComplaint from "../../../../Components/RegisteredComplaint/Student/StatusOfComplaint";
-// import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
-import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
+import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
+// import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 
 // import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
@@ -30,28 +30,37 @@ const IndividualComplaintStudent = () => {
   const handleCommentChange = (e) => {
     setCommentBody(e.target.value);
   };
-  const { key } = useParams(); // Extracted the key
+  const { key, status } = useParams(); // Extracted the key
   const issueId = key;
   const issueID = key;
   // console.log("profile",profile)
   const { role, isLoggedIn } = useContext(UserContext);
-  const { data, error, isLoading } = useQuery(
-    "oneIssue",
-    () => fetchIndividualIssue({ issueId }),
-    { enabled: isLoggedIn, refetchOnWindowFocus: "always" }
-  );
+  // const queryKey = useMemo(() => ["oneIssue"], []);
+  const queryKey = useMemo(() => ["complaints"], []);
 
-  // const { data, error, isLoading } = useQuery("complaints", fetchComplaints, {
-  //   refetchOnWindowFocus: false,
-  //   enabled: isLoggedIn,
-  //   refetchInterval: 60000,
-  //   refetchOnMount: false,
-  //   refetchIntervalInBackground: true,
-  // });
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role === "student");
+  }, [role, isLoggedIn]);
 
-  // const issueData = data?.allIssues?.find((item) => item._id === issueId);
+  // const { data, error, isLoading } = useQuery(
+  //   queryKey,
+  //   () => fetchIndividualIssue({ issueId }),
+  //   { enabled: isTrue }
+  // );
 
-  const issueData = data?.issue;
+  const { data, error, isLoading } = useQuery(queryKey, fetchComplaints, {
+    enabled: isTrue,
+  });
+
+  const issueData =
+    role === "student" && !status
+      ? data?.allIssues?.find((item) => item._id === issueId)
+      : role === "student" && status === "closed"
+      ? data?.allClosedIssues?.find((item) => item._id === issueId)
+      : null;
+
+  // console.log(issueData)
+  // const issueData = data?.issue;
   const otherID = issueData?.otherID;
   const Comments = issueData?.comments;
   useEffect(() => {

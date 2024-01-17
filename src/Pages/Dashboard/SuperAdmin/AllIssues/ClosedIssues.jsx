@@ -1,15 +1,17 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { UserContext } from "../../../../Context/Provider";
 import styles from "../AllSignups/Style.module.scss";
-import { fetchAllClosedIssuesHostelWise } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/ClosedIssues";
+// import { fetchAllClosedIssuesHostelWise } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/ClosedIssues";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
+import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
 // closed issue
 
 const ClosedIssues = () => {
   const { hostel } = useParams();
+  // console.log(hostel)
   const navigate = useNavigate();
   const { role, isLoggedIn } = useContext(UserContext);
 
@@ -19,12 +21,15 @@ const ClosedIssues = () => {
       navigate("/");
     }
   }, [hostel, role, navigate]);
-
-  const { data, error, isLoading } = useQuery(
-    "allClosedIssuesHostelWise",
-    () => fetchAllClosedIssuesHostelWise({ hostel }),
-    { refetchOnWindowFocus: "always", enabled: isLoggedIn }
-  );
+  // const queryKey = useMemo(() => ["allClosedIssuesHostelWise"], []);
+  const queryKey = useMemo(() => ["complaints"], []);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role === "superadmin");
+  }, [role, isLoggedIn]);
+  const { data, error, isLoading } = useQuery(queryKey, fetchComplaints, {
+    refetchOnWindowFocus: false,
+    enabled: isTrue,
+  });
 
   if (error) {
     return <div>Something went wrong!</div>;
@@ -33,9 +38,10 @@ const ClosedIssues = () => {
   if (isLoading) {
     return <Skeleton />;
   }
-
-  const allHostelSpecificIssues = data?.allHostelSpecificIssues;
-  // console.log(allHostelSpecificIssues)
+  // console.log(data)
+  const allHostelSpecificIssues = data?.AllClosedissues?.filter(
+    (issue) => issue.hostel === hostel
+  );
   return (
     <div className={styles.top}>
       <h1>
@@ -44,7 +50,7 @@ const ClosedIssues = () => {
       {allHostelSpecificIssues?.map((item) => {
         return (
           <main>
-            <Link to={`/superadmin/issue/${item._id}`}>
+            <Link to={`/closed/superadmin/issue/${item._id}`}>
               {" "}
               <h3>{item.title}</h3>
             </Link>

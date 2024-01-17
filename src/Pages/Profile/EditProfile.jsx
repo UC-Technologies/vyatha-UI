@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { toast } from "sonner";
@@ -22,10 +22,12 @@ const EditProfile = () => {
   if (!isLoggedIn) {
     navigate("/auth/login");
   }
-
-  const { data, error, isLoading } = useQuery("profile", fetchProfile, {
-    refetchOnWindowFocus: "always",
-    enabled: isLoggedIn,
+  const queryKey = useMemo(() => ["profile"], []);
+  const isTrue = useMemo(() => {
+    return Boolean(isLoggedIn && role);
+  }, [isLoggedIn, role]);
+  const { data, error, isLoading } = useQuery(queryKey, fetchProfile, {
+    enabled: isTrue,
   });
 
   const myProfile = data?.user;
