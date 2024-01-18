@@ -119,7 +119,6 @@ const AllComplaintStudent = () => {
   };
 
   function scrollToTop() {
-    // Calculate the center of the popup
     window.scrollTo({
       top: "0",
       left: "0",

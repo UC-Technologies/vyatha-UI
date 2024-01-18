@@ -11,6 +11,7 @@ import Skeleton from "../Shared/Loading/Skeletion";
 // import { UserContext } from "../../Context/Provider";
 
 export const DashBoardHome = ({ role }) => {
+  // const [windowSize,setWindowSize]=useState();
   const { isLoggedIn } = useContext(UserContext);
   const { data, error, isLoading } = useQuery("complaints", fetchComplaints, {
     refetchOnWindowFocus: "always",
@@ -41,7 +42,11 @@ export const DashBoardHome = ({ role }) => {
   const handleClick = () => {
     const parentElement = ref.current;
     if (visible) {
-      parentElement.style.left = "100vw";
+      if (window.innerWidth > 768) {
+        parentElement.style.left = "100vw";
+      } else {
+        parentElement.style.top = "-100vh";
+      }
       setTimeout(() => {
         parentElement.style.display = "none";
       }, 500);
@@ -49,7 +54,11 @@ export const DashBoardHome = ({ role }) => {
     } else {
       parentElement.style.removeProperty("display");
       setTimeout(() => {
-        parentElement.style.left = "0";
+        if (window.innerWidth > 768) {
+          parentElement.style.left = "0";
+        } else {
+          parentElement.style.top = "6vh";
+        }
       }, 10);
       setVisible(true);
     }
@@ -57,18 +66,22 @@ export const DashBoardHome = ({ role }) => {
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
-      if (
-        visible &&
-        ref.current &&
-        !ref.current.contains(e.target) &&
-        window.innerWidth > 768
-      ) {
-        const parentElement = ref.current;
-        parentElement.style.left = "100vw";
-        setTimeout(() => {
-          parentElement.style.display = "none";
-          setVisible(false);
-        }, 1000);
+      if (visible && ref.current && !ref.current.contains(e.target)) {
+        if (window.innerWidth > 768) {
+          const parentElement = ref.current;
+          parentElement.style.left = "100vw";
+          setTimeout(() => {
+            parentElement.style.display = "none";
+            setVisible(false);
+          }, 1000);
+        } else {
+          const parentElement = ref.current;
+          parentElement.style.top = "-100vh";
+          setTimeout(() => {
+            parentElement.style.display = "none";
+            setVisible(false);
+          }, 1000);
+        }
       }
     };
     document.addEventListener("click", handleOutsideClick, true);
@@ -82,12 +95,12 @@ export const DashBoardHome = ({ role }) => {
     role === "student"
       ? data?.filteredStudentNotifications
       : role === "supervisor"
-        ? data?.filteredSupervisorNotifications
-        : role === "dsw"
-          ? data?.filteredDswNotifications
-          : role === "warden"
-            ? data?.filteredWardenNotifications
-            : null;
+      ? data?.filteredSupervisorNotifications
+      : role === "dsw"
+      ? data?.filteredDswNotifications
+      : role === "warden"
+      ? data?.filteredWardenNotifications
+      : null;
 
   // console.log( notications);
   if (error) {
@@ -100,8 +113,63 @@ export const DashBoardHome = ({ role }) => {
 
   return (
     <div className={Styles.container}>
+      {window.innerWidth <= 660 && (
+        <div
+          style={{
+            marginTop: "20px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "8.7px",
+            fontFamily: '"Merienda", cursive',
+            color: "#ffffff",
+          }}
+        >
+          Express, Resolve, Relax : Vyatha does it all!
+        </div>
+      )}
+      {window.innerWidth <= 660 && (
+        <div
+          className={`${Styles.Notifications} ${
+            notications?.length === 0 ? Styles.nonotifications : ""
+          }`}
+          ref={ref}
+        >
+          {" "}
+          <h1>Notification</h1>
+          {notications?.length === 0 && (
+            <p
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                fontSize: "clamp(12px,2vw,16px)",
+              }}
+            >
+              No notifications yet
+            </p>
+          )}
+          {notications?.length > 0 &&
+            notications?.map((item) => {
+              return (
+                <main key={item?._id} id={Styles.notification__main}>
+                  <div id={Styles.notifications__flex}>
+                    <p className={Styles.title_noti}>{item?.issueTitle}</p>
+                    <p>{item?.time}</p>
+                  </div>
+                  <p>{item?.message}</p>
+                </main>
+              );
+            })}
+        </div>
+      )}
       <div className={Styles.RegComplaints}>
-        <div className={Styles.slogan}>Express, Resolve, Relax : Vyatha does it all!</div>
+        {window.innerWidth > 660 && (
+          <div className={Styles.slogan}>
+            Express, Resolve, Relax : Vyatha does it all!
+          </div>
+        )}
         {role === "student" && (
           <div className={Styles.register}>
             <Link to="/register_complaint">
@@ -132,26 +200,42 @@ export const DashBoardHome = ({ role }) => {
       <div className={Styles.Icon} onClick={handleClick}>
         {visible ? <img src={img3} alt="ON" /> : <img src={img4} alt="OFF" />}
       </div>
-      <div
-        className={`${Styles.Notifications} ${
-          notications?.length === 0 ? Styles.nonotifications : ""
-        }`}
-        ref={ref}
-      >
-        {notications?.length === 0 && <p>No notifications yet</p>}
-        {notications?.length > 0 &&
-          notications?.map((item) => {
-            return (
-              <main key={item?._id} id={Styles.notification__main}>
-                <div id={Styles.notifications__flex}>
-                  <p className={Styles.title_noti}>{item?.issueTitle}</p>
-                  <p>{item?.time}</p>
-                </div>
-                <p>{item?.message}</p>
-              </main>
-            );
-          })}
-      </div>
+      {window.innerWidth > 660 && (
+        <div
+          className={`${Styles.Notifications} ${
+            notications?.length === 0 ? Styles.nonotifications : ""
+          }`}
+          ref={ref}
+        >
+          {" "}
+          <h1>Notification</h1>
+          {notications?.length === 0 && (
+            <p
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                fontSize: "clamp(12px,2vw,16px)",
+              }}
+            >
+              No notifications yet
+            </p>
+          )}
+          {notications?.length > 0 &&
+            notications?.map((item) => {
+              return (
+                <main key={item?._id} id={Styles.notification__main}>
+                  <div id={Styles.notifications__flex}>
+                    <p className={Styles.title_noti}>{item?.issueTitle}</p>
+                    <p>{item?.time}</p>
+                  </div>
+                  <p>{item?.message}</p>
+                </main>
+              );
+            })}
+        </div>
+      )}
     </div>
   );
 };

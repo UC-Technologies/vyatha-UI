@@ -20,6 +20,9 @@ const IndividualComplaintAdmin = () => {
   const issueID = key;
   const [reasonForForwarding, setReasonForForwarding] = useState("");
   const { role, isLoggedIn } = useContext(UserContext);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [closed, setClosed] = useState(false);
+  const [solved, setSolved] = useState(false);
   const handleInputChange = (e) => {
     setReasonForForwarding(e.target.value);
   };
@@ -36,8 +39,8 @@ const IndividualComplaintAdmin = () => {
     complaint?.forwardedTo === "supervisor"
       ? "warden"
       : complaint?.forwardedTo === "warden"
-        ? "dsw"
-        : null;
+      ? "dsw"
+      : null;
   useEffect(() => {
     if (role === "supervisor" && complaint?.forwardedTo === "supervisor") {
       setForwardBtnVisibility(true);
@@ -106,6 +109,14 @@ const IndividualComplaintAdmin = () => {
       }
     }
   };
+
+  function scrollToTop() {
+    window.scrollTo({
+      top: "0",
+      left: "0",
+      behavior: "smooth",
+    });
+  }
 
   if (error) {
     return <div>Something went wrong!</div>;
@@ -334,8 +345,92 @@ const IndividualComplaintAdmin = () => {
     }
   };
 
+  function handleShowPopUp() {
+    setShowPopUp(!showPopUp);
+    if (showPopUp) {
+      scrollToTop();
+    }
+  }
+
   return (
     <div className={styles.title_page}>
+      {showPopUp && (
+        <div
+          style={{
+            position: "absolute",
+            left: "0",
+            top: "0",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backdropFilter: showPopUp && "blur(10px)",
+            width: "100%",
+            height: "calc(130%)",
+            zIndex: "10",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: "10px",
+              background: "#fff",
+              fontSize: "clamp(12px,4vw,18px)",
+              width: window.innerWidth < 768 ? "90%" : "50%",
+              height: window.innerWidth > 768 ? "30rem" : "50%",
+              boxShadow: "0px 0px 10px 8px rgba(0, 0, 0, 0.14)",
+            }}
+          >
+            <div style={{ textAlign: "center", fontSize: "clamp(14px,2.5vw,18px)" }}>
+              {closed && `Are you sure you want to close this issue?`}
+              {solved && `Are you sure you want to mark this issue as solved?`}
+            </div>
+            <div style={{ display: "flex", gap: "2rem" }}>
+              <button
+                style={{
+                  minWidth: "40px",
+                  width: "5rem",
+                  minHeight: "10px",
+                  height: "2rem",
+                  borderRadius: "5px",
+                  backgroundColor: "Red",
+                  color: "#ffffff",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  cursor: "pointer",
+                }}
+                onClick={(e) => {
+                  if (closed) handleClose();
+                  if (solved) handleMarkAsSolved(e);
+                  handleShowPopUp();
+                }}
+              >
+                Yes
+              </button>
+              <button
+                style={{
+                  minWidth: "40px",
+                  width: "5rem",
+                  minHeight: "10px",
+                  height: "2rem",
+                  borderRadius: "5px",
+                  backgroundColor: "#40bdb6",
+                  color: "#fff",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  cursor: "pointer",
+                }}
+                onClick={handleShowPopUp}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <Helmet>
         <title>{`${complaint?.title} | Vyatha`}</title>
       </Helmet>
@@ -501,7 +596,11 @@ const IndividualComplaintAdmin = () => {
           cursor: complaint?.isSolved ? "not-allowed" : "pointer",
           opacity: complaint?.isSolved ? "0.5" : "1",
         }}
-        onClick={handleMarkAsSolved}
+        onClick={() => {
+          setClosed(false);
+          setSolved(true);
+          handleShowPopUp();
+        }}
       >
         {complaint?.isSolved
           ? "Issue has been marked as solved"
@@ -515,8 +614,8 @@ const IndividualComplaintAdmin = () => {
             role === complaint?.forwardedTo
               ? "block"
               : "none" || role === "supervisor"
-                ? "none"
-                : "block",
+              ? "none"
+              : "block",
         }}
         id={styles.addcommentbtn}
         onClick={handleApprove}
@@ -525,7 +624,14 @@ const IndividualComplaintAdmin = () => {
       </button>
 
       {role === "supervisor" && complaint?.isClosed === false && (
-        <button id={styles.addcommentbtn} onClick={handleClose}>
+        <button
+          id={styles.addcommentbtn}
+          onClick={() => {
+            setSolved(false);
+            setClosed(true);
+            handleShowPopUp();
+          }}
+        >
           Close Issue
         </button>
       )}
