@@ -71,6 +71,7 @@ const IndividualComplaintAdmin = () => {
       ? data?.AllClosedissues?.find((item) => item._id === issueId)
       : null;
 
+  const Comments = complaint?.comments;
   const [forwardBtnVisibility, setForwardBtnVisibility] = useState(false);
   const forwardTo =
     complaint?.forwardedTo === "supervisor"
@@ -288,7 +289,6 @@ const IndividualComplaintAdmin = () => {
     }
   };
 
-  const Comments = data?.issue?.comments;
   // console.log(Comments)
 
   // approve ISSUE ONCLICK FUNCTION
