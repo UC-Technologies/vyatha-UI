@@ -34,6 +34,8 @@ const AllIssues = () => {
     return <Skeleton />;
   }
   // console.log(data?.AllRegissues)
+
+  // these are isClosed: false issues so open in nature
   const Issues = data?.AllRegissues;
   return (
     <main className={styles.top}>
@@ -41,7 +43,7 @@ const AllIssues = () => {
       {Issues?.map((item) => {
         return (
           <div key={item._id}>
-            <Link to={`/superadmin/issue/${item._id}`}>
+            <Link to={`/open/superadmin/issue/${item._id}`}>
               {" "}
               <h3>Title: {item.title}</h3>
             </Link>

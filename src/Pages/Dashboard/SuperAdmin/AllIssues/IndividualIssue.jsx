@@ -11,7 +11,7 @@ import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllC
 const IndividualIssue = () => {
   const { _id, status } = useParams();
 
-  console.log(status);
+  // console.log(status);
   const issueId = _id;
   const { isLoggedIn, role } = useContext(UserContext);
   const navigate = useNavigate();
