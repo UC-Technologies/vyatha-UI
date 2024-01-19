@@ -120,6 +120,7 @@ const EditProfile = () => {
           if (res.data.message === "Profile updated successfully") {
             toast("Profile updated successfully");
             navigate("/profile");
+            window.location.reload();
           }
         });
     } catch (err) {
@@ -298,6 +299,7 @@ const EditProfile = () => {
                           id="hostel"
                           className={styles.hostel_options}
                           value={formData.hostel}
+                          onChange={handleInputChange}
                         >
                           <option value="Aryabhatt PG Hostel">Aryabhatt PG Hostel</option>
                           <option value="BH1">BH1</option>

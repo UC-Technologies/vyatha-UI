@@ -324,10 +324,11 @@ const ComplaintForm = () => {
             )}
           </div>
 
-          <div>{captchaVerified === false && <Captcha />}</div>
+          <div style={{ width: "20rem" }}>{captchaVerified === false && <Captcha />}</div>
 
           <div style={{ marginTop: "2vw" }} className={styles.captcha}>
             <button
+              className={styles.button}
               disabled={submitting}
               style={{
                 cursor: submitting ? "not-allowed" : "pointer",
