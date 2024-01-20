@@ -43,8 +43,6 @@ const ClosedIssue = () => {
       ? data?.AllClosedissues
       : null;
 
-  // console.log(allClosedIssues);
-
   const [searchInput, setSearchInput] = useState("");
   const [jsonData, setJsonData] = useState(allClosedIssues);
   // filter complaints based on title

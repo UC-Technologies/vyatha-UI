@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import styles from "./IndividualComplaintA.module.scss";
 // import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
@@ -20,6 +20,8 @@ const IndividualComplaintAdmin = () => {
   const [addingComment, setAddingComment] = useState(false);
   const [approvingIssue, setApprovingIssue] = useState(false);
   const [forwarding, setForwarding] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const navigate = useNavigate();
   const { key, status } = useParams(); // Extracted the key
   // console.log("status: ", status)
   const issueId = key;
@@ -79,6 +81,11 @@ const IndividualComplaintAdmin = () => {
       : complaint?.forwardedTo === "warden"
       ? "dsw"
       : null;
+
+  useEffect(() => {
+    if (showPopUp) scrollToTop();
+  }, [showPopUp]);
+
   useEffect(() => {
     if (role === "supervisor" && complaint?.forwardedTo === "supervisor") {
       setForwardBtnVisibility(true);
@@ -132,13 +139,13 @@ const IndividualComplaintAdmin = () => {
             toast("No such issue exists");
             break;
           case "no such role exists which can add comment":
-            toast("no such role exists which can add comment");
+            toast("You are not authorized to add comment on this issue");
             break;
           case "Something went wrong on the server side":
             toast("Something went wrong on the server side");
             break;
           case "Issue has been closed by the student, can't add comment":
-            toast("Issue has been closed by the student, can't add comment");
+            toast("Issue has been closed, can't add comment");
             break;
           case "Issue has been solved, can't add comment":
             toast("Issue has been solved, can't add comment");
@@ -253,6 +260,7 @@ const IndividualComplaintAdmin = () => {
         .then((res) => {
           if (res.data.message === "Issue marked as solved") {
             toast("Issue marked as solved");
+            window.location.reload();
           }
         });
     } catch (ee) {
@@ -369,6 +377,8 @@ const IndividualComplaintAdmin = () => {
         .then((res) => {
           if (res.data.message === "Issue closed successfully") {
             toast("Issue closed successfully");
+            navigate("/");
+            window.location.reload();
           }
         });
     } catch (er) {
@@ -397,6 +407,18 @@ const IndividualComplaintAdmin = () => {
     }
   };
 
+  function scrollToTop() {
+    window.scrollTo({
+      top: "0",
+      left: "0",
+      behavior: "smooth",
+    });
+  }
+
+  function handleShowPopUp() {
+    setShowPopUp(!showPopUp);
+  }
+
   // make sure the dean and warden has got the privilege to approve the issue even when the issue has been raised directly to the dsw and warden and not been forwarded
   const dswApproved = complaint?.IssueForwardedToDsw[0]?.isApproved;
   const wardenApproved = complaint?.IssueForwardedToWarden[0]?.isApproved;
@@ -405,6 +427,87 @@ const IndividualComplaintAdmin = () => {
 
   return (
     <div className="div">
+      {showPopUp && (
+        <div
+          style={{
+            position: "absolute",
+            left: "0",
+            top: "0",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backdropFilter: showPopUp && "blur(10px)",
+            width: "100%",
+            height: "calc(130%)",
+            zIndex: "10",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: "10px",
+              background: "#fff",
+              fontSize: "clamp(12px,4vw,18px)",
+              width: window.innerWidth < 768 ? "90%" : "50%",
+              height: window.innerWidth > 768 ? "30rem" : "50%",
+              boxShadow: "0px 0px 10px 8px rgba(0, 0, 0, 0.14)",
+            }}
+          >
+            <div style={{ textAlign: "center", fontSize: "clamp(14px,2.5vw,18px)" }}>
+              {closing && `Are you sure you want to close this issue?`}
+              {markingSolve && `Are you sure you want to mark this issue as solved?`}
+            </div>
+            <div style={{ display: "flex", gap: "2rem" }}>
+              <button
+                style={{
+                  minWidth: "40px",
+                  width: "5rem",
+                  minHeight: "10px",
+                  height: "2rem",
+                  borderRadius: "5px",
+                  backgroundColor: "Red",
+                  color: "#ffffff",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  cursor: "pointer",
+                }}
+                onClick={(e) => {
+                  if (closing) handleClose();
+                  if (markingSolve) handleMarkAsSolved(e);
+                  handleShowPopUp();
+                }}
+              >
+                Yes
+              </button>
+              <button
+                style={{
+                  minWidth: "40px",
+                  width: "5rem",
+                  minHeight: "10px",
+                  height: "2rem",
+                  borderRadius: "5px",
+                  backgroundColor: "#40bdb6",
+                  color: "#fff",
+                  fontSize: "16px",
+                  fontWeight: "700",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  if (closing) setClosing(!closing);
+                  if (markingSolve) setMarkingSolve(!markingSolve);
+                  handleShowPopUp();
+                }}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <Helmet>
         <title>{`${complaint?.title} | Vyatha`}</title>
       </Helmet>
@@ -545,7 +648,7 @@ const IndividualComplaintAdmin = () => {
         </div>
 
         <div className={styles.photo_uploaded}>
-          <span>Uploaded Photo:</span>
+          <span style={{ marginBottom: ".75vw" }}>Uploaded Photo:</span>
           <div className={styles.photodiv}>
             <img src={complaint?.photo} alt={complaint?.name} />
           </div>
@@ -602,7 +705,12 @@ const IndividualComplaintAdmin = () => {
               }}
             >
               <input
-                disabled={reasonForForwarding === "" || forwarding}
+                disabled={
+                  reasonForForwarding === "" ||
+                  forwarding ||
+                  complaint?.isSolved ||
+                  complaint?.isClosed
+                }
                 type="submit"
                 title="Forward the issue"
                 style={{
@@ -623,7 +731,11 @@ const IndividualComplaintAdmin = () => {
               cursor: complaint?.isSolved || markingSolve ? "not-allowed" : "pointer",
               opacity: complaint?.isSolved || markingSolve ? "0.5" : "1",
             }}
-            onClick={handleMarkAsSolved}
+            onClick={() => {
+              setClosing(false);
+              setMarkingSolve(true);
+              handleShowPopUp();
+            }}
             disabled={complaint?.isSolved || markingSolve}
           >
             {complaint?.isSolved
@@ -662,7 +774,11 @@ const IndividualComplaintAdmin = () => {
                 opacity: closing ? "0.5" : "1",
               }}
               id={styles.addcommentbtn}
-              onClick={handleClose}
+              onClick={() => {
+                setClosing(true);
+                setMarkingSolve(false);
+                handleShowPopUp();
+              }}
               disabled={closing}
             >
               {closing ? "Closing issue..." : "Close Issue"}
