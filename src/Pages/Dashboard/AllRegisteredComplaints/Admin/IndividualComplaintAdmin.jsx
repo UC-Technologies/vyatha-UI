@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "sonner";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import styles from "./IndividualComplaintA.module.scss";
 // import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
@@ -21,7 +21,7 @@ const IndividualComplaintAdmin = () => {
   const [approvingIssue, setApprovingIssue] = useState(false);
   const [forwarding, setForwarding] = useState(false);
   const [showPopUp, setShowPopUp] = useState(false);
-
+  const navigate = useNavigate();
   const { key, status } = useParams(); // Extracted the key
   // console.log("status: ", status)
   const issueId = key;
@@ -139,13 +139,13 @@ const IndividualComplaintAdmin = () => {
             toast("No such issue exists");
             break;
           case "no such role exists which can add comment":
-            toast("no such role exists which can add comment");
+            toast("You are not authorized to add comment on this issue");
             break;
           case "Something went wrong on the server side":
             toast("Something went wrong on the server side");
             break;
           case "Issue has been closed by the student, can't add comment":
-            toast("Issue has been closed by the student, can't add comment");
+            toast("Issue has been closed, can't add comment");
             break;
           case "Issue has been solved, can't add comment":
             toast("Issue has been solved, can't add comment");
@@ -377,6 +377,7 @@ const IndividualComplaintAdmin = () => {
         .then((res) => {
           if (res.data.message === "Issue closed successfully") {
             toast("Issue closed successfully");
+            navigate("/");
             window.location.reload();
           }
         });
@@ -647,7 +648,7 @@ const IndividualComplaintAdmin = () => {
         </div>
 
         <div className={styles.photo_uploaded}>
-          <span>Uploaded Photo:</span>
+          <span style={{ marginBottom: ".75vw" }}>Uploaded Photo:</span>
           <div className={styles.photodiv}>
             <img src={complaint?.photo} alt={complaint?.name} />
           </div>
@@ -704,7 +705,12 @@ const IndividualComplaintAdmin = () => {
               }}
             >
               <input
-                disabled={reasonForForwarding === "" || forwarding}
+                disabled={
+                  reasonForForwarding === "" ||
+                  forwarding ||
+                  complaint?.isSolved ||
+                  complaint?.isClosed
+                }
                 type="submit"
                 title="Forward the issue"
                 style={{

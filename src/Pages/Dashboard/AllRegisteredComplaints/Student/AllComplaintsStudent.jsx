@@ -44,7 +44,18 @@ const AllComplaintStudent = () => {
       : null;
   }, [data, role]);
 
-  const [jsonData, setJsonData] = useState(fetchedIssues);
+  // reverse the fetched issues array
+
+  const reversefetchedIssues = useMemo(() => {
+    return [];
+  }, []);
+  if (fetchedIssues) {
+    for (let i = fetchedIssues.length - 1; i >= 0; i -= 1) {
+      reversefetchedIssues.push(fetchedIssues[i]);
+    }
+  }
+
+  const [jsonData, setJsonData] = useState(reversefetchedIssues);
   const [searchInput, setSearchInput] = useState("");
 
   // const imgBack =
@@ -63,9 +74,9 @@ const AllComplaintStudent = () => {
   };
 
   useEffect(() => {
-    const filteredData = filterComplaints(fetchedIssues, searchInput);
+    const filteredData = filterComplaints(reversefetchedIssues, searchInput);
     setJsonData(filteredData);
-  }, [searchInput, fetchedIssues]);
+  }, [searchInput, reversefetchedIssues]);
 
   if (error) {
     return <div>Something went wrong!</div>;
