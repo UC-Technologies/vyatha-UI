@@ -231,6 +231,10 @@ const IndividualComplaintStudent = () => {
     e.preventDefault();
   };
 
+  if (!issueData) {
+    return <Skeleton />;
+  }
+
   return (
     <div className={styles.Container}>
       <div className={styles.title}>

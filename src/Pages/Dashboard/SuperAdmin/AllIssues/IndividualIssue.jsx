@@ -50,6 +50,10 @@ const IndividualIssue = () => {
   // console.log(typeof data?.issue?.IssueForwardedToDsw);
 
   // console.log( issueData?.IssueForwardedToWarden[0]);
+
+  if (!issueData) {
+    return <Skeleton />;
+  }
   return (
     <main className={styles.top}>
       {issueData && (

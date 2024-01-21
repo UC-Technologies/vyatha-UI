@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -13,6 +13,9 @@ import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 import { fetchAllAccounts } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/AllAccounts";
 
 const IndividualProfile = () => {
+  const [elevating, setElevating] = useState(false);
+  const [demoting, setDemoting] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const navigate = useNavigate();
 
   const { role, isLoggedIn } = useContext(UserContext);
@@ -36,15 +39,14 @@ const IndividualProfile = () => {
   const { data, error, isLoading } = useQuery(queryKey, fetchAllAccounts, {
     enabled: isTrue,
   });
-
+  const all = data?.allAccounts?.find((acc) => acc._id === _id);
   useEffect(() => {
-    if (data) document.title = `${data?.individualProfile?.name} | Vyatha`;
-  }, [data]);
+    if (all) document.title = `${all?.name} | Vyatha`;
+  }, [all]);
 
   if (isLoading) return <Skeleton />;
   if (error) return <h1>Error fetching data</h1>;
 
-  const all = data?.allAccounts?.find((acc) => acc._id === _id);
   const token = Cookies.get("authToken");
   const tokenConfig = {
     headers: {
@@ -53,16 +55,17 @@ const IndividualProfile = () => {
   };
   const accountID = all?._id;
   const wrtrole =
-    all.role === "student"
+    all?.role === "student"
       ? "promotetosupervisor"
-      : all.role === "supervisor"
+      : all?.role === "supervisor"
       ? "promotetowarden"
-      : all.role === "warden"
+      : all?.role === "warden"
       ? "promotetodsw"
       : null;
 
   const handleElevate = async (e) => {
     e.preventDefault();
+    setElevating(true);
     try {
       await axios
         .put(
@@ -73,34 +76,7 @@ const IndividualProfile = () => {
         .then((res) => {
           if (res.data.success === true) {
             toast("Role elevated sucessfully");
-          }
-        });
-    } catch (err) {
-      // if (err.response) {
-      //     switch (err.response.data.error) {
-      //         case "Not authorized to access this api":
-      //             toast("Not authorized to access this api")
-      //             break
-      //         default:
-      //             toast("something went wrong")
-      //     }
-      // }
-      console.error(err);
-    }
-  };
-
-  const handleDemote = async (e) => {
-    e.preventDefault();
-    try {
-      await axios
-        .put(
-          `${import.meta.env.VITE_REACT_APP_API}/demoterole`,
-          { accountID },
-          tokenConfig
-        )
-        .then((res) => {
-          if (res.data.message === "Role demoted successfully") {
-            toast("Role demoted to student successfully");
+            window.location.reload();
           }
         });
     } catch (err) {
@@ -115,24 +91,77 @@ const IndividualProfile = () => {
           case "Not authorized to access this api":
             toast("Not authorized to access this api");
             break;
+          case "Something went wrong":
+            toast("Something went wrong, please try again");
+            break;
+          case "Unauthorized":
+            toast("Unauthorized");
+            break;
+          case "User not found":
+            toast("User not found");
+            break;
+          default:
+            console.error(err);
+            toast("something went wrong");
+        }
+      }
+    } finally {
+      setElevating(false);
+    }
+  };
+
+  const handleDemote = async (e) => {
+    e.preventDefault();
+    setDemoting(true);
+    try {
+      await axios
+        .put(
+          `${import.meta.env.VITE_REACT_APP_API}/demoterole`,
+          { accountID },
+          tokenConfig
+        )
+        .then((res) => {
+          if (res.data.message === "Role demoted successfully") {
+            toast("Role demoted to student successfully");
+            window.location.reload();
+          }
+        });
+    } catch (err) {
+      if (err.response) {
+        switch (err.response.data.error) {
+          case "No such account exists":
+            toast("No such account exists");
+            break;
+          case "No such role exists":
+            toast("No such role exists");
+            break;
+          case "Not authorized to access this api":
+            toast("Not authorized to access this api");
+            break;
+          case "Something went wrong":
+            toast("Something went wrong on the server side, please try again");
+            break;
           default:
             toast("something went wrong");
         }
       }
+    } finally {
+      setDemoting(false);
     }
   };
 
   const roleElevate =
-    all.role === "student"
+    all?.role === "student"
       ? "Promote to Supervisor"
-      : all.role === "supervisor"
+      : all?.role === "supervisor"
       ? "Promote to Warden"
-      : all.role === "warden"
+      : all?.role === "warden"
       ? "Promote to DSW"
       : null;
 
   const handleDeleteAccount = async (e) => {
     e.preventDefault();
+    setDeleting(true);
     try {
       await axios
         .delete(`${import.meta.env.VITE_REACT_APP_API}/deleteaccount`, {
@@ -143,12 +172,41 @@ const IndividualProfile = () => {
           if (res.data.message === "account deleted successfully") {
             toast("account deleted successfully");
             navigate("/superadmin/allsignups");
+            window.location.reload();
           }
         });
     } catch (edd) {
-      console.error(edd);
+      if (edd.response) {
+        switch (edd.response.data.error) {
+          case "Unauthorized":
+            toast("Unauthorized");
+            break;
+          case "User not found":
+            toast("User not found");
+            break;
+          case "No such account exists":
+            toast("No such account exists");
+            break;
+          case "No such deletion account control of other role exists as of now":
+            toast("No such deletion account control of other role exists as of now");
+            break;
+          case "Not authorized to access this api":
+            toast("Not authorized to access this api");
+            break;
+          case "Something went wrong on the server side":
+            toast("Something went wrong on the server side");
+            break;
+          default:
+            toast("Something went wrong");
+            break;
+        }
+      }
+    } finally {
+      setDeleting(false);
     }
   };
+
+  if (!all) return <Skeleton />;
 
   return (
     <main className={styles.top}>
@@ -163,18 +221,35 @@ const IndividualProfile = () => {
       <h3>Role: {all?.role}</h3>
       <h3>DeleteAccount: {all?.deleteAccount}</h3>
 
-      <button onClick={handleElevate}>{roleElevate}</button>
+      {all?.deleteAccount === "no" && (
+        <div>
+          <button
+            style={{ cursor: elevating ? "not-allowed" : "pointer" }}
+            disabled={elevating}
+            onClick={handleElevate}
+          >
+            {elevating ? "Elevating role..." : roleElevate}
+          </button>
+
+          <button
+            style={{
+              display: all?.role === "superadmin" ? "none" : "block",
+              cursor: demoting ? "not-allowed" : "pointer",
+            }}
+            disabled={all?.role === "student" || demoting}
+            onClick={handleDemote}
+          >
+            {demoting ? "Demoting..." : "Demote role to Student"}
+          </button>
+        </div>
+      )}
 
       <button
-        style={{ display: all.role === "superadmin" ? "none" : "block" }}
-        disabled={all.role === "student"}
-        onClick={handleDemote}
+        style={{ cursor: deleting ? "not-allowed" : "pointer" }}
+        onClick={handleDeleteAccount}
+        disabled={all?.role !== "student" || deleting}
       >
-        Demote role to Student
-      </button>
-
-      <button onClick={handleDeleteAccount} disabled={all.role !== "student"}>
-        Delete account
+        {deleting ? "Deleting account..." : "Delete account"}
       </button>
     </main>
   );

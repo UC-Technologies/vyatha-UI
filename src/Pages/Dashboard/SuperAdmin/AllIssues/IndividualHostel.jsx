@@ -39,6 +39,10 @@ const IndividualHostel = () => {
     (issue) => issue.hostel === hostel && issue.isSolved === false
   );
 
+  if (!allHostelSpecificIssues) {
+    return <Skeleton />;
+  }
+
   return (
     <div className={styles.top}>
       <h1>

@@ -42,6 +42,11 @@ const ClosedIssues = () => {
   const allHostelSpecificIssues = data?.AllClosedissues?.filter(
     (issue) => issue.hostel === hostel
   );
+
+  if (!allHostelSpecificIssues) {
+    return <Skeleton />;
+  }
+
   return (
     <div className={styles.top}>
       <h1>

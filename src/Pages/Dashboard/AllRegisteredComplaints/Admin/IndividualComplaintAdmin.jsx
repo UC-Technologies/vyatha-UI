@@ -425,6 +425,10 @@ const IndividualComplaintAdmin = () => {
   const isIssueApproved =
     role === "warden" ? wardenApproved : role === "dsw" ? dswApproved : null;
 
+  if (!complaint) {
+    return <Skeleton />;
+  }
+
   return (
     <div className="div">
       {showPopUp && (
