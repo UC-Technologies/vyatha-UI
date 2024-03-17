@@ -8,12 +8,14 @@ import { UserContext } from "../../Context/Provider";
 import styles from "./Profile.module.scss";
 import { fetchProfile } from "../../Components/ReactQuery/Fetchers/User";
 import Skeleton from "../../Components/Shared/Loading/Skeletion";
+import { formattedDate } from "../../Components/lib/GetDate";
 
 const Profile = () => {
   useEffect(() => {
     document.title = "Profile | Vyatha";
   }, []);
 
+  const linkSendAt = formattedDate;
   const [showPopUp, setShowPopUp] = useState(false);
 
   function scrollToTop() {
@@ -78,7 +80,7 @@ const Profile = () => {
       await axios
         .post(
           `${import.meta.env.VITE_REACT_APP_API}/sendmagiclink`,
-          {},
+          { linkSendAt },
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -8,37 +8,36 @@ import FileBase64 from "react-file-base64";
 import styles from "./ComplaintForm.module.scss";
 import { UserContext } from "../../Context/Provider";
 import Captcha from "../../Components/Shared/CaptchaComponent/Captcha";
+import { formattedDate } from "../../Components/lib/GetDate";
 // import Captcha from '../../Components/Shared/CaptchaComponent/Captcha'
-
+// TODO: instead of base64, store the complaint image, profile photo in cloudinary api. this will improve the performance of the webapp
 const ComplaintForm = () => {
   useEffect(() => {
     document.title = "Complaint Form | Vyatha";
   }, []);
-
+  const IssueCreatedAt = formattedDate;
   const navigate = useNavigate();
   const { isLoggedIn, role, profile, captchaVerified } = useContext(UserContext);
   const [submitting, setSubmitting] = useState(false);
   useEffect(() => {
     if (isLoggedIn === false) {
       navigate("/auth/login");
+      return;
     }
 
     if (role !== "student") {
       navigate("/dashboard");
+      return;
     }
 
     if (profile?.user?.isVerified === false) {
       toast("you must verify your email first");
       navigate("/dashboard");
+      return;
     }
 
     if (profile?.user?.idcard === "") {
       toast("you must upload your id card first");
-      navigate("/dashboard");
-    }
-
-    if (profile?.user?.designation !== "Student") {
-      toast("Only students can file an issue");
       navigate("/dashboard");
     }
   }, [
@@ -106,6 +105,7 @@ const ComplaintForm = () => {
             category: formData.category,
             title: formData.title,
             photo,
+            IssueCreatedAt,
           },
           {
             headers: {

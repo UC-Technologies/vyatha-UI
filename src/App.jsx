@@ -77,6 +77,11 @@ const App = () => {
                   />
                   <Route
                     exact
+                    path="/:role/complaint/:ifraised/:key"
+                    element={<IndividualComplaint />}
+                  />
+                  <Route
+                    exact
                     path="/:status/:role/complaint/:key"
                     element={<IndividualComplaint />}
                   />

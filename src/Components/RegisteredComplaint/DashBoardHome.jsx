@@ -98,6 +98,7 @@ export const DashBoardHome = ({ role }) => {
     }
   }
 
+  // console.log(notifications);
   if (error) {
     return <div>Something went wrong!</div>;
   }
@@ -152,10 +153,22 @@ export const DashBoardHome = ({ role }) => {
             return (
               <main key={item?._id} id={Styles.notification__main}>
                 <div id={Styles.notifications__flex}>
-                  <Link to={`/${role}/complaint/${item?.issueID}`}>
-                    {" "}
-                    <p className={Styles.title_noti}>{item?.issueTitle}</p>
-                  </Link>
+                  {item.message.includes("New Issue has been raised") ? (
+                    <main>
+                      <Link to={`/${role}/complaint/raised/${item?.issueID}`}>
+                        {" "}
+                        <p className={Styles.title_noti}>{item?.issueTitle}</p>
+                      </Link>
+                    </main>
+                  ) : (
+                    <main>
+                      <Link to={`/${role}/complaint/${item?.issueID}`}>
+                        {" "}
+                        <p className={Styles.title_noti}>{item?.issueTitle}</p>
+                      </Link>
+                    </main>
+                  )}
+
                   <p>{item?.time}</p>
                 </div>
                 <p>{item?.message}</p>

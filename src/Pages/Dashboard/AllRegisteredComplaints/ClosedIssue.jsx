@@ -90,6 +90,7 @@ const ClosedIssue = () => {
         <div className={styles.ComplaintCard}>
           <div className={styles.ComplaintCardInner}>
             {jsonData?.length === 0 && <p>No Closed issues yet</p>}
+            {jsonData?.length > 0 && <p>{jsonData?.length} total closed complaints</p>}
             {jsonData?.length > 0 &&
               jsonData?.map((complaint) => (
                 // <ComplaintCardS key={item.key} complaint={item} />
