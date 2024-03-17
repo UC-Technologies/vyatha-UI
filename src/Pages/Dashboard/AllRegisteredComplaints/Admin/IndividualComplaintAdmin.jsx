@@ -74,21 +74,25 @@ const IndividualComplaintAdmin = () => {
   // console.log(data?.
   //   allComplaintsRaisedToWarden
   // )
-  // console.log(raisedComplaintDetailsWarden);
-  console.log(ifraised);
+  // console.log("data?.raisedComplaintDetailsWarden :", data?.allComplaintsRaisedToWarden);
+  // console.log("ifraised :", ifraised);
+  // console.log("status :", status);
+  // console.log("issueId:", issueId)
   const complaint =
     role === "supervisor" && !status
       ? data?.issuesAssignedToSupervisor?.find((item) => item._id === issueId)
       : role === "supervisor" && status === "closed"
       ? data?.closedIssuesAssignedToSupervisor?.find((item) => item._id === issueId)
-      : role === "warden" && !status
+      : role === "warden" && !status && !ifraised
       ? data?.sortedIssues?.find((item) => item._id === issueId)
       : role === "warden" && status === "closed"
       ? data?.closedIssuesAssignedToWarden?.find((item) => item._id === issueId)
-      : role === "warden" && ifraised === "raise" && !status
-      ? data?.allComplaintsRaisedToWarden?.find((item) => item?._id === issueId)
-      : role === "dsw" && !status
+      : role === "warden" && !status && ifraised === "raised"
+      ? data?.allComplaintsRaisedToWarden?.find((item) => item._id === issueId)
+      : role === "dsw" && !status && !ifraised
       ? data?.sortedIssues?.find((item) => item._id === issueId)
+      : role === "dsw" && !status && ifraised === "raised"
+      ? data?.allComplaintsRaisedToDsw?.find((item) => item._id === issueId)
       : role === "dsw" && status === "closed"
       ? data?.closedIssuesAssignedToDsw?.find((item) => item._id === issueId)
       : role === "superadmin" && !status
@@ -99,6 +103,7 @@ const IndividualComplaintAdmin = () => {
       ? data?.allComplaintsRaisedToDsw?.find((item) => item._id === issueId)
       : null;
 
+  // console.log("complaint", complaint);
   const Comments = complaint?.comments;
   const [forwardBtnVisibility, setForwardBtnVisibility] = useState(false);
   const forwardTo =
@@ -188,8 +193,6 @@ const IndividualComplaintAdmin = () => {
       setAddingComment(false);
     }
   };
-
-  console.log(complaint);
 
   if (error) {
     return <div>Something went wrong!</div>;

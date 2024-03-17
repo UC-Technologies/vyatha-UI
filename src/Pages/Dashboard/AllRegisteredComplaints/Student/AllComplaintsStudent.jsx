@@ -233,6 +233,7 @@ const AllComplaintStudent = () => {
     navigate(`/editissue/${issueId}`);
   };
 
+  const raise = "raised";
   return (
     <div className={styles.container}>
       <div className={styles.SearchBar}>
@@ -417,7 +418,7 @@ const AllComplaintStudent = () => {
                     )}
                     {complaint?.raiseComplainTo?.length > 1 ? (
                       <main>
-                        <Link to={`/${role}/complaint/raise/${complaint._id}`}>
+                        <Link to={`/${role}/complaint/${raise}/${complaint._id}`}>
                           <h2>{complaint.title}</h2>
                         </Link>
                       </main>
