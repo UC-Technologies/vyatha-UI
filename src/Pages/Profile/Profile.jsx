@@ -8,7 +8,7 @@ import { UserContext } from "../../Context/Provider";
 import styles from "./Profile.module.scss";
 import { fetchProfile } from "../../Components/ReactQuery/Fetchers/User";
 import Skeleton from "../../Components/Shared/Loading/Skeletion";
-import { formattedDate } from "../../Components/lib/GetDate";
+import { formattedDate } from "../../Components/Lib/GetDate";
 
 const Profile = () => {
   useEffect(() => {

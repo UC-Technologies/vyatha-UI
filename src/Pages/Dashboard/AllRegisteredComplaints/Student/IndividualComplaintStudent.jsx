@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import Cookies from "js-cookie";
 import styles from "./IndividualComplaintS.module.scss";
-import { formattedDate } from "../../../../Components/lib/GetDate";
+import { formattedDate } from "../../../../Components/Lib/GetDate";
 // import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import { UserContext } from "../../../../Context/Provider";
 import StatusOfComplaint from "../../../../Components/RegisteredComplaint/Student/StatusOfComplaint";

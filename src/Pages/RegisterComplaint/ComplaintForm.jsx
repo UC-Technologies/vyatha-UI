@@ -8,7 +8,7 @@ import FileBase64 from "react-file-base64";
 import styles from "./ComplaintForm.module.scss";
 import { UserContext } from "../../Context/Provider";
 import Captcha from "../../Components/Shared/CaptchaComponent/Captcha";
-import { formattedDate } from "../../Components/lib/GetDate";
+import { formattedDate } from "../../Components/Lib/GetDate";
 // import Captcha from '../../Components/Shared/CaptchaComponent/Captcha'
 // TODO: instead of base64, store the complaint image, profile photo in cloudinary api. this will improve the performance of the webapp
 const ComplaintForm = () => {

@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import styles from "./ResetPwd.module.scss";
 import { UserContext } from "../../../Context/Provider";
-import { formattedDate } from "../../../Components/lib/GetDate";
+import { formattedDate } from "../../../Components/Lib/GetDate";
 const ResetPwd = () => {
   const currentTime = formattedDate;
   const { token } = useParams();

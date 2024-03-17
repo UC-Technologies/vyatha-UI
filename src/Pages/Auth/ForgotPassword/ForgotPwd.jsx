@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import styles from "./ForgotPwd.module.scss";
 import { UserContext } from "../../../Context/Provider";
-import { formattedDate } from "../../../Components/lib/GetDate";
+import { formattedDate } from "../../../Components/Lib/GetDate";
 const ForgotPwd = () => {
   const linkSentAt = formattedDate;
   const navigate = useNavigate();

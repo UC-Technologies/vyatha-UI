@@ -11,7 +11,7 @@ import { UserContext } from "../../../../Context/Provider";
 import styles from "./Style.module.scss";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 import { fetchAllAccounts } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/AllAccounts";
-import { formattedDate } from "../../../../Components/lib/GetDate";
+import { formattedDate } from "../../../../Components/Lib/GetDate";
 const IndividualProfile = () => {
   const [elevating, setElevating] = useState(false);
   const [demoting, setDemoting] = useState(false);

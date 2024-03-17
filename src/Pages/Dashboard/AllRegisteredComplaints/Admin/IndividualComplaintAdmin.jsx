@@ -13,7 +13,7 @@ import styles from "./IndividualComplaintA.module.scss";
 import { UserContext } from "../../../../Context/Provider";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
-import { formattedDate } from "../../../../Components/lib/GetDate";
+import { formattedDate } from "../../../../Components/Lib/GetDate";
 
 const IndividualComplaintAdmin = () => {
   const time = formattedDate;

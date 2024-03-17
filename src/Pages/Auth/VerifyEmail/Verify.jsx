@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import Verified from "./Verified";
 import NotVerified from "./NotVerified";
-import { formattedDate } from "../../../Components/lib/GetDate";
+import { formattedDate } from "../../../Components/Lib/GetDate";
 // response will be fetched from the api
 
 const Verify = () => {
@@ -59,7 +59,7 @@ const Verify = () => {
     };
 
     verifyEmail();
-  }, [token]);
+  }, [token, currentTime]);
 
   if (verifying === true) {
     return (

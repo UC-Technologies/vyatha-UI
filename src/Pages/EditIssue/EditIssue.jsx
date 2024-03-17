@@ -11,7 +11,7 @@ import { UserContext } from "../../Context/Provider";
 import Captcha from "../../Components/Shared/CaptchaComponent/Captcha";
 import { fetchIndividualIssue } from "../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import Skeleton from "../../Components/Shared/Loading/Skeletion";
-import { formattedDate } from "../../Components/lib/GetDate";
+import { formattedDate } from "../../Components/Lib/GetDate";
 // import Captcha from '../../Components/Shared/CaptchaComponent/Captcha'
 
 const EditIssue = () => {

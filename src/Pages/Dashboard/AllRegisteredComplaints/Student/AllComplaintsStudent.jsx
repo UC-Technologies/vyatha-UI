@@ -10,7 +10,7 @@ import styles from "./ComplaintDashboardS.module.scss";
 import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
 import { UserContext } from "../../../../Context/Provider";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
-import { formattedDate } from "../../../../Components/lib/GetDate";
+import { formattedDate } from "../../../../Components/Lib/GetDate";
 
 // TODO: make a dropdown in warden and dean page to select between forwarded and Raised Complaint, for their simplicity in accessing the complaints
 // TODO: make a dropdown for the supervisor so that he can toggle between solved and pending complaints

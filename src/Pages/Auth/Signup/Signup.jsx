@@ -5,7 +5,7 @@ import axios from "axios";
 import { UserContext } from "../../../Context/Provider";
 import styles from "./Signup.module.scss";
 import Captcha from "../../../Components/Shared/CaptchaComponent/Captcha";
-import { formattedDate } from "../../../Components/lib/GetDate";
+import { formattedDate } from "../../../Components/Lib/GetDate";
 const SignUp = () => {
   const currentTime = formattedDate;
   const navigate = useNavigate();
