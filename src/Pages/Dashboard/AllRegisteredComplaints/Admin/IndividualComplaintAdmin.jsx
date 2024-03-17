@@ -13,8 +13,15 @@ import styles from "./IndividualComplaintA.module.scss";
 import { UserContext } from "../../../../Context/Provider";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
+import { formattedDate } from "../../../../Components/lib/GetDate";
 
 const IndividualComplaintAdmin = () => {
+  const time = formattedDate;
+  const closedAt = formattedDate;
+  const createdAt = formattedDate;
+  const forwardedAt = formattedDate;
+  const solvedAt = formattedDate;
+
   const [closing, setClosing] = useState(false);
   const [markingSolve, setMarkingSolve] = useState(false);
   const [addingComment, setAddingComment] = useState(false);
@@ -22,7 +29,7 @@ const IndividualComplaintAdmin = () => {
   const [forwarding, setForwarding] = useState(false);
   const [showPopUp, setShowPopUp] = useState(false);
   const navigate = useNavigate();
-  const { key, status } = useParams(); // Extracted the key
+  const { key, status, ifraised } = useParams(); // Extracted the key
   // console.log("status: ", status)
   const issueId = key;
   const issueID = key;
@@ -54,6 +61,21 @@ const IndividualComplaintAdmin = () => {
   });
   // console.log(data)
 
+  // const message = ""
+  // console.log("status :", status)
+  // const raisedComplaintDetails =
+  // console.log(data?.allComplaintsRaisedToWarden.find((item) => item._id === issueId))
+
+  // const raisedComplaintDetailsWarden =
+  //   role === "warden" && !status && ifraised
+  //     ? data?.allComplaintsRaisedToWarden?.find((com) => com._id === issueId)
+  //     : null;
+
+  // console.log(data?.
+  //   allComplaintsRaisedToWarden
+  // )
+  // console.log(raisedComplaintDetailsWarden);
+  console.log(ifraised);
   const complaint =
     role === "supervisor" && !status
       ? data?.issuesAssignedToSupervisor?.find((item) => item._id === issueId)
@@ -63,6 +85,8 @@ const IndividualComplaintAdmin = () => {
       ? data?.sortedIssues?.find((item) => item._id === issueId)
       : role === "warden" && status === "closed"
       ? data?.closedIssuesAssignedToWarden?.find((item) => item._id === issueId)
+      : role === "warden" && ifraised === "raise" && !status
+      ? data?.allComplaintsRaisedToWarden?.find((item) => item?._id === issueId)
       : role === "dsw" && !status
       ? data?.sortedIssues?.find((item) => item._id === issueId)
       : role === "dsw" && status === "closed"
@@ -71,6 +95,8 @@ const IndividualComplaintAdmin = () => {
       ? data?.AllRegissues?.find((item) => item._id === issueId)
       : role === "superadmin" && status === "closed"
       ? data?.AllClosedissues?.find((item) => item._id === issueId)
+      : role === "dsw" && !status && ifraised === "raise"
+      ? data?.allComplaintsRaisedToDsw?.find((item) => item._id === issueId)
       : null;
 
   const Comments = complaint?.comments;
@@ -113,7 +139,7 @@ const IndividualComplaintAdmin = () => {
       await axios
         .post(
           `${import.meta.env.VITE_REACT_APP_API}/addcomment/${issueID}`,
-          { commentBody },
+          { commentBody, createdAt },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -163,6 +189,8 @@ const IndividualComplaintAdmin = () => {
     }
   };
 
+  console.log(complaint);
+
   if (error) {
     return <div>Something went wrong!</div>;
   }
@@ -178,7 +206,7 @@ const IndividualComplaintAdmin = () => {
       await axios
         .put(
           `${import.meta.env.VITE_REACT_APP_API}/forwardissue`,
-          { issueID, reasonForForwarding, otherID },
+          { issueID, reasonForForwarding, otherID, forwardedAt },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -250,7 +278,7 @@ const IndividualComplaintAdmin = () => {
       await axios
         .put(
           `${import.meta.env.VITE_REACT_APP_API}/issuesolved`,
-          { issueID, otherID },
+          { issueID, otherID, solvedAt },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -307,7 +335,7 @@ const IndividualComplaintAdmin = () => {
       await axios
         .put(
           `${import.meta.env.VITE_REACT_APP_API}/approveissue`,
-          { issueID, otherID },
+          { issueID, otherID, time },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -367,7 +395,7 @@ const IndividualComplaintAdmin = () => {
       await axios
         .put(
           `${import.meta.env.VITE_REACT_APP_API}/closeissue`,
-          { issueId, otherID },
+          { issueId, otherID, closedAt },
           {
             headers: {
               Authorization: `Bearer ${token}`,

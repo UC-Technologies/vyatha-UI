@@ -5,8 +5,9 @@ import axios from "axios";
 import { UserContext } from "../../../Context/Provider";
 import styles from "./Signup.module.scss";
 import Captcha from "../../../Components/Shared/CaptchaComponent/Captcha";
-
+import { formattedDate } from "../../../Components/lib/GetDate";
 const SignUp = () => {
+  const currentTime = formattedDate;
   const navigate = useNavigate();
   const { isLoggedIn, captchaVerified } = useContext(UserContext);
   const [showPassword, setShowPassword] = useState(false);
@@ -48,6 +49,7 @@ const SignUp = () => {
             room,
             designation,
             scholarID,
+            currentTime,
           })
           .then((response) => {
             toast(response.data.message);

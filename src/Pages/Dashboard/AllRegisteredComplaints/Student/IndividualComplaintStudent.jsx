@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import Cookies from "js-cookie";
 import styles from "./IndividualComplaintS.module.scss";
+import { formattedDate } from "../../../../Components/lib/GetDate";
 // import { fetchIndividualIssue } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import { UserContext } from "../../../../Context/Provider";
 import StatusOfComplaint from "../../../../Components/RegisteredComplaint/Student/StatusOfComplaint";
@@ -18,6 +19,8 @@ import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 // import SortByButton from "../../../../Components/RegisteredComplaint/Student/SortByButton";
 
 const IndividualComplaintStudent = () => {
+  const currentTime = formattedDate;
+  const createdAt = formattedDate;
   const [raising, setRaising] = useState(false);
   const [addingComment, setAddingComment] = useState(false);
   // const imageUp = "https://res.cloudinary.com/dy55sllug/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1703025668/arrow_drop_up_FILL1_wght400_GRAD0_opsz24_twmqne.jpg?_s=public-apps";
@@ -102,7 +105,7 @@ const IndividualComplaintStudent = () => {
       await axios
         .post(
           `${import.meta.env.VITE_REACT_APP_API}/raisecomplain`,
-          { issueID, otherID },
+          { issueID, otherID, currentTime },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -177,7 +180,7 @@ const IndividualComplaintStudent = () => {
       await axios
         .post(
           `${import.meta.env.VITE_REACT_APP_API}/addcomment/${issueID}`,
-          { commentBody },
+          { commentBody, createdAt },
           {
             headers: {
               Authorization: `Bearer ${token}`,

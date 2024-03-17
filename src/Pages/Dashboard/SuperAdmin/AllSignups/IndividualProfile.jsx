@@ -11,12 +11,13 @@ import { UserContext } from "../../../../Context/Provider";
 import styles from "./Style.module.scss";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
 import { fetchAllAccounts } from "../../../../Components/ReactQuery/Fetchers/SuperAdmin/AllAccounts";
-
+import { formattedDate } from "../../../../Components/lib/GetDate";
 const IndividualProfile = () => {
   const [elevating, setElevating] = useState(false);
   const [demoting, setDemoting] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const navigate = useNavigate();
+  const currentTime = formattedDate;
 
   const { role, isLoggedIn } = useContext(UserContext);
   useEffect(() => {
@@ -70,7 +71,7 @@ const IndividualProfile = () => {
       await axios
         .put(
           `${import.meta.env.VITE_REACT_APP_API}/${wrtrole}`,
-          { accountID },
+          { accountID, currentTime },
           tokenConfig
         )
         .then((res) => {
@@ -117,7 +118,7 @@ const IndividualProfile = () => {
       await axios
         .put(
           `${import.meta.env.VITE_REACT_APP_API}/demoterole`,
-          { accountID },
+          { accountID, currentTime },
           tokenConfig
         )
         .then((res) => {

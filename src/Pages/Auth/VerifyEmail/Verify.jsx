@@ -4,18 +4,19 @@ import axios from "axios";
 import { toast } from "sonner";
 import Verified from "./Verified";
 import NotVerified from "./NotVerified";
-
+import { formattedDate } from "../../../Components/lib/GetDate";
 // response will be fetched from the api
 
 const Verify = () => {
   const { token } = useParams();
   const [verified, setVerified] = useState(false);
   const [verifying, setVerifying] = useState(true);
+  const currentTime = formattedDate;
 
   useEffect(() => {
     const verifyEmail = async () => {
       await axios
-        .put(`${import.meta.env.VITE_REACT_APP_API}/verifyemail/${token}`)
+        .put(`${import.meta.env.VITE_REACT_APP_API}/verifyemail/${token}/${currentTime}`)
         .then((res) => {
           if (res.data.message === "Email verified") {
             setVerified(true);

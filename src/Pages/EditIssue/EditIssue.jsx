@@ -11,9 +11,11 @@ import { UserContext } from "../../Context/Provider";
 import Captcha from "../../Components/Shared/CaptchaComponent/Captcha";
 import { fetchIndividualIssue } from "../../Components/ReactQuery/Fetchers/SuperAdmin/IndividualIssue";
 import Skeleton from "../../Components/Shared/Loading/Skeletion";
+import { formattedDate } from "../../Components/lib/GetDate";
 // import Captcha from '../../Components/Shared/CaptchaComponent/Captcha'
 
 const EditIssue = () => {
+  const editedAt = formattedDate;
   const { issueID } = useParams();
   const issueId = issueID;
 
@@ -141,6 +143,7 @@ const EditIssue = () => {
             title: formData.title,
             photo,
             issueID,
+            editedAt,
           },
           {
             headers: {

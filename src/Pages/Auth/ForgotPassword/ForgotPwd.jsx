@@ -4,8 +4,9 @@ import axios from "axios";
 import { toast } from "sonner";
 import styles from "./ForgotPwd.module.scss";
 import { UserContext } from "../../../Context/Provider";
-
+import { formattedDate } from "../../../Components/lib/GetDate";
 const ForgotPwd = () => {
+  const linkSentAt = formattedDate;
   const navigate = useNavigate();
   const { isLoggedIn } = useContext(UserContext);
   const [submitting, setSubmitting] = useState(false);
@@ -37,7 +38,10 @@ const ForgotPwd = () => {
     try {
       setSubmitting(true);
       await axios
-        .post(`${import.meta.env.VITE_REACT_APP_API}/forgotpassword`, { email })
+        .post(`${import.meta.env.VITE_REACT_APP_API}/forgotpassword`, {
+          email,
+          linkSentAt,
+        })
         .then((res) => {
           if (res.data.message === "Reset link sent to your email") {
             toast("Reset link sent to your email");

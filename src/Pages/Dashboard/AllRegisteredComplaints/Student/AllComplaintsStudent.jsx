@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
-import React, { useState, useEffect, useContext, useMemo } from "react";
+import React, { useState, useEffect, useContext, useMemo, useCallback } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -10,11 +10,35 @@ import styles from "./ComplaintDashboardS.module.scss";
 import { fetchComplaints } from "../../../../Components/ReactQuery/Fetchers/AllComplaints";
 import { UserContext } from "../../../../Context/Provider";
 import Skeleton from "../../../../Components/Shared/Loading/Skeletion";
+import { formattedDate } from "../../../../Components/lib/GetDate";
+
+// TODO: make a dropdown in warden and dean page to select between forwarded and Raised Complaint, for their simplicity in accessing the complaints
+// TODO: make a dropdown for the supervisor so that he can toggle between solved and pending complaints
 
 const AllComplaintStudent = () => {
+  const closedAt = formattedDate;
   const [complaintId, setComplaintId] = useState();
   const [otherComplaintId, setOtherComplaintId] = useState();
   const [showPopUpClose, setShowPopUpClose] = useState(false);
+  const [selectedHostel, setSelectedHostel] = useState("All hostel");
+
+  // for the dropdown to select between the forwarded and raised complaints for the warden and dsw
+  const [typeOfComplaint, setTypeOfComplaint] = useState("Forwarded");
+  // const [filteredDataBasedOnComplaints, setFilteredDataBasedOnComplaints] = useState([])
+  const handleTypeOfComplaintChange = (e) => {
+    setTypeOfComplaint(e.target.value);
+  };
+
+  const handleHostelChange = (event) => {
+    setSelectedHostel(event.target.value);
+  };
+
+  // console.log("time:", formattedDate)
+  const [complaintStatus, setComplaintStatus] = useState("Pending");
+  const handleComplaintStatusChange = (e) => {
+    setComplaintStatus(e.target.value);
+  };
+  const [fetchedIssuesForSupervisor, setFetchedIssuesForSupervisor] = useState([]);
 
   useEffect(() => {
     document.title = "All Complaints | Vyatha";
@@ -32,30 +56,66 @@ const AllComplaintStudent = () => {
     enabled: isTrue,
   });
 
+  const isDean = useMemo(() => {
+    return Boolean(role === "dsw" && isLoggedIn);
+  }, [role, isLoggedIn]);
+
+  const isDeanOrIsWarden = useMemo(() => {
+    return Boolean((role === "warden" || role === "dsw") && isLoggedIn);
+  }, [isLoggedIn, role]);
+
   const fetchedIssues = useMemo(() => {
     return role === "student"
       ? data?.allIssues
       : role === "supervisor"
       ? data?.issuesAssignedToSupervisor
-      : role === "warden"
-      ? [...(data?.sortedIssues || []), ...(data?.allComplaintsRaisedToWarden || [])]
-      : role === "dsw"
-      ? [...(data?.sortedIssues || []), ...(data?.allComplaintsRaisedToDsw || [])]
+      : role === "warden" && typeOfComplaint === "Forwarded"
+      ? data?.sortedIssues
+      : role === "warden" && typeOfComplaint === "Raised"
+      ? data?.allComplaintsRaisedToWarden
+      : role === "dsw" && typeOfComplaint === "Forwarded"
+      ? data?.sortedIssues
+      : role === "dsw" && typeOfComplaint === "Raised"
+      ? data?.allComplaintsRaisedToDsw
       : null;
-  }, [data, role]);
+  }, [data, role, typeOfComplaint]);
 
-  // reverse the fetched issues array
+  // useEffect(() => {
+  //   if (role === "warden" && typeOfComplaint === "Raised") {
+  //     const moreFilteredData = fetchedIssues?.filter((item) => {
+  //       return item?.raiseComplainTo?.length > 0
+  //     })
+  //     setFilteredDataBasedOnComplaints(moreFilteredData)
+  //   } else if (role === "dsw" && typeOfComplaint === "Raised") {
+  //     const moreFilteredData = fetchedIssues?.filter((item) => {
+  //       return item?.raiseComplainTo?.length > 2
+  //     })
+  //     setFilteredDataBasedOnComplaints(moreFilteredData)
+  //   }
+  // }, [fetchedIssues, role, typeOfComplaint])
 
-  const reversefetchedIssues = useMemo(() => {
-    return [];
-  }, []);
-  if (fetchedIssues) {
-    for (let i = fetchedIssues.length - 1; i >= 0; i -= 1) {
-      reversefetchedIssues.push(fetchedIssues[i]);
+  // console.log("filteredDataBasedOnComplaints", filteredDataBasedOnComplaints)
+
+  useEffect(() => {
+    if (role === "supervisor" && complaintStatus === "Pending") {
+      const allSuchNotSolvedComplaints = fetchedIssues?.filter((item) => {
+        return item?.isSolved === false;
+      });
+      setFetchedIssuesForSupervisor(allSuchNotSolvedComplaints);
+    } else if (role === "supervisor" && complaintStatus === "Solved") {
+      const allSuchNotSolvedComplaints = fetchedIssues?.filter((item) => {
+        return item?.isSolved === true;
+      });
+      setFetchedIssuesForSupervisor(allSuchNotSolvedComplaints);
     }
-  }
+  }, [complaintStatus, role, fetchedIssues]);
 
-  const [jsonData, setJsonData] = useState(reversefetchedIssues);
+  // console.log("fetchedIssues:", fetchedIssues)
+
+  const [jsonData, setJsonData] = useState(
+    role === "supervisor" ? fetchedIssuesForSupervisor : fetchedIssues
+  );
+
   const [searchInput, setSearchInput] = useState("");
 
   // const imgBack =
@@ -74,9 +134,35 @@ const AllComplaintStudent = () => {
   };
 
   useEffect(() => {
-    const filteredData = filterComplaints(reversefetchedIssues, searchInput);
-    setJsonData(filteredData);
-  }, [searchInput, reversefetchedIssues]);
+    if (role !== "supervisor") {
+      const filteredData = filterComplaints(fetchedIssues, searchInput);
+      setJsonData(filteredData);
+    } else if (role === "supervisor") {
+      const filteredData = filterComplaints(fetchedIssuesForSupervisor, searchInput);
+      setJsonData(filteredData);
+    }
+  }, [searchInput, fetchedIssues, role, fetchedIssuesForSupervisor]);
+
+  const [finalData, setFinalData] = useState();
+  const filterBasedOnHostel = useCallback(
+    (whatToFilter, hostel) => {
+      if (isDean) {
+        if (selectedHostel === "All hostel") {
+          return whatToFilter;
+        }
+        return whatToFilter?.filter((item) => item.hostel === hostel);
+      }
+      return whatToFilter;
+    },
+    [selectedHostel, isDean]
+  );
+
+  useEffect(() => {
+    const filteredBasedOnHostel = filterBasedOnHostel(jsonData, selectedHostel);
+    setFinalData(filteredBasedOnHostel);
+  }, [selectedHostel, jsonData, filterBasedOnHostel]);
+
+  // console.log("finalData :", finalData);
 
   if (error) {
     return <div>Something went wrong!</div>;
@@ -93,7 +179,7 @@ const AllComplaintStudent = () => {
       await axios
         .put(
           `${import.meta.env.VITE_REACT_APP_API}/closeissue`,
-          { issueId, otherID },
+          { issueId, otherID, closedAt },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -163,6 +249,60 @@ const AllComplaintStudent = () => {
         </div>
         {/* <SortByButton sortBy={sortBy} handleSort={sortData} /> */}
       </div>
+
+      {/* Dropdown to select between forwarded and raised complaint for the warden and dsw */}
+      <main id={styles.drodownRaised}>
+        {isDeanOrIsWarden && (
+          <select
+            id="typeofcomplaint"
+            value={typeOfComplaint}
+            onChange={handleTypeOfComplaintChange}
+          >
+            <option>Forwarded</option>
+            <option>Raised</option>
+          </select>
+        )}
+      </main>
+
+      {/* dropdown for the supervisor to select between solved and unsolved complaints */}
+      <main id={styles.drodownRaised} style={{ marginTop: "0vw" }}>
+        {role === "supervisor" && (
+          <select
+            id="complaintStatus"
+            value={complaintStatus}
+            onChange={handleComplaintStatusChange}
+          >
+            <option>Pending</option>
+            <option>Solved</option>
+          </select>
+        )}
+      </main>
+
+      {/* dropdown to select between the hostel for the dsw */}
+      <main id={styles.drodownRaised} style={{ marginTop: "0vw" }}>
+        {isDean && (
+          <select id="hostel" value={selectedHostel} onChange={handleHostelChange}>
+            <option>All hostel</option>
+            <option>BH1</option>
+            <option>BH2</option>
+            <option>BH3</option>
+            <option>BH4</option>
+            <option>BH6</option>
+            <option>BH7</option>
+            <option>BH8</option>
+            <option>BH9A</option>
+            <option>BH9B</option>
+            <option>BH9C</option>
+            <option>BH9D</option>
+            <option>GH1</option>
+            <option>GH2</option>
+            <option>GH3</option>
+            <option>GH4</option>
+            <option>Aryabhatt-PGH</option>
+          </select>
+        )}
+      </main>
+
       <div className={styles.ComplaintCard}>
         <div className={styles.ComplaintCardInner}>
           {showPopUpClose && (
@@ -240,9 +380,19 @@ const AllComplaintStudent = () => {
               </div>
             </div>
           )}
-          {jsonData?.length === 0 && <p>No Registered Complaints yet</p>}
-          {jsonData?.length > 0 &&
-            jsonData?.map((complaint) => (
+
+          {role === "dsw" && (
+            <h5 style={{ textAlign: "center" }}>{selectedHostel}&apos;s Complaints</h5>
+          )}
+
+          <h4 style={{ textAlign: "center", color: "#3689c2" }}>
+            {" "}
+            {finalData?.length > 0}
+            {finalData?.length} total {finalData?.length > 1 ? "complaints" : "complaint"}
+          </h4>
+          {finalData?.length === 0 && <p>No Registered Complaints yet</p>}
+          {finalData?.length > 0 &&
+            finalData?.map((complaint) => (
               // <ComplaintCardS key={item.key} complaint={item} />
               <div className={styles.CardContainer} key={complaint._id}>
                 <div className={styles.Heading}>
@@ -265,9 +415,19 @@ const AllComplaintStudent = () => {
                         Complain Raised to DSW by the student
                       </p>
                     )}
-                    <Link to={`/${role}/complaint/${complaint._id}`}>
-                      <h2>{complaint.title}</h2>
-                    </Link>
+                    {complaint?.raiseComplainTo?.length > 1 ? (
+                      <main>
+                        <Link to={`/${role}/complaint/raise/${complaint._id}`}>
+                          <h2>{complaint.title}</h2>
+                        </Link>
+                      </main>
+                    ) : (
+                      <main>
+                        <Link to={`/${role}/complaint/${complaint._id}`}>
+                          <h2>{complaint.title}</h2>
+                        </Link>
+                      </main>
+                    )}
                   </div>
 
                   {role === "student" && (
@@ -298,10 +458,20 @@ const AllComplaintStudent = () => {
                   {/* link for the complaint status has to be fetched from the json file corresponding to the complaint status */}
                 </div>
                 <div className={styles.DateAndTime}>{complaint.IssueCreatedAt}</div>
-                {role !== "student" && (
+                {role !== "student" &&
+                  (role === "supervisor" ||
+                    (role === "warden" && (
+                      <main>
+                        <p id={styles.issue__details}>
+                          {complaint?.name} | {complaint?.scholarID} | {complaint?.room}
+                        </p>
+                      </main>
+                    )))}
+                {role === "dsw" && (
                   <main>
                     <p id={styles.issue__details}>
-                      {complaint?.name} | {complaint?.scholarID} | {complaint?.room}
+                      {complaint?.name} | {complaint?.scholarID} | | {complaint?.hostel} |{" "}
+                      {complaint?.room}
                     </p>
                   </main>
                 )}

@@ -702,3 +702,35 @@
     padding-top: 4rem;
   }
 }
+
+#drodownRaised {
+  margin: 2vw 0;
+  position: sticky;
+  top: 0;
+  select {
+    width: 10vw;
+    padding: 0.25vw 0;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1vw;
+    border-radius: 10px;
+    option {
+      cursor: pointer;
+    }
+  }
+}
+
+.ComplaintCard {
+  padding-top: 0 !important;
+}
+
+@media (max-width: 660px) {
+  #drodownRaised {
+    margin: 5vw 0;
+    select {
+      width: 30vw;
+      padding: 1vw 0;
+      font-size: 3vw;
+    }
+  }
+}

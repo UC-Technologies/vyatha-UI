@@ -4,8 +4,9 @@ import { toast } from "sonner";
 import axios from "axios";
 import styles from "./ResetPwd.module.scss";
 import { UserContext } from "../../../Context/Provider";
-
+import { formattedDate } from "../../../Components/lib/GetDate";
 const ResetPwd = () => {
+  const currentTime = formattedDate;
   const { token } = useParams();
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -22,6 +23,7 @@ const ResetPwd = () => {
         .post(`${import.meta.env.VITE_REACT_APP_API}/resetpassword/${token}`, {
           password,
           confirmPassword,
+          currentTime,
         })
         .then((res) => {
           if (res.data.message === "Password reset successfully") {
