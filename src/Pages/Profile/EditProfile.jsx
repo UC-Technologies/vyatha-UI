@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { toast } from "sonner";
 import axios from "axios";
-import FileBase64 from "react-file-base64";
+// import FileBase64 from "react-file-base64";
 import Cookies from "js-cookie";
 import styles from "./EditProfile.module.scss";
 import { UserContext } from "../../Context/Provider";
@@ -58,26 +58,106 @@ const EditProfile = () => {
 
   // const [isAdmin, setIsAdmin] = useState(false);
   const [photo, setPhoto] = useState("");
+  const [selectedProfilePic, setSelectedProfilePic] = useState("");
+  const [uploadingProfilePic, setUploadingProfilePic] = useState();
+  const [selectedIdcard, setSelectedIdcard] = useState("");
+  const [uploadingIdcard, setUploadingIdcard] = useState();
   const [idcard, setIdcard] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const handleImgChange = (base64) => {
-    setPhoto(base64);
-  };
 
-  const handleIdCardChange = (base64) => {
-    setIdcard(base64);
-  };
+  // automatic upload for the profile pic
+  useEffect(() => {
+    if (selectedProfilePic) {
+      const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+      const maxSizeInBytes = 500 * 1024;
 
-  // useEffect(() => {
-  //   if (
-  //     role === "supervisor" ||
-  //     role === "superadmin" ||
-  //     role === "dsw" ||
-  //     role === "warden"
-  //   ) {
-  //     setIsAdmin(true);
-  //   }
-  // }, [role]);
+      if (!allowedTypes.includes(selectedProfilePic.type)) {
+        toast.error("Only JPEG/JPG/PNG file types are allowed.");
+        setSelectedProfilePic("");
+        return;
+      }
+
+      if (selectedProfilePic.size > maxSizeInBytes) {
+        toast.error("Profile Picture size exceeds 500KB limit");
+        setSelectedProfilePic("");
+        return;
+      }
+
+      const profilePicData = new FormData();
+      profilePicData.append("file", selectedProfilePic);
+      profilePicData.append("upload_preset", import.meta.env.VITE_REACT_APP_UPLOADPRESET);
+      profilePicData.append("cloud_name", import.meta.env.VITE_REACT_APP_cloud_name);
+
+      const handleUploadProfilePicFunction = async () => {
+        try {
+          setUploadingProfilePic(true);
+          await fetch(import.meta.env.VITE_REACT_APP_cloudinaryapilink, {
+            method: "post",
+            body: profilePicData,
+          })
+            .then((res) => res.json())
+            .then((resData) => {
+              setPhoto(resData.url);
+              setSelectedProfilePic("");
+              console.log("profilepic:", resData.url);
+            });
+        } catch (errr) {
+          console.error(errr);
+        } finally {
+          setUploadingProfilePic(false);
+        }
+      };
+      handleUploadProfilePicFunction();
+    }
+  }, [selectedProfilePic]);
+
+  // automatic upload to cloudinary for the idcard
+  useEffect(() => {
+    if (selectedIdcard) {
+      const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+      const maxSizeInBytes = 500 * 1024;
+
+      if (!allowedTypes.includes(selectedIdcard.type)) {
+        toast.error("Only JPEG/JPG/PNG file types are allowed.");
+        setSelectedIdcard("");
+        return;
+      }
+
+      if (selectedIdcard.size > maxSizeInBytes) {
+        toast.error("Idcard Image size exceeds 500KB limit");
+        setSelectedIdcard("");
+        return;
+      }
+
+      const IdcardData = new FormData();
+      IdcardData.append("file", selectedIdcard);
+      IdcardData.append("upload_preset", import.meta.env.VITE_REACT_APP_UPLOADPRESET);
+      IdcardData.append("cloud_name", import.meta.env.VITE_REACT_APP_cloud_name);
+
+      const handleUploadIdcardFunction = async () => {
+        try {
+          setUploadingIdcard(true);
+          await fetch(import.meta.env.VITE_REACT_APP_cloudinaryapilink, {
+            method: "post",
+            body: IdcardData,
+          })
+            .then((res) => res.json())
+            .then((resData) => {
+              setIdcard(resData.url);
+              setSelectedIdcard("");
+              console.log("idcard:", resData.url);
+            });
+        } catch (errr) {
+          console.error(errr);
+        } finally {
+          setUploadingIdcard(false);
+        }
+      };
+      handleUploadIdcardFunction();
+    }
+  }, [selectedIdcard]);
+
+  // automatic upload for the profile image
 
   if (error) {
     return <div>Something went wrong!</div>;
@@ -86,14 +166,6 @@ const EditProfile = () => {
   if (isLoading) {
     return <Skeleton />;
   }
-
-  // const profilePic = document.getElementById("profile-pic");
-
-  // const inputFile = document.getElementById("input-file");
-
-  // inputFile.onchange = () => {
-  //   profilePic.src = URL.createObjectURL(inputFile.files[0]);
-  // };
 
   // ? edit profile button
   const handleProfileSave = async (e) => {
@@ -182,27 +254,21 @@ const EditProfile = () => {
                 />
               </div>
 
-              <div className={styles.changeprofile}>
-                <FileBase64
-                  multiple={false}
-                  onDone={({ base64, file }) => {
-                    if (
-                      (file.type === "image/png" ||
-                        file.type === "image/jpeg" ||
-                        file.type === "image/jpg" ||
-                        file.type === "image/webp" ||
-                        file.type === "image/avif") &&
-                      file.size <= 300 * 1024
-                    ) {
-                      handleImgChange(base64);
-                    } else {
-                      toast("Invalid file type or image is greater than 300KB");
-                      setPhoto("");
-                    }
-                  }}
-                />
-              </div>
+              {/* profile pic */}
+              {uploadingProfilePic ? (
+                <div className={styles.changeprofile}>
+                  <p>Uploading...</p>
+                </div>
+              ) : (
+                <div className={styles.changeprofile}>
+                  <input
+                    type="file"
+                    onChange={(e) => setSelectedProfilePic(e.target.files[0])}
+                  ></input>
+                </div>
+              )}
 
+              {/* idcard preview */}
               {role === "student" && idcard && (
                 <div style={{ marginTop: "2vw" }}>
                   <p id={styles.marginbelowp}>ID Card: </p>
@@ -269,29 +335,22 @@ const EditProfile = () => {
                         placeholder="Confirm Password"
                       />
                     </div>
+
                     {/* id card photo */}
-                    {role === "student" && (
+                    {uploadingIdcard ? (
                       <div className={styles.left_section}>
-                        {" "}
-                        <FileBase64
-                          multiple={false}
-                          onDone={({ base64, file }) => {
-                            if (
-                              (file.type === "image/png" ||
-                                file.type === "image/jpeg" ||
-                                file.type === "image/jpg" ||
-                                file.type === "image/webp" ||
-                                file.type === "image/avif") &&
-                              file.size <= 300 * 1024
-                            ) {
-                              handleIdCardChange(base64);
-                            } else {
-                              toast("Invalid file type or image is greater than 300KB");
-                              setIdcard("");
-                            }
-                          }}
-                        />
+                        <p>Uploading...</p>
                       </div>
+                    ) : (
+                      role === "student" && (
+                        <div className={styles.left_section}>
+                          {" "}
+                          <input
+                            type="file"
+                            onChange={(e) => setSelectedIdcard(e.target.files[0])}
+                          ></input>
+                        </div>
+                      )
                     )}
 
                     {(role === "student" ||
@@ -356,10 +415,14 @@ const EditProfile = () => {
               aria-label="Save Profile"
               className={styles.Editprofile}
               onClick={handleProfileSave}
-              disabled={submitting}
+              disabled={submitting || uploadingIdcard || uploadingProfilePic}
               style={{
-                cursor: submitting ? "not-allowed" : "pointer",
-                opacity: submitting ? "0.5" : "1",
+                cursor:
+                  submitting || uploadingIdcard || uploadingProfilePic
+                    ? "not-allowed"
+                    : "pointer",
+                opacity:
+                  submitting || uploadingIdcard || uploadingProfilePic ? "0.5" : "1",
               }}
             >
               <div>
