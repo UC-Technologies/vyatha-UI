@@ -1,16 +1,17 @@
 /* eslint-disable no-console */
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext, useCallback, useMemo } from "react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
-import FileBase64 from "react-file-base64";
+// import FileBase64 from "react-file-base64";
 import styles from "./ComplaintForm.module.scss";
 import { UserContext } from "../../Context/Provider";
 import Captcha from "../../Components/Shared/CaptchaComponent/Captcha";
 import { formattedDate } from "../../Components/Lib/GetDate";
 // import Captcha from '../../Components/Shared/CaptchaComponent/Captcha'
 // TODO: instead of base64, store the complaint image, profile photo in cloudinary api. this will improve the performance of the webapp
+
 const ComplaintForm = () => {
   useEffect(() => {
     document.title = "Complaint Form | Vyatha";
@@ -54,12 +55,9 @@ const ComplaintForm = () => {
     title: "",
   });
   const [photo, setPhoto] = useState("");
+  const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
-
-  const handleImgChange = (base64) => {
-    setPhoto(base64);
-    setImagePreview(base64);
-  };
+  const [uploadingComplaintImg, setUploadingComplaintImg] = useState();
 
   const handleInput = (e) => {
     const { id, value } = e.target;
@@ -86,6 +84,59 @@ const ComplaintForm = () => {
   }
 
   const token = Cookies.get("authToken");
+
+  // complaint img uploader function
+  const ifUploadImageButtonIsDisabled = useMemo(() => {
+    return Boolean(image);
+  }, [image]);
+  console.log("ifUploadImageButtonIsDisabled", ifUploadImageButtonIsDisabled);
+
+  const uploadImage = async () => {
+    if (!image) {
+      toast.error("Select Complaint image to upload.");
+      return;
+    }
+
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+    const maxSizeInBytes = 500 * 1024;
+
+    if (!allowedTypes.includes(image.type)) {
+      toast.error("Only JPEG/JPG/PNG file types are allowed.");
+      setImage("");
+      return;
+    }
+
+    if (image.size > maxSizeInBytes) {
+      toast.error("Complaint Image size exceeds 500KB limit");
+      setImage("");
+      return;
+    }
+
+    const complaintData = new FormData();
+    complaintData.append("file", image);
+    complaintData.append("upload_preset", import.meta.env.VITE_REACT_APP_UPLOADPRESET);
+    complaintData.append("cloud_name", import.meta.env.VITE_REACT_APP_cloud_name);
+
+    try {
+      setUploadingComplaintImg(true);
+      await fetch(import.meta.env.VITE_REACT_APP_cloudinaryapilink, {
+        method: "post",
+        body: complaintData,
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          setPhoto(data.url);
+          setImage("");
+          setImagePreview(data.url);
+          console.log(photo);
+        });
+    } catch (eee) {
+      console.error(eee);
+    } finally {
+      setUploadingComplaintImg(false);
+    }
+  };
+
   const handleIssueSubmit = async (e) => {
     e.preventDefault();
 
@@ -260,7 +311,11 @@ const ComplaintForm = () => {
             {/* <p>Upload Your Photo</p> */}
             <div className={styles.twodiv1}>
               <div className={styles.Uploadyourphoto}>
-                <div>Upload Your Photo</div>
+                <div>
+                  {!photo
+                    ? "Upload Complaint Photo(max: 500KB jpg, jpeg, png files only)"
+                    : "Photo uploaded"}
+                </div>
               </div>
               <div
                 // className={styles.photoupload_inner}
@@ -271,48 +326,52 @@ const ComplaintForm = () => {
                 onDrop={handleDrop}
               >
                 {/* <p>Upload Your Photo</p> */}
-                <img
-                  src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694535132/UC%20VYATHA/Frame_58066_1_nnkr62.jpg?_s=public-apps"
-                  alt=""
-                  draggable="true"
-                  onDragStart={(e) => e.preventDefault()}
-                />
+                {!photo && (
+                  <img
+                    src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694535132/UC%20VYATHA/Frame_58066_1_nnkr62.jpg?_s=public-apps"
+                    alt=""
+                    draggable="true"
+                    onDragStart={(e) => e.preventDefault()}
+                  />
+                )}
+
                 <div className={styles.photouploadcontent}>
-                  <span className={styles.Dragdrop}>Drag and Drop File</span>
-                  <span className={styles.or}>-OR-</span>
+                  <span className={styles.Dragdrop}>
+                    {!photo ? "Drag and Drop File" : "Photo uploaded"}
+                  </span>
+                  {!photo && <span className={styles.or}>-OR-</span>}
                 </div>
 
-                <label
-                  id="Browsebutton"
-                  style={imagePreview ? { width: "150px", height: "50px" } : {}}
-                >
-                  BROWSE
-                  {/* <input
-                  type="file"
-                  name="Imagefile"
-                  id="imagebrowse"
-                  
-                /> */}
-                  <FileBase64
-                    id="imagebrowse"
-                    multiple={false}
-                    onDone={({ base64, file }) => {
-                      if (
-                        (file.type === "image/png" ||
-                          file.type === "image/jpeg" ||
-                          file.type === "image/jpg" ||
-                          file.type === "image/webp" ||
-                          file.type === "image/avif") &&
-                        file.size <= 300 * 1024
-                      ) {
-                        handleImgChange(base64);
-                      } else {
-                        toast("Invalid file type or image is greater than 300KB");
-                        setPhoto("");
-                      }
-                    }}
-                  />
-                </label>
+                {!photo && (
+                  <label
+                    id="Browsebutton"
+                    style={imagePreview ? { width: "150px", height: "50px" } : {}}
+                  >
+                    BROWSE
+                    {/* <input
+   type="file"
+   name="Imagefile"
+   id="imagebrowse"
+   
+ /> */}
+                    {/* upload image button */}
+                    <input
+                      type="file"
+                      onChange={(e) => setImage(e.target.files[0])}
+                    ></input>
+                  </label>
+                )}
+
+                {ifUploadImageButtonIsDisabled && (
+                  <button
+                    id={styles.uploadImageid}
+                    style={{ cursor: uploadingComplaintImg ? "not-allowed" : "pointer" }}
+                    disabled={uploadingComplaintImg}
+                    onClick={uploadImage}
+                  >
+                    {uploadingComplaintImg ? "Uploading..." : "Upload Complaint Image"}
+                  </button>
+                )}
               </div>
             </div>
 
@@ -329,10 +388,10 @@ const ComplaintForm = () => {
           <div style={{ marginTop: "2vw" }} className={styles.captcha}>
             <button
               className={styles.button}
-              disabled={submitting}
+              disabled={submitting || uploadingComplaintImg}
               style={{
-                cursor: submitting ? "not-allowed" : "pointer",
-                opacity: submitting ? "0.5" : "1",
+                cursor: submitting || uploadingComplaintImg ? "not-allowed" : "pointer",
+                opacity: submitting || uploadingComplaintImg ? "0.5" : "1",
                 marginTop: "2vw",
               }}
               onClick={handleIssueSubmit}

@@ -307,3 +307,22 @@
     width: 18rem;
   }
 }
+
+#uploadImageid {
+  border: none;
+  outline: none;
+  padding: 0.5vw 0.5vw;
+  background-color: #40bdb6;
+  margin: 1vw 0;
+  border-radius: 5px;
+  font-size: 1vw;
+}
+
+@media (max-width: 660px) {
+  #uploadImageid {
+    padding: 1.5vw;
+    margin: 3vw 0;
+    border-radius: 5px;
+    font-size: 3vw;
+  }
+}
