@@ -9,6 +9,8 @@ import styles from "./ComplaintForm.module.scss";
 import { UserContext } from "../../Context/Provider";
 import Captcha from "../../Components/Shared/CaptchaComponent/Captcha";
 import { formattedDate } from "../../Components/Lib/GetDate";
+import Navbar from "../../Components/Shared/Navbar/Navbar";
+import Footer from "../../Components/Shared/Footer/Footer";
 // import Captcha from '../../Components/Shared/CaptchaComponent/Captcha'
 // TODO: instead of base64, store the complaint image, profile photo in cloudinary api. this will improve the performance of the webapp
 
@@ -60,6 +62,7 @@ const ComplaintForm = () => {
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const [uploadingComplaintImg, setUploadingComplaintImg] = useState();
+  const [hasComplaintRegistered, setHasComplaintRegistered] = useState(false);
 
   const handleInput = (e) => {
     const { id, value } = e.target;
@@ -215,14 +218,15 @@ const ComplaintForm = () => {
         .then((res) => {
           if (res.data.message === "Issue registered successfully") {
             toast("Complaint Registered Successfully");
-            navigate("/dashboard");
-            window.location.reload();
+            // navigate("/dashboard");
+            // window.location.reload();
             setFormData({
               category: "",
               description: "",
               title: "",
             });
             setPhoto("");
+            setHasComplaintRegistered(true);
           }
         });
     } catch (err) {
@@ -282,6 +286,24 @@ const ComplaintForm = () => {
     validateDesc();
     return validTitle && validDesc;
   }, [validTitle, validDesc, validateDesc, validateTitle]);
+
+  if (hasComplaintRegistered) {
+    return (
+      <main>
+        <Navbar />
+        <main id={styles.mainbodyafterreg}>
+          <h4>
+            Your Complaint has been succesfully Received by the Supervisor. Please check
+            the dashboard for regular updates
+          </h4>
+          <div>
+            <a href={`/${role}/allcomplaints`}>Click here to go to all complaints page</a>
+          </div>
+        </main>
+        <Footer />
+      </main>
+    );
+  }
 
   return (
     <div className={styles.ComplaintForm}>

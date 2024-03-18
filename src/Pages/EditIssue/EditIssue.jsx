@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useQuery } from "react-query";
-import FileBase64 from "react-file-base64";
 import styles from "../RegisterComplaint/ComplaintForm.module.scss";
 import { UserContext } from "../../Context/Provider";
 import Captcha from "../../Components/Shared/CaptchaComponent/Captcha";
@@ -23,6 +22,11 @@ const EditIssue = () => {
   const { isLoggedIn, role, profile, captchaVerified, setCaptchaVerified } =
     useContext(UserContext);
   const [submitting, setSubmitting] = useState(false);
+
+  // for new photo that user will provide
+  const [newComplaintPhoto, setNewComplaintPhoto] = useState("");
+  const [uploadingNewComplaintPhoto, setUploadingNewComplaintPhoto] = useState();
+  const [hasUploadedFinished, setHasUploadedFinished] = useState(false);
   useEffect(() => {
     if (isLoggedIn === false) {
       navigate("/auth/login");
@@ -86,17 +90,65 @@ const EditIssue = () => {
         title: issueData.title,
       });
       setPhoto(issueData.photo);
-      setImagePreview(issueData.photo);
+      // setImagePreview(issueData.photo);
     }
   }, [issueData]);
 
   const [photo, setPhoto] = useState("");
   // Image preview
-  const [imagePreview, setImagePreview] = useState(null);
-  const handleImgChange = (base64) => {
-    setPhoto(base64);
-    setImagePreview(base64);
-  };
+  // const [imagePreview, setImagePreview] = useState(null);
+
+  useEffect(() => {
+    if (newComplaintPhoto) {
+      const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+      const maxSizeInBytes = 500 * 1024;
+
+      if (!allowedTypes.includes(newComplaintPhoto.type)) {
+        toast.error("Only JPEG/JPG/PNG file types are allowed.");
+        setNewComplaintPhoto("");
+        return;
+      }
+
+      if (newComplaintPhoto.size > maxSizeInBytes) {
+        toast.error("Complaint Photo size exceeds 500KB limit");
+        setNewComplaintPhoto("");
+        return;
+      }
+
+      const newComplaintPhotoData = new FormData();
+      newComplaintPhotoData.append("file", newComplaintPhoto);
+      newComplaintPhotoData.append(
+        "upload_preset",
+        import.meta.env.VITE_REACT_APP_UPLOADPRESET
+      );
+      newComplaintPhotoData.append(
+        "cloud_name",
+        import.meta.env.VITE_REACT_APP_cloud_name
+      );
+
+      const uploagComplaintImageFunc = async () => {
+        try {
+          setUploadingNewComplaintPhoto(true);
+          await fetch(import.meta.env.VITE_REACT_APP_cloudinaryapilink, {
+            method: "post",
+            body: newComplaintPhotoData,
+          })
+            .then((resp) => resp.json())
+            .then((responseData) => {
+              setPhoto(responseData.url);
+              setNewComplaintPhoto("");
+              // setImagePreview(responseData.url);
+              setHasUploadedFinished(true);
+            });
+        } catch (eeer) {
+          console.error(eeer);
+        } finally {
+          setUploadingNewComplaintPhoto(false);
+        }
+      };
+      uploagComplaintImageFunc();
+    }
+  }, [newComplaintPhoto]);
 
   const handleInput = (e) => {
     const { id, value } = e.target;
@@ -238,7 +290,7 @@ const EditIssue = () => {
     validateDesc();
     return validTitle && validDesc;
   }, [validTitle, validDesc, validateDesc, validateTitle]);
-
+  // console.log("photo", photo)
   if (!issueData) return null;
   if (isLoading) return <Skeleton />;
   return (
@@ -316,61 +368,65 @@ const EditIssue = () => {
           <div className={styles.photoUpload}>
             <div className={styles.twodiv1}>
               <div className={styles.Uploadyourphoto}>
-                <div>Upload Your Photo</div>
-              </div>
-              <div
-                className={`${styles.photoupload_inner} ${
-                  imagePreview ? styles.fullSize : styles.fixedImageArea
-                }`}
-                onDragOver={handleDragOver}
-                onDrop={handleDrop}
-              >
-                <img
-                  src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694535132/UC%20VYATHA/Frame_58066_1_nnkr62.jpg?_s=public-apps"
-                  alt=""
-                  draggable="true"
-                  onDragStart={(e) => e.preventDefault()}
-                />
-                <div className={styles.photouploadcontent}>
-                  <span className={styles.Dragdrop}>Drag and Drop File</span>
-                  <span className={styles.or}>-OR-</span>
+                <div>
+                  {hasUploadedFinished
+                    ? "New Complaint Image Uploaded"
+                    : "Upload New Complaint Photo"}
                 </div>
-
-                <label id="Browsebutton">
-                  BROWSE
-                  {/* <input
-                  type="file"
-                  name="Imagefile"
-                  id="imagebrowse"
-                  
-                /> */}
-                  <FileBase64
-                    id="imagebrowse"
-                    multiple={false}
-                    onDone={({ base64, file }) => {
-                      if (
-                        (file.type === "image/png" ||
-                          file.type === "image/jpeg" ||
-                          file.type === "image/jpg" ||
-                          file.type === "image/webp" ||
-                          file.type === "image/avif") &&
-                        file.size <= 300 * 1024
-                      ) {
-                        handleImgChange(base64);
-                      } else {
-                        toast("Invalid file type or image is greater than 300KB");
-                        setPhoto("");
-                      }
-                    }}
-                  />
-                </label>
               </div>
+
+              {hasUploadedFinished ? (
+                <div
+                  className={`${styles.photoupload_inner} ${
+                    photo ? styles.fullSize : styles.fixedImageArea
+                  }`}
+                >
+                  <p>New Complaint Image Uploaded</p>
+                </div>
+              ) : (
+                <div
+                  className={`${styles.photoupload_inner} ${
+                    photo ? styles.fullSize : styles.fixedImageArea
+                  }`}
+                  onDragOver={handleDragOver}
+                  onDrop={handleDrop}
+                >
+                  {uploadingNewComplaintPhoto ? null : (
+                    <img
+                      src="https://res.cloudinary.com/dlx4meooj/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1694535132/UC%20VYATHA/Frame_58066_1_nnkr62.jpg?_s=public-apps"
+                      alt=""
+                      draggable="true"
+                      onDragStart={(e) => e.preventDefault()}
+                    />
+                  )}
+
+                  {uploadingNewComplaintPhoto ? null : (
+                    <div className={styles.photouploadcontent}>
+                      <span className={styles.Dragdrop}>Drag and Drop File</span>
+                      <span className={styles.or}>-OR-</span>
+                    </div>
+                  )}
+
+                  {/* complaint photo */}
+                  {uploadingNewComplaintPhoto ? (
+                    <p>uploading...</p>
+                  ) : (
+                    <label id="Browsebutton">
+                      BROWSE
+                      <input
+                        type="file"
+                        onChange={(e) => setNewComplaintPhoto(e.target.files[0])}
+                      ></input>
+                    </label>
+                  )}
+                </div>
+              )}
             </div>
 
-            {imagePreview && (
+            {photo && (
               <div className={styles.imagePreview}>
                 {/* <p>Image Preview:</p> */}
-                <img style={{ pointerEvents: "none" }} src={imagePreview} alt="Preview" />
+                <img style={{ pointerEvents: "none" }} src={photo} alt="Preview" />
               </div>
             )}
           </div>
@@ -379,10 +435,12 @@ const EditIssue = () => {
 
           <div style={{ marginTop: "2vw" }} className={styles.captcha}>
             <button
-              disabled={submitting}
+              disabled={submitting || uploadingNewComplaintPhoto}
+              className={styles.button}
               style={{
-                cursor: submitting ? "not-allowed" : "pointer",
-                opacity: submitting ? "0.5" : "1",
+                cursor:
+                  submitting || uploadingNewComplaintPhoto ? "not-allowed" : "pointer",
+                opacity: submitting || uploadingNewComplaintPhoto ? "0.5" : "1",
               }}
               onClick={handleIssueSubmit}
               type="submit"

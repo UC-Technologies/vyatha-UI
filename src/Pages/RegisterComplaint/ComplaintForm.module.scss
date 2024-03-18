@@ -331,3 +331,33 @@
     height: 50vw;
   }
 }
+
+#mainbodyafterreg {
+  height: 100vh;
+  background-color: #a4e5e1;
+  padding: 23vw 4vw;
+  text-align: center;
+  h4 {
+    font-size: 1.25vw;
+    line-height: 1.6;
+  }
+  div {
+    text-align: center;
+    margin: 2vw 0;
+  }
+}
+
+@media (max-width: 660px) {
+  #mainbodyafterreg {
+    padding: 40vh 4vw;
+    text-align: center;
+    h4 {
+      font-size: 3.5vw;
+      line-height: 1.6;
+    }
+    div {
+      text-align: center;
+      margin: 4vw 0;
+    }
+  }
+}

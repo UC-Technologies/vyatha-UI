@@ -99,7 +99,7 @@ const EditProfile = () => {
             .then((resData) => {
               setPhoto(resData.url);
               setSelectedProfilePic("");
-              console.log("profilepic:", resData.url);
+              // console.log("profilepic:", resData.url);
             });
         } catch (errr) {
           console.error(errr);
@@ -145,7 +145,7 @@ const EditProfile = () => {
             .then((resData) => {
               setIdcard(resData.url);
               setSelectedIdcard("");
-              console.log("idcard:", resData.url);
+              // console.log("idcard:", resData.url);
             });
         } catch (errr) {
           console.error(errr);
