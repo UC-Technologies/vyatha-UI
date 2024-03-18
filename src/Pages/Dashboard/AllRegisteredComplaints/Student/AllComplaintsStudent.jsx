@@ -64,6 +64,10 @@ const AllComplaintStudent = () => {
     return Boolean((role === "warden" || role === "dsw") && isLoggedIn);
   }, [isLoggedIn, role]);
 
+  const isHigherAuthority = useMemo(() => {
+    return Boolean(role === "supervisor" || role === "warden" || role === "dsw");
+  }, [role]);
+
   const fetchedIssues = useMemo(() => {
     return role === "student"
       ? data?.allIssues
@@ -97,23 +101,23 @@ const AllComplaintStudent = () => {
   // console.log("filteredDataBasedOnComplaints", filteredDataBasedOnComplaints)
 
   useEffect(() => {
-    if (role === "supervisor" && complaintStatus === "Pending") {
+    if (isHigherAuthority && complaintStatus === "Pending") {
       const allSuchNotSolvedComplaints = fetchedIssues?.filter((item) => {
         return item?.isSolved === false;
       });
       setFetchedIssuesForSupervisor(allSuchNotSolvedComplaints);
-    } else if (role === "supervisor" && complaintStatus === "Solved") {
+    } else if (isHigherAuthority && complaintStatus === "Solved") {
       const allSuchNotSolvedComplaints = fetchedIssues?.filter((item) => {
         return item?.isSolved === true;
       });
       setFetchedIssuesForSupervisor(allSuchNotSolvedComplaints);
     }
-  }, [complaintStatus, role, fetchedIssues]);
+  }, [complaintStatus, fetchedIssues, isHigherAuthority]);
 
   // console.log("fetchedIssues:", fetchedIssues)
 
   const [jsonData, setJsonData] = useState(
-    role === "supervisor" ? fetchedIssuesForSupervisor : fetchedIssues
+    isHigherAuthority ? fetchedIssuesForSupervisor : fetchedIssues
   );
 
   const [searchInput, setSearchInput] = useState("");
@@ -134,14 +138,14 @@ const AllComplaintStudent = () => {
   };
 
   useEffect(() => {
-    if (role !== "supervisor") {
+    if (!isHigherAuthority) {
       const filteredData = filterComplaints(fetchedIssues, searchInput);
       setJsonData(filteredData);
-    } else if (role === "supervisor") {
+    } else if (isHigherAuthority) {
       const filteredData = filterComplaints(fetchedIssuesForSupervisor, searchInput);
       setJsonData(filteredData);
     }
-  }, [searchInput, fetchedIssues, role, fetchedIssuesForSupervisor]);
+  }, [searchInput, fetchedIssues, isHigherAuthority, fetchedIssuesForSupervisor]);
 
   const [finalData, setFinalData] = useState();
   const filterBasedOnHostel = useCallback(
@@ -267,7 +271,7 @@ const AllComplaintStudent = () => {
 
       {/* dropdown for the supervisor to select between solved and unsolved complaints */}
       <main id={styles.drodownRaised} style={{ marginTop: "0vw" }}>
-        {role === "supervisor" && (
+        {isHigherAuthority && (
           <select
             id="complaintStatus"
             value={complaintStatus}

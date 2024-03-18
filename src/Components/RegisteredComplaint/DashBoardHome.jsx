@@ -8,7 +8,10 @@ import Styles from "./Dashboard.module.scss";
 import { fetchComplaints } from "../ReactQuery/Fetchers/AllComplaints";
 import { UserContext } from "../../Context/Provider";
 import Skeleton from "../Shared/Loading/Skeletion";
+import styles from "../../Pages/Dashboard/AllRegisteredComplaints/Student/ComplaintDashboardS.module.scss";
 // import { UserContext } from "../../Context/Provider";
+
+// todo: add functionality for the dsw to filter the notifications based on hostel
 
 export const DashBoardHome = ({ role }) => {
   const { isLoggedIn } = useContext(UserContext);
@@ -21,6 +24,10 @@ export const DashBoardHome = ({ role }) => {
   const { data, error, isLoading } = useQuery(queryKey, fetchComplaints, {
     enabled: isTrue,
   });
+
+  const isDean = useMemo(() => {
+    return Boolean(role === "dsw" && isLoggedIn);
+  }, [role, isLoggedIn]);
 
   // const [fetchedData, setFetcedData] = useState({})
 
@@ -91,13 +98,56 @@ export const DashBoardHome = ({ role }) => {
       ? data?.filteredWardenNotifications
       : null;
 
-  const notifications = [];
-  if (notications?.length > 0) {
-    for (let i = notications.length - 1; i >= 0; i -= 1) {
-      notifications.push(notications[i]);
-    }
-  }
+  // const notifications = [];
+  const notifications = useMemo(() => {
+    return notications;
+  }, [notications]);
 
+  // if (notications?.length > 0) {
+  //   for (let i = notications.length - 1; i >= 0; i -= 1) {
+  //     notifications.push(notications[i]);
+  //   }
+  // }
+
+  // ? filtering the notifications based on the hostel for the DEAN
+  const [selectedHostel, setSelectedHostel] = useState("All hostel");
+  const [notificationsForDsw, setNotificationsForDsw] = useState([]);
+  const handleSelectedHostelChange = (e) => {
+    setSelectedHostel(e.target.value);
+  };
+
+  const allowedHostelValues = useMemo(() => {
+    return [
+      "BH1",
+      "BH2",
+      "BH3",
+      "BH4",
+      "BH6",
+      "BH7",
+      "BH8",
+      "BH9A",
+      "BH9B",
+      "BH9C",
+      "BH9D",
+      "GH1",
+      "GH2",
+      "GH3",
+      "GH4",
+      "Aryabhatt-PGH",
+    ];
+  }, []);
+
+  useEffect(() => {
+    if (isDean && allowedHostelValues.includes(selectedHostel)) {
+      const filteredNotificationsBasesOnHostel = notifications?.filter((item) => {
+        return item?.hostel === selectedHostel;
+      });
+      setNotificationsForDsw(filteredNotificationsBasesOnHostel);
+    } else if (isDean && selectedHostel === "All hostel") {
+      setNotificationsForDsw(notifications);
+    }
+  }, [isDean, notifications, selectedHostel, allowedHostelValues]);
+  // console.log("notificationsForDsw", notificationsForDsw)
   // console.log(notifications);
   if (error) {
     return <div>Something went wrong!</div>;
@@ -147,34 +197,104 @@ export const DashBoardHome = ({ role }) => {
         }`}
         ref={ref}
       >
-        {notifications?.length === 0 && <p>No notifications yet</p>}
-        {notifications?.length > 0 &&
-          notifications?.map((item) => {
-            return (
-              <main key={item?._id} id={Styles.notification__main}>
-                <div id={Styles.notifications__flex}>
-                  {item.message.includes("New Issue has been raised") ? (
-                    <main>
-                      <Link to={`/${role}/complaint/raised/${item?.issueID}`}>
-                        {" "}
-                        <p className={Styles.title_noti}>{item?.issueTitle}</p>
-                      </Link>
-                    </main>
-                  ) : (
-                    <main>
-                      <Link to={`/${role}/complaint/${item?.issueID}`}>
-                        {" "}
-                        <p className={Styles.title_noti}>{item?.issueTitle}</p>
-                      </Link>
-                    </main>
-                  )}
+        {isDean && (
+          <main id={styles.drodownRaised} style={{ textAlign: "center" }}>
+            <select
+              id="hostel"
+              value={selectedHostel}
+              onChange={handleSelectedHostelChange}
+            >
+              <option>All hostel</option>
+              <option>BH1</option>
+              <option>BH2</option>
+              <option>BH3</option>
+              <option>BH4</option>
+              <option>BH6</option>
+              <option>BH7</option>
+              <option>BH8</option>
+              <option>BH9A</option>
+              <option>BH9B</option>
+              <option>BH9C</option>
+              <option>BH9D</option>
+              <option>GH1</option>
+              <option>GH2</option>
+              <option>GH3</option>
+              <option>GH4</option>
+              <option>Aryabhatt-PGH</option>
+            </select>
+          </main>
+        )}
+        {isDean
+          ? notificationsForDsw?.length === 0 && <p>No notifications yet</p>
+          : notifications?.length === 0 && <p>No notifications yet</p>}
 
-                  <p>{item?.time}</p>
-                </div>
-                <p>{item?.message}</p>
-              </main>
-            );
-          })}
+        {isDean
+          ? notificationsForDsw?.length > 1 && (
+              <p>
+                Total <strong>{notificationsForDsw?.length}</strong> Notifications
+              </p>
+            )
+          : notifications?.length > 1 && (
+              <p>
+                Total <strong>{notifications?.length}</strong> Notifications
+              </p>
+            )}
+
+        {isDean
+          ? notificationsForDsw?.length > 0 &&
+            notificationsForDsw?.map((item) => {
+              return (
+                <main key={item?._id} id={Styles.notification__main}>
+                  <div id={Styles.notifications__flex}>
+                    {item.message.includes("New Issue has been raised") ? (
+                      <main>
+                        <Link to={`/${role}/complaint/raised/${item?.issueID}`}>
+                          {" "}
+                          <p className={Styles.title_noti}>{item?.issueTitle}</p>
+                        </Link>
+                      </main>
+                    ) : (
+                      <main>
+                        <Link to={`/${role}/complaint/${item?.issueID}`}>
+                          {" "}
+                          <p className={Styles.title_noti}>{item?.issueTitle}</p>
+                        </Link>
+                      </main>
+                    )}
+
+                    <p>{item?.time}</p>
+                  </div>
+                  <p>{item?.message}</p>
+                </main>
+              );
+            })
+          : notifications?.length > 0 &&
+            notifications?.map((item) => {
+              return (
+                <main key={item?._id} id={Styles.notification__main}>
+                  <div id={Styles.notifications__flex}>
+                    {item.message.includes("New Issue has been raised") ? (
+                      <main>
+                        <Link to={`/${role}/complaint/raised/${item?.issueID}`}>
+                          {" "}
+                          <p className={Styles.title_noti}>{item?.issueTitle}</p>
+                        </Link>
+                      </main>
+                    ) : (
+                      <main>
+                        <Link to={`/${role}/complaint/${item?.issueID}`}>
+                          {" "}
+                          <p className={Styles.title_noti}>{item?.issueTitle}</p>
+                        </Link>
+                      </main>
+                    )}
+
+                    <p>{item?.time}</p>
+                  </div>
+                  <p>{item?.message}</p>
+                </main>
+              );
+            })}
       </div>
     </div>
   );
