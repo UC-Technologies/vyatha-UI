@@ -12,6 +12,8 @@ import { formattedDate } from "../../Components/Lib/GetDate";
 // import Captcha from '../../Components/Shared/CaptchaComponent/Captcha'
 // TODO: instead of base64, store the complaint image, profile photo in cloudinary api. this will improve the performance of the webapp
 
+// todo: currently there is separate button for image upload and complaint registration. make sure upload starts as soon as user select the file
+
 const ComplaintForm = () => {
   useEffect(() => {
     document.title = "Complaint Form | Vyatha";
@@ -89,7 +91,53 @@ const ComplaintForm = () => {
   const ifUploadImageButtonIsDisabled = useMemo(() => {
     return Boolean(image);
   }, [image]);
-  console.log("ifUploadImageButtonIsDisabled", ifUploadImageButtonIsDisabled);
+  // console.log("ifUploadImageButtonIsDisabled", ifUploadImageButtonIsDisabled);
+
+  useEffect(() => {
+    if (image) {
+      const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+      const maxSizeInBytes = 500 * 1024;
+
+      if (!allowedTypes.includes(image.type)) {
+        toast.error("Only JPEG/JPG/PNG file types are allowed.");
+        setImage("");
+        return;
+      }
+
+      if (image.size > maxSizeInBytes) {
+        toast.error("Complaint Image size exceeds 500KB limit");
+        setImage("");
+        return;
+      }
+
+      const complaintData = new FormData();
+      complaintData.append("file", image);
+      complaintData.append("upload_preset", import.meta.env.VITE_REACT_APP_UPLOADPRESET);
+      complaintData.append("cloud_name", import.meta.env.VITE_REACT_APP_cloud_name);
+
+      const uploagComplaintImageFunc = async () => {
+        try {
+          setUploadingComplaintImg(true);
+          await fetch(import.meta.env.VITE_REACT_APP_cloudinaryapilink, {
+            method: "post",
+            body: complaintData,
+          })
+            .then((resp) => resp.json())
+            .then((data) => {
+              setPhoto(data.url);
+              setImage("");
+              setImagePreview(data.url);
+              // console.log(photo);
+            });
+        } catch (eee) {
+          console.error(eee);
+        } finally {
+          setUploadingComplaintImg(false);
+        }
+      };
+      uploagComplaintImageFunc();
+    }
+  }, [image]);
 
   const uploadImage = async () => {
     if (!image) {
@@ -128,7 +176,7 @@ const ComplaintForm = () => {
           setPhoto(data.url);
           setImage("");
           setImagePreview(data.url);
-          console.log(photo);
+          // console.log(photo);
         });
     } catch (eee) {
       console.error(eee);
@@ -342,18 +390,12 @@ const ComplaintForm = () => {
                   {!photo && <span className={styles.or}>-OR-</span>}
                 </div>
 
-                {!photo && (
+                {!uploadingComplaintImg && !photo && (
                   <label
                     id="Browsebutton"
                     style={imagePreview ? { width: "150px", height: "50px" } : {}}
                   >
                     BROWSE
-                    {/* <input
-   type="file"
-   name="Imagefile"
-   id="imagebrowse"
-   
- /> */}
                     {/* upload image button */}
                     <input
                       type="file"

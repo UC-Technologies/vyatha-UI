@@ -11,6 +11,8 @@ import { UserContext } from "../../Context/Provider";
 import { fetchProfile } from "../../Components/ReactQuery/Fetchers/User";
 import Skeleton from "../../Components/Shared/Loading/Skeletion";
 
+// todo: implement cloudinary api for the upload of profile photo and idcard
+
 const EditProfile = () => {
   useEffect(() => {
     document.title = "Edit Profile | Vyatha";
@@ -93,6 +95,7 @@ const EditProfile = () => {
   //   profilePic.src = URL.createObjectURL(inputFile.files[0]);
   // };
 
+  // ? edit profile button
   const handleProfileSave = async (e) => {
     e.preventDefault();
 

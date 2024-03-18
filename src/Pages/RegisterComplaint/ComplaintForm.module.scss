@@ -244,8 +244,8 @@
 
 .imagePreview {
   margin-top: 3.5rem;
-  max-width: 18rem;
-  max-height: 20rem;
+  width: 22vw;
+  height: 22vw;
 
   img {
     border-radius: 0.5rem;
@@ -324,5 +324,10 @@
     margin: 3vw 0;
     border-radius: 5px;
     font-size: 3vw;
+  }
+
+  .imagePreview {
+    width: 50vw;
+    height: 50vw;
   }
 }
