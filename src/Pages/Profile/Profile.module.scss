@@ -212,6 +212,7 @@
             img {
               width: 8rem;
               height: 8rem;
+              object-fit: cover;
             }
           }
           .profile {
@@ -293,6 +294,16 @@
       //     height: 3rem;
       //   }
       // }
+    }
+  }
+}
+
+@media (max-width: 660px) {
+  .image {
+    img {
+      width: 8rem !important;
+      height: 8rem !important;
+      object-fit: cover;
     }
   }
 }

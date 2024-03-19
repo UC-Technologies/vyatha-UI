@@ -14,7 +14,6 @@ const Profile = () => {
   useEffect(() => {
     document.title = "Profile | Vyatha";
   }, []);
-
   const linkSendAt = formattedDate;
   const [showPopUp, setShowPopUp] = useState(false);
 
@@ -247,7 +246,7 @@ const Profile = () => {
               <div className={styles.image}>
                 <img src={myProfile?.profilepic} alt="profileimage" />
               </div>
-              <div className={styles.profile}>{myProfile?.name} Profile</div>
+              <div className={styles.profile}>{myProfile?.name}&apos;s Profile</div>
             </div>
             <div className={styles.Student_details}>
               <div className={styles.heading}>Profile Details</div>

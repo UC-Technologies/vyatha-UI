@@ -272,12 +272,14 @@ const EditProfile = () => {
               {role === "student" && idcard && (
                 <div style={{ marginTop: "2vw" }}>
                   <p id={styles.marginbelowp}>ID Card: </p>
-                  <img
-                    style={{ pointerEvents: "none" }}
-                    src={idcard}
-                    alt=""
-                    id="profile-pic"
-                  />
+                  <div id={styles.idcardparentpreview}>
+                    <img
+                      style={{ pointerEvents: "none" }}
+                      src={idcard}
+                      alt=""
+                      id="profile-pic"
+                    />
+                  </div>
                 </div>
               )}
             </div>

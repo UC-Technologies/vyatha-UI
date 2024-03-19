@@ -232,10 +232,10 @@
             align-items: center;
             padding-right: 6.5rem;
             padding-bottom: 1rem;
-
             img {
               width: 8rem;
               height: 8rem;
+              object-fit: cover;
             }
           }
         }
@@ -356,5 +356,35 @@
 
   #marginbelowp {
     margin-bottom: 2vw;
+  }
+}
+
+#idcardparentpreview {
+  width: 6vw;
+  height: 6vw;
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 660px) {
+  #idcardparentpreview {
+    width: 25vw;
+    height: 25vw;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  .profile_main {
+    img {
+      object-fit: cover;
+    }
   }
 }
