@@ -9,6 +9,7 @@ const UseInternetConnectivity = () => {
   // ! one such api is navigator.onLine but this is not perfect. doesn't work in all cases.
   // ! so we are sticking to implemented method as for now.
   // ! upon scaling of the app, we can try other methods.
+  // ! we can also use is-online package from npm. this is also a good alternative.
 
   useEffect(() => {
     const checkConnectivity = async () => {

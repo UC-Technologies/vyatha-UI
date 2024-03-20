@@ -41,16 +41,20 @@ import styles from "./app.module.scss";
 import AllDeletedAccounts from "./Pages/Dashboard/SuperAdmin/AllSignups/AllDeletedAccounts";
 import ScheduledAccounts from "./Pages/Dashboard/SuperAdmin/AllSignups/ScheduledAccounts";
 import Loader from "./Pages/LoaderScreen/Loader";
-import UseInternetConnectivity from "./Hooks/IntenetCheck";
+// import UseInternetConnectivity from "./Hooks/IntenetCheck";
+import useInternetStatus from "./Hooks/IsOnline";
+
 const App = () => {
   // const isLoggedIn = useContext(UserContext)
-  const isOnline = UseInternetConnectivity();
+  // const isOnline = UseInternetConnectivity();
+  const isConnected = useInternetStatus();
+  // console.log("isCOnnected", isConnected)
   const handleReload = (e) => {
     e.preventDefault();
     window.location.reload();
   };
 
-  if (!isOnline) {
+  if (!isConnected) {
     return (
       <main style={{ paddingTop: "50vh" }} id={styles.offlinecontainer}>
         <p>No Internet Connection. Please Check your Network.</p>
