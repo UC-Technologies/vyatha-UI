@@ -52,11 +52,11 @@ const App = () => {
 
   if (!isOnline) {
     return (
-      <main style={{ paddingTop: "5vw" }}>
-        <p>No Internet Connection. Please Check your Internet Connection.</p>
-        <div style={{ marginTop: "1vw" }}>
+      <main style={{ paddingTop: "50vh" }} id={styles.offlinecontainer}>
+        <p>No Internet Connection. Please Check your Network.</p>
+        <div>
           <button style={{ cursor: "pointer" }} onClick={handleReload}>
-            Click here to reload the page
+            Reload
           </button>
         </div>
       </main>
