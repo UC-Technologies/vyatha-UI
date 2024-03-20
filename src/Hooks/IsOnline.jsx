@@ -19,7 +19,7 @@ const useInternetStatus = () => {
     };
 
     checkInternetStatus();
-    const intervalId = setInterval(checkInternetStatus, 2000);
+    const intervalId = setInterval(checkInternetStatus, 5000);
 
     return () => {
       isMounted = false;

@@ -370,8 +370,8 @@ const EditIssue = () => {
               <div className={styles.Uploadyourphoto}>
                 <div>
                   {hasUploadedFinished
-                    ? "New Complaint Image Uploaded"
-                    : "Upload New Complaint Photo"}
+                    ? "New Complaint Image Attached"
+                    : "Attach New Complaint Photo"}
                 </div>
               </div>
 
@@ -381,7 +381,7 @@ const EditIssue = () => {
                     photo ? styles.fullSize : styles.fixedImageArea
                   }`}
                 >
-                  <p>New Complaint Image Uploaded</p>
+                  <p>New Complaint Image Attached</p>
                 </div>
               ) : (
                 <div

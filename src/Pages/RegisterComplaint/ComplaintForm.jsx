@@ -383,8 +383,8 @@ const ComplaintForm = () => {
               <div className={styles.Uploadyourphoto}>
                 <div>
                   {!photo
-                    ? "Upload Complaint Photo(max: 500KB jpg, jpeg, png files only)"
-                    : "Photo uploaded"}
+                    ? "Attach Complaint Photo(max: 500KB jpg, jpeg, png files only)"
+                    : "Photo Attached"}
                 </div>
               </div>
               <div
@@ -407,7 +407,7 @@ const ComplaintForm = () => {
 
                 <div className={styles.photouploadcontent}>
                   <span className={styles.Dragdrop}>
-                    {!photo ? "Drag and Drop File" : "Photo uploaded"}
+                    {!photo ? "Drag and Drop File" : "Photo Attached"}
                   </span>
                   {!photo && <span className={styles.or}>-OR-</span>}
                 </div>

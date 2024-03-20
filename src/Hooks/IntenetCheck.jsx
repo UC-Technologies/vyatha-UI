@@ -28,7 +28,7 @@ const UseInternetConnectivity = () => {
       }
     };
 
-    const intervalId = setInterval(checkConnectivity, 2000);
+    const intervalId = setInterval(checkConnectivity, 5000);
 
     checkConnectivity();
 
