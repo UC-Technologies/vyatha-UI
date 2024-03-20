@@ -41,8 +41,28 @@ import styles from "./app.module.scss";
 import AllDeletedAccounts from "./Pages/Dashboard/SuperAdmin/AllSignups/AllDeletedAccounts";
 import ScheduledAccounts from "./Pages/Dashboard/SuperAdmin/AllSignups/ScheduledAccounts";
 import Loader from "./Pages/LoaderScreen/Loader";
+import UseInternetConnectivity from "./Hooks/IntenetCheck";
 const App = () => {
   // const isLoggedIn = useContext(UserContext)
+  const isOnline = UseInternetConnectivity();
+  const handleReload = (e) => {
+    e.preventDefault();
+    window.location.reload();
+  };
+
+  if (!isOnline) {
+    return (
+      <main style={{ paddingTop: "5vw" }}>
+        <p>No Internet Connection. Please Check your Internet Connection.</p>
+        <div style={{ marginTop: "1vw" }}>
+          <button style={{ cursor: "pointer" }} onClick={handleReload}>
+            Click here to reload the page
+          </button>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <>
       <BrowserRouter>
