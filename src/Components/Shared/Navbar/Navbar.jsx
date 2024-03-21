@@ -6,6 +6,7 @@ import styles from "./Navbar.module.scss";
 import { UserContext } from "../../../Context/Provider";
 import { fetchProfile } from "../../ReactQuery/Fetchers/User";
 import { ConditionalLink } from "../ConditionalLink";
+import useInternetStatus from "../../../Hooks/IsOnline";
 
 const Navbar = () => {
   const { isLoggedIn, role } = useContext(UserContext);
@@ -16,7 +17,7 @@ const Navbar = () => {
   const { data, error } = useQuery(queryKey, fetchProfile, {
     enabled: isTrue,
   });
-
+  const isConnected = useInternetStatus();
   const myProfile = data?.user;
 
   const conditionalTitle = isLoggedIn ? "Log Out" : "Log In";
@@ -84,8 +85,25 @@ const Navbar = () => {
     return <div>Something went wrong!</div>;
   }
 
+  const handleReload = (e) => {
+    e.preventDefault();
+    window.location.reload();
+  };
+
   return (
     <>
+      {!isConnected && (
+        <main>
+          <div id={styles.offlinecontainer}>
+            <p>No Internet Connection. Please Check your Network.</p>
+            <div>
+              <button style={{ cursor: "pointer" }} onClick={handleReload}>
+                Reload
+              </button>
+            </div>
+          </div>
+        </main>
+      )}
       <nav ref={navRef} className={styles.nav}>
         <ConditionalLink to="/" className={styles.header} onClick={close}>
           <img

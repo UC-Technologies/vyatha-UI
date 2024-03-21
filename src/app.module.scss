@@ -8,25 +8,3 @@
 .content {
   flex: 1;
 }
-
-#offlinecontainer {
-  background-color: black;
-  height: 100vh;
-  color: white;
-  div {
-    margin-top: 1.25vw;
-    @media (max-width: 660px) {
-      margin-top: 7vw;
-    }
-    button {
-      border-radius: 15px;
-      padding: 0.25vw 1vw;
-      border: none;
-      outline: none;
-      @media (max-width: 660px) {
-        padding: 1vw 4vw;
-        font-size: 4vw;
-      }
-    }
-  }
-}

@@ -195,3 +195,37 @@
     height: 4.5vw !important;
   }
 }
+
+#offlinecontainer {
+  @media (max-width: 660px) {
+    padding-top: 4vw;
+  }
+  background-color: red;
+  // height: 10vh;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0%;
+  width: 100%;
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.45);
+  padding: 1vw 0;
+  // right: 50%;
+  z-index: 99999999999999999999999999999999;
+  div {
+    margin-top: 0.75vw;
+    @media (max-width: 660px) {
+      margin-top: 5vw;
+      padding-bottom: 5vw;
+    }
+    button {
+      border-radius: 15px;
+      padding: 0.25vw 1vw;
+      border: none;
+      outline: none;
+      @media (max-width: 660px) {
+        padding: 1vw 6vw;
+        font-size: 3.5vw;
+      }
+    }
+  }
+}
